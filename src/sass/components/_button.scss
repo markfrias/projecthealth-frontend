@@ -4,5 +4,11 @@
 }
 
 .button-full {
-  width: 90%;
+  width: 100%;
+  font-weight: 1000;
+  height: 3.5em;
+}
+
+.button-group > button {
+  margin-bottom: 1em;
 }

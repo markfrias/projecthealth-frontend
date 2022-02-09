@@ -1,0 +1,10 @@
+.hero_container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.hero_container > img {
+  width: 70%;
+}

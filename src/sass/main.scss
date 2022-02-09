@@ -1,1 +1,11 @@
 @import url(components/_button.scss);
+@import url(abstracts/_variables.scss);
+
+@import url(base/_typography.scss);
+
+@import url(layout/_hero.scss);
+@import url(layout/_container.scss);
+
+body {
+  background-color: rgba(241, 171, 16, 0.08);
+}
