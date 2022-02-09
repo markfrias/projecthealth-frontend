@@ -1,9 +1,9 @@
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import React from 'react';
 
 const Landing = () => {
     return (
-        <div className="container">
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
             <div className='hero_container'>
                 <img alt="Woman sitting with a dog" src={require("../../assets/img/dog_woman.png")} />
             </div>
@@ -14,9 +14,11 @@ const Landing = () => {
             <Button className="button-full" variant="contained">Contained</Button>
             <Button className="button-full" variant="contained" color="secondary">Contained</Button>
             </div>
+        </Container>
+            
             
 
-        </div>
+        
     );
 }
 
