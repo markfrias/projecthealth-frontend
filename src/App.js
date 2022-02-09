@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Login from "./components/login/Login";
+import { Outlet } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -25,9 +25,10 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <button className="button-primary">Enter</button>
-        <Login />
+        
       </div>
+
+      <Outlet />
     </ThemeProvider>
   );
 }

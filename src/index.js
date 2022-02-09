@@ -2,17 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import Profile from "./components/profile/Profile";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landing from "./components/landing/Landing";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/profile" element={<Profile />} /> 
+        <Route path="/" element={<App />}>
+          <Route path="" element={<Landing />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
