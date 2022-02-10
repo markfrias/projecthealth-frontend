@@ -5,7 +5,6 @@ import authService from "../auth/auth";
 
 const Login = () => {
   const [loginForm, setLoginForm] = useState({emailAddress: "", passcode: ""});
-  const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
 
   // Form change handler
@@ -18,7 +17,7 @@ const Login = () => {
     
     
 
-    const response = await fetch("http://localhost:8000/api/users/login/", {
+    const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify(loginForm),
@@ -41,7 +40,7 @@ const Login = () => {
   }
 
   return (
-    // Render login screen when a user isn't authenticated, otherwise, navigate to home screen
+    // Render login screen when a user isn't authenticated, otherwise, navigate to home
     authService() ? <Navigate to="/home" /> :
   
       <div>
