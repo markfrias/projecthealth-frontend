@@ -9,6 +9,7 @@ const Landing = () => {
             </div>
             
             <h2>Level up your health with fun</h2>
+            <div className='btn btn-primary'>Yow dream</div>
 
             <div className='button-group'>
             <Button className="button-full" variant="contained">Contained</Button>
