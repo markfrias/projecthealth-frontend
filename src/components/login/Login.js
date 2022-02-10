@@ -28,7 +28,7 @@ const Login = () => {
 
     response.json()
     .then((data) => {
-      if (data.status == "Success") {
+      if (data.status === "Success") {
         let localStorage = window.localStorage;
             localStorage.setItem('jwt', data.jwt);
             navigate('/home')
