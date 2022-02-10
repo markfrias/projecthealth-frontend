@@ -3,7 +3,7 @@ import React from 'react';
 
 const Landing = () => {
     return (
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+        <Container maxWidth="md" sx={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '100vh'}}>
             <div className='hero_container'>
                 <img alt="Woman sitting with a dog" src={require("../../assets/img/dog_woman.png")} />
             </div>
