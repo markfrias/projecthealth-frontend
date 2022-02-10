@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Navigate, Outlet } from "react-router-dom";
 import authService from '../auth/auth';
 
@@ -8,7 +7,6 @@ import authService from '../auth/auth';
 
 const PrivateRoutes = () => {
 // Placeholder authentication
-
 
 
     return (
