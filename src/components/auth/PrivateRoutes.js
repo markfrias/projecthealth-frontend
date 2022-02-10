@@ -8,7 +8,6 @@ import authService from '../auth/auth';
 
 const PrivateRoutes = () => {
 // Placeholder authentication
-const [auth, setAuth] = useState(false);
 
 
 
