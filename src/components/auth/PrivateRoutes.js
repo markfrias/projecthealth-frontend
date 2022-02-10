@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Outlet } from "react-router-dom";
+import authService from '../auth/auth';
 
 
 
@@ -12,7 +13,7 @@ const [auth, setAuth] = useState(false);
 
 
     return (
-        auth ? <Outlet /> : <Navigate to="/login" />
+        authService() ? <Outlet /> : <Navigate to="/login" />
     );
 }
 
