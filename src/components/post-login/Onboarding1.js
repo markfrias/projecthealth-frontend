@@ -49,6 +49,12 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';*/
     );
     }
     */
+/*import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';*/
+
+
 const Onboarding1 = () => {
     return (
         <Container maxWidth="md" sx={{minHeight: "100vh", 
