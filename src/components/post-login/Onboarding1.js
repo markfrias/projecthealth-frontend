@@ -1,10 +1,10 @@
 import { Button, Container, } from '@mui/material';
 import { Switch } from '@mui/material';
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
+/*import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';*/
 
 /* function ProgressMobileStepper() {
     const theme = useTheme();
