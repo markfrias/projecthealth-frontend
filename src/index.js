@@ -11,6 +11,11 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./components/landing/Landing";
+import Onboarding1 from "./components/post-login/Onboarding1";
+import Onboarding2 from "./components/post-login/Onboarding2";
+import Onboarding3 from "./components/post-login/Onboarding3";
+import Onboarding4 from "./components/post-login/Onboarding4";
+import Onboarding5 from "./components/post-login/Onboarding5";
 import Login from "./components/login/Login";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
@@ -46,6 +51,11 @@ ReactDOM.render(
         </Route>
         <Route path="/" element={<App />}>
           <Route path="" element={<Landing />} />
+          <Route path="Onboarding1" element={<Onboarding1 />} />
+          <Route path="Onboarding2" element={<Onboarding2 />} />
+          <Route path="Onboarding3" element={<Onboarding3 />} />
+          <Route path="Onboarding4" element={<Onboarding4 />} />
+          <Route path="Onboarding5" element={<Onboarding5 />} />
           <Route path="login" element={<Login />} />
         </Route>
 
