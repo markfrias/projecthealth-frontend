@@ -1,54 +1,113 @@
-import { Button, Container } from '@mui/material';
-import React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-
-
+import { Button, Container } from "@mui/material";
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
+import authService from "../auth/auth"; 
+import { Navigate } from "react-router-dom";
 
 const LoginScreen = () => {
-    return (
-        <Container maxWidth="md" sx={{minHeight: "100vh", 
+
+
+  const [loginForm, setLoginForm] = useState({emailAddress: "", passcode: ""});
+  const navigate = useNavigate();
+
+  // Form change handler
+  const handleChange = (event) => {
+    let target = event.target;
+    setLoginForm({ ...loginForm, [target.name]: target.value });
+  }
+
+  const authenticationService = async () => {
+    
+    
+
+    const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify(loginForm),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    response.json()
+    .then((data) => {
+      if (data.status === "Success") {
+        let localStorage = window.localStorage;
+            localStorage.setItem('jwt', data.jwt);
+            navigate('/home')
+      } else {
+        console.log("Fail")
+        // Add code to handle errors and display error states and messages
+      }
+    })
+    
+  }
+
+
+
+
+  return (
+    // Render login screen when a user isn't authenticated, otherwise, navigate to home
+    authService() ? <Navigate to="/home" /> :
+    <Container
+      maxWidth="md"
+      sx={{
+        minHeight: "100vh",
         justifyContent: "space-between",
         display: "flex",
-        flexDirection: "column"}}>
-            <div className='hero_container'>
-  
-       
-            </div> 
-            <div>
-            <h1>Login and start health + fun.</h1>
-            </div>
-  
-            
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '99%' },
+        flexDirection: "column",
       }}
-      noValidate
-      autoComplete="off"
     >
+      <div className="hero_container"></div>
+      <div>
+        <h1>Login and start health + fun.</h1>
+      </div>
+
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "99%" },
+        }}
+        noValidate
+        autoComplete="on"
+      >
         <p>Email address</p>
-      <TextField id="outlined-basic" label="Enter your email address" variant="outlined" />
-      <p>Password</p>
-      <TextField id="outlined-basic" label="Enter your strong password" variant="outlined" />
+        <TextField
+          id="email"
+          type="email"
+          label="Enter your email address"
+          variant="outlined"
+          name="emailAddress"
+          value={loginForm.emailAddress}
+          onChange={handleChange}
 
-    </Box>
- 
-            
-            <div className='button-group'>
-            <Button className="button-loginScreen" variant="contained">Login</Button>
-            </div>
-            <div>
-            <p>I don't have an account yet. Register for a new account.</p>
- 
-            </div>
-        </Container>
-            
-            
+        />
+        <p>Password</p>
+        <TextField
+           id="password"
+           type="password"
+          label="Enter your strong password"
+          variant="outlined"
+          name="passcode"
+          value={loginForm.passcode}
+          onChange={handleChange}
 
-        
-    );
-}
+          
+        />
+      </Box>
+
+      <div className="button-group">
+        <Button className="button-loginScreen" variant="contained" onClick={authenticationService}>
+          Login
+        </Button>
+      </div>
+      <div>
+        <p>I don't have an account yet. Register for a new account.</p>
+      </div>
+    </Container>
+  );
+};
 
 export default LoginScreen;
