@@ -34,6 +34,7 @@ const Login = () => {
             navigate('/home')
       } else {
         console.log("Fail")
+        // Add code to handle errors and display error states and messages
       }
     })
     
