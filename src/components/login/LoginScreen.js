@@ -1,4 +1,4 @@
-import { Button, Container } from "@mui/material";
+import { Button, CircularProgress, Container } from "@mui/material";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -10,6 +10,10 @@ const LoginScreen = () => {
 
 
   const [loginForm, setLoginForm] = useState({emailAddress: "", passcode: ""});
+  
+  // Loading state for button
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
   // Form change handler
@@ -20,6 +24,8 @@ const LoginScreen = () => {
 
   const authenticationService = async () => {
     
+    // Enable spinner
+    setIsLoading(true);
     
 
     const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
@@ -39,6 +45,10 @@ const LoginScreen = () => {
             navigate('/home')
       } else {
         console.log("Fail")
+
+        // Remove spinner on login button when login fails
+        setIsLoading(false);
+
         // Add code to handle errors and display error states and messages
       }
     })
@@ -100,7 +110,11 @@ const LoginScreen = () => {
 
       <div className="button-group">
         <Button className="button-loginScreen" variant="contained" onClick={authenticationService}>
-          Login
+          {isLoading ? <CircularProgress size="2em" sx={{color: "black"}}/> :
+          "Login"
+          }
+
+          
         </Button>
       </div>
       <div>
