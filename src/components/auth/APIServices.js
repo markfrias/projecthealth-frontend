@@ -39,5 +39,5 @@ const logout = () => {
 }
 
 module.exports = {
-    getUsers
+    getUsers, logout
 }
