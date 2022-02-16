@@ -38,6 +38,6 @@ const logout = () => {
     window.location.reload();
 }
 
-module.exports = {
+export {
     getUsers, logout
 }
