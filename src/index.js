@@ -16,6 +16,15 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import Home from './components/home/Home';
 import LoginScreen from './components/login/LoginScreen';
+import Onboarding1 from './components/post-login/Onboarding1';
+import Onboarding2 from './components/post-login/Onboarding2';
+import Onboarding3 from './components/post-login/Onboarding3';
+import Onboarding4 from './components/post-login/Onboarding4';
+import Onboarding5 from './components/post-login/Onboarding5';
+
+
+
+
 
 const theme = createTheme({
   palette: {
