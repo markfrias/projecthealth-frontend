@@ -20,6 +20,7 @@ import Login from "./components/login/Login";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import Home from './components/home/Home';
+import LoginScreen from './components/login/LoginScreen';
 
 const theme = createTheme({
   palette: {
@@ -56,6 +57,7 @@ ReactDOM.render(
           <Route path="Onboarding3" element={<Onboarding3 />} />
           <Route path="Onboarding4" element={<Onboarding4 />} />
           <Route path="Onboarding5" element={<Onboarding5 />} />
+          <Route path="LoginScreen" element={<LoginScreen />} />
           <Route path="login" element={<Login />} />
         </Route>
 
