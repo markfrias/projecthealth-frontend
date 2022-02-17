@@ -1,11 +1,67 @@
-import React from "react";
-import { Button } from "@mui/material";
+import React, { useState } from "react";
+import { Container, FormControl, Input, InputLabel, FormHelperText, Button } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
+import authService from "../auth/auth";
 
 const Login = () => {
+  const [loginForm, setLoginForm] = useState({emailAddress: "", passcode: ""});
+  const navigate = useNavigate();
+
+  // Form change handler
+  const handleChange = (event) => {
+    let target = event.target;
+    setLoginForm({ ...loginForm, [target.name]: target.value });
+  }
+
+  const authenticationService = async () => {
+    
+    
+
+    const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
+      method: 'POST',
+      mode: 'cors',
+      body: JSON.stringify(loginForm),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    response.json()
+    .then((data) => {
+      if (data.status === "Success") {
+        let localStorage = window.localStorage;
+            localStorage.setItem('jwt', data.jwt);
+            navigate('/home')
+      } else {
+        console.log("Fail")
+        // Add code to handle errors and display error states and messages
+      }
+    })
+    
+  }
+
   return (
+    // Render login screen when a user isn't authenticated, otherwise, navigate to home
+    authService() ? <Navigate to="/home" /> :
   
       <div>
-        <Button className="button-full" variant="contained" disableElevation size="large">Login</Button>
+       <Container maxWidth="md" sx={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+         <h1>Login</h1>
+
+        <FormControl sx={{mt: 2, mb: 2}}>
+          <InputLabel htmlFor="emailAddress">Email address</InputLabel>
+          <Input id="emailAddress" aria-describedby="emailHelperText" type="email" name="emailAddress" value={loginForm.emailAddress} onChange={handleChange}/>
+          <FormHelperText id="emailHelperText">We'll never share your email.</FormHelperText>
+        </FormControl>
+
+        <FormControl sx={{mt: 2, mb: 2}}>
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <Input id="passcode" aria-describedby="passwordHelperText" type="password" name="passcode" value={loginForm.passcode} onChange={handleChange} />
+        </FormControl>
+
+        <Button onClick={authenticationService} >Login</Button>
+       
+       </Container>
       </div>
 
   );
