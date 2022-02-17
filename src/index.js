@@ -27,6 +27,7 @@ import Onboarding5 from './components/post-login/Onboarding5';
 import { getMessaging, getToken } from "firebase/messaging";
 
 
+/*
 // Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
@@ -37,6 +38,7 @@ const firebaseConfig = {
   appId: "1:798975874598:web:c5814636dcd645312b38e7",
   measurementId: "G-7ZBZF5PN0V"
 };
+*/
 
 // Initialize Firebase
 //const app = initializeApp(firebaseConfig);
