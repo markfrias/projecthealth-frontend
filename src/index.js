@@ -11,7 +11,6 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./components/landing/Landing";
-import Login from "./components/login/Login";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import Home from './components/home/Home';
@@ -62,9 +61,8 @@ ReactDOM.render(
           <Route path="Onboarding3" element={<Onboarding3 />} />
           <Route path="Onboarding4" element={<Onboarding4 />} />
           <Route path="Onboarding5" element={<Onboarding5 />} />
-          <Route path="LoginScreen" element={<LoginScreen />} />
+          <Route path="login" element={<LoginScreen />} />
 
-          <Route path="login" element={<Login />} />
         </Route>
 
       </Routes>
