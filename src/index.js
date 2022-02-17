@@ -40,7 +40,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+//const analytics = getAnalytics(app);
 const messaging = getMessaging();
 
 // Add the public key generated from the console here.
