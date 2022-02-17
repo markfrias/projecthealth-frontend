@@ -16,8 +16,7 @@ const Login = () => {
   const authenticationService = async () => {
     
     
-
-    const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
+    const response = await fetch(/*"https://projecthealthapp.herokuapp.com/api/users/login/"*/ "http://localhost:8000/api/users/login/", {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify(loginForm),

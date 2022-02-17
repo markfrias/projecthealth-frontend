@@ -8,7 +8,8 @@ const localStorage = window.localStorage;
 // Fetch all users ** test function
 const getUsers = async () => {
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/",
+    /*"https://projecthealthapp.herokuapp.com/api/users/",*/
+    "http://localhost:8000/api/users/",
     {
       method: "GET",
       mode: "cors",
