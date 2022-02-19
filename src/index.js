@@ -10,7 +10,7 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "./components/landing/Landing";
+//import Landing from "./components/landing/Landing";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import Home from './components/home/Home';
@@ -92,28 +92,26 @@ const theme = createTheme({
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <ThemeProvider theme={theme}>
-    <Routes>
-      
-    <Route element={<PrivateRoutes />} >
-          <Route path="/home" element={<Home />} />
-        </Route>
-        <Route path="/" element={<App />}>
-          <Route path="" element={<Landing />} />
+      <ThemeProvider theme={theme}>
+        <Routes>
 
-          <Route path="Onboarding1" element={<Onboarding1 />} />
-          <Route path="Onboarding2" element={<Onboarding2 />} />
-          <Route path="Onboarding3" element={<Onboarding3 />} />
-          <Route path="Onboarding4" element={<Onboarding4 />} />
-          <Route path="Onboarding5" element={<Onboarding5 />} />
-          <Route path="login" element={<LoginScreen />} />
+          <Route element={<PrivateRoutes />} >
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route path="/app" element={<App />}>
+            <Route path="Onboarding1" element={<Onboarding1 />} />
+            <Route path="Onboarding2" element={<Onboarding2 />} />
+            <Route path="Onboarding3" element={<Onboarding3 />} />
+            <Route path="Onboarding4" element={<Onboarding4 />} />
+            <Route path="Onboarding5" element={<Onboarding5 />} />
+            <Route path="login" element={<LoginScreen />} />
 
-        </Route>
+          </Route>
 
-      </Routes>
-    </ThemeProvider>
-    
-      
+        </Routes>
+      </ThemeProvider>
+
+
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

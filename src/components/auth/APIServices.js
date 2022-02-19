@@ -8,7 +8,7 @@ const localStorage = window.localStorage;
 // Fetch all users ** test function
 const getUsers = async () => {
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/",
+    "http://localhost:8000/api/users/",
     {
       method: "GET",
       mode: "cors",
@@ -18,26 +18,26 @@ const getUsers = async () => {
         'Authorization': localStorage.getItem('jwt')
 
 
-      }  
+      }
     }
   );
-    // Check if user is authorized
-    if (response.status === 401) {
-        // If not, trigger log out function
-        logout();
-    } else if (response.status === 200) {
-        const data = await response.json();
-        return data;
-    }
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    const data = await response.json();
+    return data;
+  }
 
-    
+
 };
 
 const logout = () => {
-    localStorage.removeItem('jwt');
-    window.location.reload();
+  localStorage.removeItem('jwt');
+  window.location.reload();
 }
 
 export {
-    getUsers, logout
+  getUsers, logout
 }

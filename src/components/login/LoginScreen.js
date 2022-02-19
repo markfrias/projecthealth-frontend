@@ -14,7 +14,7 @@ const LoginScreen = () => {
 
   // Loading state for button
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Error state
   const [error, setError] = useState(false);
 
@@ -31,7 +31,7 @@ const LoginScreen = () => {
     setIsLoading(true);
 
     const response = await fetch(
-      "https://projecthealthapp.herokuapp.com/api/users/login/",
+      "http://localhost:8000/api/users/login/",
       {
         method: "POST",
         mode: "cors",
@@ -46,7 +46,7 @@ const LoginScreen = () => {
       if (data.status === "Success") {
         let localStorage = window.localStorage;
         localStorage.setItem("jwt", data.jwt);
-        navigate("/home");
+        navigate("/app/Onboarding1");
       } else {
         setError(true);
         // Remove spinner on login button when login fails
@@ -60,83 +60,83 @@ const LoginScreen = () => {
   return (
     // Render login screen when a user isn't authenticated, otherwise, navigate to home
     authService() ? (
-      <Navigate to="/home" />
+      <Navigate to="/" />
     ) : (
 
-      isLoading ? 
-      <Container sx={{
-        minHeight: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "column",
-      }}>
-        <CircularProgress sx={{color: 'black'}}/>
-      </Container> :
-      <Container
-        maxWidth="md"
-        sx={{
+      isLoading ?
+        <Container sx={{
           minHeight: "100vh",
-          justifyContent: "space-between",
+          justifyContent: "center",
+          alignItems: "center",
           display: "flex",
           flexDirection: "column",
-        }}
-      >
-        <div className="hero_container"></div>
-        <div>
-          <h1>Login and start health + fun.</h1>
-        </div>
-
-        { error ? 
-        <Alert severity="error">
-          <AlertTitle>Email address or password mismatch</AlertTitle>
-          Please re-enter your email address and password.
-        </Alert> : <Container sx={{display: "none"}}/>
-        }
-
-        <Box
-          component="form"
+        }}>
+          <CircularProgress sx={{ color: 'black' }} />
+        </Container> :
+        <Container
+          maxWidth="md"
           sx={{
-            "& > :not(style)": { m: 1, width: "99%" },
+            minHeight: "100vh",
+            justifyContent: "space-between",
+            display: "flex",
+            flexDirection: "column",
           }}
-          validate
-          autoComplete="on"
         >
-          <p>Email address</p>
-          <TextField
-            id="email"
-            type="email"
-            label="Enter your email address"
-            variant="outlined"
-            name="emailAddress"
-            value={loginForm.emailAddress}
-            onChange={handleChange}
-          />
-          <p>Password</p>
-          <TextField
-            id="password"
-            type="password"
-            label="Enter your strong password"
-            variant="outlined"
-            name="passcode"
-            value={loginForm.passcode}
-            onChange={handleChange}
-          />
-        </Box>
+          <div className="hero_container"></div>
+          <div>
+            <h1>Login and start health + fun.</h1>
+          </div>
 
-        <div className="button-group">
-          <Button
-            className="button-loginScreen"
-            variant="contained"
-            onClick={authenticationService}
+          {error ?
+            <Alert severity="error">
+              <AlertTitle>Email address or password mismatch</AlertTitle>
+              Please re-enter your email address and password.
+            </Alert> : <Container sx={{ display: "none" }} />
+          }
+
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 1, width: "99%" },
+            }}
+            validate
+            autoComplete="on"
           >
-            Login
-          </Button>
-        </div>
-        <div>
-          <p>I don't have an account yet. Register for a new account.</p>
-        </div>
-      </Container>
+            <p>Email address</p>
+            <TextField
+              id="email"
+              type="email"
+              label="Enter your email address"
+              variant="outlined"
+              name="emailAddress"
+              value={loginForm.emailAddress}
+              onChange={handleChange}
+            />
+            <p>Password</p>
+            <TextField
+              id="password"
+              type="password"
+              label="Enter your strong password"
+              variant="outlined"
+              name="passcode"
+              value={loginForm.passcode}
+              onChange={handleChange}
+            />
+          </Box>
+
+          <div className="button-group">
+            <Button
+              className="button-loginScreen"
+              variant="contained"
+              onClick={authenticationService}
+            >
+              Login
+            </Button>
+          </div>
+          <div>
+            <p>I don't have an account yet. Register for a new account.</p>
+          </div>
+        </Container>
     )
   );
 };

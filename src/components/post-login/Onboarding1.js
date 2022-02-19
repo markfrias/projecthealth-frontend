@@ -56,39 +56,50 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';*/
 
 
 const Onboarding1 = () => {
-    return (
-        <Container maxWidth="md" sx={{minHeight: "100vh", 
-        justifyContent: "space-between",
-        display: "flex",
-        flexDirection: "column"}}>
 
-            <div>
-                <h1 className='text-onboarding1'>Don't forget to log your meals</h1>
-            </div>
+  // Ask permission for notifications
+  const askNotifPermission = () => {
+    Notification.requestPermission().then(function (result) {
+      console.log(result);
+    });
+  }
 
-            <div className='hero_container'>
-                <img alt="Alarm Clock" src={require("../../assets/img/alarm_clock.png")} />
-            </div>
 
-            <div>
-                <p>By turning on reminders, you'll be able to consistently track how you eat.</p>
-            </div>
+  return (
+    <Container maxWidth="md" sx={{
+      minHeight: "100vh",
+      justifyContent: "space-between",
+      display: "flex",
+      flexDirection: "column"
+    }}>
 
-            <div className='switch_with_text'>
-                <p>Enable meal reminders</p>
-                <Switch className='switch-onboarding1' />
-            </div>
+      <div>
+        <h1 className='text-onboarding1'>Don't forget to log your meals</h1>
+      </div>
 
-            <div className='button-group'>
-            <Button className="button-onboarding" variant="contained">Continue</Button>
-            </div>
-            {/*<ProgressMobileStepper></ProgressMobileStepper>*/}
-        </Container>
-            
-            
+      <div className='hero_container'>
+        <img alt="Alarm Clock" src={require("../../assets/img/alarm_clock.png")} />
+      </div>
 
-        
-    );
-    }
- 
+      <div>
+        <p>By turning on reminders, you'll be able to consistently track how you eat.</p>
+      </div>
+
+      <div className='switch_with_text'>
+        <p>Enable meal reminders</p>
+        <Switch className='switch-onboarding1' onClick={askNotifPermission} />
+      </div>
+
+      <div className='button-group'>
+        <Button className="button-onboarding" variant="contained">Continue</Button>
+      </div>
+      {/*<ProgressMobileStepper></ProgressMobileStepper>*/}
+    </Container>
+
+
+
+
+  );
+}
+
 export default Onboarding1;
