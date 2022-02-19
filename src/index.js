@@ -50,7 +50,8 @@ const messaging = getMessaging(app);
 
 
 
-
+// Remove registration for now
+/*
 // Get registration token
 getToken(messaging, { vapidKey: 'BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFVVPDsw2k3WlL89DDwCzj0O0opIW48rQ5CtxOYTwxY' }).then((currentToken) => {
   if (currentToken) {
@@ -66,6 +67,7 @@ getToken(messaging, { vapidKey: 'BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFV
   console.log('An error occurred while retrieving token. ', err);
   // ...
 });
+*/
 
 
 
