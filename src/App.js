@@ -30,7 +30,7 @@ const theme = createTheme({
       fontSize: '1.15rem',
       color: '#624100',
       width: '80%',
-      lineHeight: 'normal',
+      lineHeight: '1.25',
       '@media (max-width:376px)': {
         fontSize: '1.10rem',
       },

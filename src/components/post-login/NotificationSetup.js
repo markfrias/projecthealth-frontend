@@ -1,20 +1,33 @@
 import { ThemeProvider } from '@emotion/react';
-import { Button, Container, createTheme, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Button, Container, createTheme, InputAdornment, OutlinedInput, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDayjs';
 import { MobileTimePicker, TimePicker } from '@mui/lab';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
+import AccessTimeRounded from '@mui/icons-material/AccessTimeRounded';
+import ThemedTimePicker from '../ThemedTimePicker/ThemedTimePicker';
+import { convertDatesToStrings } from './timeConverter';
+import moment from 'moment';
 
 
 const Notificationsetup = () => {
 
-    const [breakfastValue, setBreakfastValue] = React.useState('Sat Feb 19 2022 17:00:00 GMT+0800 (Philippine Standard Time)');
-    const [lunchValue, setLunchValue] = React.useState('Sat Feb 19 2022 17:00:00 GMT+0800 (Philippine Standard Time)');
-    const [dinnerValue, setDinnerValue] = React.useState('Sat Feb 19 2022 17:00:00 GMT+0800 (Philippine Standard Time)');
+    const [breakfastValue, setBreakfastValue] = React.useState(new Date('2018-01-01T00:00:00.000Z'));
+    const [lunchValue, setLunchValue] = React.useState(new Date('Sat Feb 19 2022 17:00:00 GMT+0800 (Philippine Standard Time)'));
+    const [dinnerValue, setDinnerValue] = React.useState(new Date('Sat Feb 19 2022 17:00:00 GMT+0800 (Philippine Standard Time)'));
 
+    // Convert time to string that can be sent to the server
+    const handleSubmission = () => {
+        // Array parameter should only accept array if this was a TypeScript project 🤡
 
+        // Put values in an array
+        const dates = [breakfastValue, lunchValue, dinnerValue];
+        console.log(moment(new Date(breakfastValue)).format("HH"))
+        convertDatesToStrings(dates);
+
+    }
 
 
     useEffect(() => {
@@ -34,60 +47,15 @@ const Notificationsetup = () => {
                     <Typography variant="subtitle1" component="h2" sx={{ mb: '3rem' }}>For now, notifications can only be customized by <strong>hour</strong>.</Typography>
 
 
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <MobileTimePicker
-                            label="Breakfast"
-                            value={breakfastValue}
-                            onChange={(newValue) => {
-                                setBreakfastValue(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
-                            shouldDisableTime={(timeValue, clockType) => {
-                                if (clockType === 'minutes' && timeValue > 0) {
-                                    return true;
-                                }
+                    <ThemedTimePicker value={breakfastValue} setValue={setBreakfastValue} label="Breakfast" />
+                    <ThemedTimePicker value={lunchValue} setValue={setLunchValue} label="Lunch" />
+                    <ThemedTimePicker value={dinnerValue} setValue={setDinnerValue} label="Dinner" />
 
-                                return false;
-                            }}
-                        />
-
-                        <MobileTimePicker
-                            label="Lunch"
-                            value={lunchValue}
-                            onChange={(newValue) => {
-                                setLunchValue(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
-                            shouldDisableTime={(timeValue, clockType) => {
-                                if (clockType === 'minutes' && timeValue > 0) {
-                                    return true;
-                                }
-
-                                return false;
-                            }}
-                        />
-
-                        <MobileTimePicker
-                            label="Dinner"
-                            value={dinnerValue}
-                            onChange={(newValue) => {
-                                setDinnerValue(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
-                            shouldDisableTime={(timeValue, clockType) => {
-                                if (clockType === 'minutes' && timeValue > 0) {
-                                    return true;
-                                }
-
-                                return false;
-                            }}
-                        />
-                    </LocalizationProvider>
                 </Box>
 
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button variant='contained' disableElevation sx={{ minWidth: '50%' }}>
+                    <Button variant='contained' disableElevation sx={{ minWidth: '50%' }} onClick={handleSubmission}>
 
                         Continue
                         <NavigateNextRoundedIcon />
