@@ -23,68 +23,71 @@ const Notificationsetup = () => {
     }, [dinnerValue]);
     return (
         <div>
-            <Container sx={{ paddingTop: "3em" }}>
-                <Typography variant='bigHeading' component="h1" sx={{ mb: '2.5rem' }}>Don't forget to log your meals</Typography>
-                <Container sx={{ height: '100%', width: '40%', mx: 0, mb: '2.5rem' }}>
-                    <img src={require('../../assets/img/alarm_clock.png')} height="100%" width="100%" />
-                </Container>
+            <Container sx={{ paddingTop: "3em", minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Typography variant='bigHeading' component="h1" sx={{ mb: '2.5rem' }}>Don't forget to log your meals</Typography>
+                    <Container sx={{ height: '100%', width: '40%', mx: 0, mb: '2.5rem' }}>
+                        <img src={require('../../assets/img/alarm_clock.png')} height="100%" width="100%" />
+                    </Container>
 
-                <Typography variant="subtitle1" component="h2" sx={{ mb: '0.75rem' }}><strong>When</strong> do you want to be reminded? </Typography>
-                <Typography variant="subtitle1" component="h2" sx={{ mb: '3rem' }}>For now, notifications can only be customized by <strong>hour</strong>.</Typography>
+                    <Typography variant="subtitle1" component="h2" sx={{ mb: '0.75rem' }}><strong>When</strong> do you want to be reminded? </Typography>
+                    <Typography variant="subtitle1" component="h2" sx={{ mb: '3rem' }}>For now, notifications can only be customized by <strong>hour</strong>.</Typography>
 
 
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MobileTimePicker
-                        label="Breakfast"
-                        value={breakfastValue}
-                        onChange={(newValue) => {
-                            setBreakfastValue(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
-                        shouldDisableTime={(timeValue, clockType) => {
-                            if (clockType === 'minutes' && timeValue > 0) {
-                                return true;
-                            }
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <MobileTimePicker
+                            label="Breakfast"
+                            value={breakfastValue}
+                            onChange={(newValue) => {
+                                setBreakfastValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
+                            shouldDisableTime={(timeValue, clockType) => {
+                                if (clockType === 'minutes' && timeValue > 0) {
+                                    return true;
+                                }
 
-                            return false;
-                        }}
-                    />
+                                return false;
+                            }}
+                        />
 
-                    <MobileTimePicker
-                        label="Lunch"
-                        value={lunchValue}
-                        onChange={(newValue) => {
-                            setLunchValue(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
-                        shouldDisableTime={(timeValue, clockType) => {
-                            if (clockType === 'minutes' && timeValue > 0) {
-                                return true;
-                            }
+                        <MobileTimePicker
+                            label="Lunch"
+                            value={lunchValue}
+                            onChange={(newValue) => {
+                                setLunchValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
+                            shouldDisableTime={(timeValue, clockType) => {
+                                if (clockType === 'minutes' && timeValue > 0) {
+                                    return true;
+                                }
 
-                            return false;
-                        }}
-                    />
+                                return false;
+                            }}
+                        />
 
-                    <MobileTimePicker
-                        label="Dinner"
-                        value={dinnerValue}
-                        onChange={(newValue) => {
-                            setDinnerValue(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
-                        shouldDisableTime={(timeValue, clockType) => {
-                            if (clockType === 'minutes' && timeValue > 0) {
-                                return true;
-                            }
+                        <MobileTimePicker
+                            label="Dinner"
+                            value={dinnerValue}
+                            onChange={(newValue) => {
+                                setDinnerValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} variant="outlined" sx={{ mb: "1.5rem", width: "100%" }} />}
+                            shouldDisableTime={(timeValue, clockType) => {
+                                if (clockType === 'minutes' && timeValue > 0) {
+                                    return true;
+                                }
 
-                            return false;
-                        }}
-                    />
-                </LocalizationProvider>
+                                return false;
+                            }}
+                        />
+                    </LocalizationProvider>
+                </Box>
+
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button variant='contained' disableElevation>
+                    <Button variant='contained' disableElevation sx={{ minWidth: '50%' }}>
 
                         Continue
                         <NavigateNextRoundedIcon />
