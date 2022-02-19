@@ -25,6 +25,7 @@ import Onboarding5 from './components/post-login/Onboarding5';
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
 import { getMessaging, getToken } from "firebase/messaging";
+import Notificationsetup from './components/post-login/NotificationSetup';
 
 
 
@@ -88,7 +89,10 @@ const theme = createTheme({
   shape: {
     borderRadius: 20,
   },
+
+
 });
+
 
 
 ReactDOM.render(
@@ -107,6 +111,7 @@ ReactDOM.render(
             <Route path="Onboarding4" element={<Onboarding4 />} />
             <Route path="Onboarding5" element={<Onboarding5 />} />
             <Route path="login" element={<LoginScreen />} />
+            <Route path="notification-setup" element={<Notificationsetup />} />
 
           </Route>
 
