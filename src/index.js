@@ -22,15 +22,15 @@ import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding5 from './components/post-login/Onboarding5';
 
 // Firebase imports
-import { initializeApp } from "firebase/app";
+//import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
-import { getMessaging, getToken } from "firebase/messaging";
+//import { getMessaging } from "firebase/messaging";
 import Notificationsetup from './components/post-login/NotificationSetup';
 
 
 
 // Firebase config
-const firebaseConfig = {
+/*const firebaseConfig = {
   apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
   authDomain: "healevate-c3688.firebaseapp.com",
   projectId: "healevate-c3688",
@@ -38,13 +38,13 @@ const firebaseConfig = {
   messagingSenderId: "798975874598",
   appId: "1:798975874598:web:c5814636dcd645312b38e7",
   measurementId: "G-7ZBZF5PN0V"
-};
+};*/
 
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+//const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
-const messaging = getMessaging(app);
+//const messaging = getMessaging(app);
 
 // Add the public key generated from the console here.
 /*messaging.getToken({vapidKey: "BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFVVPDsw2k3WlL89DDwCzj0O0opIW48rQ5CtxOYTwxY"});*/

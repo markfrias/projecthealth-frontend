@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { nodeName } from "jquery";
 
 const theme = createTheme({
   palette: {

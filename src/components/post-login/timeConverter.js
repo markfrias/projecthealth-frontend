@@ -1,7 +1,8 @@
 import moment from "moment"
 
-// Accepts an array of dates and returns an array of dates converted to strings
-export function convertDatesToStrings(array) {
+// Accepts an array of time and returns an array of time converted to strings
+// Returns in chronological order
+export function convertTimesToStrings(array) {
     const convertedItems = array.map((item) => {
         let convertedItem;
         let newFormat;
@@ -88,5 +89,6 @@ export function convertDatesToStrings(array) {
 
         return convertedItem;
     })
-    console.log(convertedItems);
+
+    return convertedItems;
 }
