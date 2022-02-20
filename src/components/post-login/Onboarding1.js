@@ -118,9 +118,8 @@ const Onboarding1 = () => {
         setNotifIsAllowed(false);
       }
     }
-
+    // Check if notifications are supported, if not, redirect to unsupported screen
     if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
       setIsSupported(false);
     } else {
       checkCurrentNotifPermission();
