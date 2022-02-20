@@ -116,7 +116,13 @@ const Onboarding1 = () => {
 
   // Check notification permission state on render once
   useEffect(() => {
-    checkCurrentNotifPermission();
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+
+    } else {
+      checkCurrentNotifPermission();
+
+    }
   }, []);
 
 
