@@ -3,7 +3,7 @@ import { Switch } from '@mui/material';
 import { Box } from '@mui/system';
 import { getToken } from 'firebase/messaging';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { messaging } from '../firebase';
 /*import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -64,13 +64,9 @@ const Onboarding1 = () => {
   const navigate = useNavigate();
   const [notifIsAllowed, setNotifIsAllowed] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const [isSupported, setIsSupported] = useState(true);
 
-  // Check current permission
-  const checkCurrentNotifPermission = () => {
-    if (Notification.permission === "denied") {
-      setNotifIsAllowed(false);
-    }
-  }
+
 
   // Ask permission for notifications
   const askNotifPermission = () => {
@@ -116,10 +112,16 @@ const Onboarding1 = () => {
 
   // Check notification permission state on render once
   useEffect(() => {
+    // Check current permission
+    const checkCurrentNotifPermission = () => {
+      if (Notification.permission === "denied") {
+        setNotifIsAllowed(false);
+      }
+    }
+
     if (!("Notification" in window)) {
       alert("This browser does not support desktop notification");
-      navigate("/app/notif-unsupported");
-
+      setIsSupported(false);
     } else {
       checkCurrentNotifPermission();
 
@@ -128,61 +130,64 @@ const Onboarding1 = () => {
 
 
   return (
-    <Container maxWidth="md" sx={{
-      minHeight: "100vh",
-      justifyContent: "space-between",
-      display: "flex",
-      flexDirection: "column"
-    }}>
+    !isSupported ? (<Navigate to="/app/notif-supported" />) :
+      (<Container maxWidth="md" sx={{
+        minHeight: "100vh",
+        justifyContent: "space-between",
+        display: "flex",
+        flexDirection: "column"
+      }}>
 
-      <div>
-        <h1 className='text-onboarding1'>Don't forget to log your meals</h1>
-      </div>
+        <div>
+          <h1 className='text-onboarding1'>Don't forget to log your meals</h1>
+        </div>
 
-      <div className='hero_container'>
-        <img alt="Alarm Clock" src={require("../../assets/img/alarm_clock.png")} />
-      </div>
+        <div className='hero_container'>
+          <img alt="Alarm Clock" src={require("../../assets/img/alarm_clock.png")} />
+        </div>
 
-      <div>
-        <p>By turning on reminders, you'll be able to consistently track how you eat.</p>
-      </div>
+        <div>
+          <p>By turning on reminders, you'll be able to consistently track how you eat.</p>
+        </div>
 
-      {/* Display info message if notification permission is not asked yet*/}
-      {notifIsAllowed === null ?
-        <Alert severity="info">A browser popup will appear asking you permissions for notifications to be sent.</Alert>
-        : <Box sx={{ display: "none" }} />
-      }
-
-      {/* Display error message if notification permission is denied*/}
-      {notifIsAllowed === false ?
-        <Alert severity="error">Notifications will not be turned on. For instructions on turning on, <strong>tap</strong> here.</Alert>
-        : <Box sx={{ display: "none" }} />
-      }
-
-      {/* Display success message if notification permission is granted*/}
-      {notifIsAllowed === true ?
-        <Alert severity="success">Great! Notifications are now turned <strong>on</strong>.</Alert>
-        : <Box sx={{ display: "none" }} />
-      }
-
-
-
-      <div className='switch_with_text'>
-        <p>Enable meal reminders</p>
-
-        {notifIsAllowed === false ?
-          <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} disabled checked={false} />
-          :
-          <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} checked={isChecked} />
+        {/* Display info message if notification permission is not asked yet*/}
+        {notifIsAllowed === null ?
+          <Alert severity="info">A browser popup will appear asking you permissions for notifications to be sent.</Alert>
+          : <Box sx={{ display: "none" }} />
         }
-      </div>
+
+        {/* Display error message if notification permission is denied*/}
+        {notifIsAllowed === false ?
+          <Alert severity="error">Notifications will not be turned on. For instructions on turning on, <strong>tap</strong> here.</Alert>
+          : <Box sx={{ display: "none" }} />
+        }
+
+        {/* Display success message if notification permission is granted*/}
+        {notifIsAllowed === true ?
+          <Alert severity="success">Great! Notifications are now turned <strong>on</strong>.</Alert>
+          : <Box sx={{ display: "none" }} />
+        }
 
 
-      <div className='button-group'>
-        <Button className="button-onboarding" variant="contained" onClick={navigateConditionally}>Continue</Button>
-      </div>
-      {/*<ProgressMobileStepper></ProgressMobileStepper>*/}
-    </Container>
+
+        <div className='switch_with_text'>
+          <p>Enable meal reminders</p>
+
+          {notifIsAllowed === false ?
+            <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} disabled checked={false} />
+            :
+            <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} checked={isChecked} />
+          }
+        </div>
+
+
+        <div className='button-group'>
+          <Button className="button-onboarding" variant="contained" onClick={navigateConditionally}>Continue</Button>
+        </div>
+        {/*<ProgressMobileStepper></ProgressMobileStepper>*/}
+      </Container>)
+
+
 
 
 
