@@ -26,6 +26,7 @@ import Onboarding5 from './components/post-login/Onboarding5';
 //import { getAnalytics } from "firebase/analytics";
 //import { getMessaging } from "firebase/messaging";
 import Notificationsetup from './components/post-login/NotificationSetup';
+import NotificationUnsupported from './components/post-login/NotificationUnsupported';
 
 
 
@@ -112,6 +113,7 @@ ReactDOM.render(
             <Route path="Onboarding5" element={<Onboarding5 />} />
             <Route path="login" element={<LoginScreen />} />
             <Route path="notification-setup" element={<Notificationsetup />} />
+            <Route path="notif-unsupported" element={<NotificationUnsupported />} />
 
           </Route>
 

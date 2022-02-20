@@ -118,6 +118,7 @@ const Onboarding1 = () => {
   useEffect(() => {
     if (!("Notification" in window)) {
       alert("This browser does not support desktop notification");
+      navigate("/app/notif-unsupported");
 
     } else {
       checkCurrentNotifPermission();
