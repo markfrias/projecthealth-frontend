@@ -1,23 +1,13 @@
-import { Button, CircularProgress, Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect } from 'react';
+import React from 'react';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
-import ThemedTimePicker from '../ThemedTimePicker/ThemedTimePicker';
-import { convertTimesToStrings } from './timeConverter';
-import { saveNotifSchedule } from '../auth/APIServices';
-import { messaging } from '../firebase';
-import { getToken } from 'firebase/messaging';
+
 import { useNavigate } from 'react-router-dom';
 
 const NotificationUnsupported = () => {
 
     const navigate = useNavigate();
-
-    const [breakfastValue, setBreakfastValue] = React.useState(new Date('2018-01-01T00:00:00.000Z'));
-    const [lunchValue, setLunchValue] = React.useState(new Date('Sat Feb 19 2022 12:00:00 GMT+0800 (Philippine Standard Time)'));
-    const [dinnerValue, setDinnerValue] = React.useState(new Date('Sat Feb 19 2022 19:00:00 GMT+0800 (Philippine Standard Time)'));
-    const [registrationToken, setRegistrationToken] = React.useState(null);
-    const [isLoading, setIsLoading] = React.useState(null);
 
     // Convert time to string that can be sent to the server
     const handleSubmission = () => {
@@ -43,25 +33,14 @@ const NotificationUnsupported = () => {
 
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    {isLoading ?
-                        <Button variant='contained' disableElevation sx={{ minWidth: '50%' }}>
+                    <Button variant='contained' disableElevation sx={{ minWidth: '50%' }} onClick={handleSubmission}>
 
-                            <CircularProgress color="secondary" />
-
-
-
-                        </Button> :
-
-                        <Button variant='contained' disableElevation sx={{ minWidth: '50%' }} onClick={handleSubmission}>
-
-                            Continue
-                            < NavigateNextRoundedIcon />
+                        Continue
+                        < NavigateNextRoundedIcon />
 
 
 
-                        </Button>
-
-                    }
+                    </Button>
                 </Box>
 
             </Container>
