@@ -7,7 +7,7 @@ const localStorage = window.localStorage;
 // Fetch all users ** test function
 const getUsers = async () => {
   const response = await fetch(
-    "http://localhost:8000/api/users/",
+    "https://projecthealthapp.herokuapp.com/api/users/",
     {
       method: "GET",
       mode: "cors",
@@ -46,7 +46,7 @@ const saveNotifSchedule = async (array, registrationToken) => {
   console.log(reqBody)
 
   const response = await fetch(
-    "http://localhost:8000/api/notifications/subscribe/",
+    "https://projecthealthapp.herokuapp.com/api/notifications/subscribe/",
     {
       method: "POST",
       mode: "cors",
