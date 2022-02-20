@@ -130,7 +130,7 @@ const Onboarding1 = () => {
 
 
   return (
-    !isSupported ? (<Navigate to="/app/notif-supported" />) :
+    !isSupported ? (<Navigate to="/app/notif-unsupported" />) :
       (<Container maxWidth="md" sx={{
         minHeight: "100vh",
         justifyContent: "space-between",
