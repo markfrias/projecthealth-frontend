@@ -5,6 +5,28 @@ import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import authService from "../auth/auth";
 import { Navigate } from "react-router-dom";
+import { getAnalytics, logEvent } from "firebase/analytics";
+import { initializeApp } from "firebase/app";
+
+
+
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
+  authDomain: "healevate-c3688.firebaseapp.com",
+  projectId: "healevate-c3688",
+  storageBucket: "healevate-c3688.appspot.com",
+  messagingSenderId: "798975874598",
+  appId: "1:798975874598:web:c5814636dcd645312b38e7",
+  measurementId: "G-7ZBZF5PN0V"
+};
+
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+
+const analytics = getAnalytics();
 
 const LoginScreen = () => {
   const [loginForm, setLoginForm] = useState({
@@ -46,6 +68,7 @@ const LoginScreen = () => {
       if (data.status === "Success") {
         let localStorage = window.localStorage;
         localStorage.setItem("jwt", data.jwt);
+        logEvent(analytics, 'login');
         navigate("/app/Onboarding1");
       } else {
         setError(true);

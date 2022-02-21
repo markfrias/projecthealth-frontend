@@ -27,7 +27,27 @@ import Onboarding5 from './components/post-login/Onboarding5';
 //import { getMessaging } from "firebase/messaging";
 import Notificationsetup from './components/post-login/NotificationSetup';
 import NotificationUnsupported from './components/post-login/NotificationUnsupported';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
+  authDomain: "healevate-c3688.firebaseapp.com",
+  projectId: "healevate-c3688",
+  storageBucket: "healevate-c3688.appspot.com",
+  messagingSenderId: "798975874598",
+  appId: "1:798975874598:web:c5814636dcd645312b38e7",
+  measurementId: "G-7ZBZF5PN0V"
+};
+
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+
+
+getAnalytics();
 
 
 // Firebase config
