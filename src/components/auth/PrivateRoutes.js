@@ -6,11 +6,11 @@ import authService from '../auth/auth';
 // Protected Route component
 
 const PrivateRoutes = () => {
-// Placeholder authentication
+    // Placeholder authentication
 
 
     return (
-        authService() ? <Outlet /> : <Navigate to="/login" />
+        authService() ? <Outlet /> : <Navigate to="/app/login" />
     );
 }
 
