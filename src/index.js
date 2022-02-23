@@ -17,6 +17,7 @@ import Onboarding8 from "./components/post-login/Onboarding8"
 import Onboarding9 from "./components/post-login/Onboarding9"
 import Onboarding10 from "./components/post-login/Onboarding10";
 import Onboarding11 from "./components/post-login/Onboarding11"
+import Onboarding12 from "./components/post-login/Onboarding12"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -35,6 +36,8 @@ ReactDOM.render(
           <Route path="/Onboarding9" element={<Onboarding9 />} />
           <Route path="/Onboarding10" element={<Onboarding10 /> }/>
           <Route path="/Onboarding11" element={<Onboarding11 /> }/>
+          <Route path="/Onboarding12" element={<Onboarding12 /> }/>
+
 
         </Route>
       </Routes>

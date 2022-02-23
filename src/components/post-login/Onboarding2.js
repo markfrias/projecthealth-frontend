@@ -20,15 +20,15 @@ export default function Onboarding2() {
 
     return (
 
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+            <div style={{ marginTop: 180, marginLeft: 10 }}>
+                <h2>What are your health goals?.</h2>
+                <p >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
+            </div>
 
 
+            <FormGroup style={{marginBottom: 120, marginLeft:10}}>
 
-            <h2>What are your health goals?.</h2>
-
-
-            <FormGroup>
-                <p  >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
                 <FormControlLabel control={<Checkbox />} label="Eat Healthier" />
                 <FormControlLabel control={<Checkbox />} label="Increase Physical Activity" />
                 <FormControlLabel control={<Checkbox />} label="Improve Sleep" />

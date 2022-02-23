@@ -34,11 +34,14 @@ export default function Onboarding8() {
     };
 
     return (
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
-            <h2>What is your goal weight?</h2>
-            <p>This information will only be used to personalize your experience.</p>
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+            <div className="header" style={{ marginTop: 180, marginLeft: 5 }}>
+                <h2>What is your goal weight?</h2>
+                <p>This information will only be used to personalize your experience.</p>
+            </div>
 
-            <FormControl>
+
+            <FormControl style={{marginBottom: 180}}>
                 <FilledInput
                     id="filled-adornment-weight"
                     value={values.weight}
