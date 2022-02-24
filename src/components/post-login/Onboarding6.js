@@ -3,24 +3,14 @@ import { Container, Chip, Button } from '@mui/material';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
-import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Stack from '@mui/material/Stack';
 
 
 export default function Onboarding6() {
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+   
+    const [activeStep] = React.useState(0);
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-    const handleClick = () => {
-    };
     const [values, setValues] = React.useState({
         amount: '',
         password: '',

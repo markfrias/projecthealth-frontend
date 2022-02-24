@@ -1,23 +1,16 @@
 import React from 'react';
 import { Container, Button, TextField } from '@mui/material';
-import { FormGroup, FormControlLabel} from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { FormGroup} from '@mui/material';
+
 import MobileStepper from '@mui/material/MobileStepper';
 
 
 
 
 export default function Onboarding5() {
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    
+    const [activeStep] = React.useState(0);
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
 
     return (
 
