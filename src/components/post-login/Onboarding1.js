@@ -13,8 +13,6 @@ const Onboarding = () => {
             </div>
 
 
-
-
             <div className='button-group'>
                 <Button className="button-full" variant="contained">Let's go!</Button>
 
