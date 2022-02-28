@@ -4,11 +4,12 @@ import { FormGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import { useNavigate } from 'react-router-dom';
+import ThemedDatePicker from '../ThemedDatePicker/ThemedDatePicker';
 
 
 
 
-export default function Registration5() {
+export default function Registration5(props) {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     let navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function Registration5() {
             <FormGroup style={{ marginBottom: 180 }}>
 
                 <TextField id="outlined-basic" label="Please enter your birth date." variant="outlined" />
+                <ThemedDatePicker value={props.values.birthday} setValue={props.handleChange} label="Birth Date" name="birthday" />
 
             </FormGroup>
             <div className='button-group'>

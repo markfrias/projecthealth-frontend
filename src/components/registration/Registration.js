@@ -23,7 +23,8 @@ const Registration = () => {
             gainWeight: false,
             maintainWeight: false
         },
-        sex: ""
+        sex: "",
+        birthday: new Date(),
 
     }
 
@@ -53,9 +54,17 @@ const Registration = () => {
         })
     }
 
+    // Date change handler
+    const handleDateChanges = (data) => {
+        setRegState({
+            ...regState,
+            birthday: data
+        })
+    }
+
     //Test checkboxes
     useEffect(() => {
-        console.log(regState.sex)
+        console.log(regState.birthday)
     }, [regState]);
 
 
@@ -66,7 +75,7 @@ const Registration = () => {
                 <Route path="1" element={<Registration1 />} />
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
-                <Route path="5" element={<Registration5 />} />
+                <Route path="5" element={<Registration5 handleChange={handleDateChanges} values={regState} />} />
                 <Route path="6" element={<Registration6 />} />
                 <Route path="7" element={<Registration7 />} />
                 <Route path="8" element={<Registration8 />} />
