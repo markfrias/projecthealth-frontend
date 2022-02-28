@@ -37,13 +37,13 @@ export default function Registration3(props) {
             </div>
 
             <FormGroup style={{ marginBottom: 120, marginLeft: 10 }}>
-                <FormControlLabel control={<Checkbox name='eatHealthier' onChange={props.handleChange} checked={props.values.eatHealthier} />} label="Eat Healthier" />
-                <FormControlLabel control={<Checkbox name='increasePA' onChange={props.handleChange} checked={props.values.increasePA} />} label="Increase Physical Activity" />
-                <FormControlLabel control={<Checkbox name='improveSleep' onChange={props.handleChange} checked={props.values.improveSleep} />} label="Improve Sleep" />
-                <FormControlLabel control={<Checkbox name='reduceAC' onChange={props.handleChange} checked={props.values.reduceAC} />} label="Reduce Alcohol Consumption" />
-                <FormControlLabel control={<Checkbox name='loseWeight' onChange={props.handleChange} checked={props.values.loseWeight} />} label="Lose Weight" />
-                <FormControlLabel control={<Checkbox name='gainWeight' onChange={props.handleChange} checked={props.values.gainWeight} />} label="Gain Weight" />
-                <FormControlLabel control={<Checkbox name='maintainWeight' onChange={props.handleChange} checked={props.values.maintainWeight} />} label="Maintain Weight" />
+                <FormControlLabel control={<Checkbox name='eatHealthier' onChange={props.handleChange} checked={props.values.goals.eatHealthier} />} label="Eat Healthier" />
+                <FormControlLabel control={<Checkbox name='increasePA' onChange={props.handleChange} checked={props.values.goals.increasePA} />} label="Increase Physical Activity" />
+                <FormControlLabel control={<Checkbox name='improveSleep' onChange={props.handleChange} checked={props.values.goals.improveSleep} />} label="Improve Sleep" />
+                <FormControlLabel control={<Checkbox name='reduceAC' onChange={props.handleChange} checked={props.values.goals.reduceAC} />} label="Reduce Alcohol Consumption" />
+                <FormControlLabel control={<Checkbox name='loseWeight' onChange={props.handleChange} checked={props.values.goals.loseWeight} />} label="Lose Weight" />
+                <FormControlLabel control={<Checkbox name='gainWeight' onChange={props.handleChange} checked={props.values.goals.gainWeight} />} label="Gain Weight" />
+                <FormControlLabel control={<Checkbox name='maintainWeight' onChange={props.handleChange} checked={props.values.goals.maintainWeight} />} label="Maintain Weight" />
             </FormGroup>
             <div className='button-group'>
                 <MobileStepper
