@@ -15,13 +15,13 @@ export default function Registration4() {
     };
 
     return (
-
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
-
-            <h2>What is your sex?</h2>
-
-            <FormControl>
-                <FormLabel id="demo-controlled-radio-buttons-group">This information will only be used to personalize your experience.</FormLabel>
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+            <div style={{ marginTop: 180, marginLeft: 25 }}>
+                <h2>What is your sex?</h2>
+                <p>This information will only be used to personalize your experience.</p>
+            </div>
+            <FormControl style={{ marginBottom: 200, marginLeft: 25 }} >
+                <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
@@ -30,11 +30,11 @@ export default function Registration4() {
                 >
                     <FormControlLabel value="female" control={<Radio />} label="Female" />
                     <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="mother" control={<Radio />} label="Other" />
+
+
                 </RadioGroup>
             </FormControl>
-
-
-
             <div className='button-group'>
                 <MobileStepper
                     variant="progress"
@@ -42,7 +42,6 @@ export default function Registration4() {
                     position="static"
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
-
                 />
                 <Button className="button-full" variant="contained" >Continue</Button>
             </div>

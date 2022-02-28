@@ -35,10 +35,12 @@ export default function Registration7() {
 
     return (
         <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
-            <h2>How much do you weight?</h2>
-            <p>This information will only be used to personalize your experience.</p>
+            <div className="header" style={{ marginTop: 180, marginLeft: 5 }}>
+                <h2>How much do you weight?</h2>
+                <p>This information will only be used to personalize your experience.</p>
+            </div>
 
-            <FormControl>
+            <FormControl style={{ marginBottom: 180 }} >
                 <FilledInput
                     id="filled-adornment-weight"
                     value={values.weight}
@@ -61,7 +63,6 @@ export default function Registration7() {
                     position="static"
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
-
                 />
                 <Button className="button-full" variant="contained"  >Continue</Button>
             </div>

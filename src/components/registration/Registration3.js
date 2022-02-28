@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Switch } from '@mui/material';
+import { Container, Button, Switch, Checkbox } from '@mui/material';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -21,22 +21,21 @@ export default function Registration3() {
 
     return (
 
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+            <div style={{ marginTop: 180, marginLeft: 10 }}>
+                <h2>What are your health goals?.</h2>
+                <p >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
+            </div>
 
-
-
-            <h2>Do you want to use calorie counting?</h2>
-
-
-            <FormGroup>
-                <p  >If you choose to enable calorie counting, you will be shown your calorie budget and what you have consumed.</p>
-                <FormControlLabel control={<Switch />} label="Enable calorie counting" />
-
-
+            <FormGroup style={{ marginBottom: 120, marginLeft: 10 }}>
+                <FormControlLabel control={<Checkbox />} label="Eat Healthier" />
+                <FormControlLabel control={<Checkbox />} label="Increase Physical Activity" />
+                <FormControlLabel control={<Checkbox />} label="Improve Sleep" />
+                <FormControlLabel control={<Checkbox />} label="Reduce Alcohol Consumption" />
+                <FormControlLabel control={<Checkbox />} label="Lose Weight" />
+                <FormControlLabel control={<Checkbox />} label="Gain Weight" />
+                <FormControlLabel control={<Checkbox />} label="Maintain Weight" />
             </FormGroup>
-
-
-
             <div className='button-group'>
                 <MobileStepper
                     variant="progress"
@@ -44,11 +43,9 @@ export default function Registration3() {
                     position="static"
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
-
                 />
-                <Button className="button-full" variant="contained" >Continue</Button>
+                <Button className="button-full" variant="contained">Continue</Button>
             </div>
         </Container>
-
     );
 }

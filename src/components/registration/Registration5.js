@@ -21,21 +21,16 @@ export default function Registration5() {
 
     return (
 
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
-
-
-
-            <h2>When were you born?</h2>
-
-
-            <FormGroup>
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+            <div style={{ marginTop: 180, marginLeft: 5 }}>
+                <h2>When were you born?</h2>
                 <p  >This information will only be used to personalize your experience.</p>
+            </div>
+            <FormGroup style={{ marginBottom: 180 }}>
+
                 <TextField id="outlined-basic" label="Please enter your birth date." variant="outlined" />
 
             </FormGroup>
-
-
-
             <div className='button-group'>
                 <MobileStepper
                     variant="progress"
@@ -43,7 +38,6 @@ export default function Registration5() {
                     position="static"
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
-
                 />
                 <Button className="button-full" variant="contained"  >Continue</Button>
             </div>

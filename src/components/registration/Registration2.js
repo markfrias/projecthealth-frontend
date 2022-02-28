@@ -20,38 +20,19 @@ export default function Registration2() {
 
     return (
 
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 90vh"}>
+        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
 
+            <div className="header" style={{ marginTop: 180 }}>
+                <h2 style={{ fontSize: 35 }} >You’re all set!</h2>
+                <p style={{ fontSize: 20 }}>You can now proceed to login.</p>
 
-
-            <h2>What are your health goals?.</h2>
-
-
-            <FormGroup>
-                <p  >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
-                <FormControlLabel control={<Checkbox />} label="Eat Healthier" />
-                <FormControlLabel control={<Checkbox />} label="Increase Physical Activity" />
-                <FormControlLabel control={<Checkbox />} label="Improve Sleep" />
-                <FormControlLabel control={<Checkbox />} label="Reduce Alcohol Consumption" />
-                <FormControlLabel control={<Checkbox />} label="Lose Weight" />
-                <FormControlLabel control={<Checkbox />} label="Gain Weight" />
-                <FormControlLabel control={<Checkbox />} label="Maintain Weight" />
-            </FormGroup>
-
-
-
-            <div className='button-group'>
-                <MobileStepper
-                    variant="progress"
-                    steps={6}
-                    position="static"
-                    activeStep={activeStep}
-                    sx={{ maxWidth: 400, flexGrow: 1 }}
-
-                />
-                <Button className="button-full" variant="contained">Continue</Button>
             </div>
-        </Container>
+            <img alt="Success" src={require("../../assets/img/success.png")} />
+            <div className='button-group'>
+                <Button className="button-full" variant="contained">Login</Button>
 
+            </div>
+
+        </Container>
     );
 }
