@@ -20,6 +20,13 @@ import Onboarding2 from './components/post-login/Onboarding2';
 import Onboarding3 from './components/post-login/Onboarding3';
 import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding5 from './components/post-login/Onboarding5';
+import Registration1 from './components/registration/Registration1';
+import Registration2 from './components/registration/Registration2';
+import Registration3 from './components/registration/Registration3';
+import Registration4 from './components/registration/Registration4';
+import Registration5 from './components/registration/Registration5';
+import Registration6 from './components/registration/Registration6';
+import Registration7 from './components/registration/Registration7';
 
 // Firebase imports
 //import { initializeApp } from "firebase/app";
@@ -29,6 +36,10 @@ import Notificationsetup from './components/post-login/NotificationSetup';
 import NotificationUnsupported from './components/post-login/NotificationUnsupported';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import Registration8 from './components/registration/Registration8';
+import Registration9 from './components/registration/Registration9';
+import Registration10 from './components/registration/Registration10';
+import Registration11 from './components/registration/Registration11';
 
 
 // Firebase config
@@ -48,50 +59,6 @@ initializeApp(firebaseConfig);
 
 
 getAnalytics();
-
-
-// Firebase config
-/*const firebaseConfig = {
-  apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
-  authDomain: "healevate-c3688.firebaseapp.com",
-  projectId: "healevate-c3688",
-  storageBucket: "healevate-c3688.appspot.com",
-  messagingSenderId: "798975874598",
-  appId: "1:798975874598:web:c5814636dcd645312b38e7",
-  measurementId: "G-7ZBZF5PN0V"
-};*/
-
-
-// Initialize Firebase
-//const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
-//const messaging = getMessaging(app);
-
-// Add the public key generated from the console here.
-/*messaging.getToken({vapidKey: "BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFVVPDsw2k3WlL89DDwCzj0O0opIW48rQ5CtxOYTwxY"});*/
-
-
-
-// Remove registration for now
-/*
-// Get registration token
-getToken(messaging, { vapidKey: 'BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFVVPDsw2k3WlL89DDwCzj0O0opIW48rQ5CtxOYTwxY' }).then((currentToken) => {
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-    console.log(currentToken)
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
-  }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  // ...
-});
-*/
-
-
 
 
 const theme = createTheme({
@@ -126,6 +93,18 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
+            <Route path="registration-1" element={<Registration1 />} />
+            <Route path="registration-2" element={<Registration2 />} />
+            <Route path="registration-3" element={<Registration3 />} />
+            <Route path="registration-4" element={<Registration4 />} />
+            <Route path="registration-5" element={<Registration5 />} />
+            <Route path="registration-6" element={<Registration6 />} />
+            <Route path="registration-7" element={<Registration7 />} />
+            <Route path="registration-8" element={<Registration8 />} />
+            <Route path="registration-9" element={<Registration9 />} />
+            <Route path="registration-10" element={<Registration10 />} />
+            <Route path="registration-11" element={<Registration11 />} />
+
             <Route path="Onboarding1" element={<Onboarding1 />} />
             <Route path="Onboarding2" element={<Onboarding2 />} />
             <Route path="Onboarding3" element={<Onboarding3 />} />
