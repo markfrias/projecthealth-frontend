@@ -20,13 +20,7 @@ import Onboarding2 from './components/post-login/Onboarding2';
 import Onboarding3 from './components/post-login/Onboarding3';
 import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding5 from './components/post-login/Onboarding5';
-import Registration1 from './components/registration/Registration1';
-import Registration2 from './components/registration/Registration2';
-import Registration3 from './components/registration/Registration3';
-import Registration4 from './components/registration/Registration4';
-import Registration5 from './components/registration/Registration5';
-import Registration6 from './components/registration/Registration6';
-import Registration7 from './components/registration/Registration7';
+
 
 // Firebase imports
 //import { initializeApp } from "firebase/app";
@@ -94,8 +88,8 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
-            <Route path="registration" element={<Registration />}>
-              <Route path="1" element={<Registration1 />} />
+            <Route path="registration/*" element={<Registration />}>
+              {/*}   <Route path="1" element={<Registration1 />} />
               <Route path="2" element={<Registration2 />} />
               <Route path="3" element={<Registration3 />} />
               <Route path="4" element={<Registration4 />} />
@@ -105,7 +99,7 @@ ReactDOM.render(
               <Route path="8" element={<Registration8 />} />
               <Route path="9" element={<Registration9 />} />
               <Route path="10" element={<Registration10 />} />
-              <Route path="11" element={<Registration11 />} />
+<Route path="11" element={<Registration11 />} />*/}
             </Route>
 
 

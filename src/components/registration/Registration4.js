@@ -6,6 +6,7 @@ import { Container, Button, Switch } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import MobileStepper from '@mui/material/MobileStepper';
+import { useNavigate } from 'react-router-dom';
 
 export default function Registration4() {
     const [value, setValue] = React.useState('female');
@@ -13,9 +14,13 @@ export default function Registration4() {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+    let navigate = useNavigate();
+    const goNext = () => {
+        navigate('/app/registration/5');
+    }
 
     return (
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
             <div style={{ marginTop: 180, marginLeft: 25 }}>
                 <h2>What is your sex?</h2>
                 <p>This information will only be used to personalize your experience.</p>
@@ -43,7 +48,7 @@ export default function Registration4() {
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
                 />
-                <Button className="button-full" variant="contained" >Continue</Button>
+                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
             </div>
         </Container>
 

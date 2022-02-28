@@ -6,11 +6,17 @@ import FormControl from '@mui/material/FormControl';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Registration6() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
+    let navigate = useNavigate();
+    const goNext = () => {
+        navigate('/app/registration/7');
+    }
+
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -34,7 +40,7 @@ export default function Registration6() {
     };
 
     return (
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
             <div style={{ marginTop: 180, marginLeft: 5 }}>
                 <h2>How tall are you?</h2>
                 <p>This information will only be used to personalize your experience.</p>
@@ -63,7 +69,7 @@ export default function Registration6() {
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
                 />
-                <Button className="button-full" variant="contained"  >Continue</Button>
+                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
             </div>
 
         </Container>

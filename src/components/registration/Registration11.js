@@ -2,15 +2,20 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function Registration11() {
     const [password, Confirm, setName] = React.useState();
     const handleChange = (event) => {
         setName(event.target.value);
     };
+    let navigate = useNavigate();
+    const goNext = () => {
+        navigate('/app/registration/success');
+    }
 
     return (
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
 
             <div className="header" style={{ marginTop: 80, marginLeft: 55 }}>
                 <h2 >Register your account</h2>
@@ -27,20 +32,17 @@ export default function Registration11() {
                 <TextField
                     id="outlined-name"
                     label="Password"
-                    value={password}
-                    onChange={handleChange}
+
                 />
                 <TextField
                     id="outlined-name"
                     label="Confirm Password"
-                    value={Confirm}
-                    onChange={handleChange}
                 />
 
 
             </Box>
             <div className='button-group'>
-                <Button className="button-full" variant="contained">Register Now</Button>
+                <Button className="button-full" variant="contained" onClick={goNext}>Register Now</Button>
 
             </div>
         </Container>

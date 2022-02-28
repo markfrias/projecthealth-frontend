@@ -3,6 +3,7 @@ import { Container, Button, TextField } from '@mui/material';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,6 +11,11 @@ import MobileStepper from '@mui/material/MobileStepper';
 export default function Registration5() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
+    let navigate = useNavigate();
+    const goNext = () => {
+        navigate('/app/registration/6');
+    }
+
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -21,7 +27,7 @@ export default function Registration5() {
 
     return (
 
-        <Container maxWidth="md" sx={"display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh"}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
             <div style={{ marginTop: 180, marginLeft: 5 }}>
                 <h2>When were you born?</h2>
                 <p  >This information will only be used to personalize your experience.</p>
@@ -39,7 +45,7 @@ export default function Registration5() {
                     activeStep={activeStep}
                     sx={{ maxWidth: 400, flexGrow: 1 }}
                 />
-                <Button className="button-full" variant="contained"  >Continue</Button>
+                <Button className="button-full" variant="contained" onClick={goNext} >Continue</Button>
             </div>
         </Container>
 
