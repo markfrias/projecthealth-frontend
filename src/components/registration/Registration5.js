@@ -35,8 +35,7 @@ export default function Registration5(props) {
             </div>
             <FormGroup style={{ marginBottom: 180 }}>
 
-                <TextField id="outlined-basic" label="Please enter your birth date." variant="outlined" />
-                <ThemedDatePicker value={props.values.birthday} setValue={props.handleChange} label="Birth Date" name="birthday" />
+                <ThemedDatePicker value={props.values.birthday} setValue={props.handleChange} label="Please enter your birth date" name="birthday" />
 
             </FormGroup>
             <div className='button-group'>

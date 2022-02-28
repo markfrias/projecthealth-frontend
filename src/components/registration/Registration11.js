@@ -4,11 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Container, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function Registration11() {
-    const [password, Confirm, setName] = React.useState();
-    const handleChange = (event) => {
-        setName(event.target.value);
-    };
+export default function Registration11(props) {
     let navigate = useNavigate();
     const goNext = () => {
         navigate('/app/registration/success');
@@ -32,11 +28,19 @@ export default function Registration11() {
                 <TextField
                     id="outlined-name"
                     label="Password"
+                    name="password1"
+                    type="password"
+                    value={props.values.password1}
+                    onChange={props.handleChange}
 
                 />
                 <TextField
                     id="outlined-name"
-                    label="Confirm Password"
+                    label="Confirm password"
+                    name="password2"
+                    type="password"
+                    value={props.values.password2}
+                    onChange={props.handleChange}
                 />
 
 

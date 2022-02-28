@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Container, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function Registration10() {
+export default function Registration10(props) {
     const [email, fname, lname, setName] = React.useState();
     const handleChange = (event) => {
         setName(event.target.value);
@@ -30,17 +30,30 @@ export default function Registration10() {
             >
                 <TextField
                     id="outlined-name"
-                    label="Email"
+                    label="Email address"
+                    name="emailAddress"
+                    type="email"
+                    value={props.values.emailAddress}
+                    onChange={props.handleChange}
 
                 />
                 <TextField
                     id="outlined-name"
-                    label="First Name"
+                    label="First name"
+                    name="firstName"
+                    type="text"
+                    value={props.values.firstName}
+                    onChange={props.handleChange}
+
 
                 />
                 <TextField
                     id="outlined-name"
-                    label="Last Name"
+                    label="Last name"
+                    name="lastName"
+                    type="text"
+                    value={props.values.lastName}
+                    onChange={props.handleChange}
 
                 />
 

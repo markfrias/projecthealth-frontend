@@ -25,6 +25,15 @@ const Registration = () => {
         },
         sex: "",
         birthday: new Date(),
+        height: "",
+        weight: "",
+        goalWeight: "",
+        emailAddress: "",
+        firstName: "",
+        lastName: "",
+        password1: "",
+        password2: "",
+
 
     }
 
@@ -76,12 +85,12 @@ const Registration = () => {
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
                 <Route path="5" element={<Registration5 handleChange={handleDateChanges} values={regState} />} />
-                <Route path="6" element={<Registration6 />} />
-                <Route path="7" element={<Registration7 />} />
-                <Route path="8" element={<Registration8 />} />
+                <Route path="6" element={<Registration6 handleChange={handleChanges} values={regState} />} />
+                <Route path="7" element={<Registration7 handleChange={handleChanges} values={regState} />} />
+                <Route path="8" element={<Registration8 handleChange={handleChanges} values={regState} />} />
                 <Route path="9" element={<Registration9 />} />
-                <Route path="10" element={<Registration10 />} />
-                <Route path="11" element={<Registration11 />} />
+                <Route path="10" element={<Registration10 handleChange={handleChanges} values={regState} />} />
+                <Route path="11" element={<Registration11 handleChange={handleChanges} values={regState} />} />
                 <Route path="success" element={<RegistrationSuccess />} />
             </Routes>
         </div>

@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Registration8() {
+export default function Registration8(props) {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     let navigate = useNavigate();
@@ -48,8 +48,10 @@ export default function Registration8() {
             <FormControl style={{ marginBottom: 180 }}>
                 <FilledInput
                     id="filled-adornment-weight"
-                    value={values.weight}
-                    onChange={handleChange('height')}
+                    name="goalWeight"
+                    type="number"
+                    value={props.values.goalWeight}
+                    onChange={props.handleChange}
                     endAdornment={<InputAdornment position="end">kg</InputAdornment>}
                     aria-describedby="filled-height-helper-text"
                     inputProps={{
