@@ -8,12 +8,8 @@ import FormLabel from '@mui/material/FormLabel';
 import MobileStepper from '@mui/material/MobileStepper';
 import { useNavigate } from 'react-router-dom';
 
-export default function Registration4() {
-    const [value, setValue] = React.useState('female');
+export default function Registration4(props) {
     const [activeStep,] = React.useState(0);
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
     let navigate = useNavigate();
     const goNext = () => {
         navigate('/app/registration/5');
@@ -29,13 +25,13 @@ export default function Registration4() {
                 <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={value}
-                    onChange={handleChange}
+                    name="sex"
+                    value={props.values.sex}
+                    onChange={props.handleChange}
                 >
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="mother" control={<Radio />} label="Other" />
+                    <FormControlLabel value="Female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="Male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="Other" control={<Radio />} label="Other" />
 
 
                 </RadioGroup>

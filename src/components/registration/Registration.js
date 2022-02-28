@@ -22,7 +22,8 @@ const Registration = () => {
             loseWeight: false,
             gainWeight: false,
             maintainWeight: false
-        }
+        },
+        sex: ""
 
     }
 
@@ -41,13 +42,22 @@ const Registration = () => {
 
         }
         )
+    };
+
+    // General change handler
+    const handleChanges = (event) => {
+        const target = event.target;
+        setRegState({
+            ...regState,
+            [target.name]: target.value
+        })
     }
 
-    /* Test checkboxes
+    //Test checkboxes
     useEffect(() => {
-        console.log(regState.eatHealthier)
+        console.log(regState.sex)
     }, [regState]);
-    */
+
 
     return (
         <div>
@@ -55,7 +65,7 @@ const Registration = () => {
                 <Route path="/" element={<Registration1 />} />
                 <Route path="1" element={<Registration1 />} />
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
-                <Route path="4" element={<Registration4 />} />
+                <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
                 <Route path="5" element={<Registration5 />} />
                 <Route path="6" element={<Registration6 />} />
                 <Route path="7" element={<Registration7 />} />
