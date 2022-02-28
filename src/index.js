@@ -40,6 +40,7 @@ import Registration8 from './components/registration/Registration8';
 import Registration9 from './components/registration/Registration9';
 import Registration10 from './components/registration/Registration10';
 import Registration11 from './components/registration/Registration11';
+import Registration from './components/registration/Registration';
 
 
 // Firebase config
@@ -93,17 +94,20 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
-            <Route path="registration-1" element={<Registration1 />} />
-            <Route path="registration-2" element={<Registration2 />} />
-            <Route path="registration-3" element={<Registration3 />} />
-            <Route path="registration-4" element={<Registration4 />} />
-            <Route path="registration-5" element={<Registration5 />} />
-            <Route path="registration-6" element={<Registration6 />} />
-            <Route path="registration-7" element={<Registration7 />} />
-            <Route path="registration-8" element={<Registration8 />} />
-            <Route path="registration-9" element={<Registration9 />} />
-            <Route path="registration-10" element={<Registration10 />} />
-            <Route path="registration-11" element={<Registration11 />} />
+            <Route path="registration" element={<Registration />}>
+              <Route path="1" element={<Registration1 />} />
+              <Route path="2" element={<Registration2 />} />
+              <Route path="3" element={<Registration3 />} />
+              <Route path="4" element={<Registration4 />} />
+              <Route path="5" element={<Registration5 />} />
+              <Route path="6" element={<Registration6 />} />
+              <Route path="7" element={<Registration7 />} />
+              <Route path="8" element={<Registration8 />} />
+              <Route path="9" element={<Registration9 />} />
+              <Route path="10" element={<Registration10 />} />
+              <Route path="11" element={<Registration11 />} />
+            </Route>
+
 
             <Route path="Onboarding1" element={<Onboarding1 />} />
             <Route path="Onboarding2" element={<Onboarding2 />} />
