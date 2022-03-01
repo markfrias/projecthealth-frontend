@@ -73,7 +73,7 @@ const Registration = () => {
 
     //Test states
     useEffect(() => {
-        console.log(regState.weight)
+        console.log(regState.goalWeight)
     }, [regState]);
 
 
@@ -87,7 +87,7 @@ const Registration = () => {
                 <Route path="5" element={<Registration5 handleChange={handleDateChanges} values={regState} />} />
                 <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="7" element={<Registration7 handleChange={handleChanges} setState={setRegState} values={regState} />} />
-                <Route path="8" element={<Registration8 handleChange={handleChanges} values={regState} />} />
+                <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="9" element={<Registration9 />} />
                 <Route path="10" element={<Registration10 handleChange={handleChanges} values={regState} />} />
                 <Route path="11" element={<Registration11 handleChange={handleChanges} values={regState} />} />

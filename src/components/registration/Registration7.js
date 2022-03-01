@@ -55,7 +55,7 @@ export default function Registration7(props) {
     return (
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
             <div style={{ marginTop: 180, marginLeft: 5 }}>
-                <h2>How tall are you?</h2>
+                <h2>How much do you weigh?</h2>
                 <p>This information will only be used to personalize your experience.</p>
             </div>
             <FormControl style={{ marginBottom: 180 }}>
