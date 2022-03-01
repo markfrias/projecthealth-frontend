@@ -73,7 +73,7 @@ const Registration = () => {
 
     //Test states
     useEffect(() => {
-        console.log(regState)
+        console.log(regState.height)
     }, [regState]);
 
 
@@ -85,7 +85,7 @@ const Registration = () => {
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
                 <Route path="5" element={<Registration5 handleChange={handleDateChanges} values={regState} />} />
-                <Route path="6" element={<Registration6 handleChange={handleChanges} values={regState} />} />
+                <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="7" element={<Registration7 handleChange={handleChanges} values={regState} />} />
                 <Route path="8" element={<Registration8 handleChange={handleChanges} values={regState} />} />
                 <Route path="9" element={<Registration9 />} />
