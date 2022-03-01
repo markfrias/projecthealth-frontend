@@ -2,7 +2,10 @@
   background-color: #f9ab10;
   border-radius: 10px;
 }
-
+.button-secondary {
+  background-color: #D3F76C;
+  border-radius: 10px;
+}
 .button-full {
   width: 100%;
   font-weight: 1000;
@@ -11,4 +14,9 @@
 
 .button-group > button {
   margin-bottom: 1em;
+}
+.button-half {
+  width: 50%;
+  font-weight: 1000;
+  height: 3.5em;
 }

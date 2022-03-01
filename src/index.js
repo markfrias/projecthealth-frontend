@@ -18,6 +18,15 @@ import Onboarding9 from "./components/post-login/Onboarding9"
 import Onboarding10 from "./components/post-login/Onboarding10";
 import Onboarding11 from "./components/post-login/Onboarding11"
 import Onboarding12 from "./components/post-login/Onboarding12"
+import HabitOnboarding1 from "./components/post-login/Habit-Onboarding/HabitOnboarding1";
+import HabitOnboarding2 from "./components/post-login/Habit-Onboarding/HabitOnboarding2";
+import HabitOnboarding3 from "./components/post-login/Habit-Onboarding/HabitOnboarding3";
+import HabitOnboarding4 from "./components/post-login/Habit-Onboarding/HabitOnboarding4";
+import HabitOnboarding5 from "./components/post-login/Habit-Onboarding/HabitOnboarding5";
+
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -37,6 +46,11 @@ ReactDOM.render(
           <Route path="/Onboarding10" element={<Onboarding10 /> }/>
           <Route path="/Onboarding11" element={<Onboarding11 /> }/>
           <Route path="/Onboarding12" element={<Onboarding12 /> }/>
+          <Route path="/HabitOnboarding1" element={<HabitOnboarding1 /> } />
+          <Route path="HabitOnboarding2" element={<HabitOnboarding2 />} />
+          <Route path="HabitOnboarding3" element={<HabitOnboarding3 />} />
+          <Route path="HabitOnboarding4" element={<HabitOnboarding4 />} />
+          <Route path="HabitOnboarding5" element={<HabitOnboarding5/>} />
 
 
         </Route>
