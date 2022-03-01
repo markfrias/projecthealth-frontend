@@ -9,14 +9,11 @@ const Registration1 = () => {
     }
     return (
 
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-around", height: "100%" }}>
 
-            <div className='header' style={{ marginTop: 180, mardignLeft: 10 }} >
+            <div >
                 <h2 style={{ fontSize: 42 }}>Let's get to know each other.</h2>
                 <p style={{ fontSize: 20 }} >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
-            </div>
-            <div className='button-group'>
-                <Button className="button-full" variant="contained" onClick={goNext}>Let's go!</Button>
             </div>
         </Container>
 

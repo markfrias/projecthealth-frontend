@@ -11,16 +11,14 @@ export default function Registration11(props) {
     }
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
 
-            <div className="header" style={{ marginTop: 80, marginLeft: 55 }}>
+            <Box sx={{ textAlign: "center", mb: "5rem" }}>
                 <h2 >Register your account</h2>
-                <p>Enter a strong password.</p>
-            </div>
+            </Box>
             <Box
-                component="form"
                 sx={{
-                    '& > :not(style)': { marginLeft: 6, marginTop: 2, width: '28ch' },
+                    width: "100%"
                 }}
                 noValidate
                 autoComplete="off"
@@ -32,6 +30,7 @@ export default function Registration11(props) {
                     type="password"
                     value={props.values.password1}
                     onChange={props.handleChange}
+                    sx={{ width: "100%", mb: "1rem" }}
 
                 />
                 <TextField
@@ -41,14 +40,11 @@ export default function Registration11(props) {
                     type="password"
                     value={props.values.password2}
                     onChange={props.handleChange}
+                    sx={{ width: "100%", mb: "1rem" }}
                 />
 
 
             </Box>
-            <div className='button-group'>
-                <Button className="button-full" variant="contained" onClick={goNext}>Register Now</Button>
-
-            </div>
         </Container>
     );
 }

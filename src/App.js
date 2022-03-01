@@ -85,7 +85,8 @@ const theme = createTheme({
         root: {
           // Some CSS
           boxShadow: 'none',
-          height: '2.5rem'
+          height: '3.25rem',
+          fontSize: '1.05rem'
         },
       },
     },

@@ -28,26 +28,16 @@ export default function Registration5(props) {
 
     return (
 
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
-            <div style={{ marginTop: 180, marginLeft: 5 }}>
-                <h2>When were you born?</h2>
-                <p  >This information will only be used to personalize your experience.</p>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+            <div>
+                <h2 >When were you born?</h2>
+                <p className="mb-5" >This information will only be used to personalize your experience.</p>
             </div>
-            <FormGroup style={{ marginBottom: 180 }}>
+            <FormGroup >
 
                 <ThemedDatePicker value={props.values.birthday} setValue={props.handleChange} label="Please enter your birth date" name="birthday" />
 
             </FormGroup>
-            <div className='button-group'>
-                <MobileStepper
-                    variant="progress"
-                    steps={6}
-                    position="static"
-                    activeStep={activeStep}
-                    sx={{ maxWidth: 400, flexGrow: 1 }}
-                />
-                <Button className="button-full" variant="contained" onClick={goNext} >Continue</Button>
-            </div>
         </Container>
 
     );

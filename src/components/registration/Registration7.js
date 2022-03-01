@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Chip, Button } from '@mui/material';
+import { Container, Chip, Button, Box } from '@mui/material';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -53,12 +53,12 @@ export default function Registration7(props) {
 
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
-            <div style={{ marginTop: 180, marginLeft: 5 }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+            <Box sx={{ mb: "5rem" }}>
                 <h2>How much do you weigh?</h2>
                 <p>This information will only be used to personalize your experience.</p>
-            </div>
-            <FormControl style={{ marginBottom: 180 }}>
+            </Box>
+            <FormControl>
                 <FilledInput
                     id="filled-adornment-weight"
                     name="weight"
@@ -76,17 +76,6 @@ export default function Registration7(props) {
                     <Chip label="lbs" size="small" color={!isMetric ? "primary" : "default"} variant={isMetric ? "outlined" : "filled"} clickable={true} onClick={handleMeasurementClick} />
                 </Stack>
             </FormControl>
-            <div className='button-group'>
-                <MobileStepper
-                    variant="progress"
-                    steps={6}
-                    position="static"
-                    activeStep={activeStep}
-                    sx={{ maxWidth: 400, flexGrow: 1 }}
-                />
-                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
-            </div>
-
         </Container>
     );
 } 

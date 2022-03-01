@@ -30,13 +30,13 @@ export default function Registration3(props) {
     return (
 
 
-        < Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }} >
-            <div style={{ marginTop: 180, marginLeft: 10 }}>
+        < Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", overflow: "scroll" }} >
+            <div style={{ marginLeft: 10 }}>
                 <h2>What are your health goals?.</h2>
                 <p >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
             </div>
 
-            <FormGroup style={{ marginBottom: 120, marginLeft: 10 }}>
+            <FormGroup style={{ marginLeft: 10 }}>
                 <FormControlLabel control={<Checkbox name='eatHealthier' onChange={props.handleChange} checked={props.values.goals.eatHealthier} />} label="Eat Healthier" />
                 <FormControlLabel control={<Checkbox name='increasePA' onChange={props.handleChange} checked={props.values.goals.increasePA} />} label="Increase Physical Activity" />
                 <FormControlLabel control={<Checkbox name='improveSleep' onChange={props.handleChange} checked={props.values.goals.improveSleep} />} label="Improve Sleep" />
@@ -45,16 +45,6 @@ export default function Registration3(props) {
                 <FormControlLabel control={<Checkbox name='gainWeight' onChange={props.handleChange} checked={props.values.goals.gainWeight} />} label="Gain Weight" />
                 <FormControlLabel control={<Checkbox name='maintainWeight' onChange={props.handleChange} checked={props.values.goals.maintainWeight} />} label="Maintain Weight" />
             </FormGroup>
-            <div className='button-group'>
-                <MobileStepper
-                    variant="progress"
-                    steps={6}
-                    position="static"
-                    activeStep={activeStep}
-                    sx={{ maxWidth: 400, flexGrow: 1 }}
-                />
-                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
-            </div>
         </Container >
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button } from '@mui/material';
+import { Container, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Registration9 = () => {
@@ -10,16 +10,16 @@ const Registration9 = () => {
 
     return (
 
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
-            <div className="header" style={{ marginTop: 180, marginLeft: 5 }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+            <Box sx={{ textAlign: "center", mb: "6rem" }} className="header">
                 <h2 >Let’s create an account for you, now.</h2>
                 <p>To enjoy the features of the app, you need to sign up for an account.</p>
-            </div>
-            <div className="button-class" style={{ marginLeft: 5, marginBottom: 250 }}>
-                <Button className="button-full" variant="contained" onClick={goNext}>Register with your email</Button>
+            </Box>
+            <Box className="button-class" sx={{ textAlign: "center" }}>
+                <Button className="button-full" variant="contained" onClick={goNext} sx={{ mb: "1rem" }}>Register with your email</Button>
                 {/* <Button className="button-full" variant="outlined" style={{ marginTop: 20 }}>Register with Google</Button> */}
-                <p style={{ marginLeft: 20 }}>I already have an account. Login, instead.</p>
-            </div>
+                <p>I already have an account. <u>Login,</u> instead.</p>
+            </Box>
 
         </Container>
 

@@ -53,12 +53,12 @@ export default function Registration8(props) {
 
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
-            <div style={{ marginTop: 180, marginLeft: 5 }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", height: "100%" }}>
+            <div>
                 <h2>What is your goal weight?</h2>
                 <p>This information will only be used to personalize your experience.</p>
             </div>
-            <FormControl style={{ marginBottom: 180 }}>
+            <FormControl>
                 <FilledInput
                     id="filled-adornment-weight"
                     name="goalWeight"
@@ -76,17 +76,6 @@ export default function Registration8(props) {
                     <Chip label="lbs" size="small" color={!isMetric ? "primary" : "default"} variant={isMetric ? "outlined" : "filled"} clickable={true} onClick={handleMeasurementClick} />
                 </Stack>
             </FormControl>
-            <div className='button-group'>
-                <MobileStepper
-                    variant="progress"
-                    steps={6}
-                    position="static"
-                    activeStep={activeStep}
-                    sx={{ maxWidth: 400, flexGrow: 1 }}
-                />
-                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
-            </div>
-
         </Container>
     );
 } 

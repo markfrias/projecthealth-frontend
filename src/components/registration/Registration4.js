@@ -16,12 +16,12 @@ export default function Registration4(props) {
     }
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
-            <div style={{ marginTop: 180, marginLeft: 25 }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+            <div>
                 <h2>What is your sex?</h2>
                 <p>This information will only be used to personalize your experience.</p>
             </div>
-            <FormControl style={{ marginBottom: 200, marginLeft: 25 }} >
+            <FormControl style={{ marginLeft: 25 }} >
                 <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
                 <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
@@ -36,16 +36,6 @@ export default function Registration4(props) {
 
                 </RadioGroup>
             </FormControl>
-            <div className='button-group'>
-                <MobileStepper
-                    variant="progress"
-                    steps={8}
-                    position="static"
-                    activeStep={activeStep}
-                    sx={{ maxWidth: 400, flexGrow: 1 }}
-                />
-                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
-            </div>
         </Container>
 
 

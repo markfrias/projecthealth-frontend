@@ -25,19 +25,14 @@ export default function RegistrationSuccess() {
 
     return (
 
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", height: "100%" }}>
 
-            <div className="header" style={{ marginTop: 180 }}>
+            <div>
                 <h2 style={{ fontSize: 35 }} >You’re all set!</h2>
                 <p style={{ fontSize: 20 }}>You can now proceed to login.</p>
 
             </div>
             <img alt="Success" src={require("../../assets/img/success.png")} />
-            <div className='button-group'>
-                <Button className="button-full" variant="contained" onClick={goLanding}>Login</Button>
-
-            </div>
-
         </Container>
     );
 }

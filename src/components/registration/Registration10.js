@@ -15,15 +15,13 @@ export default function Registration10(props) {
     }
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
-            <div className="header" style={{ marginTop: 80, marginLeft: 55 }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+            <Box sx={{ textAlign: "center", mb: "5rem" }}>
                 <h2>Register your account</h2>
-            </div>
+            </Box>
             <Box
-
-                component="form"
                 sx={{
-                    '& > :not(style)': { marginLeft: 5, marginTop: 2, width: '30ch' },
+                    width: "100%"
                 }}
                 noValidate
                 autoComplete="off"
@@ -35,6 +33,7 @@ export default function Registration10(props) {
                     type="email"
                     value={props.values.emailAddress}
                     onChange={props.handleChange}
+                    sx={{ width: "100%", mb: "1rem" }}
 
                 />
                 <TextField
@@ -44,6 +43,8 @@ export default function Registration10(props) {
                     type="text"
                     value={props.values.firstName}
                     onChange={props.handleChange}
+                    sx={{ width: "100%", mb: "1rem" }}
+
 
 
                 />
@@ -54,14 +55,12 @@ export default function Registration10(props) {
                     type="text"
                     value={props.values.lastName}
                     onChange={props.handleChange}
+                    sx={{ width: "100%", mb: "1rem" }}
+
 
                 />
 
             </Box>
-            <div className='button-group'>
-                <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
-
-            </div>
         </Container>
     );
 }
