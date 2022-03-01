@@ -38,7 +38,7 @@ export default function Registration6(props) {
                     type="number"
                     value={props.values.height}
                     onChange={props.handleChange}
-                    endAdornment={<InputAdornment position="end">cm</InputAdornment>}
+                    endAdornment={<InputAdornment position="end">{isMetric ? "cm" : "ft. in."}</InputAdornment>}
                     aria-describedby="filled-height-helper-text"
                     inputProps={{
                         'aria-label': 'weight',
