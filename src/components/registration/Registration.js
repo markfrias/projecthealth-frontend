@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Registration1 from './Registration1';
 import Registration10 from './Registration10';
 import Registration11 from './Registration11';
@@ -71,9 +71,9 @@ const Registration = () => {
         })
     }
 
-    //Test checkboxes
+    //Test states
     useEffect(() => {
-        console.log(regState.birthday)
+        console.log(regState)
     }, [regState]);
 
 

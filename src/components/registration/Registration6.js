@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 export default function Registration6(props) {
@@ -17,27 +18,12 @@ export default function Registration6(props) {
         navigate('/app/registration/7');
     }
 
+    const [isMetric, setIsMetric] = useState(true);
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+    const handleMeasurementClick = () => {
+        setIsMetric(!isMetric)
+    }
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-    const handleClick = () => {
-    };
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
 
     return (
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100vh" }}>
@@ -59,8 +45,8 @@ export default function Registration6(props) {
                     }}
                 />
                 <Stack direction="row" spacing={1} marginLeft={18} marginTop={3}>
-                    <Chip label="cm" size="small" />
-                    <Chip label="ft. in" size="small" variant="outlined" />
+                    <Chip label="cm" size="small" color={isMetric ? "primary" : "default"} clickable={true} onClick={handleMeasurementClick} variant={isMetric ? "filled" : "outlined"} />
+                    <Chip label="ft. in" size="small" color={!isMetric ? "primary" : "default"} variant={isMetric ? "outlined" : "filled"} clickable={true} onClick={handleMeasurementClick} />
                 </Stack>
             </FormControl>
             <div className='button-group'>
