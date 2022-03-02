@@ -15,8 +15,8 @@ const Recommendation = (props) => {
             </Box>
 
             <Box>
-                <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "1rem" }}>You chose a weight gain pace of <strong> {props.values.weightRange} kg ({kgToLbs(props.values.weightRange).toFixed(2)} lbs) per week</strong>.</Typography>
-                <Typography variant="onboardingSubheader" component="p">Your daily calorie budget will be <strong>1600 calories</strong>.</Typography>
+                <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "1rem" }}>You chose a weight gain pace of <strong> {props.values.weightRange.toFixed(2)} kg ({kgToLbs(props.values.weightRange).toFixed(2)} lbs) per week</strong>.</Typography>
+                <Typography variant="onboardingSubheader" component="p">Your daily calorie budget will be <strong>{props.values.calorieBudget.toFixed(0)} calories</strong>.</Typography>
 
             </Box>
 

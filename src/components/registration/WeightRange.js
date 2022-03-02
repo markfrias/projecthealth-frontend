@@ -1,4 +1,4 @@
-import { Container, Slider, Typography } from '@mui/material';
+import { Alert, Container, Slider, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -8,20 +8,6 @@ const WeightRange = (props) => {
     const kgToLbs = (kg) => {
         return kg * 2.205;
     }
-
-    // Change calorie recommendation everytime the weight loss/gain range changes
-    useEffect(() => {
-        // Calculate BMR
-        const maleBMRVar = 5;
-        const femaleBMRVar = -161
-        let sexSpecificSolution = props.values.sex === "male" ? maleBMRVar : femaleBMRVar;
-        console.log(props.values.sex)
-
-        const bmr = (10 * props.values.weight) + (6.25 * props.values.height) - (5 * moment(new Date()).diff(new Date(props.values.birthday), "years")) + sexSpecificSolution;
-        console.log(bmr);
-        console.log((moment(new Date()).diff(new Date(props.values.birthday), 'years')))
-
-    }, [props.values]);
 
 
     // State for weight loss/gain range
@@ -55,9 +41,15 @@ const WeightRange = (props) => {
                         valueLabelFormat={(value) => `${value} kg`}
                     />
 
-                    <Typography variant="onboardingSubheader" component="p">You chose a {props.values.goals.weightGoal === "gainWeight" ? "weight gain" : "weight loss"} pace of <strong>{props.values.weightRange} kg ({kgToLbs(props.values.weightRange).toFixed(2)} lbs) per week.</strong></Typography>
+                    <Typography sx={{ mb: "5rem" }} variant="onboardingSubheader" component="p">You chose a {props.values.goals.weightGoal === "gainWeight" ? "weight gain" : "weight loss"} pace of <strong>{props.values.weightRange} kg ({kgToLbs(props.values.weightRange).toFixed(2)} lbs) per week.</strong></Typography>
 
                 </Box>
+                {
+                    props.values.isWarning ?
+                        <Alert severity="warning">This option is not recommended.</Alert> :
+                        <Box></Box>
+                }
+
 
 
 

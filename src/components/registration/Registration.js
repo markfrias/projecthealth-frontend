@@ -40,6 +40,8 @@ const Registration = () => {
         password2: "",
         activityLevel: "",
         weightRange: 0.1,
+        isWarning: false,
+        calorieBudget: 0
     }
 
     const [step, setStep] = useState(1);
@@ -125,6 +127,63 @@ const Registration = () => {
         navigate("/");
     }
 
+    // Calorie budget calculation handler
+    const calculateCalorieBudget = () => {
+        const maleBMRVar = 5;
+        const femaleBMRVar = -161
+        let sexSpecificSolution = regState.sex === "male" ? maleBMRVar : femaleBMRVar;
+
+        const bmr = (10 * regState.weight) + (6.25 * regState.height) - (5 * moment(new Date()).diff(new Date(regState.birthday), "years")) + sexSpecificSolution;
+
+        let calorieRequirement = 0;
+        // Calculate needed calories per activity level
+        switch (regState.activityLevel) {
+            case "sedentary":
+                calorieRequirement = bmr * 1.2;
+                break;
+            case "light":
+                calorieRequirement = bmr * 1.375;
+                break;
+            case "moderate":
+                calorieRequirement = bmr * 1.55;
+                break;
+            case "high":
+                calorieRequirement = bmr * 1.725;
+                break;
+            default:
+                calorieRequirement = bmr * 1.2;
+                break;
+        }
+
+        console.log(calorieRequirement)
+        // Calculated deficit or addition
+        let deficitOrSurplus = regState.weightRange * 7716.179176;
+        console.log(deficitOrSurplus)
+        if (deficitOrSurplus > 7000) {
+            setRegState({
+                ...regState,
+                isWarning: true
+            })
+        } else {
+            setRegState({
+                ...regState,
+                isWarning: false
+            })
+        }
+        let calorieBudget = 0;
+        // Deduct or add deficit/surplus amount and assign amount to calorie budget
+        if (regState.goals.weightGoal === "loseWeight") {
+            calorieBudget = calorieRequirement - (deficitOrSurplus / 7);
+        } else {
+            calorieBudget = calorieRequirement + (deficitOrSurplus / 7);
+        }
+
+        setRegState({
+            ...regState,
+            calorieBudget: calorieBudget
+        })
+    }
+
 
     //Test states
     useEffect(() => {
@@ -133,6 +192,11 @@ const Registration = () => {
         console.log(moment(new Date()).diff(new Date(regState.birthday), "years"))
 
     }, [regState]);
+
+    //Test states
+    useEffect(() => {
+        calculateCalorieBudget();
+    }, [regState.weightRange]);
 
 
     return (
