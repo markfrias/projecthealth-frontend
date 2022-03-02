@@ -18,6 +18,7 @@ import Registration9 from './Registration9';
 import RegistrationSuccess from './RegistrationSuccess';
 import WeightGoals from './WeightGoals';
 import WeightRange from './WeightRange';
+import { registerAccount } from '../auth/APIServices';
 
 const Registration = () => {
     const initialState = {
@@ -52,7 +53,14 @@ const Registration = () => {
         if (location.pathname.slice(18) === "") {
             return;
         }
+
         const stepBasis = parseInt(location.pathname.slice(18))
+
+        if (stepBasis >= 13 && stepBasis <= 14) {
+            console.log(stepBasis - 12)
+            setStep(stepBasis - 12);
+            return;
+        }
         setStep(stepBasis - 2);
 
     }, [location]);
@@ -119,7 +127,8 @@ const Registration = () => {
 
     // Register now button handler 
     const handleRegistration = () => {
-        navigate(location.pathname.slice(0, 18) + "success")
+        registerAccount(regState);
+        //navigate(location.pathname.slice(0, 18) + "success")
     }
 
     // Login button handler 
@@ -187,10 +196,7 @@ const Registration = () => {
 
     //Test states
     useEffect(() => {
-        console.log(moment(regState.birthday))
-        console.log(moment(new Date()))
-        console.log(moment(new Date()).diff(new Date(regState.birthday), "years"))
-
+        console.log(regState)
     }, [regState]);
 
     //Test states
@@ -207,7 +213,7 @@ const Registration = () => {
                 <Route path="2" element={<WeightGoals handleChange={handleWeightGoal} values={regState} />} />
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
-                <Route path="5" element={<Registration5 handleChange={(data) => { handleDateChanges(data) }} values={regState} />} />
+                <Route path="5" element={<Registration5 handleChange={(data) => { handleDateChanges(new Date(data)) }} values={regState} />} />
                 <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="7" element={<Registration7 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} />} />
@@ -231,8 +237,8 @@ const Registration = () => {
 
             {parseInt(location.pathname.slice(18)) >= 13 && parseInt(location.pathname.slice(18)) <= 14 ?
                 <Container sx={{ paddingBottom: "1rem" }}>
-                    <MobileStepper steps={2} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step - 8} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
-                    {parseInt(location.pathname.slice(18)) === 11 ?
+                    <MobileStepper steps={3} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
+                    {parseInt(location.pathname.slice(18)) === 14 ?
                         <Button className="button-full" variant="contained" onClick={handleRegistration}>Register now</Button>
                         : <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
                     }

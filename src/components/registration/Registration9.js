@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Registration9 = () => {
     let navigate = useNavigate();
     const goNext = () => {
-        navigate('/app/registration/10');
+        navigate('/app/registration/13');
     }
 
     return (
