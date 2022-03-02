@@ -41,9 +41,6 @@ export default function Registration3(props) {
                 <FormControlLabel control={<Checkbox name='increasePA' onChange={props.handleChange} checked={props.values.goals.increasePA} />} label="Increase Physical Activity" />
                 <FormControlLabel control={<Checkbox name='improveSleep' onChange={props.handleChange} checked={props.values.goals.improveSleep} />} label="Improve Sleep" />
                 <FormControlLabel control={<Checkbox name='reduceAC' onChange={props.handleChange} checked={props.values.goals.reduceAC} />} label="Reduce Alcohol Consumption" />
-                <FormControlLabel control={<Checkbox name='loseWeight' onChange={props.handleChange} checked={props.values.goals.loseWeight} />} label="Lose Weight" />
-                <FormControlLabel control={<Checkbox name='gainWeight' onChange={props.handleChange} checked={props.values.goals.gainWeight} />} label="Gain Weight" />
-                <FormControlLabel control={<Checkbox name='maintainWeight' onChange={props.handleChange} checked={props.values.goals.maintainWeight} />} label="Maintain Weight" />
             </FormGroup>
         </Container >
     );

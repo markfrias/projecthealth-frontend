@@ -2,6 +2,8 @@ import { Button, Container, MobileStepper } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import ActivityLevel from './ActivityLevel';
+import Recommendation from './Recommendation';
 import Registration1 from './Registration1';
 import Registration10 from './Registration10';
 import Registration11 from './Registration11';
@@ -13,17 +15,17 @@ import Registration7 from './Registration7';
 import Registration8 from './Registration8';
 import Registration9 from './Registration9';
 import RegistrationSuccess from './RegistrationSuccess';
+import WeightGoals from './WeightGoals';
+import WeightRange from './WeightRange';
 
 const Registration = () => {
     const initialState = {
         goals: {
+            weightGoal: "maintainWeight",
             eatHealthier: false,
             increasePA: false,
             improveSleep: false,
             reduceAC: false,
-            loseWeight: false,
-            gainWeight: false,
-            maintainWeight: false
         },
         sex: "",
         birthday: new Date(),
@@ -35,8 +37,8 @@ const Registration = () => {
         lastName: "",
         password1: "",
         password2: "",
-
-
+        activityLevel: "",
+        weightRange: 0.1,
     }
 
     const [step, setStep] = useState(1);
@@ -44,8 +46,9 @@ const Registration = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        console.log(location.pathname.slice(18));
-        console.log(parseInt(location.pathname.slice(18)))
+        if (location.pathname.slice(18) === "") {
+            return;
+        }
         const stepBasis = parseInt(location.pathname.slice(18))
         setStep(stepBasis - 2);
 
@@ -77,6 +80,18 @@ const Registration = () => {
         })
     }
 
+    // Weight goal change handler
+    const handleWeightGoal = (event) => {
+        const target = event.target;
+        setRegState({
+            ...regState,
+            goals: {
+                ...regState.goals,
+                weightGoal: target.value
+            }
+        })
+    }
+
     // Date change handler
     const handleDateChanges = (data) => {
         setRegState({
@@ -91,7 +106,7 @@ const Registration = () => {
 
         // Check if the last part of the address is a number or if it is one
         if (location.pathname.slice(18) === "" || parseInt(location.pathname.slice(18)) === 1) {
-            navigate(stepBasis + 3);
+            navigate(stepBasis + 2);
         } else {
             const stepNumber = parseInt(location.pathname.slice(18));
             navigate(stepBasis + (stepNumber + 1));
@@ -112,7 +127,6 @@ const Registration = () => {
 
     //Test states
     useEffect(() => {
-        console.log(regState.goalWeight)
     }, [regState]);
 
 
@@ -121,27 +135,32 @@ const Registration = () => {
             <Routes>
                 <Route path="/" element={<Registration1 />} />
                 <Route path="1" element={<Registration1 />} />
+                <Route path="2" element={<WeightGoals handleChange={handleWeightGoal} values={regState} />} />
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
                 <Route path="5" element={<Registration5 handleChange={handleDateChanges} values={regState} />} />
                 <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="7" element={<Registration7 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} />} />
-                <Route path="9" element={<Registration9 />} />
-                <Route path="10" element={<Registration10 handleChange={handleChanges} values={regState} />} />
-                <Route path="11" element={<Registration11 handleChange={handleChanges} values={regState} />} />
+                <Route path="9" element={<ActivityLevel handleChange={handleChanges} setState={setRegState} values={regState} />} />
+                <Route path="10" element={<WeightRange handleChange={handleChanges} setState={setRegState} values={regState} />} />
+                <Route path="11" element={<Recommendation handleChange={handleChanges} setState={setRegState} values={regState} />} />
+                <Route path="12" element={<Registration9 />} />
+                <Route path="13" element={<Registration10 handleChange={handleChanges} values={regState} />} />
+                <Route path="14" element={<Registration11 handleChange={handleChanges} values={regState} />} />
                 <Route path="success" element={<RegistrationSuccess />} />
+
             </Routes>
 
-            {parseInt(location.pathname.slice(18)) >= 3 && parseInt(location.pathname.slice(18)) <= 8 ?
+            {parseInt(location.pathname.slice(18)) >= 2 && parseInt(location.pathname.slice(18)) <= 11 ?
                 <Container sx={{ paddingBottom: "1rem" }}>
-                    <MobileStepper steps={7} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
+                    <MobileStepper steps={10} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
                     <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
                 </Container>
                 : <Box> </Box>
             }
 
-            {parseInt(location.pathname.slice(18)) >= 10 && parseInt(location.pathname.slice(18)) <= 11 ?
+            {parseInt(location.pathname.slice(18)) >= 13 && parseInt(location.pathname.slice(18)) <= 14 ?
                 <Container sx={{ paddingBottom: "1rem" }}>
                     <MobileStepper steps={2} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step - 8} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
                     {parseInt(location.pathname.slice(18)) === 11 ?
