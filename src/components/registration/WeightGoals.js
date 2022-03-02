@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Button, Switch, Checkbox, Box, FormControl, RadioGroup, Radio } from '@mui/material';
+import { Container, Button, Switch, Checkbox, Box, FormControl, RadioGroup, Radio, Typography } from '@mui/material';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -16,10 +16,13 @@ export default function WeightGoals(props) {
 
 
         < Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", overflow: "scroll" }} >
-            <div style={{ marginLeft: 10 }}>
-                <h2>What are your health goals?.</h2>
-                <p >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
-            </div>
+            <Box>
+                <Typography variant="onboardingHeader" component="h1" sx={{ mb: "1rem" }}>What are your health goals?</Typography>
+                <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "5rem" }}>We’d like to know your goals and conditions so that we can personalize the experience for you.</Typography>
+            </Box>
+
+
+
 
             <Box>
                 <FormControl>

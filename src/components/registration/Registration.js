@@ -1,4 +1,4 @@
-import { Button, Container, MobileStepper } from '@mui/material';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MobileStepper } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -29,7 +29,7 @@ const Registration = () => {
             improveSleep: false,
             reduceAC: false,
         },
-        sex: "",
+        sex: "female",
         birthday: new Date(),
         height: "",
         weight: "",
@@ -73,7 +73,19 @@ const Registration = () => {
     const [dialogHead, setDialogHead] = useState("");
     const [dialogBody, setDialogBody] = useState("");
 
+    // Form error states
+    const [isInvalid, setIsInvalid] = useState(false);
 
+
+    const [isInvalidDialog, setIsInvalidDialog] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setIsInvalidDialog(true);
+    };
+
+    const handleClose = () => {
+        setIsInvalidDialog(false);
+    };
 
     // Goal checkboxes handler
     const handleCheckboxes = (event) => {
@@ -120,6 +132,11 @@ const Registration = () => {
 
     // Continue button handler
     const goNext = () => {
+
+        if (isInvalid) {
+            setIsInvalidDialog(true);
+            return;
+        }
         const stepBasis = "/app/registration/"
 
         // Check if the last part of the address is a number or if it is one
@@ -129,6 +146,8 @@ const Registration = () => {
             const stepNumber = parseInt(location.pathname.slice(18));
             navigate(stepBasis + (stepNumber + 1));
         }
+        setIsInvalid(false);
+
 
     }
 
@@ -224,6 +243,17 @@ const Registration = () => {
         })
     }
 
+    // Checks if necessary fields in the first part are filled out
+    const handleRegPart1 = () => {
+        if (!regState.height || !regState.weight || !regState.goalWeight) {
+            setIsInvalidDialog(true)
+        } else {
+            goNext();
+        }
+    }
+
+    // Check if all required fields are filled
+
 
     //Test states
     useEffect(() => {
@@ -245,15 +275,15 @@ const Registration = () => {
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
                 <Route path="5" element={<Registration5 handleChange={(data) => { handleDateChanges(new Date(data)) }} values={regState} />} />
-                <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} />} />
-                <Route path="7" element={<Registration7 handleChange={handleChanges} setState={setRegState} values={regState} />} />
-                <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} />} />
+                <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
+                <Route path="7" element={<Registration7 handleChange={handleChanges} setState={setRegState} values={regState} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
+                <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
                 <Route path="9" element={<ActivityLevel handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="10" element={<WeightRange handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="11" element={<Recommendation handleChange={handleChanges} setState={setRegState} values={regState} calculateCalorieBudget={calculateCalorieBudget} />} />
                 <Route path="12" element={<Registration9 />} />
-                <Route path="13" element={<Registration10 handleChange={handleChanges} values={regState} />} />
-                <Route path="14" element={<Registration11 handleChange={handleChanges} values={regState} open={open} setOpen={setOpen} dialogHead={dialogHead} dialogBody={dialogBody} />} />
+                <Route path="13" element={<Registration10 handleChange={handleChanges} values={regState} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
+                <Route path="14" element={<Registration11 handleChange={handleChanges} values={regState} open={open} setOpen={setOpen} dialogHead={dialogHead} dialogBody={dialogBody} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
                 <Route path="success" element={<RegistrationSuccess />} />
 
             </Routes>
@@ -261,7 +291,7 @@ const Registration = () => {
             {parseInt(location.pathname.slice(18)) >= 2 && parseInt(location.pathname.slice(18)) <= 11 ?
                 <Container sx={{ paddingBottom: "1rem" }}>
                     <MobileStepper steps={10} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
-                    <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
+                    <Button className="button-full" variant="contained" onClick={(location.pathname.slice(18)) !== "9" ? goNext : handleRegPart1}>Continue</Button>
                 </Container>
                 : <Box> </Box>
             }
@@ -271,7 +301,7 @@ const Registration = () => {
                     <MobileStepper steps={3} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
                     {parseInt(location.pathname.slice(18)) === 14 ?
                         <Button className="button-full" variant="contained" onClick={handleRegistration}>Register now</Button>
-                        : <Button className="button-full" variant="contained" onClick={goNext}>Continue</Button>
+                        : <Button className="button-full" variant="contained" onClick={(location.pathname.slice(18)) !== "9" ? goNext : handleRegPart1}>Continue</Button>
                     }
                 </Container>
                 : <Box> </Box>
@@ -292,8 +322,26 @@ const Registration = () => {
             }
 
 
+            <Dialog
+                open={isInvalidDialog}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Incomplete information"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Please fill out the required fields.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} autofocus>Okay</Button>
+                </DialogActions>
+            </Dialog>
 
-        </Box>
+        </Box >
 
     );
 }
