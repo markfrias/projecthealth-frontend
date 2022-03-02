@@ -1,10 +1,7 @@
 import React from 'react';
-import { Container, Button, TextField } from '@mui/material';
-import { FormGroup, FormControlLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MobileStepper from '@mui/material/MobileStepper';
-import { useNavigate } from 'react-router-dom';
 import ThemedDatePicker from '../ThemedDatePicker/ThemedDatePicker';
+import { Container, FormGroup } from '@mui/material';
 
 
 
@@ -12,11 +9,6 @@ import ThemedDatePicker from '../ThemedDatePicker/ThemedDatePicker';
 export default function Registration5(props) {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
-    let navigate = useNavigate();
-    const goNext = () => {
-        navigate('/app/registration/6');
-    }
-
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

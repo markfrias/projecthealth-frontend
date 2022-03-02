@@ -1,5 +1,6 @@
 import { Button, Container, MobileStepper } from '@mui/material';
 import { Box } from '@mui/system';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import ActivityLevel from './ActivityLevel';
@@ -127,6 +128,10 @@ const Registration = () => {
 
     //Test states
     useEffect(() => {
+        console.log(moment(regState.birthday))
+        console.log(moment(new Date()))
+        console.log(moment(new Date()).diff(new Date(regState.birthday), "years"))
+
     }, [regState]);
 
 
@@ -138,7 +143,7 @@ const Registration = () => {
                 <Route path="2" element={<WeightGoals handleChange={handleWeightGoal} values={regState} />} />
                 <Route path="3" element={<Registration3 handleChange={handleCheckboxes} values={regState} />} />
                 <Route path="4" element={<Registration4 handleChange={handleChanges} values={regState} />} />
-                <Route path="5" element={<Registration5 handleChange={handleDateChanges} values={regState} />} />
+                <Route path="5" element={<Registration5 handleChange={(data) => { handleDateChanges(data) }} values={regState} />} />
                 <Route path="6" element={<Registration6 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="7" element={<Registration7 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} />} />

@@ -29,10 +29,8 @@ export default function Registration4(props) {
                     value={props.values.sex}
                     onChange={props.handleChange}
                 >
-                    <FormControlLabel value="Female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="Male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="Other" control={<Radio />} label="Other" />
-
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
 
                 </RadioGroup>
             </FormControl>
