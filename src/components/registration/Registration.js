@@ -68,6 +68,13 @@ const Registration = () => {
     // Registration state
     const [regState, setRegState] = useState(initialState);
 
+    // Modal states
+    const [open, setOpen] = useState(false);
+    const [dialogHead, setDialogHead] = useState("");
+    const [dialogBody, setDialogBody] = useState("");
+
+
+
     // Goal checkboxes handler
     const handleCheckboxes = (event) => {
         const target = event.target;
@@ -126,8 +133,30 @@ const Registration = () => {
     }
 
     // Register now button handler 
-    const handleRegistration = () => {
-        registerAccount(regState);
+    const handleRegistration = async () => {
+        if (regState.password1 !== regState.password2) {
+            setDialogHead("Incomplete information")
+            setDialogBody("The passwords you entered did not match.")
+            setOpen(true)
+            return;
+        }
+        const res = await registerAccount(regState);
+        if (res === 409) {
+            setDialogHead("Email already used")
+            setDialogBody("Please use a different email address to register you account.")
+            setOpen(true)
+        } else if (res === 400) {
+            setDialogHead("Incomplete information")
+            setDialogBody("Please make sure to answer all fields.")
+            setOpen(true)
+        } else if (res === 500) {
+            setDialogHead("Oops, server error")
+            setDialogBody("An error occurred on our end. Please try again soon.")
+            setOpen(true)
+        } else if (res === 200) {
+            navigate('/')
+        }
+
         //navigate(location.pathname.slice(0, 18) + "success")
     }
 
@@ -183,8 +212,10 @@ const Registration = () => {
         // Deduct or add deficit/surplus amount and assign amount to calorie budget
         if (regState.goals.weightGoal === "loseWeight") {
             calorieBudget = calorieRequirement - (deficitOrSurplus / 7);
-        } else {
+        } else if (regState.goals.weightGoal === "gainWeight") {
             calorieBudget = calorieRequirement + (deficitOrSurplus / 7);
+        } else {
+            calorieBudget = calorieRequirement;
         }
 
         setRegState({
@@ -219,10 +250,10 @@ const Registration = () => {
                 <Route path="8" element={<Registration8 handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="9" element={<ActivityLevel handleChange={handleChanges} setState={setRegState} values={regState} />} />
                 <Route path="10" element={<WeightRange handleChange={handleChanges} setState={setRegState} values={regState} />} />
-                <Route path="11" element={<Recommendation handleChange={handleChanges} setState={setRegState} values={regState} />} />
+                <Route path="11" element={<Recommendation handleChange={handleChanges} setState={setRegState} values={regState} calculateCalorieBudget={calculateCalorieBudget} />} />
                 <Route path="12" element={<Registration9 />} />
                 <Route path="13" element={<Registration10 handleChange={handleChanges} values={regState} />} />
-                <Route path="14" element={<Registration11 handleChange={handleChanges} values={regState} />} />
+                <Route path="14" element={<Registration11 handleChange={handleChanges} values={regState} open={open} setOpen={setOpen} dialogHead={dialogHead} dialogBody={dialogBody} />} />
                 <Route path="success" element={<RegistrationSuccess />} />
 
             </Routes>

@@ -1,11 +1,18 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container, Button } from '@mui/material';
+import { Container, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Registration11(props) {
     let navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+
+    const handleClose = () => {
+        props.setOpen(false);
+    }
+
     const goNext = () => {
         navigate('/app/registration/success');
     }
@@ -45,6 +52,25 @@ export default function Registration11(props) {
 
 
             </Box>
+
+            <Dialog
+                open={props.open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {props.dialogHead}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {props.dialogBody}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Okay</Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 }

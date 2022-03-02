@@ -1,11 +1,15 @@
 import { Container, FormControl, FormControlLabel, Radio, RadioGroup, Slider, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Recommendation = (props) => {
     const kgToLbs = (kg) => {
         return kg * 2.205;
     }
+
+    useEffect(() => {
+        props.calculateCalorieBudget()
+    }, []);
 
     return (
         <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
@@ -15,7 +19,12 @@ const Recommendation = (props) => {
             </Box>
 
             <Box>
-                <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "1rem" }}>You chose a weight gain pace of <strong> {props.values.weightRange.toFixed(2)} kg ({kgToLbs(props.values.weightRange).toFixed(2)} lbs) per week</strong>.</Typography>
+                {props.values.goals.weightGoal !== "maintainWeight" ?
+                    <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "1rem" }}>You chose a weight gain pace of <strong> {props.values.weightRange.toFixed(2)} kg ({kgToLbs(props.values.weightRange).toFixed(2)} lbs) per week</strong>.</Typography>
+                    :
+                    <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "1rem" }}>You chose to maintain your current weight.</Typography>
+                }
+
                 <Typography variant="onboardingSubheader" component="p">Your daily calorie budget will be <strong>{props.values.calorieBudget.toFixed(0)} calories</strong>.</Typography>
 
             </Box>

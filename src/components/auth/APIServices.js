@@ -25,8 +25,7 @@ const getUsers = async () => {
     // If not, trigger log out function
     logout();
   } else if (response.status === 200) {
-    const data = await response.json();
-    return data;
+    return response.status;
   } else {
     return response.status;
   }
