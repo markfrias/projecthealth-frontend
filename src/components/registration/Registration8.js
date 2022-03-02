@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { Container, Chip, TextField } from '@mui/material';
-import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Box } from '@mui/system';
 
 
 export default function Registration8(props) {
-    const [isInvalid, setIsInvalid] = useState(false);
-
     const kgToLbs = (kg) => {
         return kg * 2.205;
     }

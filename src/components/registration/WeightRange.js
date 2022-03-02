@@ -1,17 +1,12 @@
 import { Alert, Container, Slider, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const WeightRange = (props) => {
     const kgToLbs = (kg) => {
         return kg * 2.205;
     }
-
-
-    // State for weight loss/gain range
-    const [weightRange, setWeightRange] = useState(0.1);
 
     // Conditionally render page based on weight goal of the user
     return (
@@ -29,7 +24,7 @@ const WeightRange = (props) => {
                 <Box>
                     <Slider
                         aria-label="WeightPace"
-                        defaultValue={weightRange}
+                        defaultValue={0.1}
                         value={props.values.weightRange}
                         name="weightRange"
                         valueLabelDisplay="on"

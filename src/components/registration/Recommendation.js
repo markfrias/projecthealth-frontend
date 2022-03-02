@@ -1,15 +1,11 @@
-import { Container, FormControl, FormControlLabel, Radio, RadioGroup, Slider, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const Recommendation = (props) => {
     const kgToLbs = (kg) => {
         return kg * 2.205;
     }
-
-    useEffect(() => {
-        props.calculateCalorieBudget()
-    }, []);
 
     return (
         <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>

@@ -79,10 +79,6 @@ const Registration = () => {
 
     const [isInvalidDialog, setIsInvalidDialog] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setIsInvalidDialog(true);
-    };
-
     const handleClose = () => {
         setIsInvalidDialog(false);
     };
@@ -137,11 +133,16 @@ const Registration = () => {
             setIsInvalidDialog(true);
             return;
         }
+
         const stepBasis = "/app/registration/"
 
         // Check if the last part of the address is a number or if it is one
         if (location.pathname.slice(18) === "" || parseInt(location.pathname.slice(18)) === 1) {
             navigate(stepBasis + 2);
+        } else if (parseInt(location.pathname.slice(18)) === 10) {
+            calculateCalorieBudget()
+            const stepNumber = parseInt(location.pathname.slice(18));
+            navigate(stepBasis + (stepNumber + 1));
         } else {
             const stepNumber = parseInt(location.pathname.slice(18));
             navigate(stepBasis + (stepNumber + 1));
@@ -173,7 +174,7 @@ const Registration = () => {
             setDialogBody("An error occurred on our end. Please try again soon.")
             setOpen(true)
         } else if (res === 200) {
-            navigate('/')
+            navigate('/app/registration/success')
         }
 
         //navigate(location.pathname.slice(0, 18) + "success")
@@ -251,6 +252,14 @@ const Registration = () => {
             goNext();
         }
     }
+    // Checks if necessary fields in the first part are filled out
+    const handleRegPart2 = () => {
+        if (!regState.emailAddress || !regState.firstName || !regState.lastName) {
+            setIsInvalidDialog(true)
+        } else {
+            goNext();
+        }
+    }
 
     // Check if all required fields are filled
 
@@ -259,11 +268,6 @@ const Registration = () => {
     useEffect(() => {
         console.log(regState)
     }, [regState]);
-
-    //Test states
-    useEffect(() => {
-        calculateCalorieBudget();
-    }, [regState.weightRange]);
 
 
     return (
@@ -301,7 +305,7 @@ const Registration = () => {
                     <MobileStepper steps={3} LinearProgressProps={{ sx: { width: '100%' } }} activeStep={step} variant="progress" position='static' sx={{ backgroundColor: "rgba(0,0,0, 0)", width: "100%", justifyContent: "center" }} />
                     {parseInt(location.pathname.slice(18)) === 14 ?
                         <Button className="button-full" variant="contained" onClick={handleRegistration}>Register now</Button>
-                        : <Button className="button-full" variant="contained" onClick={(location.pathname.slice(18)) !== "9" ? goNext : handleRegPart1}>Continue</Button>
+                        : <Button className="button-full" variant="contained" onClick={(location.pathname.slice(18)) !== "13" ? goNext : handleRegPart2}>Continue</Button>
                     }
                 </Container>
                 : <Box> </Box>

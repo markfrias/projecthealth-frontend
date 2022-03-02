@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Container, Chip, Box, TextField, autocompleteClasses } from '@mui/material';
-import FilledInput from '@mui/material/FilledInput';
+import { Container, Chip, Box, TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
@@ -19,7 +18,6 @@ export default function Registration6(props) {
     const [isMetric, setIsMetric] = useState(true);
     const [feetMeasurement, setFeetMeasurement] = useState(cmToFeet(props.values.height));
     const [metricMeasurement, setMetricMeasurement] = useState(props.values.height);
-    const [isInvalid, setIsInvalid] = useState(false);
 
     const handleFieldChange = (event) => {
         const target = event.target;

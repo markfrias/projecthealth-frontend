@@ -1,17 +1,8 @@
-import React, { useEffect } from 'react';
-import { Container, Button, Switch, Checkbox, Box, FormControl, RadioGroup, Radio, Typography } from '@mui/material';
-import { FormGroup, FormControlLabel } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import MobileStepper from '@mui/material/MobileStepper';
-import Registration4 from './Registration4';
-import { useNavigate } from 'react-router-dom';
-
-
-
+import React from 'react';
+import { Container, Box, FormControl, RadioGroup, Radio, Typography } from '@mui/material';
+import { FormControlLabel } from '@mui/material';
 
 export default function WeightGoals(props) {
-    let navigate = useNavigate();
-
     return (
 
 

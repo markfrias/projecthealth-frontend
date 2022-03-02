@@ -7,8 +7,6 @@ import { useState } from 'react';
 
 
 export default function Registration7(props) {
-    const [isInvalid, setIsInvalid] = useState(false);
-
     const kgToLbs = (kg) => {
         return kg * 2.205;
     }
