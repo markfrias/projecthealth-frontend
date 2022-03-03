@@ -57,7 +57,6 @@ const Registration = () => {
         const stepBasis = parseInt(location.pathname.slice(18))
 
         if (stepBasis >= 13 && stepBasis <= 14) {
-            console.log(stepBasis - 12)
             setStep(stepBasis - 12);
             return;
         }
@@ -213,10 +212,8 @@ const Registration = () => {
                 break;
         }
 
-        console.log(calorieRequirement)
         // Calculated deficit or addition
         let deficitOrSurplus = regState.weightRange * 7716.179176;
-        console.log(deficitOrSurplus)
         if (deficitOrSurplus > 7000) {
             setRegState({
                 ...regState,
@@ -260,14 +257,6 @@ const Registration = () => {
             goNext();
         }
     }
-
-    // Check if all required fields are filled
-
-
-    //Test states
-    useEffect(() => {
-        console.log(regState)
-    }, [regState]);
 
 
     return (
