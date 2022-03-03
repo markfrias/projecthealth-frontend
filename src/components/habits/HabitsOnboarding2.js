@@ -12,9 +12,10 @@ const HabitsOnboarding2 = (props) => {
     }
 
     return (
-        <Container maxWidth="md" sx={{
+        < Container maxWidth="md" sx={{
             display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh", padding: "1em 1em"
-        }}>
+        }
+        }>
             <div className="header">
                 <h2>Stick to habits</h2>
                 <p>Choose from a list of health habits or create your own to start your habit tracking journey.</p>
@@ -23,12 +24,11 @@ const HabitsOnboarding2 = (props) => {
                 <h2 style={{ fontSize: 18 }}>Your habits</h2>
                 <Button className="button-full" variant="contained" style={{ marginTop: 25, marginBottom: 20 }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
                 <Button className="button-full" variant="contained" onClick={() => { handleLinkClick('/app/habits/3') }}>Choose from our list</Button>
-
                 <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    {props.habitsState.habitsForSubmission.length <= 0 ?
+                    {props.habitsState.habitsForSubmission.length > 0 ?
                         <Alert severity="info">Please create or select a habit.</Alert> :
 
-                        props.habitsState.habitsForSubmission.map((value) => {
+                        [0, 1, 2, 3].map((value) => {
                             const labelId = `checkbox-list-secondary-label-${value}`;
                             return (
                                 <ListItem
@@ -36,7 +36,7 @@ const HabitsOnboarding2 = (props) => {
                                     secondaryAction={
                                         <Checkbox
                                             edge="end"
-                                            onChange={props.handleToggle(value)}
+                                            onChange={(event) => { props.handleToggle(value) }}
                                             checked={props.checked.indexOf(value) !== -1}
                                             inputProps={{ 'aria-labelledby': labelId }}
                                         />

@@ -1,15 +1,33 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { Container, FormGroup, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
 
 const filter = createFilterOptions();
 
-export default function HabitsOnboarding4() {
+export default function HabitsOnboarding4(props) {
     const [value, setValue] = React.useState(null);
+    const sampleHabits = [
+        {
+            habitId: 1,
+            habitName: "Drink 3 glasses of water in the morning",
+            goalId: 2
+        },
+        {
+            habitId: 2,
+            habitName: "Walk at least 30 minutes a day",
+            goalId: 3
+        },
+        {
+            habitId: 3,
+            habitName: "Don't eat fast food for at least two meals a day",
+            goalId: 3
+        }
+
+    ]
 
     return (
-        <Container maxWidth="md" ssx={{
+        <Container maxWidth="md" sx={{
             display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh"
         }}>
             <div className="header" style={{ marginLeft: 10 }}>
@@ -75,13 +93,42 @@ export default function HabitsOnboarding4() {
             <div>
                 <h2 style={{ fontSize: 18, marginLeft: 10 }}>Suggested Habits</h2>
             </div>
-            <FormGroup style={{ marginBottom: 250, marginLeft: 10 }}>
-                <FormControlLabel control={<Checkbox />} label="Brush teeth thrice a day" />
-                <FormControlLabel control={<Checkbox />} label="Go to bed at 10pm" />
-                <FormControlLabel control={<Checkbox />} label="Stop using screens at 9pm" />
-                <FormControlLabel control={<Checkbox />} label="Run every Monday" />
-                <FormControlLabel control={<Checkbox />} label="Drink at least glasses of fluids" />
-            </FormGroup>
+            <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                {sampleHabits.length <= 0 ?
+                    <Alert severity="info">Please create or select a habit.</Alert> :
+
+                    sampleHabits.map((value) => {
+                        const labelId = `checkbox-list-secondary-label-${value.habitName}`;
+                        return (
+                            <ListItem
+                                key={value.habitId}
+                                secondaryAction={
+                                    <Checkbox
+                                        edge="end"
+                                        onChange={(event) => { props.handleToggle(value) }}
+                                        checked={props.checked.indexOf(value.habitId) !== -1}
+                                        inputProps={{ 'aria-labelledby': labelId }}
+                                    />
+                                }
+                                disablePadding
+                            >
+                                <ListItemButton>
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            alt={`Avatar n°${value + 1}`}
+                                            src={`/static/images/avatar/${value + 1}.jpg`}
+                                        />
+                                    </ListItemAvatar>
+                                    <ListItemText id={labelId} primary={`Line item ${value + 1}`} secondary="Goal A" />
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })
+
+
+                }
+
+            </List>
             <div className="button-class" style={{ marginBottom: 20 }}>
                 <Button className="button-full" variant="contained"> Add habits</Button>
 
