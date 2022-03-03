@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import authService from "../auth/auth";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
 
@@ -156,9 +156,9 @@ const LoginScreen = () => {
               Login
             </Button>
           </div>
-          <div>
-            <p>I don't have an account yet. Register for a new account.</p>
-          </div>
+          <Box>
+            <p>I don't have an account yet.  <Link to="/app/registration" style={{ color: "black", textDecoration: "none" }}><strong>Register for a new account.</strong></Link></p>
+          </Box>
         </Container>
     )
   );
