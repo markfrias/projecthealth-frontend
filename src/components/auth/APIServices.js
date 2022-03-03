@@ -20,14 +20,15 @@ const getUsers = async () => {
       }
     }
   );
+  const newResponse = await response.json();
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
     logout();
   } else if (response.status === 200) {
-    return response.status;
+    return newResponse;
   } else {
-    return response.status;
+    return newResponse;
   }
 
 
@@ -97,7 +98,7 @@ const registerAccount = async (form) => {
   console.log(revisedForm)
 
   const response = await fetch(
-    "http://localhost:8000/api/users/register/",
+    "https://projecthealthapp.herokuapp.com/api/users/register/",
     {
       method: "POST",
       mode: "cors",
