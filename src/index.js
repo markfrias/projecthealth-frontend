@@ -21,6 +21,11 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import Home from './components/home/Home';
 import LoginScreen from './components/login/LoginScreen';
+import Dashboard from './components/dashboard/Dashboard';
+import FoodQuickNote from './components/meal_recording/FoodQuickNote';
+import FoodLogScreen from './components/meal_recording/FoodLogScreen';
+import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
+import LogScreen from './components/meal_recording/LogScreen';
 
 const theme = createTheme({
   palette: {
@@ -59,6 +64,12 @@ ReactDOM.render(
           <Route path="Onboarding5" element={<Onboarding5 />} />
           <Route path="LoginScreen" element={<LoginScreen />} />
           <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="quicknote" element={<FoodQuickNote />} />
+          <Route path="foodlog" element={<FoodLogScreen />} />
+          <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
+          <Route path="logscreen" element={<LogScreen />} />
+
         </Route>
 
       </Routes>
