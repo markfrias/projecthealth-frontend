@@ -27,10 +27,6 @@ const Home = () => {
 
       <h1>Hello</h1>
       <Button onClick={logout}>Fork</Button>
-      {users.map((data) => (
-        <p key={data.userId}>{data.emailAddress}</p>
-      ))}
-
 
     </div>
   );
