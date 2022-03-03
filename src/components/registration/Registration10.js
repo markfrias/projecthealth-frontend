@@ -1,19 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 export default function Registration10(props) {
-    const [email, fname, lname, setName] = React.useState();
-    const handleChange = (event) => {
-        setName(event.target.value);
-    };
-    let navigate = useNavigate();
-    const goNext = () => {
-        navigate('/app/registration/11');
-    }
-
     return (
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
             <Box sx={{ textAlign: "center", mb: "5rem" }}>

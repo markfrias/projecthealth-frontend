@@ -1,12 +1,7 @@
 import React from 'react';
-import { Container, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 const Registration1 = () => {
-    let navigate = useNavigate();
-    const goNext = () => {
-        navigate('/app/registration/3');
-    }
     return (
 
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-around", height: "100%" }}>

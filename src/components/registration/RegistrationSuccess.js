@@ -1,28 +1,7 @@
 import React from 'react';
-import { Container, Button } from '@mui/material';
-import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import MobileStepper from '@mui/material/MobileStepper';
-import { useNavigate } from 'react-router-dom';
-
-
+import { Container } from '@mui/material';
 
 export default function RegistrationSuccess() {
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
-    let navigate = useNavigate();
-    const goLanding = () => {
-        navigate('/');
-    }
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
     return (
 
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", height: "100%" }}>

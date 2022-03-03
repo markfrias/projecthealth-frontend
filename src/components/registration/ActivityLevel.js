@@ -1,12 +1,8 @@
-import { Container, FormControl, FormControlLabel, Radio, RadioGroup, Slider, Typography } from '@mui/material';
+import { Container, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
 
 const ActivityLevel = (props) => {
-    const kgToLbs = (kg) => {
-        return kg * 2.205;
-    }
-
     return (
         <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
             <Box sx={{ mb: "1rem" }}>

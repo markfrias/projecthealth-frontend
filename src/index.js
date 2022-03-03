@@ -30,10 +30,6 @@ import Notificationsetup from './components/post-login/NotificationSetup';
 import NotificationUnsupported from './components/post-login/NotificationUnsupported';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import Registration8 from './components/registration/Registration8';
-import Registration9 from './components/registration/Registration9';
-import Registration10 from './components/registration/Registration10';
-import Registration11 from './components/registration/Registration11';
 import Registration from './components/registration/Registration';
 
 
