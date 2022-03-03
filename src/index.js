@@ -21,6 +21,7 @@ import Onboarding3 from './components/post-login/Onboarding3';
 import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding5 from './components/post-login/Onboarding5';
 
+
 // Firebase imports
 //import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
@@ -29,6 +30,7 @@ import Notificationsetup from './components/post-login/NotificationSetup';
 import NotificationUnsupported from './components/post-login/NotificationUnsupported';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import Registration from './components/registration/Registration';
 
 
 // Firebase config
@@ -48,50 +50,6 @@ initializeApp(firebaseConfig);
 
 
 getAnalytics();
-
-
-// Firebase config
-/*const firebaseConfig = {
-  apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
-  authDomain: "healevate-c3688.firebaseapp.com",
-  projectId: "healevate-c3688",
-  storageBucket: "healevate-c3688.appspot.com",
-  messagingSenderId: "798975874598",
-  appId: "1:798975874598:web:c5814636dcd645312b38e7",
-  measurementId: "G-7ZBZF5PN0V"
-};*/
-
-
-// Initialize Firebase
-//const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
-//const messaging = getMessaging(app);
-
-// Add the public key generated from the console here.
-/*messaging.getToken({vapidKey: "BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFVVPDsw2k3WlL89DDwCzj0O0opIW48rQ5CtxOYTwxY"});*/
-
-
-
-// Remove registration for now
-/*
-// Get registration token
-getToken(messaging, { vapidKey: 'BH1QU2v_dSx50cCbq51BdAovW-yidS4pStShao_A1uxHKFVVPDsw2k3WlL89DDwCzj0O0opIW48rQ5CtxOYTwxY' }).then((currentToken) => {
-  if (currentToken) {
-    // Send the token to your server and update the UI if necessary
-    // ...
-    console.log(currentToken)
-  } else {
-    // Show permission request UI
-    console.log('No registration token available. Request permission to generate one.');
-    // ...
-  }
-}).catch((err) => {
-  console.log('An error occurred while retrieving token. ', err);
-  // ...
-});
-*/
-
-
 
 
 const theme = createTheme({
@@ -126,6 +84,21 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
+            <Route path="registration/*" element={<Registration />}>
+              {/*}   <Route path="1" element={<Registration1 />} />
+              <Route path="2" element={<Registration2 />} />
+              <Route path="3" element={<Registration3 />} />
+              <Route path="4" element={<Registration4 />} />
+              <Route path="5" element={<Registration5 />} />
+              <Route path="6" element={<Registration6 />} />
+              <Route path="7" element={<Registration7 />} />
+              <Route path="8" element={<Registration8 />} />
+              <Route path="9" element={<Registration9 />} />
+              <Route path="10" element={<Registration10 />} />
+<Route path="11" element={<Registration11 />} />*/}
+            </Route>
+
+
             <Route path="Onboarding1" element={<Onboarding1 />} />
             <Route path="Onboarding2" element={<Onboarding2 />} />
             <Route path="Onboarding3" element={<Onboarding3 />} />

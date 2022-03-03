@@ -45,9 +45,29 @@ const theme = createTheme({
       '@media (max-width:376px)': {
         fontSize: '1.10rem',
       },
-
-
     },
+    onboardingHeader: {
+      fontSize: '1.4rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+
+    onboardingSubheader: {
+      fontSize: '1.05rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.01rem',
+      },
+    },
+
     button: {
       textTransform: 'none',
       fontWeight: '1000',
@@ -85,7 +105,8 @@ const theme = createTheme({
         root: {
           // Some CSS
           boxShadow: 'none',
-          height: '2.5rem'
+          height: '3.25rem',
+          fontSize: '1.05rem'
         },
       },
     },
