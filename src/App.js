@@ -15,9 +15,101 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: '"Poppins" ,"Roboto", "Helvetica", "Arial", sans-serif',
+    bigHeading: {
+      fontSize: '2.25rem',
+      lineHeight: '1.25',
+      fontWeight: '800',
+      width: '80%',
+      color: '#624100',
+      '@media (max-width: 376px)': {
+        fontSize: '1.75rem',
+      }
+    },
+    subtitle1: {
+      fontSize: '1.15rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.25',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+
+
+    },
+    subtitle1B: {
+      fontSize: '1.15rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'bold',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+    },
+    onboardingHeader: {
+      fontSize: '1.4rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+
+    onboardingSubheader: {
+      fontSize: '1.05rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.01rem',
+      },
+    },
+
+    button: {
+      textTransform: 'none',
+      fontWeight: '1000',
+    }
+
   },
   shape: {
     borderRadius: 20,
+  },
+
+  components: {
+    // Name of the component
+    MuiOutlinedInput: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          backgroundColor: '#E7DDC9',
+
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          backgroundColor: '#E7DDC9',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          boxShadow: 'none',
+          height: '3.25rem',
+          fontSize: '1.05rem'
+        },
+      },
+    },
   },
 });
 

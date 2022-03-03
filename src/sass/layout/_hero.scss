@@ -1,12 +1,11 @@
 .hero_container {
-  width: auto;
-  height: 20vh;
+  width: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   padding: 5%;
 }
 
 .hero_container > img {
-  width: auto;
-  height: 100%;
+  width: 70%;
 }

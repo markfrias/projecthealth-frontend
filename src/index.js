@@ -10,22 +10,52 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "./components/landing/Landing";
-import Onboarding1 from "./components/post-login/Onboarding1";
-import Onboarding2 from "./components/post-login/Onboarding2";
-import Onboarding3 from "./components/post-login/Onboarding3";
-import Onboarding4 from "./components/post-login/Onboarding4";
-import Onboarding5 from "./components/post-login/Onboarding5";
-import Login from "./components/login/Login";
+//import Landing from "./components/landing/Landing";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import Home from './components/home/Home';
 import LoginScreen from './components/login/LoginScreen';
+import Onboarding1 from './components/post-login/Onboarding1';
+import Onboarding2 from './components/post-login/Onboarding2';
+import Onboarding3 from './components/post-login/Onboarding3';
+import Onboarding4 from './components/post-login/Onboarding4';
+import Onboarding5 from './components/post-login/Onboarding5';
 import Dashboard from './components/dashboard/Dashboard';
 import FoodQuickNote from './components/meal_recording/FoodQuickNote';
 import FoodLogScreen from './components/meal_recording/FoodLogScreen';
 import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import LogScreen from './components/meal_recording/LogScreen';
+
+
+// Firebase imports
+//import { initializeApp } from "firebase/app";
+//import { getAnalytics } from "firebase/analytics";
+//import { getMessaging } from "firebase/messaging";
+import Notificationsetup from './components/post-login/NotificationSetup';
+import NotificationUnsupported from './components/post-login/NotificationUnsupported';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import Registration from './components/registration/Registration';
+
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyD88HpnqsSRni91xOZOqvG_1nRDOErdoYg",
+  authDomain: "healevate-c3688.firebaseapp.com",
+  projectId: "healevate-c3688",
+  storageBucket: "healevate-c3688.appspot.com",
+  messagingSenderId: "798975874598",
+  appId: "1:798975874598:web:c5814636dcd645312b38e7",
+  measurementId: "G-7ZBZF5PN0V"
+};
+
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+
+
+getAnalytics();
+
 
 const theme = createTheme({
   palette: {
@@ -43,39 +73,57 @@ const theme = createTheme({
   shape: {
     borderRadius: 20,
   },
+
+
 });
+
 
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <ThemeProvider theme={theme}>
-    <Routes>
-      
-    <Route element={<PrivateRoutes />} >
-          <Route path="/home" element={<Home />} />
-        </Route>
-        <Route path="/" element={<App />}>
-          <Route path="" element={<Landing />} />
-          <Route path="Onboarding1" element={<Onboarding1 />} />
-          <Route path="Onboarding2" element={<Onboarding2 />} />
-          <Route path="Onboarding3" element={<Onboarding3 />} />
-          <Route path="Onboarding4" element={<Onboarding4 />} />
-          <Route path="Onboarding5" element={<Onboarding5 />} />
-          <Route path="LoginScreen" element={<LoginScreen />} />
-          <Route path="login" element={<Login />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="quicknote" element={<FoodQuickNote />} />
-          <Route path="foodlog" element={<FoodLogScreen />} />
-          <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
-          <Route path="logscreen" element={<LogScreen />} />
+      <ThemeProvider theme={theme}>
+        <Routes>
 
-        </Route>
+          <Route element={<PrivateRoutes />} >
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route path="/app" element={<App />}>
+            <Route path="registration/*" element={<Registration />}>
+              {/*}   <Route path="1" element={<Registration1 />} />
+              <Route path="2" element={<Registration2 />} />
+              <Route path="3" element={<Registration3 />} />
+              <Route path="4" element={<Registration4 />} />
+              <Route path="5" element={<Registration5 />} />
+              <Route path="6" element={<Registration6 />} />
+              <Route path="7" element={<Registration7 />} />
+              <Route path="8" element={<Registration8 />} />
+              <Route path="9" element={<Registration9 />} />
+              <Route path="10" element={<Registration10 />} />
+<Route path="11" element={<Registration11 />} />*/}
+            </Route>
 
-      </Routes>
-    </ThemeProvider>
-    
-      
+
+            <Route path="Onboarding1" element={<Onboarding1 />} />
+            <Route path="Onboarding2" element={<Onboarding2 />} />
+            <Route path="Onboarding3" element={<Onboarding3 />} />
+            <Route path="Onboarding4" element={<Onboarding4 />} />
+            <Route path="Onboarding5" element={<Onboarding5 />} />
+            <Route path="login" element={<LoginScreen />} />
+            <Route path="notification-setup" element={<Notificationsetup />} />
+            <Route path="notif-unsupported" element={<NotificationUnsupported />} />
+
+
+          </Route>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="quicknote" element={<FoodQuickNote />} />
+            <Route path="foodlog" element={<FoodLogScreen />} />
+            <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
+            <Route path="logscreen" element={<LogScreen />} />
+        </Routes>
+      </ThemeProvider>
+
+
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
