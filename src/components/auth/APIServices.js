@@ -168,11 +168,41 @@ const getGoalsSync = () => {
   return goals;
 }
 
+// Fetch all users ** test function
+const getHabitAutocomplete = async (query) => {
+  const response = await fetch(
+    `http://localhost:8000/api/habit/autocomplete?habitName=${query}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return newResponse;
+  }
+
+
+};
+
 const logout = () => {
   localStorage.removeItem('jwt');
   window.location.reload();
 }
 
 export {
-  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync
+  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete
 }

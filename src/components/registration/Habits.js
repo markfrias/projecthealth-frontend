@@ -45,14 +45,16 @@ const Habits = () => {
 
     ]
 
-    const defaultArray = [
+    const defaultArrForHabits = [
         {
-            goalId: 9,
-            goalName: "None"
+            habitId: 3,
+            habitName: "Luh, ganda ka ghorl?",
+            goalId: 2
         }
     ]
 
     // Habits pages state
+    const [defaultArray, setDefaultArray] = useState(defaultArrForHabits);
     const [habitsState, setHabitsState] = useState(initialState);
     const [habitsToAdd, setHabitsToAdd] = useState(sampleHabits);
     const [habitsToAddChecked, setHabitsToAddChecked] = useState([0]);
@@ -61,6 +63,9 @@ const Habits = () => {
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const [goalOptions, setGoalOptions] = useState(options);
     const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
+    const [habitsAutoComplete, setHabitsAutocomplete] = useState(defaultArray[0])
+
+
 
 
 
@@ -161,7 +166,7 @@ const Habits = () => {
             <Route path="1" element={<HabitsOnboarding1 />} />
             <Route path="2" element={<HabitsOnboarding2 handleToggle={handlePrepToggle} checked={prepChecked} habitsState={habitsState} handleGoalCatInputValue={handleGoalCatInputValue} handleGoalCatValue={handleGoalCatValue} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} />} />
             <Route path="3" element={<HabitsOnboarding3 handleChange={handleChange} habitsState={habitsState} setHabitsState={setHabitsState} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} />} />
-            <Route path="4" element={<HabitsOnboarding4 habitsState={habitsState} handleToggle={handleSelectionToggle} checked={selectionChecked} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} setHabitsState={setHabitsState} habitsToAdd={habitsToAdd} setHabitsToAdd={setHabitsToAdd} habitsChecked={habitsToAddChecked} handleHabitsToAddToggle={handleHabitsToAddToggle} setHabitsToAdd={setHabitsToAdd} handleResultsToggle={handleResultsToggle} resultsChecked={resultsChecked} />} />
+            <Route path="4" element={<HabitsOnboarding4 habitsState={habitsState} handleToggle={handleSelectionToggle} checked={selectionChecked} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} setHabitsState={setHabitsState} habitsToAdd={habitsToAdd} setHabitsToAdd={setHabitsToAdd} habitsChecked={habitsToAddChecked} handleHabitsToAddToggle={handleHabitsToAddToggle} setHabitsToAdd={setHabitsToAdd} handleResultsToggle={handleResultsToggle} resultsChecked={resultsChecked} habitAuto={habitsAutoComplete} setHabitsAuto={setHabitsAutocomplete} habitsDef={defaultArray} setHabitsDef={setDefaultArray} />} />
 
         </Routes>
     );

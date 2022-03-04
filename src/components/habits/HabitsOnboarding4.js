@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText, popoverClasses } from '@mui/material';
 import { Box } from '@mui/system';
+import { getHabitAutocomplete } from '../auth/APIServices';
 
 const filter = createFilterOptions();
 
@@ -30,8 +31,13 @@ export default function HabitsOnboarding4(props) {
 
     // Test state
     React.useEffect(() => {
-        console.log(props.resultsChecked)
-    }, [props]);
+        console.log(props.habitsState.goalCategoryInputValue)
+        if (props.habitsState.goalCategoryInputValue === "") {
+            return;
+        }
+        getHabitAutocomplete(props.habitsState.goalCategoryInputValue).then(data => props.setHabitsDef(data));
+
+    }, [props.habitsState.goalCategoryInputValue]);
 
     return (
         <Container maxWidth="md" sx={{
@@ -47,24 +53,27 @@ export default function HabitsOnboarding4(props) {
                 freeSolo
                 sx={{ width: '100%' }}
                 id="combo-box-demo"
-                options={props.goalOptions}
-                value={props.goalCategoryValue}
+                options={props.habitsDef}
+                getOptionLabel={(option) => option.habitName}
+                value={props.habitAuto}
                 onChange={(event, newValue) => {
-                    props.setGoalCategoryValue(newValue)
+                    props.setHabitsAuto(newValue)
                 }}
                 inputValue={props.habitsState.goalCategoryInputValue}
                 onInputChange={(event, newInputValue) => {
                     props.setHabitsState({
                         ...props.habitsState,
                         goalCategoryInputValue: newInputValue
-                    })
+                    });
+
                 }}
                 onBlur={(event) => { setIsSearched(true) }}
                 renderInput={(params) => <TextField {...params} label="Search for habits" fullWidth />}
+                filterOptions={(x) => x}
             />
 
             {/* Show only if the user hasn't searched anything */
-                !isSearched || props.habitsState.goalCategoryInputValue === "" ?
+                props.habitsState.goalCategoryInputValue === "" ?
                     <div>
                         <h2 style={{ fontSize: 18, marginLeft: 10 }}>Suggested Habits</h2>
                         <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -127,7 +136,7 @@ export default function HabitsOnboarding4(props) {
                             {sampleHabits.length <= 0 ?
                                 <Alert severity="info">Please create or select a habit.</Alert> :
 
-                                sampleHabits.map((value) => {
+                                props.habitsDef.map((value) => {
                                     const labelId = `checkbox-list-secondary-label-${value.habitName}`;
                                     return (
                                         <ListItem
