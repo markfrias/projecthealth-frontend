@@ -30,8 +30,8 @@ export default function HabitsOnboarding4(props) {
 
     // Test state
     React.useEffect(() => {
-        console.log(props.habitsToAdd)
-    }, [props.habitsToAdd]);
+        console.log(props.resultsChecked)
+    }, [props]);
 
     return (
         <Container maxWidth="md" sx={{
@@ -135,8 +135,23 @@ export default function HabitsOnboarding4(props) {
                                             secondaryAction={
                                                 <Checkbox
                                                     edge="end"
-                                                    onChange={(event) => { props.handleToggle(value) }}
-                                                    checked={props.checked.indexOf(value.habitId) !== -1}
+                                                    onChange={(event) => {
+                                                        props.handleResultsToggle(value);
+                                                        if (props.resultsChecked.indexOf(value.habitId) === -1) {
+                                                            props.setHabitsToAdd([
+                                                                ...props.habitsToAdd,
+                                                                value
+                                                            ])
+                                                        } else {
+                                                            const habitIndex = props.habitsToAdd.indexOf(value);
+                                                            let habitsToAddCopy = props.habitsToAdd;
+                                                            habitsToAddCopy.splice(habitIndex, 1)
+                                                            props.setHabitsToAdd([
+                                                                ...habitsToAddCopy
+                                                            ])
+                                                        }
+                                                    }}
+                                                    checked={props.resultsChecked.indexOf(value.habitId) !== -1}
                                                     inputProps={{ 'aria-labelledby': labelId }}
                                                 />
                                             }
