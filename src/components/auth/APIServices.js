@@ -127,11 +127,52 @@ const registerAccount = async (form) => {
   // Add code to handle errors and display error states and messages
 }
 
+// Get synchronous (local) goals
+const getGoalsSync = () => {
+  const goals = [
+    {
+      goalId: 2,
+      goalName: "Eat healthier"
+    },
+    {
+      goalId: 3,
+      goalName: "Increase physical activity"
+    },
+    {
+      goalId: 4,
+      goalName: "Lose weight"
+    },
+    {
+      goalId: 5,
+      goalName: "Gain weight"
+    },
+    {
+      goalId: 6,
+      goalName: "Maintain weight"
+    },
+    {
+      goalId: 7,
+      goalName: "Improve sleep"
+    },
+    {
+      goalId: 8,
+      goalName: "Reduce alcohol consumption"
+    },
+    {
+      goalId: 9,
+      goalName: "None"
+    }
+
+  ]
+
+  return goals;
+}
+
 const logout = () => {
   localStorage.removeItem('jwt');
   window.location.reload();
 }
 
 export {
-  getUsers, logout, saveNotifSchedule, registerAccount
+  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync
 }

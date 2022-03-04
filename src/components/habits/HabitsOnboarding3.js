@@ -1,13 +1,14 @@
 import { Autocomplete, Container } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormGroup, Button, TextField } from "@mui/material";
+import { getGoalsSync } from "../auth/APIServices";
 
 const HabitsOnboarding3 = (props) => {
     // Test code
-
+    const [goalCats, setGoalCats] = useState([]);
     useEffect(() => {
-        console.log(props.habitsState);
-    }, [props.habitsState]);
+        setGoalCats(getGoalsSync());
+    }, []);
 
     return (
         <Container maxWidth="md" sx={{
@@ -39,24 +40,18 @@ const HabitsOnboarding3 = (props) => {
                     onChange={props.handleChange}
                 />
                 <h2 style={{ fontSize: 18 }}>Goal Category</h2>
-                <TextField
-                    helperText="e.g., Eat healthier."
-                    id="demo-helper-text-misaligned"
-                    label="Category"
-                    name="habitCategory"
-                    value={props.habitsState.goalCategory}
-                    onChange={props.handleChange}
-                />
 
                 <Autocomplete
                     disablePortal
+                    getOptionLabel={option => option.goalName}
                     id="combo-box-demo"
-                    options={props.goalOptions}
+                    options={goalCats}
                     value={props.goalCategoryValue}
                     onChange={(event, newValue) => {
                         props.setGoalCategoryValue(newValue)
                     }}
                     inputValue={props.habitsState.goalCategoryInputValue}
+                    isOptionEqualToValue={(option, value) => option.goalName === value.goalName && option.goalId === value.goalId}
                     onInputChange={(event, newInputValue) => {
                         props.setHabitsState({
                             ...props.habitsState,

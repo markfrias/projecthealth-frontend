@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { getGoalsSync } from '../auth/APIServices';
 import HabitsOnboarding1 from '../habits/HabitsOnboarding1';
 import HabitsOnboarding2 from '../habits/HabitsOnboarding2';
 import HabitsOnboarding3 from '../habits/HabitsOnboarding3';
@@ -44,7 +45,12 @@ const Habits = () => {
 
     ]
 
-
+    const defaultArray = [
+        {
+            goalId: 9,
+            goalName: "None"
+        }
+    ]
 
     // Habits pages state
     const [habitsState, setHabitsState] = useState(initialState);
@@ -54,7 +60,8 @@ const Habits = () => {
     const [resultsChecked, setResultsChecked] = useState([1]);
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const [goalOptions, setGoalOptions] = useState(options);
-    const [goalCategoryValue, setGoalCategoryValue] = useState(goalOptions[0])
+    const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
+
 
 
 
