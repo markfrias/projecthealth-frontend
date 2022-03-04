@@ -25,8 +25,31 @@ const Habits = () => {
         { label: "Seungcheol", id: 2 }
     ]
 
+    const sampleHabits = [
+        {
+            habitId: 1,
+            habitName: "Drink 3 glasses of water in the morning",
+            goalId: 2
+        },
+        {
+            habitId: 2,
+            habitName: "Walk at least 30 minutes a day",
+            goalId: 3
+        },
+        {
+            habitId: 3,
+            habitName: "Don't eat fast food for at least two meals a day",
+            goalId: 3
+        }
+
+    ]
+
+
+
     // Habits pages state
     const [habitsState, setHabitsState] = useState(initialState);
+    const [habitsToAdd, setHabitsToAdd] = useState(sampleHabits);
+    const [habitsToAddChecked, setHabitsToAddChecked] = useState([0]);
     const [prepChecked, setPrepChecked] = useState([1]);
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const [goalOptions, setGoalOptions] = useState(options);
@@ -80,6 +103,21 @@ const Habits = () => {
         setSelectionChecked(newChecked);
     };
 
+    // Handle changes to checkboxes in habits to add list
+    const handleHabitsToAddToggle = (value) => {
+        const currentIndex = habitsToAddChecked.indexOf(value.habitId);
+        console.log(currentIndex);
+        const newChecked = [...habitsToAddChecked];
+
+        if (currentIndex === -1) {
+            newChecked.push(value.habitId);
+        } else {
+            newChecked.splice(currentIndex, 1);
+        }
+
+        setHabitsToAddChecked(newChecked);
+    };
+
     const handleChange = (event) => {
         const target = event.target;
 
@@ -101,7 +139,7 @@ const Habits = () => {
             <Route path="1" element={<HabitsOnboarding1 />} />
             <Route path="2" element={<HabitsOnboarding2 handleToggle={handlePrepToggle} checked={prepChecked} habitsState={habitsState} handleGoalCatInputValue={handleGoalCatInputValue} handleGoalCatValue={handleGoalCatValue} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} />} />
             <Route path="3" element={<HabitsOnboarding3 handleChange={handleChange} habitsState={habitsState} setHabitsState={setHabitsState} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} />} />
-            <Route path="4" element={<HabitsOnboarding4 habitsState={habitsState} handleToggle={handleSelectionToggle} checked={selectionChecked} />} />
+            <Route path="4" element={<HabitsOnboarding4 habitsState={habitsState} handleToggle={handleSelectionToggle} checked={selectionChecked} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} setHabitsState={setHabitsState} habitsToAdd={habitsToAdd} setHabitsToAdd={setHabitsToAdd} habitsChecked={habitsToAddChecked} handleHabitsToAddToggle={handleHabitsToAddToggle} setHabitsToAdd={setHabitsToAdd} />} />
 
         </Routes>
     );

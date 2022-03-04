@@ -1,30 +1,37 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText, popoverClasses } from '@mui/material';
+import { Box } from '@mui/system';
 
 const filter = createFilterOptions();
 
 export default function HabitsOnboarding4(props) {
     const [value, setValue] = React.useState(null);
+    const [isSearched, setIsSearched] = React.useState(false);
     const sampleHabits = [
         {
-            habitId: 1,
+            habitId: 7,
             habitName: "Drink 3 glasses of water in the morning",
             goalId: 2
         },
         {
-            habitId: 2,
+            habitId: 8,
             habitName: "Walk at least 30 minutes a day",
             goalId: 3
         },
         {
-            habitId: 3,
+            habitId: 9,
             habitName: "Don't eat fast food for at least two meals a day",
             goalId: 3
         }
 
     ]
+
+    // Test state
+    React.useEffect(() => {
+        console.log(props.habitsToAdd)
+    }, [props.habitsToAdd]);
 
     return (
         <Container maxWidth="md" sx={{
@@ -36,99 +43,182 @@ export default function HabitsOnboarding4(props) {
 
             </div>
             <Autocomplete
-                value={value}
-                onChange={(event, newValue) => {
-                    if (typeof newValue === 'string') {
-                        setValue({
-                            title: newValue,
-                        });
-                    } else if (newValue && newValue.inputValue) {
-                        // Create a new value from the user input
-                        setValue({
-                            title: newValue.inputValue,
-                        });
-                    } else {
-                        setValue(newValue);
-                    }
-                }}
-                filterOptions={(options, params) => {
-                    const filtered = filter(options, params);
-
-                    const { inputValue } = params;
-                    // Suggest the creation of a new value
-                    const isExisting = options.some((option) => inputValue === option.title);
-                    if (inputValue !== '' && !isExisting) {
-                        filtered.push({
-                            inputValue,
-                            title: `Add "${inputValue}"`,
-                        });
-                    }
-
-                    return filtered;
-                }}
-                selectOnFocus
-                clearOnBlur
-                handleHomeEndKeys
-                id="free-solo-with-text-demo"
-                options={habits}
-                getOptionLabel={(option) => {
-                    // Value selected with enter, right from the input
-                    if (typeof option === 'string') {
-                        return option;
-                    }
-                    // Add "xxx" option created dynamically
-                    if (option.inputValue) {
-                        return option.inputValue;
-                    }
-                    // Regular option
-                    return option.title;
-                }}
-                renderOption={(props, option) => <li {...props}>{option.title}</li>}
-                sx={{ width: 380 }}
+                disablePortal
                 freeSolo
-                renderInput={(params) => (
-                    <TextField {...params} label="Search for a habit" />
-                )}
-            />
-            <div>
-                <h2 style={{ fontSize: 18, marginLeft: 10 }}>Suggested Habits</h2>
-            </div>
-            <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                {sampleHabits.length <= 0 ?
-                    <Alert severity="info">Please create or select a habit.</Alert> :
-
-                    sampleHabits.map((value) => {
-                        const labelId = `checkbox-list-secondary-label-${value.habitName}`;
-                        return (
-                            <ListItem
-                                key={value.habitId}
-                                secondaryAction={
-                                    <Checkbox
-                                        edge="end"
-                                        onChange={(event) => { props.handleToggle(value) }}
-                                        checked={props.checked.indexOf(value.habitId) !== -1}
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                    />
-                                }
-                                disablePadding
-                            >
-                                <ListItemButton>
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            alt={`Avatar n°${value + 1}`}
-                                            src={`/static/images/avatar/${value + 1}.jpg`}
-                                        />
-                                    </ListItemAvatar>
-                                    <ListItemText id={labelId} primary={`Line item ${value + 1}`} secondary="Goal A" />
-                                </ListItemButton>
-                            </ListItem>
-                        );
+                sx={{ width: '100%' }}
+                id="combo-box-demo"
+                options={props.goalOptions}
+                value={props.goalCategoryValue}
+                onChange={(event, newValue) => {
+                    props.setGoalCategoryValue(newValue)
+                }}
+                inputValue={props.habitsState.goalCategoryInputValue}
+                onInputChange={(event, newInputValue) => {
+                    props.setHabitsState({
+                        ...props.habitsState,
+                        goalCategoryInputValue: newInputValue
                     })
+                }}
+                onBlur={(event) => { setIsSearched(true) }}
+                renderInput={(params) => <TextField {...params} label="Search for habits" fullWidth />}
+            />
+
+            {/* Show only if the user hasn't searched anything */
+                !isSearched || props.habitsState.goalCategoryInputValue === "" ?
+                    <div>
+                        <h2 style={{ fontSize: 18, marginLeft: 10 }}>Suggested Habits</h2>
+                        <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                            {sampleHabits.length <= 0 ?
+                                <Alert severity="info">Please create or select a habit.</Alert> :
+
+                                sampleHabits.map((value) => {
+                                    const labelId = `checkbox-list-secondary-label-${value.habitName}`;
+                                    return (
+                                        <ListItem
+                                            key={value.habitId}
+                                            secondaryAction={
+                                                <Checkbox
+                                                    edge="end"
+                                                    onChange={(event) => {
+                                                        props.handleToggle(value);
+
+                                                        if (props.checked.indexOf(value.habitId) === -1) {
+                                                            props.setHabitsToAdd([
+                                                                ...props.habitsToAdd,
+                                                                value
+                                                            ])
+                                                        } else {
+                                                            const habitIndex = props.habitsToAdd.indexOf(value);
+                                                            let habitsToAddCopy = props.habitsToAdd;
+                                                            habitsToAddCopy.splice(habitIndex, 1)
+                                                            props.setHabitsToAdd([
+                                                                ...habitsToAddCopy
+                                                            ])
+                                                        }
+
+                                                    }}
+                                                    checked={props.checked.indexOf(value.habitId) !== -1}
+                                                    inputProps={{ 'aria-labelledby': labelId }}
+                                                />
+                                            }
+                                            disablePadding
+                                        >
+                                            <ListItemButton>
+                                                <ListItemAvatar>
+                                                    <Avatar
+                                                        alt={`Avatar n°${value + 1}`}
+                                                        src={`/static/images/avatar/${value + 1}.jpg`}
+                                                    />
+                                                </ListItemAvatar>
+                                                <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    );
+                                })
 
 
-                }
+                            }
 
-            </List>
+                        </List>
+                    </div> :
+                    <div>
+                        <h2 style={{ fontSize: 18, marginLeft: 10 }}>Results</h2>
+                        <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                            {sampleHabits.length <= 0 ?
+                                <Alert severity="info">Please create or select a habit.</Alert> :
+
+                                sampleHabits.map((value) => {
+                                    const labelId = `checkbox-list-secondary-label-${value.habitName}`;
+                                    return (
+                                        <ListItem
+                                            key={value.habitId}
+                                            secondaryAction={
+                                                <Checkbox
+                                                    edge="end"
+                                                    onChange={(event) => { props.handleToggle(value) }}
+                                                    checked={props.checked.indexOf(value.habitId) !== -1}
+                                                    inputProps={{ 'aria-labelledby': labelId }}
+                                                />
+                                            }
+                                            disablePadding
+                                        >
+                                            <ListItemButton>
+                                                <ListItemAvatar>
+                                                    <Avatar
+                                                        alt={`Avatar n°${value + 1}`}
+                                                        src={`/static/images/avatar/${value + 1}.jpg`}
+                                                    />
+                                                </ListItemAvatar>
+                                                <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    );
+                                })
+
+
+                            }
+
+                        </List>
+                    </div>
+            }
+
+
+            <div>
+                <h2 style={{ fontSize: 18, marginLeft: 10 }}>Habits Selected</h2>
+                <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    {props.habitsToAdd.length <= 0 ?
+                        <Alert severity="info">Please create or select a habit.</Alert> :
+
+                        props.habitsToAdd.map((value) => {
+                            const labelId = `checkbox-list-secondary-label-${value.habitName}`;
+                            return (
+                                <ListItem
+                                    key={value.habitId}
+                                    secondaryAction={
+                                        <Checkbox
+                                            edge="end"
+                                            onChange={(event) => {
+                                                //props.handleHabitsToAddToggle(value);
+                                                const habitIndex = props.habitsToAdd.indexOf(value);
+                                                let habitsToAddCopy = props.habitsToAdd;
+                                                habitsToAddCopy.splice(habitIndex, 1)
+                                                props.setHabitsToAdd([
+                                                    ...habitsToAddCopy
+                                                ]);
+
+                                                /*if (props.habitsChecked.indexOf(value.habitId) === -1) {
+                                                    props.setHabitsToAdd([
+                                                        ...props.habitsToAdd,
+                                                        value
+                                                    ]);
+                                                }*/
+
+                                            }}
+                                            checked={true}
+                                            inputProps={{ 'aria-labelledby': labelId }}
+                                        />
+                                    }
+                                    disablePadding
+                                >
+                                    <ListItemButton>
+                                        <ListItemAvatar>
+                                            <Avatar
+                                                alt={`Avatar n°${value + 1}`}
+                                                src={`/static/images/avatar/${value + 1}.jpg`}
+                                            />
+                                        </ListItemAvatar>
+                                        <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
+                                    </ListItemButton>
+                                </ListItem>
+                            );
+                        })
+
+
+                    }
+
+                </List>
+            </div>
+
             <div className="button-class" style={{ marginBottom: 20 }}>
                 <Button className="button-full" variant="contained"> Add habits</Button>
 
