@@ -164,9 +164,9 @@ const Habits = () => {
     return (
         <Routes>
             <Route path="1" element={<HabitsOnboarding1 />} />
-            <Route path="2" element={<HabitsOnboarding2 handleToggle={handlePrepToggle} checked={prepChecked} habitsState={habitsState} handleGoalCatInputValue={handleGoalCatInputValue} handleGoalCatValue={handleGoalCatValue} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} />} />
+            <Route path="2" element={<HabitsOnboarding2 handleToggle={handlePrepToggle} checked={prepChecked} habitsState={habitsState} handleGoalCatInputValue={handleGoalCatInputValue} handleGoalCatValue={handleGoalCatValue} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} setHabitsState={setHabitsState} />} />
             <Route path="3" element={<HabitsOnboarding3 handleChange={handleChange} habitsState={habitsState} setHabitsState={setHabitsState} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} />} />
-            <Route path="4" element={<HabitsOnboarding4 habitsState={habitsState} handleToggle={handleSelectionToggle} checked={selectionChecked} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} setHabitsState={setHabitsState} habitsToAdd={habitsToAdd} setHabitsToAdd={setHabitsToAdd} habitsChecked={habitsToAddChecked} handleHabitsToAddToggle={handleHabitsToAddToggle} setHabitsToAdd={setHabitsToAdd} handleResultsToggle={handleResultsToggle} resultsChecked={resultsChecked} habitAuto={habitsAutoComplete} setHabitsAuto={setHabitsAutocomplete} habitsDef={defaultArray} setHabitsDef={setDefaultArray} />} />
+            <Route path="4" element={<HabitsOnboarding4 habitsState={habitsState} handleToggle={handleSelectionToggle} checked={selectionChecked} goalCategoryValue={goalCategoryValue} setGoalCategoryValue={setGoalCategoryValue} goalOptions={goalOptions} setHabitsState={setHabitsState} habitsToAdd={habitsToAdd} habitsChecked={habitsToAddChecked} handleHabitsToAddToggle={handleHabitsToAddToggle} setHabitsToAdd={setHabitsToAdd} handleResultsToggle={handleResultsToggle} resultsChecked={resultsChecked} habitAuto={habitsAutoComplete} setHabitsAuto={setHabitsAutocomplete} habitsDef={defaultArray} setHabitsDef={setDefaultArray} />} />
 
         </Routes>
     );

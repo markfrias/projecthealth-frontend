@@ -1,9 +1,10 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText, popoverClasses } from '@mui/material';
+import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText, popoverClasses, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import { getHabitAutocomplete } from '../auth/APIServices';
+import { Add, AddRounded, Delete } from '@mui/icons-material';
 
 const filter = createFilterOptions();
 
@@ -142,27 +143,26 @@ export default function HabitsOnboarding4(props) {
                                         <ListItem
                                             key={value.habitId}
                                             secondaryAction={
-                                                <Checkbox
-                                                    edge="end"
-                                                    onChange={(event) => {
-                                                        props.handleResultsToggle(value);
-                                                        if (props.resultsChecked.indexOf(value.habitId) === -1) {
-                                                            props.setHabitsToAdd([
-                                                                ...props.habitsToAdd,
-                                                                value
-                                                            ])
-                                                        } else {
-                                                            const habitIndex = props.habitsToAdd.indexOf(value);
-                                                            let habitsToAddCopy = props.habitsToAdd;
-                                                            habitsToAddCopy.splice(habitIndex, 1)
-                                                            props.setHabitsToAdd([
-                                                                ...habitsToAddCopy
-                                                            ])
-                                                        }
-                                                    }}
-                                                    checked={props.resultsChecked.indexOf(value.habitId) !== -1}
-                                                    inputProps={{ 'aria-labelledby': labelId }}
-                                                />
+                                                <ListItemButton>
+                                                    <AddRounded
+                                                        onClick={(event) => {
+                                                            props.handleResultsToggle(value);
+                                                            if (props.resultsChecked.indexOf(value.habitId) === -1) {
+                                                                props.setHabitsToAdd([
+                                                                    ...props.habitsToAdd,
+                                                                    value
+                                                                ])
+                                                            } else {
+                                                                const habitIndex = props.habitsToAdd.indexOf(value);
+                                                                let habitsToAddCopy = props.habitsToAdd;
+                                                                habitsToAddCopy.splice(habitIndex, 1)
+                                                                props.setHabitsToAdd([
+                                                                    ...habitsToAddCopy
+                                                                ])
+                                                            }
+                                                        }}
+                                                    />
+                                                </ListItemButton>
                                             }
                                             disablePadding
                                         >
@@ -199,28 +199,20 @@ export default function HabitsOnboarding4(props) {
                                 <ListItem
                                     key={value.habitId}
                                     secondaryAction={
-                                        <Checkbox
-                                            edge="end"
-                                            onChange={(event) => {
-                                                //props.handleHabitsToAddToggle(value);
+
+                                        <IconButton edge="end" aria-label="delete" onClick={
+                                            (event) => {
+                                                props.handleHabitsToAddToggle(value);
                                                 const habitIndex = props.habitsToAdd.indexOf(value);
                                                 let habitsToAddCopy = props.habitsToAdd;
                                                 habitsToAddCopy.splice(habitIndex, 1)
                                                 props.setHabitsToAdd([
                                                     ...habitsToAddCopy
                                                 ]);
-
-                                                /*if (props.habitsChecked.indexOf(value.habitId) === -1) {
-                                                    props.setHabitsToAdd([
-                                                        ...props.habitsToAdd,
-                                                        value
-                                                    ]);
-                                                }*/
-
-                                            }}
-                                            checked={true}
-                                            inputProps={{ 'aria-labelledby': labelId }}
-                                        />
+                                            }
+                                        }>
+                                            <Delete />
+                                        </IconButton>
                                     }
                                     disablePadding
                                 >
@@ -244,7 +236,18 @@ export default function HabitsOnboarding4(props) {
             </div>
 
             <div className="button-class" style={{ marginBottom: 20 }}>
-                <Button className="button-full" variant="contained"> Add habits</Button>
+                <Button className="button-full" variant="contained" onClick={() => {
+                    const newArray = props.habitsState.habitsForSubmission;
+                    props.habitsToAdd.forEach((value) => {
+                        newArray.push(value);
+                    })
+                    console.log(newArray)
+                    props.setHabitsState({
+                        ...props.habitsState,
+                        habitsForSubmission: newArray
+                    })
+                    console.log(props.habitsState.habitsForSubmission)
+                }}> Add habits</Button>
 
             </div>
         </Container>
