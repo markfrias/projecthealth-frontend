@@ -1,9 +1,10 @@
-import { Alert, Avatar, Container, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
-import React, { useEffect } from "react";
+import { Alert, Avatar, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { FormGroup, FormControlLabel, Checkbox, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Delete } from "@mui/icons-material";
+import { getUserHabits, saveHabits } from "../auth/APIServices";
 
 const HabitsOnboarding2 = (props) => {
     const navigate = useNavigate();
@@ -11,11 +12,47 @@ const HabitsOnboarding2 = (props) => {
     const handleLinkClick = (url) => {
         navigate(url);
     }
+    const [open, setOpen] = useState(false);
+    const [modalHeading, setModalHeading] = useState("");
+    const [modalBody, setModalBody] = useState("");
+    const handleClose = () => {
+        setOpen(false);
+        navigate('/app/habits/2')
+    }
+
+    const handleSaveHabits = async () => {
+        const rawResponse = await saveHabits(props.habitsState.habitsForSubmission);
+        const response = await rawResponse.json();
+        console.log(response)
+
+        if (rawResponse.status === 200) {
+            setOpen(true);
+            setModalHeading("Habit preferences saved!")
+            setModalBody("Your habit preferences have been successfully saved.");
+
+        } else if (rawResponse.status === 400) {
+            setOpen(true);
+            setModalHeading("Incorrect or incomplete input")
+            setModalBody("Please make sure that you have completely filled up all required fields.")
+        } else if (rawResponse.status === 500) {
+            setOpen(true);
+            setModalHeading("Server error")
+            setModalBody("Oops! Something wrong happened on our end. Please try again later.")
+        } else {
+            setOpen(true);
+            setModalHeading("Something wrong happened")
+            setModalBody("We're not sure what happened, but we're at it to fix it.")
+        }
+    }
 
     useEffect(() => {
         console.log(props.habitsState.habitsForSubmission)
 
     }, [props]);
+
+    useEffect(() => {
+        console.log(getUserHabits())
+    }, [])
 
     return (
         < Container maxWidth="md" sx={{
@@ -80,8 +117,27 @@ const HabitsOnboarding2 = (props) => {
 
             </FormGroup>
             <Box sx={{ width: "100%" }}>
-                <Button fullWidth variant="contained"> Save habits</Button>
+                <Button fullWidth variant="contained" onClick={handleSaveHabits}> Save habits</Button>
             </Box>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {modalHeading}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {modalBody}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Okay</Button>
+                </DialogActions>
+            </Dialog>
 
 
 

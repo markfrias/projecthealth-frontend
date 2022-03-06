@@ -238,6 +238,75 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
   // Add code to handle errors and display error states and messages
 }
 
+// Fetch all habits for a specific user
+const getUserHabits = async () => {
+  const response = await fetch(
+    "http://localhost:8000/api/habit/userhabits/",
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return newResponse;
+  }
+
+
+};
+
+// Save user habits
+const saveHabits = async (habits) => {
+  const body = {
+    habits: habits
+  };
+  const response = await fetch(
+    "https://projecthealthapp.herokuapp.com/api/habit/save/",
+    {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': localStorage.getItem('jwt')
+
+      },
+
+    }
+  );
+
+
+  console.log(response)
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return response;
+  } else {
+    console.log(response.status)
+    return response;
+  }
+
+  // Add code to handle errors and display error states and messages
+}
+
+
+
+
 
 
 const logout = () => {
@@ -246,5 +315,5 @@ const logout = () => {
 }
 
 export {
-  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit
+  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit, getUserHabits, saveHabits
 }

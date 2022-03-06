@@ -5,10 +5,12 @@ import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, 
 import { Box } from '@mui/system';
 import { getHabitAutocomplete } from '../auth/APIServices';
 import { Add, AddRounded, Delete } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const filter = createFilterOptions();
 
 export default function HabitsOnboarding4(props) {
+    const navigate = useNavigate();
     const [value, setValue] = React.useState(null);
     const [isSearched, setIsSearched] = React.useState(false);
     const sampleHabits = [
@@ -30,6 +32,10 @@ export default function HabitsOnboarding4(props) {
 
     ]
 
+    React.useEffect(() => {
+        console.log(props.habitsDef)
+
+    }, []);
     // Test state
     React.useEffect(() => {
         console.log(props.habitsState.goalCategoryInputValue)
@@ -134,7 +140,7 @@ export default function HabitsOnboarding4(props) {
                     <div>
                         <h2 style={{ fontSize: 18, marginLeft: 10 }}>Results</h2>
                         <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                            {sampleHabits.length <= 0 ?
+                            {props.habitsDef.length <= 0 ?
                                 <Alert severity="info">Please create or select a habit.</Alert> :
 
                                 props.habitsDef.map((value) => {
@@ -245,8 +251,9 @@ export default function HabitsOnboarding4(props) {
                     props.setHabitsState({
                         ...props.habitsState,
                         habitsForSubmission: newArray
-                    })
-                    console.log(props.habitsState.habitsForSubmission)
+                    });
+                    navigate("/app/habits/2");
+
                 }}> Add habits</Button>
 
             </div>
