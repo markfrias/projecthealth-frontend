@@ -171,7 +171,7 @@ const getGoalsSync = () => {
 // Fetch all users ** test function
 const getHabitAutocomplete = async (query) => {
   const response = await fetch(
-    `http://localhost:8000/api/habit/autocomplete?habitName=${query}`,
+    `https://projecthealthapp.herokuapp.com/api/habit/autocomplete?habitName=${query}`,
     {
       method: "GET",
       mode: "cors",
@@ -241,7 +241,7 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
 // Fetch all habits for a specific user
 const getUserHabits = async () => {
   const response = await fetch(
-    "http://localhost:8000/api/habit/userhabits/",
+    "https://projecthealthapp.herokuapp.com/api/habit/userhabits/",
     {
       method: "GET",
       mode: "cors",

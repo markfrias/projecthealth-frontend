@@ -46,12 +46,22 @@ const HabitsOnboarding2 = (props) => {
     }
 
     useEffect(() => {
-        console.log(props.habitsState.habitsForSubmission)
 
-    }, [props]);
+        const fetchUsers = async () => {
+            const habits = await getUserHabits();
+            const newArray = props.habitsState.habitsForSubmission;
+            habits.forEach((habit) => {
+                newArray.push(habit);
+            });
+            console.log(newArray)
+            props.setHabitsState({
+                ...props.habitsState,
+                habitsForSubmission: newArray
 
-    useEffect(() => {
-        console.log(getUserHabits())
+            })
+        }
+        fetchUsers();
+
     }, [])
 
     return (
