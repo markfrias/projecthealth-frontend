@@ -1,14 +1,45 @@
-import { Autocomplete, Container } from "@mui/material";
+import { Autocomplete, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FormGroup, Button, TextField } from "@mui/material";
-import { getGoalsSync } from "../auth/APIServices";
+import { createHabit, getGoalsSync } from "../auth/APIServices";
+import { useNavigate } from "react-router-dom";
 
 const HabitsOnboarding3 = (props) => {
     // Test code
     const [goalCats, setGoalCats] = useState([]);
+    const navigate = useNavigate();
     useEffect(() => {
         setGoalCats(getGoalsSync());
     }, []);
+
+    const [open, setOpen] = useState(false);
+    const [modalHeading, setModalHeading] = useState("");
+    const [modalBody, setModalBody] = useState("");
+    const handleClose = () => {
+        setOpen(false);
+        navigate('/app/habits/2')
+    }
+
+    const handleSaveHabit = async () => {
+        const response = await createHabit(props.habitsState.habitName, props.habitsState.habitDescription, props.goalCategoryValue);
+        if (response === 200) {
+            setOpen(true);
+            setModalHeading("Habit saved!")
+            setModalBody("The habit you created has been successfully saved.")
+        } else if (response === 400) {
+            setOpen(true);
+            setModalHeading("Incorrect or incomplete input")
+            setModalBody("Please make sure that you have completely filled up all required fields.")
+        } else if (response === 500) {
+            setOpen(true);
+            setModalHeading("Server error")
+            setModalBody("Oops! Something wrong happened on our end. Please try again later.")
+        } else {
+            setOpen(true);
+            setModalHeading("Something wrong happened")
+            setModalBody("We're not sure what happened, but we're at it to fix it.")
+        }
+    }
 
     return (
         <Container maxWidth="md" sx={{
@@ -64,9 +95,28 @@ const HabitsOnboarding3 = (props) => {
 
             </FormGroup>
             <div className="button-class" style={{ marginBottom: 20 }}>
-                <Button className="button-full" variant="contained"> Save habits</Button>
+                <Button className="button-full" variant="contained" onClick={handleSaveHabit}> Save habits</Button>
 
             </div>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {modalHeading}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {modalBody}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Okay</Button>
+                </DialogActions>
+            </Dialog>
 
 
 

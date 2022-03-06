@@ -185,6 +185,7 @@ const getHabitAutocomplete = async (query) => {
     }
   );
   const newResponse = await response.json();
+  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -198,11 +199,49 @@ const getHabitAutocomplete = async (query) => {
 
 };
 
+// Creates a new habit
+const createHabit = async (habitName, habitDescription, goalCategory) => {
+  console.log(habitName, habitDescription, goalCategory)
+  const body = {
+    habitName: habitName,
+    habitDescription: habitDescription,
+    goalId: goalCategory.goalId
+  };
+  const response = await fetch(
+    "https://projecthealthapp.herokuapp.com/api/habit/create/",
+    {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': localStorage.getItem('jwt')
+
+      },
+
+    }
+  );
+
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    console.log(response.status)
+    return response.status;
+  } else {
+    console.log(response.status)
+    return response.status;
+  }
+
+  // Add code to handle errors and display error states and messages
+}
+
 const logout = () => {
   localStorage.removeItem('jwt');
   window.location.reload();
 }
 
 export {
-  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete
+  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit
 }
