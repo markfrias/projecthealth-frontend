@@ -17,6 +17,7 @@ const Habits = () => {
         habitName: "",
         habitDescription: "",
         goalCategory: "",
+        habitId: "",
         goalAutocomplete: [{ label: "Kim Mingyu" }],
         goalCategoryValue: { label: "Kim Mingyu" },
         goalCategoryInputValue: ""

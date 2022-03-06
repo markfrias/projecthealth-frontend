@@ -222,20 +222,23 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
     }
   );
 
+
+  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
     logout();
   } else if (response.status === 200) {
-    console.log(response.status)
-    return response.status;
+    return response;
   } else {
     console.log(response.status)
-    return response.status;
+    return response;
   }
 
   // Add code to handle errors and display error states and messages
 }
+
+
 
 const logout = () => {
   localStorage.removeItem('jwt');

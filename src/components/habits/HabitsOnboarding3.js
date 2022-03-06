@@ -21,16 +21,40 @@ const HabitsOnboarding3 = (props) => {
     }
 
     const handleSaveHabit = async () => {
-        const response = await createHabit(props.habitsState.habitName, props.habitsState.habitDescription, props.goalCategoryValue);
-        if (response === 200) {
+        const rawResponse = await createHabit(props.habitsState.habitName, props.habitsState.habitDescription, props.goalCategoryValue);
+        const response = await rawResponse.json();
+        console.log(response)
+        if (rawResponse.status === 200) {
             setOpen(true);
             setModalHeading("Habit saved!")
-            setModalBody("The habit you created has been successfully saved.")
-        } else if (response === 400) {
+            setModalBody("The habit you created has been successfully saved.");
+            props.setHabitsState({
+                ...props.habitsState,
+                habitId: response.insertId
+            })
+            console.log(response)
+            console.log(props.habitsState.habitId)
+
+            // Insert new habit into habits for submission
+            const newHabit = {
+                habitId: response.insertId,
+                habitName: props.habitsState.habitName,
+                habitDescription: props.habitsState.habitDescription,
+                goalId: props.goalCategoryValue.goalId
+            }
+
+            const newHabits = props.habitsState.habitsForSubmission;
+            newHabits.push(newHabit);
+            props.setHabitsState({
+                ...props.habitsState,
+                habitsForSubmission: newHabits
+            })
+
+        } else if (rawResponse.status === 400) {
             setOpen(true);
             setModalHeading("Incorrect or incomplete input")
             setModalBody("Please make sure that you have completely filled up all required fields.")
-        } else if (response === 500) {
+        } else if (rawResponse.status === 500) {
             setOpen(true);
             setModalHeading("Server error")
             setModalBody("Oops! Something wrong happened on our end. Please try again later.")
