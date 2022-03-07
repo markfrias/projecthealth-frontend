@@ -50,7 +50,7 @@ const Habits = () => {
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const goalOptions = options;
     const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
-    const [habitsAutoComplete, setHabitsAutocomplete] = useState(defaultArray[0])
+    const [habitsAutoComplete, setHabitsAutocomplete] = useState()
 
 
 
