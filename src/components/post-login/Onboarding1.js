@@ -1,4 +1,4 @@
-import { Alert, Button, Container, } from '@mui/material';
+import { Alert, Button, Container, Typography, } from '@mui/material';
 import { Switch } from '@mui/material';
 import { Box } from '@mui/system';
 import { getToken } from 'firebase/messaging';
@@ -138,7 +138,7 @@ const Onboarding1 = () => {
       }}>
 
         <div>
-          <h1 className='text-onboarding1'>Don't forget to log your meals</h1>
+          <Typography variant='onboardingHeader' component='h1' >Don't forget to log your meals</Typography>
         </div>
 
         <div className='hero_container'>
@@ -146,7 +146,7 @@ const Onboarding1 = () => {
         </div>
 
         <div>
-          <p>By turning on reminders, you'll be able to consistently track how you eat.</p>
+          <Typography variant='subtitle1' component='p'>By turning on reminders, you'll be able to consistently track how you eat.</Typography>
         </div>
 
         {/* Display info message if notification permission is not asked yet*/}
@@ -170,7 +170,7 @@ const Onboarding1 = () => {
 
 
         <div className='switch_with_text'>
-          <p>Enable meal reminders</p>
+          <Typography variant='onboardingSubheader' component='p' >Enable meal reminders</Typography>
 
           {notifIsAllowed === false ?
             <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} disabled checked={false} />

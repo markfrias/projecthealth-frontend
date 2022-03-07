@@ -1,4 +1,4 @@
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import React from 'react';
 
 const Onboarding5 = () => {
@@ -14,9 +14,9 @@ const Onboarding5 = () => {
             <div>
 
             </div>
-                <h1>Achieve missions and challenges</h1>
+                <Typography variant='onboardingHeader' component='h1'>Achieve missions and challenges.</Typography>
             <div>
-            <p>Accomplish missions and challenges to unlock items or characters.</p>
+            <Typography variant='subtitle1' component='p'>Accomplish missions and challenges to unlock items or characters.</Typography>
  
             </div>
             <div className='button-group'>

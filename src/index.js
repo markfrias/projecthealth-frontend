@@ -25,6 +25,8 @@ import FoodQuickNote from './components/meal_recording/FoodQuickNote';
 import FoodLogScreen from './components/meal_recording/FoodLogScreen';
 import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import LogScreen from './components/meal_recording/LogScreen';
+import DetailedFoodLogScreen from './components/meal_recording/DetailedFoodLogScreen';
+import NotificationSettings from './components/settings/NotificationSettings';
 
 
 // Firebase imports
@@ -36,6 +38,7 @@ import NotificationUnsupported from './components/post-login/NotificationUnsuppo
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import Registration from './components/registration/Registration';
+
 
 
 // Firebase config
@@ -89,38 +92,43 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
+          <Route path="notif-settings/*" element={<NotificationSettings />} />
+          <Route path="logscreen/*" element={<LogScreen />} />
+          <Route path="quicknote/*" element={<FoodQuickNote />} />
+          <Route path="login/*" element={<LoginScreen />} />
+          <Route path="foodlog/*" element={<FoodLogScreen />} />
+          <Route path="Onboarding5/*" element={<Onboarding5 />} />
+          <Route path="Onboarding4/*" element={<Onboarding4 />} />
+          <Route path="Onboarding3/*" element={<Onboarding3 />} />
+          <Route path="Onboarding2/*" element={<Onboarding2 />} />
+          <Route path="Onboarding1/*" element={<Onboarding1 />} />
+            <Route path="detailedfoodlogscreen/*" element={<DetailedFoodLogScreen />} />
+            <Route path="dashboard/*" element={<Dashboard />} />
+            <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="registration/*" element={<Registration />}>
-              {/*}   <Route path="1" element={<Registration1 />} />
-              <Route path="2" element={<Registration2 />} />
-              <Route path="3" element={<Registration3 />} />
-              <Route path="4" element={<Registration4 />} />
-              <Route path="5" element={<Registration5 />} />
-              <Route path="6" element={<Registration6 />} />
-              <Route path="7" element={<Registration7 />} />
-              <Route path="8" element={<Registration8 />} />
-              <Route path="9" element={<Registration9 />} />
-              <Route path="10" element={<Registration10 />} />
-<Route path="11" element={<Registration11 />} />*/}
+            
+            
+           
+            
+            
+            
+            
+            
             </Route>
 
-
-            <Route path="Onboarding1" element={<Onboarding1 />} />
-            <Route path="Onboarding2" element={<Onboarding2 />} />
-            <Route path="Onboarding3" element={<Onboarding3 />} />
-            <Route path="Onboarding4" element={<Onboarding4 />} />
-            <Route path="Onboarding5" element={<Onboarding5 />} />
-            <Route path="login" element={<LoginScreen />} />
+            
             <Route path="notification-setup" element={<Notificationsetup />} />
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
 
 
-          </Route>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="quicknote" element={<FoodQuickNote />} />
-            <Route path="foodlog" element={<FoodLogScreen />} />
-            <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
-            <Route path="logscreen" element={<LogScreen />} />
-        </Routes>
+            </Route>
+            
+            
+            
+            
+            
+            
+            </Routes>
       </ThemeProvider>
 
 

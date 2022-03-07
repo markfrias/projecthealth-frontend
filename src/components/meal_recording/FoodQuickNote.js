@@ -107,7 +107,7 @@ const FoodQuickNote = () => {
             container direction = 'column'
             >
                 <Button className='button-quicknote' variant='text' sx={{color: 'black'}} startIcon={<KeyboardArrowLeftIcon/>}>Back</Button>
-                <h1>Quick Note</h1>
+                <Typography variant='onboardingHeader' component='h1' >Quick Note</Typography>
             </Grid>
     
 
@@ -119,7 +119,7 @@ const FoodQuickNote = () => {
             autoComplete="off"
             >
             <Grid item xs={12}>
-                <p>What's this meal for?</p>
+                <Typography variant='subtitle1B' component='p' >What's this meal for?</Typography>
             </Grid>
             <Grid item xs={6} container rowSpacing={4}>
                 <Button className='button-quicknote' variant='contained' sx={{color: 'black'}}>Breakfast</Button>
@@ -127,13 +127,13 @@ const FoodQuickNote = () => {
                 <Button className='button-quicknote' variant='contained' sx={{color: 'black'}}>Dinner</Button>
                 <Button className='button-quicknote' variant='contained' sx={{color: 'black'}}>Snack</Button>
             </Grid>
-                <p>Brief description of food</p>
+                <Typography variant='subtitle1B' component='p' >Brief description of food</Typography>
                 <TextField id="outlined-basic" label="Food Description" variant="outlined" />
-                <p>Description of food amount</p>
+                <Typography variant='subtitle1B' component='p' >Description of food amount</Typography>
                 <TextField id="outlined-basic" label="Amount of food" variant="outlined" />
             <Grid item xs={12} container spacing={4}>
                 
-            <p>(Optional) Picture of the meal, food, or drink</p>
+            <Typography variant='subtitle1' component='p' >(Optional) Picture of the meal, food, or drink</Typography>
              
             <Button variant='contained' startIcon={<AddAPhotoOutlinedIcon/>} ></Button>
             

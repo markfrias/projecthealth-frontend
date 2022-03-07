@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
+import Typography from '@mui/material/Typography';
 
 const FoodLogScreen = () => {
     return (
@@ -16,7 +17,7 @@ const FoodLogScreen = () => {
             container direction = 'column'
             >
                 <Button className='button-quicknote' variant='text' sx={{color: 'black'}} startIcon={<KeyboardArrowLeftIcon/>}>Back</Button>
-                <h1>Log with Details</h1>
+                <Typography variant='onboardingHeader' component='h1' >Log with Details</Typography>
             </Grid>
     
 
@@ -31,7 +32,7 @@ const FoodLogScreen = () => {
                     <TextField id="outlined-size-small" size='small' label="Search for food, meal, or drink" variant="outlined" />
                 </Grid>
                 <Grid>
-                    <p>Quick Add</p>
+                    <Typography variant='subtitle1B' component='h2' >Quick Add</Typography>
                 </Grid>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {[1, 2, 3].map((value) => (

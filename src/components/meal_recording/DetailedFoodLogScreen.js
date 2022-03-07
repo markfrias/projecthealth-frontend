@@ -1,14 +1,13 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import { List } from '@mui/material';
-import { ListItem } from '@mui/material';
-import ListItemText from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
-
-
 
 const DetailedFoodLogScreen = () => {
     return (
@@ -17,7 +16,7 @@ const DetailedFoodLogScreen = () => {
             container direction = 'column'
             >
                 <Button className='button-quicknote' variant='text' sx={{color: 'black'}} startIcon={<KeyboardArrowLeftIcon/>}>Back</Button>
-                <h1>Log Food</h1>
+                <Typography variant='onboardingHeader' component='h1' >Log with Details</Typography>
             </Grid>
     
 
@@ -28,24 +27,12 @@ const DetailedFoodLogScreen = () => {
             noValidate
             autoComplete="off"
             >
-            <Grid item xs={12}>
-                <p>How would you like to log your food?</p>
-            </Grid>
-            <Grid item xs={6} container rowSpacing={4}>
-                <img alt='Confetti' src={require('../../assets/img/note.png')} width ='200px' height='200px' margin = 'auto'/>
-                <h2>Quick Note</h2>
-                <p>Type away and leave for later logging.</p>
-            </Grid>
-
-            <Grid item xs={12} container spacing={4}>
-                <img alt='Confetti' src={require('../../assets/img/blackman.png')} width ='200px' height='200px' margin = 'auto'/>
-                <h2>Log with Details</h2>
-                <p>See full details of meal and nutritional value</p>
-            </Grid>
-
-            <Grid>
-                <p>*You can choose to log your quick note later as a detailed log</p>
-                <h2>Quick Add</h2>
+                <Grid >
+                    <TextField id="outlined-size-small" size='small' label="Search for food, meal, or drink" variant="outlined" />
+                </Grid>
+                <Grid>
+                    <Typography variant='subtitle1B' component='h2'>Quick Add</Typography>
+                </Grid>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {[1, 2, 3].map((value) => (
         <ListItem
@@ -61,8 +48,7 @@ const DetailedFoodLogScreen = () => {
         </ListItem>
       ))}
     </List>
-            </Grid>
-            
+  );
             </Container>
             
         </Grid>
@@ -70,9 +56,9 @@ const DetailedFoodLogScreen = () => {
 
 
     );
+          
 
-
-}
+};
 
 
 

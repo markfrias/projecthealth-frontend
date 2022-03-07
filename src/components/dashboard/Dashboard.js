@@ -1,4 +1,4 @@
-import { Button, Container, Grid } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
@@ -233,16 +233,15 @@ const Dashboard = () => {
          
 
             <div className ='dashboard-container1'>
-                <h1>Tip</h1>
-                <p>Increase progress points and unlock new characteers and stickers by accomplishing
-                    a mission or logging your food/habit/activity.
-                </p>
+                <Typography variant='subtitle1B' component='h2' >Tip</Typography>
+                <Typography variant ='subtitle1' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
+                    a mission or logging your food/habit/activity.</Typography>
             </div>
             <div>
             <Button variant='contained' sx={{color: 'black'}} startIcon={<AddIcon/>} >Log</Button>
             </div>
             <div className='dashboard-container2'>
-                <h1>Daily Missions</h1>
+                <Typography variant='subtitle1B' component='h1'>Daily Missions</Typography>
                 <CheckboxListSecondary>
                
                 </CheckboxListSecondary>
