@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { getGoalsSync } from '../auth/APIServices';
+import { getGoalsSync, getUserHabits } from '../auth/APIServices';
 import HabitsOnboarding1 from '../habits/HabitsOnboarding1';
 import HabitsOnboarding2 from '../habits/HabitsOnboarding2';
 import HabitsOnboarding3 from '../habits/HabitsOnboarding3';
@@ -28,21 +28,7 @@ const Habits = () => {
     ]
 
     const sampleHabits = [
-        {
-            habitId: 1,
-            habitName: "Drink 3 glasses of water in the morning",
-            goalId: 2
-        },
-        {
-            habitId: 2,
-            habitName: "Walk at least 30 minutes a day",
-            goalId: 3
-        },
-        {
-            habitId: 3,
-            habitName: "Don't eat fast food for at least two meals a day",
-            goalId: 3
-        }
+
 
     ]
 
@@ -62,7 +48,7 @@ const Habits = () => {
     const [prepChecked, setPrepChecked] = useState([1]);
     const [resultsChecked, setResultsChecked] = useState([1]);
     const [selectionChecked, setSelectionChecked] = useState([0]);
-    const [goalOptions, setGoalOptions] = useState(options);
+    const goalOptions = options;
     const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
     const [habitsAutoComplete, setHabitsAutocomplete] = useState(defaultArray[0])
 
@@ -159,6 +145,24 @@ const Habits = () => {
     useEffect(() => {
         console.log(selectionChecked)
     }, [selectionChecked]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const habits = await getUserHabits();
+            const newArray = habitsState.habitsForSubmission;
+            habits.forEach((habit) => {
+                newArray.push(habit);
+            });
+            setHabitsState({
+                ...habitsState,
+                habitsForSubmission: newArray
+
+            })
+        }
+        if (habitsState.habitsForSubmission.length <= 0) {
+            fetchUsers();
+        }
+    }, [habitsState])
 
 
 

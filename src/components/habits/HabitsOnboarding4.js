@@ -1,18 +1,14 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { Container, FormGroup, FormControlLabel, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText, popoverClasses, IconButton } from '@mui/material';
-import { Box } from '@mui/system';
+import Autocomplete from '@mui/material/Autocomplete';
+import { Container, Checkbox, Button, List, Alert, ListItem, ListItemButton, ListItemAvatar, Avatar, ListItemText, IconButton } from '@mui/material';
 import { getHabitAutocomplete } from '../auth/APIServices';
-import { Add, AddRounded, Delete } from '@mui/icons-material';
+import { AddRounded, Delete } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-const filter = createFilterOptions();
 
 export default function HabitsOnboarding4(props) {
     const navigate = useNavigate();
-    const [value, setValue] = React.useState(null);
-    const [isSearched, setIsSearched] = React.useState(false);
     const sampleHabits = [
         {
             habitId: 7,
@@ -32,11 +28,8 @@ export default function HabitsOnboarding4(props) {
 
     ]
 
-    React.useEffect(() => {
-        console.log(props.habitsDef)
-
-    }, []);
     // Test state
+    /*
     React.useEffect(() => {
         console.log(props.habitsState.goalCategoryInputValue)
         if (props.habitsState.goalCategoryInputValue === "") {
@@ -44,7 +37,8 @@ export default function HabitsOnboarding4(props) {
         }
         getHabitAutocomplete(props.habitsState.goalCategoryInputValue).then(data => props.setHabitsDef(data));
 
-    }, [props.habitsState.goalCategoryInputValue]);
+    }, [props]);
+    */
 
     return (
         <Container maxWidth="md" sx={{
@@ -64,7 +58,8 @@ export default function HabitsOnboarding4(props) {
                 getOptionLabel={(option) => option.habitName}
                 value={props.habitAuto}
                 onChange={(event, newValue) => {
-                    props.setHabitsAuto(newValue)
+                    props.setHabitsAuto(newValue);
+
                 }}
                 inputValue={props.habitsState.goalCategoryInputValue}
                 onInputChange={(event, newInputValue) => {
@@ -73,8 +68,11 @@ export default function HabitsOnboarding4(props) {
                         goalCategoryInputValue: newInputValue
                     });
 
+                    if (props.habitsState.goalCategoryInputValue === "") {
+                        return;
+                    }
+                    getHabitAutocomplete(props.habitsState.goalCategoryInputValue).then(data => props.setHabitsDef(data));
                 }}
-                onBlur={(event) => { setIsSearched(true) }}
                 renderInput={(params) => <TextField {...params} label="Search for habits" fullWidth />}
                 filterOptions={(x) => x}
             />
@@ -260,7 +258,3 @@ export default function HabitsOnboarding4(props) {
         </Container>
     );
 }
-const habits = [
-    { title: 'Brush teeth thrice a day' },
-
-];

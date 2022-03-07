@@ -1,10 +1,10 @@
-import { Alert, Avatar, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { FormGroup, FormControlLabel, Checkbox, Button } from "@mui/material";
+import { Alert, Avatar, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
+import React, { useState } from "react";
+import { FormGroup, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Delete } from "@mui/icons-material";
-import { getUserHabits, saveHabits } from "../auth/APIServices";
+import { saveHabits } from "../auth/APIServices";
 
 const HabitsOnboarding2 = (props) => {
     const navigate = useNavigate();
@@ -45,8 +45,9 @@ const HabitsOnboarding2 = (props) => {
         }
     }
 
-    useEffect(() => {
 
+
+    /*useEffect(() => {
         const fetchUsers = async () => {
             const habits = await getUserHabits();
             const newArray = props.habitsState.habitsForSubmission;
@@ -60,9 +61,13 @@ const HabitsOnboarding2 = (props) => {
 
             })
         }
-        fetchUsers();
 
-    }, [])
+        if (props.habitsState.habitsForSubmission.length <= 0) {
+            fetchUsers();
+        }
+
+
+    }, [props])*/
 
     return (
         < Container maxWidth="md" sx={{
