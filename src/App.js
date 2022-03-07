@@ -25,6 +25,16 @@ const theme = createTheme({
         fontSize: '1.75rem',
       }
     },
+    bigHeadingSub: {
+      fontSize: '1.5rem',
+      lineHeight: '1.25',
+      fontWeight: 'normal',
+      width: '80%',
+      color: '#624100',
+      '@media (max-width: 376px)': {
+        fontSize: '1.17rem',
+      }
+    },
     subtitle1: {
       fontSize: '1.15rem',
       color: '#624100',
