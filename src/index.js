@@ -31,6 +31,7 @@ import NotificationUnsupported from './components/post-login/NotificationUnsuppo
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import Registration from './components/registration/Registration';
+import Habits from './components/registration/Habits';
 
 
 // Firebase config
@@ -85,19 +86,9 @@ ReactDOM.render(
           </Route>
           <Route path="/app" element={<App />}>
             <Route path="registration/*" element={<Registration />}>
-              {/*}   <Route path="1" element={<Registration1 />} />
-              <Route path="2" element={<Registration2 />} />
-              <Route path="3" element={<Registration3 />} />
-              <Route path="4" element={<Registration4 />} />
-              <Route path="5" element={<Registration5 />} />
-              <Route path="6" element={<Registration6 />} />
-              <Route path="7" element={<Registration7 />} />
-              <Route path="8" element={<Registration8 />} />
-              <Route path="9" element={<Registration9 />} />
-              <Route path="10" element={<Registration10 />} />
-<Route path="11" element={<Registration11 />} />*/}
             </Route>
 
+            <Route path="habits/*" element={<Habits />} />
 
             <Route path="Onboarding1" element={<Onboarding1 />} />
             <Route path="Onboarding2" element={<Onboarding2 />} />
