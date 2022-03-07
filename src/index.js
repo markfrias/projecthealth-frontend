@@ -38,6 +38,7 @@ import NotificationUnsupported from './components/post-login/NotificationUnsuppo
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import Registration from './components/registration/Registration';
+import Habits from './components/registration/Habits';
 
 
 
@@ -106,17 +107,16 @@ ReactDOM.render(
             <Route path="dashboard/*" element={<Dashboard />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="registration/*" element={<Registration />}>
-            
-            
-           
-            
-            
-            
-            
-            
             </Route>
 
-            
+            <Route path="habits/*" element={<Habits />} />
+
+            <Route path="Onboarding1" element={<Onboarding1 />} />
+            <Route path="Onboarding2" element={<Onboarding2 />} />
+            <Route path="Onboarding3" element={<Onboarding3 />} />
+            <Route path="Onboarding4" element={<Onboarding4 />} />
+            <Route path="Onboarding5" element={<Onboarding5 />} />
+            <Route path="login" element={<LoginScreen />} />
             <Route path="notification-setup" element={<Notificationsetup />} />
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
 
