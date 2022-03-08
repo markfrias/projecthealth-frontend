@@ -93,18 +93,18 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
-          <Route path="notif-settings/*" element={<NotificationSettings />} />
-          <Route path="logscreen/*" element={<LogScreen />} />
-          <Route path="quicknote/*" element={<FoodQuickNote />} />
-          <Route path="login/*" element={<LoginScreen />} />
-          <Route path="foodlog/*" element={<FoodLogScreen />} />
-          <Route path="Onboarding5/*" element={<Onboarding5 />} />
-          <Route path="Onboarding4/*" element={<Onboarding4 />} />
-          <Route path="Onboarding3/*" element={<Onboarding3 />} />
-          <Route path="Onboarding2/*" element={<Onboarding2 />} />
-          <Route path="Onboarding1/*" element={<Onboarding1 />} />
+            <Route path="" element={<Dashboard />} />
+            <Route path="notif-settings/*" element={<NotificationSettings />} />
+            <Route path="logscreen/*" element={<LogScreen />} />
+            <Route path="quicknote/*" element={<FoodQuickNote />} />
+            <Route path="login/*" element={<LoginScreen />} />
+            <Route path="foodlog/*" element={<FoodLogScreen />} />
+            <Route path="Onboarding5/*" element={<Onboarding5 />} />
+            <Route path="Onboarding4/*" element={<Onboarding4 />} />
+            <Route path="Onboarding3/*" element={<Onboarding3 />} />
+            <Route path="Onboarding2/*" element={<Onboarding2 />} />
+            <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="detailedfoodlogscreen/*" element={<DetailedFoodLogScreen />} />
-            <Route path="dashboard/*" element={<Dashboard />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="registration/*" element={<Registration />}>
             </Route>
@@ -121,14 +121,14 @@ ReactDOM.render(
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
 
 
-            </Route>
-            
-            
-            
-            
-            
-            
-            </Routes>
+          </Route>
+
+
+
+
+
+
+        </Routes>
       </ThemeProvider>
 
 
