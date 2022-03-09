@@ -371,11 +371,43 @@ const getFoodAutocomplete = async (query) => {
   } else if (response.status === 200) {
     return newResponse;
   } else {
-    return newResponse;
+    return response.status;
   }
 
 
 };
+
+// Fetch food autocomplete suggestions
+const getFoodSearchResults = async (query) => {
+  const response = await fetch(
+    `https://api.edamam.com/api/food-database/v2/parser?app_id=${appId}&app_key=${appKey}&ingr=${query}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    }
+  );
+  const newResponse = await response.json();
+  console.log(newResponse)
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+
+
+};
+
 
 
 
@@ -390,5 +422,5 @@ const logout = () => {
 
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
-  getUserHabits, saveHabits, saveNote, getFoodAutocomplete
+  getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults
 }

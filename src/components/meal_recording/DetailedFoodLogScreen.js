@@ -9,13 +9,14 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import { useNavigate } from 'react-router-dom';
-import { Alert } from 'bootstrap';
+import { Alert } from '@mui/material';
 import { Delete, SearchRounded } from '@mui/icons-material';
-import { getFoodAutocomplete } from '../auth/APIServices';
+import { getFoodAutocomplete, getFoodSearchResults } from '../auth/APIServices';
+import { Box } from '@mui/system';
 
 const DetailedFoodLogScreen = () => {
   const [resultsList, setResultsList] = useState([
-    { habitId: 1, label: "What" }
+
   ]);
 
 
@@ -24,6 +25,7 @@ const DetailedFoodLogScreen = () => {
   const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [resultsLoading, setResultsLoading] = useState(false);
 
   /*React.useEffect(() => {
     let active = true;
@@ -68,9 +70,44 @@ const DetailedFoodLogScreen = () => {
     }
   }, [open]);
 
+  // Refresh results list every time an autocomplete entry is clicked
+  React.useEffect(() => {
+    if (autocompleteValue === "" || autocompleteValue === undefined || autocompleteValue === null) {
+      setResultsList([]);
+      return;
+    }
+
+    (async () => {
+      setResultsLoading(true);
+      setResultsList([]);
+      const newOptions = await getFoodSearchResults(autoInputValue);
+      console.log(newOptions.hints)
+      setResultsList(newOptions.hints)
+      setResultsLoading(false);
+
+    })()
+
+
+  }, [autocompleteValue])
 
 
   const navigate = useNavigate();
+
+  const handleSearchClick = async () => {
+    if (autocompleteValue === "" || autocompleteValue === undefined || autocompleteValue === null) {
+      setResultsList([]);
+      return;
+    }
+
+    setResultsLoading(true);
+    setResultsList([]);
+    const newOptions = await getFoodSearchResults(autoInputValue);
+    console.log(newOptions.hints)
+    setResultsList(newOptions.hints)
+    setResultsLoading(false);
+  }
+
+
 
   return (
     <Grid container spacing={4} >
@@ -121,7 +158,7 @@ const DetailedFoodLogScreen = () => {
             filterOptions={(x) => x}
 
           />
-          <Button>
+          <Button onClick={() => { handleSearchClick() }}>
             <SearchRounded />
           </Button>
 
@@ -134,18 +171,19 @@ const DetailedFoodLogScreen = () => {
 
         </Grid>
         <Grid>
-          <Typography variant='subtitle1B' component='h2'>Quick Add</Typography>
+          <Typography variant='subtitle1B' component='h2'>{resultsList.length <= 0 ? "Quick Add" : "Results"}</Typography>
         </Grid>
 
 
         <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          {resultsLoading ? <CircularProgress variant='indeterminate' /> : <Box />}
           {resultsList.length <= 0 ?
             <Alert severity="info">Please create or select a habit.</Alert> :
 
             resultsList.map((value) => {
               return (
                 <ListItem
-                  key={value.habitId}
+                  key={value.food.foodId}
                   secondaryAction={
                     <ListItemButton>
                       <Delete
@@ -163,7 +201,7 @@ const DetailedFoodLogScreen = () => {
                     navigate('/app/logscreen');
                   }}>
 
-                    <ListItemText primary={value.habitName} secondary={value.habitId} />
+                    <ListItemText primary={value.food.label} secondary={value.food.nutrients.ENERC_KCAL + " calories"} />
                   </ListItemButton>
                 </ListItem>
               );
