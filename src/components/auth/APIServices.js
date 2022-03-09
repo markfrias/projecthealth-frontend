@@ -1,5 +1,10 @@
 const localStorage = window.localStorage;
 
+// App details
+const appId = "e0bb0e7f";
+const appKey = "d1e12e6309c19f0a1557030bc73be338";
+
+
 // API call handlers
 
 
@@ -341,6 +346,38 @@ const saveNote = async (body) => {
   // Add code to handle errors and display error states and messages
 }
 
+// Fetch food autocomplete suggestions
+const getFoodAutocomplete = async (query) => {
+  const response = await fetch(
+    `https://api.edamam.com/auto-complete?app_id=${appId}&app_key=${appKey}&q=${query}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    }
+  );
+  const newResponse = await response.json();
+  console.log(newResponse)
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return newResponse;
+  }
+
+
+};
+
+
 
 
 
@@ -352,5 +389,6 @@ const logout = () => {
 }
 
 export {
-  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit, getUserHabits, saveHabits, saveNote
+  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
+  getUserHabits, saveHabits, saveNote, getFoodAutocomplete
 }

@@ -296,7 +296,7 @@ const Dashboard = () => {
           <Grid item xs={10} sx={{
             width: '100%', height: 'auto'
           }}>
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/logscreen') }}  >
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
               <Grid item xs={5}>
                 <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} height="auto" width="35%" />
 
