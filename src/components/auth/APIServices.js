@@ -304,6 +304,43 @@ const saveHabits = async (habits) => {
   // Add code to handle errors and display error states and messages
 }
 
+// Save quick note
+const saveNote = async (body) => {
+  if (body.foodName === "" || body.servingDescription === "") {
+    return 400;
+  }
+  body.diaryType = "quick";
+  const response = await fetch(
+    "http://localhost:8000/api/food/createEntry/",
+    {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': localStorage.getItem('jwt')
+
+      },
+
+    }
+  );
+
+
+  console.log(response)
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return response.status;
+  } else {
+    console.log(response.status)
+    return response.status;
+  }
+
+  // Add code to handle errors and display error states and messages
+}
+
 
 
 
@@ -315,5 +352,5 @@ const logout = () => {
 }
 
 export {
-  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit, getUserHabits, saveHabits
+  getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit, getUserHabits, saveHabits, saveNote
 }

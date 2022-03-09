@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { Chip, Container, Grid } from '@mui/material';
+import { Chip, Container, Grid, Input } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
@@ -8,7 +8,9 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
+import { saveNote } from '../auth/APIServices';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -66,6 +68,7 @@ function MealEntryModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
@@ -101,6 +104,8 @@ function MealEntryModal() {
 }
 
 const FoodQuickNote = () => {
+  const navigate = useNavigate();
+
   const mealTypes = [
     { mealId: 1, label: "Breakfast" },
     { mealId: 2, label: "Lunch" },
@@ -108,10 +113,25 @@ const FoodQuickNote = () => {
     { mealId: 4, label: "Snack" }
   ];
 
+  const initialState = {
+    foodName: "",
+    servingDescription: "",
+    photosUrl: "",
+    mealType: ""
+  }
+
   const [checked, setChecked] = useState([0]);
+  const [quickNoteState, setQuickNoteState] = useState(initialState);
+
+  const [open, setOpen] = useState(false);
+  const [modalHeading, setModalHeading] = useState("");
+  const [modalBody, setModalBody] = useState("");
+  const handleClose = () => {
+    setOpen(false);
+    navigate('/app/logscreen');
+  }
 
   const handleToggle = (value) => {
-    const currentIndex = checked.indexOf(value.mealId);
     const newChecked = [];
 
     newChecked.push(value.mealId);
@@ -119,7 +139,47 @@ const FoodQuickNote = () => {
 
     setChecked(newChecked);
     console.log(newChecked)
+
+    setQuickNoteState({
+      ...quickNoteState,
+      mealType: mealTypes[newChecked[0] - 1].label.toLowerCase()
+    })
   };
+
+  const handleChange = (event) => {
+    const target = event.target;
+
+    setQuickNoteState({
+      ...quickNoteState,
+      [target.name]: target.value,
+    })
+    console.log(target.files)
+  }
+
+  const handleSave = async () => {
+    const response = await saveNote(quickNoteState);
+    if (response === 200) {
+      setOpen(true);
+      setModalHeading("Note saved!")
+      setModalBody("The note you created has been successfully saved.");
+    } else if (response === 400) {
+      setOpen(true);
+      setModalHeading("Incorrect or incomplete input")
+      setModalBody("Please make sure that you have completely filled up all required fields.")
+    } else if (response === 500) {
+      setOpen(true);
+      setModalHeading("Server error")
+      setModalBody("Oops! Something wrong happened on our end. Please try again later.")
+    } else {
+      setOpen(true);
+      setModalHeading("Something wrong happened")
+      setModalBody("We're not sure what happened, but we're at it to fix it.")
+    }
+  }
+
+  useEffect(() => {
+    console.log(quickNoteState)
+  }, [quickNoteState]);
 
   return (
     <Grid container spacing={4} >
@@ -142,37 +202,71 @@ const FoodQuickNote = () => {
           <Typography variant='subtitle1B' component='p' >What's this meal for?</Typography>
         </Grid>
         <Grid item xs={6} container rowSpacing={4}>
-          <Chip label="Clickable" onClick={() => { console.log('a') }} />
-          <Chip label="Clickable" />
-          <Chip label="Clickable" />
-          <Chip label="Clickable" />
+          {mealTypes.map((meal) => {
+            return (
+              <Chip key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} />
+            )
+          })}
 
 
         </Grid>
         <Typography variant='subtitle1B' component='p' >Brief description of food</Typography>
-        <TextField id="outlined-basic" label="Food Description" variant="outlined" />
+        <TextField id="outlined-basic"
+          value={quickNoteState.foodName}
+          onChange={handleChange}
+          name="foodName"
+          label="Food Description" variant="outlined" />
         <Typography variant='subtitle1B' component='p' >Description of food amount</Typography>
-        <TextField id="outlined-basic" label="Amount of food" variant="outlined" />
+        <TextField id="outlined-basic" label="Amount of food"
+          value={quickNoteState.servingDescription}
+          onChange={handleChange}
+          name="servingDescription" variant="outlined" />
         <Grid item xs={12} container spacing={4}>
 
           <Typography variant='subtitle1' component='p' >(Optional) Picture of the meal, food, or drink</Typography>
 
           <Button variant='contained' startIcon={<AddAPhotoOutlinedIcon />} ></Button>
 
+          <Input name="photosUrl" type="file" id="file-upload-btn" onChange={handleChange} hidden />
+
+          <label htmlFor='file-upload-btn'>
+            <Button htmlFor="file-upload-btn" component="span">
+              Upload
+            </Button>
+
+          </label>
+
+          <img alt="upload picture" src={quickNoteState.photosUrl} />
+
         </Grid>
 
         <Grid>
-          {mealTypes.map((meal) => {
-            return (
-              <Chip key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} />
-            )
-          })}
-          <Button variant='contained'  >Save Note</Button>
+
+          <Button variant='contained' onClick={handleSave}>Save Note</Button>
           <NoteSavedModal></NoteSavedModal>
           <MealEntryModal></MealEntryModal>
 
         </Grid>
       </Container>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {modalHeading}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {modalBody}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Okay</Button>
+        </DialogActions>
+      </Dialog>
 
     </Grid>
 
