@@ -44,7 +44,7 @@ const FoodLogMainScreen = () => {
           <Typography variant='subtitle1' component='p' >Type away and leave for later logging.</Typography>
         </Grid>
 
-        <Grid item xs={12} container spacing={4} onClick={() => { navigate('/app/detailedfoodlogscreen') }}>
+        <Grid item xs={12} container spacing={4} onClick={() => { navigate('/app/food/search') }}>
           <img alt='Confetti' src={require('../../assets/img/blackman.png')} width='200px' height='200px' margin='auto' />
           <Typography variant='subtitle1B' component='h2'>Log with Details</Typography>
           <Typography variant='subtitle1' component='p'>See full details of meal and nutritional value</Typography>

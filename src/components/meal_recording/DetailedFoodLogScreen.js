@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
-import { Delete, SearchRounded } from '@mui/icons-material';
+import { Add, AddRounded, Delete, SearchRounded } from '@mui/icons-material';
 import { getFoodAutocomplete, getFoodSearchResults } from '../auth/APIServices';
 import { Box } from '@mui/system';
 
-const DetailedFoodLogScreen = () => {
+const DetailedFoodLogScreen = (props) => {
   const [resultsList, setResultsList] = useState([
 
   ]);
@@ -94,7 +94,7 @@ const DetailedFoodLogScreen = () => {
   const navigate = useNavigate();
 
   const handleSearchClick = async () => {
-    if (autocompleteValue === "" || autocompleteValue === undefined || autocompleteValue === null) {
+    if (autocompleteValue === "" && autoInputValue === "") {
       setResultsList([]);
       return;
     }
@@ -106,8 +106,6 @@ const DetailedFoodLogScreen = () => {
     setResultsList(newOptions.hints)
     setResultsLoading(false);
   }
-
-
 
   return (
     <Grid container spacing={4} >
@@ -183,14 +181,12 @@ const DetailedFoodLogScreen = () => {
             resultsList.map((value) => {
               return (
                 <ListItem
-                  key={value.food.foodId}
+                  key={value.food.foodId + (Math.random() * 20)}
                   secondaryAction={
                     <ListItemButton>
-                      <Delete
+                      <AddRounded
                         edge="end"
-                        onClick={() => {
-                          navigate('/app/logscreen');
-                        }}
+
                       />
                     </ListItemButton>
 
@@ -198,7 +194,10 @@ const DetailedFoodLogScreen = () => {
                   disablePadding
                 >
                   <ListItemButton onClick={() => {
-                    navigate('/app/logscreen');
+                    props.setMeasures(value.measures);
+                    console.log(value)
+                    props.setFoodItem(value);
+                    navigate(`/app/food/log?q=${value.food.foodId}`);
                   }}>
 
                     <ListItemText primary={value.food.label} secondary={value.food.nutrients.ENERC_KCAL + " calories"} />

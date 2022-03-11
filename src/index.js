@@ -40,6 +40,7 @@ import { getAnalytics } from "firebase/analytics";
 import Registration from './components/registration/Registration';
 import Habits from './components/registration/Habits';
 import WeightHeightMod from './components/settings/WeightHeightMod';
+import Food from './components/meal_recording/Food';
 
 
 
@@ -95,18 +96,17 @@ ReactDOM.render(
           </Route>
           <Route path="/app" element={<App />}>
             <Route path="" element={<Dashboard />} />
+            <Route path="food/*" element={<Food />} />
             <Route path="settings/*" element={<WeightHeightMod />} />
             <Route path="notif-settings/*" element={<NotificationSettings />} />
             <Route path="logscreen/*" element={<LogScreen />} />
             <Route path="quicknote/*" element={<FoodQuickNote />} />
             <Route path="login/*" element={<LoginScreen />} />
-            <Route path="foodlog/*" element={<FoodLogScreen />} />
             <Route path="Onboarding5/*" element={<Onboarding5 />} />
             <Route path="Onboarding4/*" element={<Onboarding4 />} />
             <Route path="Onboarding3/*" element={<Onboarding3 />} />
             <Route path="Onboarding2/*" element={<Onboarding2 />} />
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
-            <Route path="detailedfoodlogscreen/*" element={<DetailedFoodLogScreen />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="registration/*" element={<Registration />}>
 
