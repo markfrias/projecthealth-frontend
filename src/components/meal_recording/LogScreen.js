@@ -13,12 +13,18 @@ import { ListItem } from '@mui/material';
 import ListItemText from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { getFoodSearchResults, getNutrients } from '../auth/APIServices';
+import { getCalorieBudget, getFoodSearchResults, getNutrients, getTodayUserNutrients } from '../auth/APIServices';
 import { UndoRounded } from '@mui/icons-material';
 
 
 
 const LogScreen = (props) => {
+
+  // Recommended values
+  const recommendedCarbs = 300;
+  const recommendedFat = 65;
+  const recommendedProtein = 50;
+
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const mealTypes = [
@@ -41,9 +47,18 @@ const LogScreen = (props) => {
 
   const [checked, setChecked] = useState([0]);
   const [quickNoteState, setQuickNoteState] = useState(initialState);
-  const [nutrients, setNutrients] = useState();
+  const [nutrients, setNutrients] = useState({
+
+  });
   const [measureItem, setMeasureItem] = useState();
   const [loading, setLoading] = useState(false);
+  const [nutrientContext, setNutrientContext] = useState({
+    sumCarbs: null,
+    sumProtein: null,
+    sumFat: null,
+    sumSodium: null,
+    calorieBudget: null
+  });
 
 
 
@@ -61,9 +76,22 @@ const LogScreen = (props) => {
         ...quickNoteState,
         baseCalories: initialNutrients.calories,
       })
+
+      const userNutrients = await getTodayUserNutrients();
+      setNutrients(initialNutrients)
+      console.log(userNutrients)
+      setNutrientContext(userNutrients[0]);
+      if (userNutrients[0].calorieBudget === null) {
+        const calorieBudget = await getCalorieBudget();
+        console.log(calorieBudget)
+        setNutrientContext({
+          ...nutrientContext,
+          calorieBudget: calorieBudget[0].calorieBudget
+        })
+      }
+
+
     })()
-
-
   }, []);
 
   const handleToggle = (value) => {
@@ -120,6 +148,7 @@ const LogScreen = (props) => {
           totalWeight: newNutrients.totalWeight,
           servingUnit: toTitleCase(newNutrients.ingredients[0].parsed[0].measure)
         });
+        setNutrients(newNutrients);
         setLoading(false);
 
       })()
@@ -133,9 +162,19 @@ const LogScreen = (props) => {
         baseCalories: newNutrients.calories,
         totalWeight: newNutrients.totalWeight
       });
+      setNutrients(newNutrients);
       setLoading(false);
     })()
   }, [measureItem]);
+
+  useEffect(() => {
+    if (nutrients.totalNutrients !== undefined) {
+      console.log(nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty / recommendedCarbs * 100);
+      console.log((nutrientContext.sumCarbs + nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty) / recommendedCarbs * 100)
+    }
+  }, [nutrients])
+
+
 
 
 
@@ -214,13 +253,17 @@ const LogScreen = (props) => {
               Math.round(quickNoteState.baseCalories * quickNoteState.servingQty) + " calories"}</Typography>
           </Grid>
 
+
           <Grid item container md={12} direction="column">
             <Grid item md={12}>
               <Typography variant="subtitle1" component="h2">Context</Typography>
             </Grid>
 
             <Grid item md={12}>
-              <LinearProgress variant='determinate' value={50} />
+              {nutrientContext.calorieBudget === null ?
+                <LinearProgress variant='indeterminate' /> :
+                <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
+              }
             </Grid>
             <Grid item md={12}>
               <Typography variant="p" component="p">1500 + 780 cal > 1700 cal</Typography>
@@ -231,14 +274,31 @@ const LogScreen = (props) => {
 
             <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
               <Grid item xs={4}>
-                <LinearProgress variant='determinate' value={50} />
+                {
+                  nutrients.totalNutrients === undefined ?
+                    <CircularProgress variant='indeterminate' /> :
+                    <LinearProgress variant='determinate' value={(nutrientContext.sumCarbs + nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty) / recommendedCarbs * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
+
+
+                }
               </Grid>
               <Grid item xs={4}>
-                <LinearProgress variant='determinate' value={50} />
+                {
+                  nutrients.totalNutrients === undefined ?
+                    <CircularProgress variant='indeterminate' /> :
+                    <LinearProgress variant='determinate' value={(nutrientContext.sumFat + nutrients.totalNutrients.FAT.quantity * quickNoteState.servingQty) / recommendedFat * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
+
+
+                }
               </Grid>
               <Grid item xs={4}>
-                <LinearProgress variant='determinate' value={50} />
-              </Grid>
+                {
+                  nutrients.totalNutrients === undefined ?
+                    <CircularProgress variant='indeterminate' /> :
+                    <LinearProgress variant='determinate' value={(nutrientContext.sumProtein + nutrients.totalNutrients.PROCNT.quantity * quickNoteState.servingQty) / recommendedProtein * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
+
+
+                }              </Grid>
             </Grid>
 
           </Grid>
