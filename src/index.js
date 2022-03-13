@@ -41,6 +41,7 @@ import Registration from './components/registration/Registration';
 import Habits from './components/registration/Habits';
 import WeightHeightMod from './components/settings/WeightHeightMod';
 import Food from './components/meal_recording/Food';
+import Journal from './components/journal/Journal';
 
 
 
@@ -97,6 +98,7 @@ ReactDOM.render(
           <Route path="/app" element={<App />}>
             <Route path="" element={<Dashboard />} />
             <Route path="food/*" element={<Food />} />
+            <Route path="journal/*" element={<Journal />} />
             <Route path="settings/*" element={<WeightHeightMod />} />
             <Route path="notif-settings/*" element={<NotificationSettings />} />
             <Route path="logscreen/*" element={<LogScreen />} />

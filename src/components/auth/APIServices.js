@@ -451,6 +451,39 @@ const getNutrients = async (measureURI, foodId) => {
 };
 
 
+// Fetch nutrients and calories consumed by signed in user within the current day
+const getTodayUserNutrients = async (measureURI, foodId) => {
+
+  const response = await fetch(
+    `http://localhost:8000/api/food/entry/day/agg`,
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+
+
+      }
+    }
+  );
+  const newResponse = await response.json();
+  console.log(newResponse)
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+
+
+};
+
+
 
 
 
@@ -464,5 +497,5 @@ const logout = () => {
 
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
-  getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients
+  getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients
 }
