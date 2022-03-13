@@ -515,6 +515,42 @@ const getCalorieBudget = async () => {
 
 };
 
+// Save quick note
+const saveDetailedFoodLog = async (body) => {
+  if (body.mealType === "" || body.diaryType === "" || body.foodId === "" || body.foodName === "" || body.servingUnit === "" || body.servingQty === "" || body.caloriesPerUnit === "" || body.carbs === "" || body.protein === "" || body.fat === "" || body.sodium === "" || body.weightInG === "") {
+    return 400;
+  }
+  const response = await fetch(
+    "http://localhost:8000/api/food/createEntry/",
+    {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': localStorage.getItem('jwt')
+
+      },
+
+    }
+  );
+
+
+  console.log(response)
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return response.status;
+  } else {
+    console.log(response.status)
+    return response.status;
+  }
+
+  // Add code to handle errors and display error states and messages
+}
+
 
 
 
@@ -530,5 +566,5 @@ const logout = () => {
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
-  getCalorieBudget
+  getCalorieBudget, saveDetailedFoodLog
 }
