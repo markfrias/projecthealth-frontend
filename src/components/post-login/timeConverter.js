@@ -7,7 +7,6 @@ export function convertTimesToStrings(array) {
         let convertedItem;
         let newFormat;
         newFormat = moment(new Date(item)).format("HH");
-        console.log(newFormat)
         switch (newFormat) {
             case '00':
                 convertedItem = 'midnight';

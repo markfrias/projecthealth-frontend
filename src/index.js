@@ -20,6 +20,11 @@ import Onboarding2 from './components/post-login/Onboarding2';
 import Onboarding3 from './components/post-login/Onboarding3';
 import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding5 from './components/post-login/Onboarding5';
+import Dashboard from './components/dashboard/Dashboard';
+import FoodQuickNote from './components/meal_recording/FoodQuickNote';
+import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
+import LogScreen from './components/meal_recording/LogScreen';
+import NotificationSettings from './components/settings/NotificationSettings';
 
 
 // Firebase imports
@@ -32,6 +37,10 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import Registration from './components/registration/Registration';
 import Habits from './components/registration/Habits';
+import WeightHeightMod from './components/settings/WeightHeightMod';
+import Food from './components/meal_recording/Food';
+import Journal from './components/journal/Journal';
+
 
 
 // Firebase config
@@ -85,7 +94,22 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="food/*" element={<Food />} />
+            <Route path="journal/*" element={<Journal />} />
+            <Route path="settings/*" element={<WeightHeightMod />} />
+            <Route path="notif-settings" element={<NotificationSettings />} />
+            <Route path="logscreen/*" element={<LogScreen />} />
+            <Route path="quicknote/*" element={<FoodQuickNote />} />
+            <Route path="login/*" element={<LoginScreen />} />
+            <Route path="Onboarding5/*" element={<Onboarding5 />} />
+            <Route path="Onboarding4/*" element={<Onboarding4 />} />
+            <Route path="Onboarding3/*" element={<Onboarding3 />} />
+            <Route path="Onboarding2/*" element={<Onboarding2 />} />
+            <Route path="Onboarding1/*" element={<Onboarding1 />} />
+            <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="registration/*" element={<Registration />}>
+
             </Route>
 
             <Route path="habits/*" element={<Habits />} />
@@ -99,7 +123,13 @@ ReactDOM.render(
             <Route path="notification-setup" element={<Notificationsetup />} />
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
 
+
           </Route>
+
+
+
+
+
 
         </Routes>
       </ThemeProvider>
