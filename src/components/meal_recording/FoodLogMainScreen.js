@@ -1,11 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { Container, Grid } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { List } from '@mui/material';

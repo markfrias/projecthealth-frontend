@@ -50,7 +50,6 @@ const saveNotifSchedule = async (array, registrationToken) => {
     dinnerTime: array[2],
     registrationToken: registrationToken
   }
-  console.log(reqBody)
 
   const response = await fetch(
     "https://projecthealthapp.herokuapp.com/api/notifications/subscribe/",
@@ -100,7 +99,6 @@ const registerAccount = async (form) => {
     passcode: form.password1
   }
 
-  console.log(revisedForm)
 
   const response = await fetch(
     "https://projecthealthapp.herokuapp.com/api/users/register/",
@@ -122,10 +120,8 @@ const registerAccount = async (form) => {
     // If not, trigger log out function
     logout();
   } else if (response.status === 200) {
-    console.log(response.status)
     return response.status;
   } else {
-    console.log(response.status)
     return response.status;
   }
 
@@ -190,7 +186,6 @@ const getHabitAutocomplete = async (query) => {
     }
   );
   const newResponse = await response.json();
-  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -206,7 +201,6 @@ const getHabitAutocomplete = async (query) => {
 
 // Creates a new habit
 const createHabit = async (habitName, habitDescription, goalCategory) => {
-  console.log(habitName, habitDescription, goalCategory)
   const body = {
     habitName: habitName,
     habitDescription: habitDescription,
@@ -227,8 +221,6 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
     }
   );
 
-
-  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -236,7 +228,6 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
   } else if (response.status === 200) {
     return response;
   } else {
-    console.log(response.status)
     return response;
   }
 
@@ -294,7 +285,6 @@ const saveHabits = async (habits) => {
   );
 
 
-  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -302,7 +292,6 @@ const saveHabits = async (habits) => {
   } else if (response.status === 200) {
     return response;
   } else {
-    console.log(response.status)
     return response;
   }
 
@@ -316,7 +305,7 @@ const saveNote = async (body) => {
   }
   body.diaryType = "quick";
   const response = await fetch(
-    "http://localhost:8000/api/food/createEntry/",
+    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -331,7 +320,6 @@ const saveNote = async (body) => {
   );
 
 
-  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -339,7 +327,6 @@ const saveNote = async (body) => {
   } else if (response.status === 200) {
     return response.status;
   } else {
-    console.log(response.status)
     return response.status;
   }
 
@@ -363,7 +350,6 @@ const getFoodAutocomplete = async (query) => {
     }
   );
   const newResponse = await response.json();
-  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -394,7 +380,6 @@ const getFoodSearchResults = async (query) => {
     }
   );
   const newResponse = await response.json();
-  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -436,7 +421,6 @@ const getNutrients = async (measureURI, foodId) => {
     }
   );
   const newResponse = await response.json();
-  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -455,7 +439,7 @@ const getNutrients = async (measureURI, foodId) => {
 const getTodayUserNutrients = async (measureURI, foodId) => {
 
   const response = await fetch(
-    `http://localhost:8000/api/food/entry/day/agg`,
+    `https://projecthealthapp.herokuapp.com/api/food/entry/day/agg`,
     {
       method: "GET",
       mode: "cors",
@@ -469,7 +453,6 @@ const getTodayUserNutrients = async (measureURI, foodId) => {
     }
   );
   const newResponse = await response.json();
-  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -487,7 +470,7 @@ const getTodayUserNutrients = async (measureURI, foodId) => {
 const getCalorieBudget = async () => {
 
   const response = await fetch(
-    `http://localhost:8000/api/users/calorieBudget`,
+    `https://projecthealthapp.herokuapp.com/api/users/calorieBudget`,
     {
       method: "GET",
       mode: "cors",
@@ -501,7 +484,6 @@ const getCalorieBudget = async () => {
     }
   );
   const newResponse = await response.json();
-  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -521,7 +503,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "http://localhost:8000/api/food/createEntry/",
+    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -536,7 +518,6 @@ const saveDetailedFoodLog = async (body) => {
   );
 
 
-  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -544,12 +525,40 @@ const saveDetailedFoodLog = async (body) => {
   } else if (response.status === 200) {
     return response.status;
   } else {
-    console.log(response.status)
     return response.status;
   }
 
   // Add code to handle errors and display error states and messages
 }
+
+// Fetch calorie budget of signed in user
+const getNotifSettings = async () => {
+
+  const response = await fetch(
+    `https://projecthealthapp.herokuapp.com/api/notifications/get`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+
+
+};
 
 
 
@@ -566,5 +575,5 @@ const logout = () => {
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
-  getCalorieBudget, saveDetailedFoodLog
+  getCalorieBudget, saveDetailedFoodLog, getNotifSettings
 }

@@ -1,26 +1,32 @@
 import Button from '@mui/material/Button';
 import { Container, Grid, Typography } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Switch } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { getToken } from 'firebase/messaging';
 import { messaging } from '../firebase';
+import ThemedTimePicker from '../ThemedTimePicker/ThemedTimePicker';
+import { convertTimesToStrings } from '../post-login/timeConverter';
+import { getNotifSettings, saveNotifSchedule } from '../auth/APIServices';
+import { useNavigate } from 'react-router-dom';
+import { convertStringToTime } from './stringConverter';
 
 
 const NotificationSettings = () => {
-  const navigate = useNavigate();
   const [notifIsAllowed, setNotifIsAllowed] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
-  const [isSupported, setIsSupported] = useState(true);
 
+  // State
+  const [breakfastValue, setBreakfastValue] = useState(new Date('2018-01-01T00:00:00.000Z'));
+  const [lunchValue, setLunchValue] = useState(new Date('2018-01-01T04:00:00.000Z'));
+  const [dinnerValue, setDinnerValue] = useState(new Date('2018-01-01T11:00:00.000Z'));
+
+  const navigate = useNavigate();
 
 
   // Ask permission for notifications
   const askNotifPermission = () => {
     Notification.requestPermission().then((result) => {
-      console.log(result);
       // Display error if denied
       if (result === "denied") {
         setNotifIsAllowed(false);
@@ -32,14 +38,11 @@ const NotificationSettings = () => {
           if (currentToken) {
             // Send the token to your server and update the UI if necessary
             // ...
-            console.log(currentToken)
           } else {
             // Show permission request UI
-            console.log('No registration token available. Request permission to generate one.');
             // ...
           }
         }).catch((err) => {
-          console.log('An error occurred while retrieving token. ', err);
           // ...
         });
       }
@@ -52,15 +55,23 @@ const NotificationSettings = () => {
     setNotifIsAllowed(false);
   }
 
-  // Use function to go somewhere
-  const navigateConditionally = () => {
-    if (isChecked) {
-      navigate("/app/notification-setup")
-    }
-  }
 
   // Check notification permission state on render once
   useEffect(() => {
+
+    (async () => {
+      // Set notification settings
+      const settings = await getNotifSettings();
+      const times = convertStringToTime(settings);
+      setBreakfastValue(times[0]);
+      setLunchValue(times[2]);
+      setDinnerValue(times[1]);
+
+
+
+    })()
+
+
     // Check current permission
     const checkCurrentNotifPermission = () => {
       if (Notification.permission === "denied") {
@@ -69,12 +80,28 @@ const NotificationSettings = () => {
     }
     // Check if notifications are supported, if not, redirect to unsupported screen
     if (!("Notification" in window)) {
-      setIsSupported(false);
     } else {
       checkCurrentNotifPermission();
 
     }
   }, []);
+
+  // Handle save button click
+  const handleSaveButton = () => {
+    // Put values in an array
+    const localStorage = window.localStorage;
+    const registrationToken = localStorage.getItem('jwt');
+    const dates = [breakfastValue, lunchValue, dinnerValue];
+    const newTime = convertTimesToStrings(dates);
+    //setIsLoading(true);        // Send request to server
+    saveNotifSchedule(newTime, registrationToken).then(data => {
+      if (data === 200) {
+        navigate('/app/');
+      } else {
+        //setIsLoading(false);
+      }
+    });
+  }
 
   return (
     <Grid container spacing={4} >
@@ -108,32 +135,25 @@ const NotificationSettings = () => {
           <Grid>
             <Typography variant='subtitle1B' component='h2' >Notificiation time</Typography>
             <Typography variant='subtitle1' component='p' >Breakfast</Typography>
-            <TextField
-              label="08:00 am"
-              variant="outlined"
-              onChange={handleChange}
-            />
+            <ThemedTimePicker value={breakfastValue} setValue={setBreakfastValue} label="Breakfast" />
+
+
           </Grid>
           <Grid>
             <Typography variant='subtitle1' component='p' >Lunch</Typography>
-            <TextField
-              label="12:00 pm"
-              variant="outlined"
-              onChange={handleChange}
-            />
+            <ThemedTimePicker value={lunchValue} setValue={setLunchValue} label="Breakfast" />
+
           </Grid>
           <Grid>
             <Typography variant='subtitle1' component='p' >Dinner</Typography>
-            <TextField
-              label="07:00 pm"
-              variant="outlined"
-              onChange={handleChange}
-            />
+            <ThemedTimePicker value={dinnerValue} setValue={setDinnerValue} label="Breakfast" />
+
           </Grid>
           <Grid>
             <Button
               className="button-loginScreen"
               variant="contained"
+              onClick={handleSaveButton}
 
             >
               Save Changes

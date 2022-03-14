@@ -7,9 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Backdrop from '@mui/material/Backdrop';
 import AddIcon from '@mui/icons-material/Add';
 import { Navigation } from '@mui/icons-material';
@@ -92,53 +89,9 @@ function JournalBackdrop() {
   );
 }
 
-function SimpleSnackbar() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  const action = (
-    <React.Fragment>
-      <Button color="secondary" size="small" onClick={handleClose}>
-        OKAY
-      </Button>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
-
-  return (
-    <div>
-      <Button onClick={handleClick}></Button>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="Mission accomplished."
-        action={action}
-      />
-    </div>
-  );
-}
 
 function LinearDeterminate() {
-  const [progress, setProgress] = React.useState(0);
+  const [progress] = React.useState(0);
 
   React.useEffect(() => {
     return () => {
@@ -204,28 +157,14 @@ function CheckboxListSecondary() {
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [checked, setChecked] = React.useState([1]);
   const [open, setOpen] = React.useState(false);
-  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openSuccess] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
   }
 
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   return (
     <Container maxWidth="md" sx={{

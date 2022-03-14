@@ -22,10 +22,8 @@ import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding5 from './components/post-login/Onboarding5';
 import Dashboard from './components/dashboard/Dashboard';
 import FoodQuickNote from './components/meal_recording/FoodQuickNote';
-import FoodLogScreen from './components/meal_recording/FoodLogScreen';
 import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import LogScreen from './components/meal_recording/LogScreen';
-import DetailedFoodLogScreen from './components/meal_recording/DetailedFoodLogScreen';
 import NotificationSettings from './components/settings/NotificationSettings';
 
 
@@ -100,7 +98,7 @@ ReactDOM.render(
             <Route path="food/*" element={<Food />} />
             <Route path="journal/*" element={<Journal />} />
             <Route path="settings/*" element={<WeightHeightMod />} />
-            <Route path="notif-settings/*" element={<NotificationSettings />} />
+            <Route path="notif-settings" element={<NotificationSettings />} />
             <Route path="logscreen/*" element={<LogScreen />} />
             <Route path="quicknote/*" element={<FoodQuickNote />} />
             <Route path="login/*" element={<LoginScreen />} />

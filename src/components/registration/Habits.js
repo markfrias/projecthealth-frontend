@@ -50,7 +50,7 @@ const Habits = () => {
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const goalOptions = options;
     const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
-    const [habitsAutoComplete, setHabitsAutocomplete] = useState()
+    const [habitsAutoComplete, setHabitsAutocomplete] = useState({ habitName: "Eat" })
 
 
 
@@ -105,7 +105,6 @@ const Habits = () => {
     // Handle changes to checkboxes in second page
     const handleSelectionToggle = (value) => {
         const currentIndex = selectionChecked.indexOf(value.habitId);
-        console.log(currentIndex)
         const newChecked = [...selectionChecked];
 
         if (currentIndex === -1) {
@@ -120,7 +119,6 @@ const Habits = () => {
     // Handle changes to checkboxes in habits to add list
     const handleHabitsToAddToggle = (value) => {
         const currentIndex = habitsToAddChecked.indexOf(value.habitId);
-        console.log(currentIndex);
         const newChecked = [...habitsToAddChecked];
 
         if (currentIndex === -1) {
@@ -143,7 +141,6 @@ const Habits = () => {
 
     // Test function
     useEffect(() => {
-        console.log(selectionChecked)
     }, [selectionChecked]);
 
     useEffect(() => {

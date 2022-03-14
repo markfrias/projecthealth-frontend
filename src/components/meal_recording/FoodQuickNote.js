@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { Chip, Container, Grid, Input } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import { saveNote } from '../auth/APIServices';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -38,17 +35,14 @@ const FoodQuickNote = () => {
   const [modalBody, setModalBody] = useState("");
   const handleClose = () => {
     setOpen(false);
-    navigate('/app/logscreen');
+    navigate('/app/foodlogmainscreen');
   }
 
   const handleToggle = (value) => {
     const newChecked = [];
 
     newChecked.push(value.mealId);
-
-
     setChecked(newChecked);
-    console.log(newChecked)
 
     setQuickNoteState({
       ...quickNoteState,
@@ -63,7 +57,6 @@ const FoodQuickNote = () => {
       ...quickNoteState,
       [target.name]: target.value,
     })
-    console.log(target.files)
   }
 
   const handleSave = async () => {
@@ -86,10 +79,6 @@ const FoodQuickNote = () => {
       setModalBody("We're not sure what happened, but we're at it to fix it.")
     }
   }
-
-  useEffect(() => {
-    console.log(quickNoteState)
-  }, [quickNoteState]);
 
   return (
     <Grid container spacing={4} >
@@ -146,7 +135,7 @@ const FoodQuickNote = () => {
 
           </label>
 
-          <img alt="upload picture" src={quickNoteState.photosUrl} />
+          <img alt="upload" src={quickNoteState.photosUrl} />
 
         </Grid>
 

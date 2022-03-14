@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Avatar, Autocomplete, Container, CircularProgress, Grid, ListItemAvatar, ListItemButton, Typography } from '@mui/material';
+import { Autocomplete, Container, CircularProgress, Grid, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
-import ReorderIcon from '@mui/icons-material/Reorder';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
-import { Add, AddRounded, Delete, SearchRounded } from '@mui/icons-material';
+import { AddRounded, SearchRounded } from '@mui/icons-material';
 import { getFoodAutocomplete, getFoodSearchResults } from '../auth/APIServices';
 import { Box } from '@mui/system';
+import { ListItemButton } from '@mui/material';
+
 
 const DetailedFoodLogScreen = (props) => {
   const [resultsList, setResultsList] = useState([
@@ -27,32 +27,10 @@ const DetailedFoodLogScreen = (props) => {
   const [loading, setLoading] = useState(false);
   const [resultsLoading, setResultsLoading] = useState(false);
 
-  /*React.useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
-    }
-
-    (async () => {
-      // For demo purposes.
-      console.log(getFoodAutocomplete(autoInputValue))
-
-      if (active) {
-        setOptions([]);
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [loading]);*/
-
   React.useEffect(() => {
     setLoading(true);
     (async () => {
       const newOptions = await getFoodAutocomplete(autoInputValue);
-      console.log(newOptions);
       if (typeof newOptions === typeof 0 || newOptions.length === 0) {
         setLoading(false);
       } else {
@@ -81,14 +59,13 @@ const DetailedFoodLogScreen = (props) => {
       setResultsLoading(true);
       setResultsList([]);
       const newOptions = await getFoodSearchResults(autoInputValue);
-      console.log(newOptions.hints)
       setResultsList(newOptions.hints)
       setResultsLoading(false);
 
     })()
 
 
-  }, [autocompleteValue])
+  }, [autocompleteValue, autoInputValue])
 
 
   const navigate = useNavigate();
@@ -102,7 +79,6 @@ const DetailedFoodLogScreen = (props) => {
     setResultsLoading(true);
     setResultsList([]);
     const newOptions = await getFoodSearchResults(autoInputValue);
-    console.log(newOptions.hints)
     setResultsList(newOptions.hints)
     setResultsLoading(false);
   }
@@ -195,7 +171,6 @@ const DetailedFoodLogScreen = (props) => {
                 >
                   <ListItemButton onClick={() => {
                     props.setMeasures(value.measures);
-                    console.log(value)
                     props.setFoodItem(value);
                     navigate(`/app/food/log?q=${value.food.foodId}`);
                   }}>

@@ -1,4 +1,4 @@
-import { Chip, Grid, Paper, Typography } from '@mui/material';
+import { Chip, Grid, Typography } from '@mui/material';
 import React from 'react';
 
 const Journal = () => {

@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { Backdrop, Chip, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select } from '@mui/material';
+import { Backdrop, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import { List } from '@mui/material';
-import { ListItem } from '@mui/material';
-import ListItemText from '@mui/material/IconButton';
-import ReorderIcon from '@mui/icons-material/Reorder';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
-import { getCalorieBudget, getFoodSearchResults, getNutrients, getTodayUserNutrients, saveDetailedFoodLog } from '../auth/APIServices';
-import { UndoRounded } from '@mui/icons-material';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { getCalorieBudget, getNutrients, getTodayUserNutrients, saveDetailedFoodLog } from '../auth/APIServices';
 
 
 
@@ -35,7 +26,6 @@ const LogScreen = (props) => {
   }
 
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const mealTypes = [
     { mealId: 1, label: "Breakfast" },
     { mealId: 2, label: "Lunch" },
@@ -69,49 +59,43 @@ const LogScreen = (props) => {
     calorieBudget: null
   });
 
-
-
   // Test code
   useEffect(() => {
-    if (props.measures === undefined) {
-      return navigate('/app/food/search');
+    if (props.measured === undefined) {
+      return;
     }
-    console.log(searchParams.get('q'))
-    console.log(props.foodItem);
     (async () => {
-
       const initialNutrients = await getNutrients(props.measures[0].uri, props.foodItem.food.foodId);
-      setQuickNoteState({
+
+      setQuickNoteState((quickNoteState) => ({
         ...quickNoteState,
         baseCalories: initialNutrients.calories,
-      })
+      }))
 
       const userNutrients = await getTodayUserNutrients();
       setNutrients(initialNutrients)
-      console.log(userNutrients)
       setNutrientContext(userNutrients[0]);
       if (userNutrients[0].calorieBudget === null) {
         const calorieBudget = await getCalorieBudget();
-        console.log(calorieBudget)
-        setNutrientContext({
-          ...nutrientContext,
-          calorieBudget: calorieBudget[0].calorieBudget
-        })
+        setNutrientContext((nutrientContext) => (
+          {
+            ...nutrientContext,
+            calorieBudget: calorieBudget[0].calorieBudget
+          }
+        ))
+
       }
 
 
     })()
+    // Resolve this useEffect issue later
+    // eslint-disable-next-line
   }, []);
 
   const handleToggle = (value) => {
     const newChecked = [];
-
     newChecked.push(value.mealId);
-
-
     setChecked(newChecked);
-    console.log(newChecked)
-
     setQuickNoteState({
       ...quickNoteState,
       mealType: mealTypes[newChecked[0] - 1].label.toLowerCase()
@@ -134,7 +118,6 @@ const LogScreen = (props) => {
   }
 
   const handleClose = () => {
-    console.log(modalHeading)
     if (modalHeading === "Note saved!") {
       navigate('/app/foodlog')
     }
@@ -172,22 +155,19 @@ const LogScreen = (props) => {
     (async () => {
       setLoading(true);
       const newNutrients = await getNutrients(measureItem[0].uri, props.foodItem.food.foodId);
-      setQuickNoteState({
-        ...quickNoteState,
-        baseCalories: newNutrients.calories,
-        totalWeight: newNutrients.totalWeight
-      });
+      setQuickNoteState((quickNoteState) => (
+        {
+          ...quickNoteState,
+          baseCalories: newNutrients.calories,
+          totalWeight: newNutrients.totalWeight
+        }
+      ))
       setNutrients(newNutrients);
       setLoading(false);
     })()
+    // Resolve this useEffect issue later
+    // eslint-disable-next-line
   }, [measureItem]);
-
-  useEffect(() => {
-    if (nutrients.totalNutrients !== undefined) {
-      console.log(nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty / recommendedCarbs * 100);
-      console.log((nutrientContext.sumCarbs + nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty) / recommendedCarbs * 100)
-    }
-  }, [nutrients]);
 
   // Handle saving journal entry
   const handleSave = async () => {
@@ -205,7 +185,6 @@ const LogScreen = (props) => {
       sodium: nutrients.totalNutrients.NA.quantity * quickNoteState.servingQty,
       weightInG: nutrients.totalWeight
     }
-    console.log(body)
     const response = await saveDetailedFoodLog(body);
     if (response === 200) {
       setOpen(true);
@@ -313,7 +292,8 @@ const LogScreen = (props) => {
 
             <Grid item md={12}>
               {nutrientContext.calorieBudget === null ?
-                <LinearProgress variant='indeterminate' /> :
+                <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
+                :
                 <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
               }
             </Grid>
