@@ -1,6 +1,6 @@
-import { Container } from "@mui/material";
+
 import React from "react";
-import { FormGroup, FormControlLabel, Checkbox, Button } from "@mui/material";
+import { Container, FormGroup, FormControlLabel, Checkbox, Button } from "@mui/material";
 
 const HabitOnboarding2 = () => {
     return (

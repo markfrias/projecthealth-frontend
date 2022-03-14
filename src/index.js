@@ -23,6 +23,7 @@ import HabitOnboarding2 from "./components/post-login/Habit-Onboarding/HabitOnbo
 import HabitOnboarding3 from "./components/post-login/Habit-Onboarding/HabitOnboarding3";
 import HabitOnboarding4 from "./components/post-login/Habit-Onboarding/HabitOnboarding4";
 import HabitOnboarding5 from "./components/post-login/Habit-Onboarding/HabitOnboarding5";
+import HabitScreen from "./components/post-login/HabitScreen/HabitScreen";
 
 
 
@@ -43,14 +44,15 @@ ReactDOM.render(
           <Route path="/Onboarding7" element={<Onboarding7 />} />
           <Route path="/Onboarding8" element={<Onboarding8 />} />
           <Route path="/Onboarding9" element={<Onboarding9 />} />
-          <Route path="/Onboarding10" element={<Onboarding10 /> }/>
-          <Route path="/Onboarding11" element={<Onboarding11 /> }/>
-          <Route path="/Onboarding12" element={<Onboarding12 /> }/>
-          <Route path="/HabitOnboarding1" element={<HabitOnboarding1 /> } />
+          <Route path="/Onboarding10" element={<Onboarding10 />} />
+          <Route path="/Onboarding11" element={<Onboarding11 />} />
+          <Route path="/Onboarding12" element={<Onboarding12 />} />
+          <Route path="/HabitOnboarding1" element={<HabitOnboarding1 />} />
           <Route path="HabitOnboarding2" element={<HabitOnboarding2 />} />
           <Route path="HabitOnboarding3" element={<HabitOnboarding3 />} />
           <Route path="HabitOnboarding4" element={<HabitOnboarding4 />} />
-          <Route path="HabitOnboarding5" element={<HabitOnboarding5/>} />
+          <Route path="HabitOnboarding5" element={<HabitOnboarding5 />} />
+          <Route path="HabitScreen" element={<HabitScreen />} />
 
 
         </Route>
