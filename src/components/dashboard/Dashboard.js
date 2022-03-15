@@ -204,7 +204,7 @@ const Dashboard = () => {
       <div className='button-group'>
 
       </div>
-      <Fab variant="extended" sx={{ position: "fixed", bottom: '1em', right: '1em' }} onClick={() => { setOpen(true) }}>
+      <Fab variant="extended" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
         <Navigation />
         Navigate
       </Fab>
