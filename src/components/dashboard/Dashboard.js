@@ -114,6 +114,7 @@ const Dashboard = () => {
   const [openSuccess] = React.useState(false);
   const [checked, setChecked] = React.useState([1]);
   const [snackbarContent, setSnackbarContent] = useState("");
+  const [missionsAccomplishedOpen, setMissionsAccomplishedOpen] = useState(false);
 
   // State for missions
   const [missions, setMissions] = useState([]);
@@ -137,6 +138,12 @@ const Dashboard = () => {
     setChecked(newChecked);
     // Send request to server to change the status in the DB
     const body = { missionEntryId: value, missionAccomplished: status };
+
+    // Make missions accomplished backdrop appear when all three checkboxes are checked
+    if (checked.length === 2 && status === 1) {
+      setMissionsAccomplishedOpen(true);
+    }
+
     const response = await saveMissionStatus(body);
 
     if (response === 500) {
@@ -146,10 +153,16 @@ const Dashboard = () => {
       setSnackbarContent("Mission status succesfully saved")
       setSnackbarOpen(true)
     }
+
+
   };
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
+  }
+
+  const handleMissionAccomplished = () => {
+    setMissionsAccomplishedOpen(false);
   }
 
   useEffect(() => {
@@ -168,10 +181,6 @@ const Dashboard = () => {
       setChecked(newChecked);
     })()
   }, []);
-
-  useEffect(() => {
-    console.log(checked)
-  }, [checked])
 
   return (
     <Container maxWidth="md" sx={{
@@ -226,16 +235,8 @@ const Dashboard = () => {
             })}
           </List>
         }
-
-
-
-
-
-
       </div>
-      <div className='button-group'>
 
-      </div>
       <Fab variant="extended" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
         <Navigation />
         Navigate
@@ -302,6 +303,25 @@ const Dashboard = () => {
           {snackbarContent}
         </Alert>
       </Snackbar>
+
+      {/* Done with daily missions backdrop */}
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={missionsAccomplishedOpen}
+        onClick={handleMissionAccomplished}>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
+          </Grid>
+          <Grid item xs={12}>
+            <h1>All missions completed</h1>
+          </Grid>
+          <Grid item xs={12}>
+            <p>You're done for today. Continue logging to get more progress points</p>
+          </Grid>
+        </Grid>
+      </Backdrop>
 
     </Container >
 
