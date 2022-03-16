@@ -599,7 +599,7 @@ const saveWeightHeightSettings = async (body) => {
 const getMissions = async () => {
 
   const response = await fetch(
-    `http://localhost:8000/api/missions/journal/get-all`,
+    `https://projecthealthapp.herokuapp.com/api/missions/journal/get-all`,
     {
       method: "GET",
       mode: "cors",

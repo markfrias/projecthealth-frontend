@@ -145,6 +145,7 @@ const Dashboard = () => {
     }
 
     const response = await saveMissionStatus(body);
+    console.log(response)
 
     if (response === 500) {
       setSnackbarContent("An error occurred on our end. Please try again soon.")
@@ -170,6 +171,7 @@ const Dashboard = () => {
       // On render get missions
       const newMissions = await getMissions();
       setMissions(newMissions);
+      console.log(newMissions)
 
       // Set checkboxes
       const newChecked = [];
