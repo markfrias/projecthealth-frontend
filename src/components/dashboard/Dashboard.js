@@ -11,7 +11,7 @@ import Backdrop from '@mui/material/Backdrop';
 import AddIcon from '@mui/icons-material/Add';
 import { Navigation } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { getMissions } from '../auth/APIServices';
+import { getMissions, saveMissionStatus } from '../auth/APIServices';
 
 function SimpleBackdrop() {
   const [open, setOpen] = React.useState(false);
@@ -120,17 +120,26 @@ const Dashboard = () => {
     setOpen(false);
   }
 
-  const handleToggle = (value) => () => {
+  const handleToggle = (value) => async () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
+    let status = 1;
 
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
       newChecked.splice(currentIndex, 1);
+      status = 0;
     }
 
     setChecked(newChecked);
+
+    console.log(status)
+
+    // Send request to server to change the status in the DB
+    const body = { missionEntryId: value, missionAccomplished: status };
+    const response = await saveMissionStatus(body);
+    console.log(response);
   };
 
   useEffect(() => {
@@ -143,7 +152,7 @@ const Dashboard = () => {
       // Set checkboxes
       const newChecked = [];
       newMissions.forEach((mission) => {
-        if (mission.missionAccomplished === true) {
+        if (mission.missionAccomplished === 1) {
           newChecked.push(mission.missionEntryId);
         }
       });
