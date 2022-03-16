@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Container, Fab, Grid, Modal, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Fab, Grid, Modal, Snackbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
@@ -110,8 +110,10 @@ function LinearDeterminate() {
 const Dashboard = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [openSuccess] = React.useState(false);
   const [checked, setChecked] = React.useState([1]);
+  const [snackbarContent, setSnackbarContent] = useState("");
 
   // State for missions
   const [missions, setMissions] = useState([]);
@@ -133,21 +135,28 @@ const Dashboard = () => {
     }
 
     setChecked(newChecked);
-
-    console.log(status)
-
     // Send request to server to change the status in the DB
     const body = { missionEntryId: value, missionAccomplished: status };
     const response = await saveMissionStatus(body);
-    console.log(response);
+
+    if (response === 500) {
+      setSnackbarContent("An error occurred on our end. Please try again soon.")
+      setSnackbarOpen(true)
+    } else if (response === 200) {
+      setSnackbarContent("Mission status succesfully saved")
+      setSnackbarOpen(true)
+    }
   };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  }
 
   useEffect(() => {
     (async () => {
       // On render get missions
       const newMissions = await getMissions();
       setMissions(newMissions);
-      console.log(newMissions)
 
       // Set checkboxes
       const newChecked = [];
@@ -288,6 +297,11 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </Modal>
+      <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+          {snackbarContent}
+        </Alert>
+      </Snackbar>
 
     </Container >
 
