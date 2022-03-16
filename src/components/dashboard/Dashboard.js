@@ -1,5 +1,5 @@
-import { Button, Container, Fab, Grid, Modal, Typography } from '@mui/material';
-import React from 'react';
+import { Button, CircularProgress, Container, Fab, Grid, Modal, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,6 +11,7 @@ import Backdrop from '@mui/material/Backdrop';
 import AddIcon from '@mui/icons-material/Add';
 import { Navigation } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { getMissions } from '../auth/APIServices';
 
 function SimpleBackdrop() {
   const [open, setOpen] = React.useState(false);
@@ -106,8 +107,18 @@ function LinearDeterminate() {
   );
 }
 
-function CheckboxListSecondary() {
+const Dashboard = () => {
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  const [openSuccess] = React.useState(false);
   const [checked, setChecked] = React.useState([1]);
+
+  // State for missions
+  const [missions, setMissions] = useState([]);
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -122,49 +133,27 @@ function CheckboxListSecondary() {
     setChecked(newChecked);
   };
 
-  return (
-    <List dense sx={{ width: '100%', maxWidth: 360 }}>
-      {[0, 1, 2].map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
-        return (
-          <ListItem
-            key={value}
-            secondaryAction={
-              <Checkbox
-                edge="end"
-                onChange={handleToggle(value)}
-                checked={checked.indexOf(value) !== -1}
-                inputProps={{ 'aria-labelledby': labelId }}
-              />
-            }
-            disablePadding
-          >
-            <ListItemButton>
+  useEffect(() => {
+    (async () => {
+      // On render get missions
+      const newMissions = await getMissions();
+      setMissions(newMissions);
+      console.log(newMissions)
 
+      // Set checkboxes
+      const newChecked = [];
+      newMissions.forEach((mission) => {
+        if (mission.missionAccomplished === true) {
+          newChecked.push(mission.missionEntryId);
+        }
+      });
+      setChecked(newChecked);
+    })()
+  }, []);
 
-
-
-
-
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
-    </List>
-  );
-}
-
-const Dashboard = () => {
-  const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const [openSuccess] = React.useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  }
-
-
+  useEffect(() => {
+    console.log(checked)
+  }, [checked])
 
   return (
     <Container maxWidth="md" sx={{
@@ -192,9 +181,34 @@ const Dashboard = () => {
       </div>
       <div className='dashboard-container2'>
         <Typography variant='subtitle1B' component='h1'>Daily Missions</Typography>
-        <CheckboxListSecondary>
+        {missions <= 0 ?
+          <CircularProgress variant='indeterminate' /> :
+          <List dense sx={{ width: '100%', maxWidth: 360 }}>
+            {missions.map((value) => {
+              const labelId = `checkbox-list-secondary-label-${value}`;
+              return (
+                <ListItem
+                  key={value.missionEntryId}
+                  secondaryAction={
+                    <Checkbox
+                      edge="end"
+                      onChange={handleToggle(value.missionEntryId)}
+                      checked={checked.indexOf(value.missionEntryId) !== -1}
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  }
+                  disablePadding
+                >
+                  <ListItemButton>
 
-        </CheckboxListSecondary>
+                    <ListItemText id={labelId} primary={value.missionName} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+          </List>
+        }
+
 
 
 

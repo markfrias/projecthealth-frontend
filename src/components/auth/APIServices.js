@@ -595,6 +595,37 @@ const saveWeightHeightSettings = async (body) => {
   // Add code to handle errors and display error states and messages
 }
 
+// Fetch calorie budget of signed in user
+const getMissions = async () => {
+
+  const response = await fetch(
+    `http://localhost:8000/api/missions/journal/get-all`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+
+
+};
+
+
+
 
 
 
@@ -610,5 +641,5 @@ const logout = () => {
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
-  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings
+  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions
 }
