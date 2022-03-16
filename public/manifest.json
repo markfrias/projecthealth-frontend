@@ -1,6 +1,6 @@
 {
-  "short_name": "Project HealthUp",
-  "name": "Project HealthUp: Live Healthier with Fun",
+  "short_name": "Healevate",
+  "name": "Healevate: Live Healthier with Fun",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#F9AB10",
   "background_color": "#ffffff"
 }
