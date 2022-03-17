@@ -25,6 +25,7 @@ import FoodQuickNote from './components/meal_recording/FoodQuickNote';
 import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import LogScreen from './components/meal_recording/LogScreen';
 import NotificationSettings from './components/settings/NotificationSettings';
+import Accountsetting from './components/settings/Accountsetting';
 import DateJournal from './components/journal/DateJournal';
 import DateHabit from './components/journal/DateHabit';
 
@@ -114,11 +115,10 @@ ReactDOM.render(
             <Route path="Onboarding2/*" element={<Onboarding2 />} />
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
-            
-            <Route path="registration/*" element={<Registration />}>
-            
+            <Route path="registration/*" element={<Registration />} />
+            <Route path="accounting/*" element={<Accountsetting />} />
 
-            </Route>
+
 
             <Route path="habits/*" element={<Habits />} />
 
@@ -130,7 +130,7 @@ ReactDOM.render(
             <Route path="login" element={<LoginScreen />} />
             <Route path="notification-setup" element={<Notificationsetup />} />
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
-          
+
 
 
           </Route>
