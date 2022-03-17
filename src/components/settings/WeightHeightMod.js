@@ -25,10 +25,6 @@ const WeightHeightMod = () => {
             ...weightHeight,
             [target.name]: target.value
         })
-        setWeight({
-            ...weight,
-            weight: target.value
-        })
     }
 
     // Handle button click
