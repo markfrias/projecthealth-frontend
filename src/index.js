@@ -26,6 +26,9 @@ import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import LogScreen from './components/meal_recording/LogScreen';
 import NotificationSettings from './components/settings/NotificationSettings';
 import Accountsetting from './components/settings/Accountsetting';
+import DateJournal from './components/journal/DateJournal';
+import DateHabit from './components/journal/DateHabit';
+
 
 
 // Firebase imports
@@ -41,6 +44,7 @@ import Habits from './components/registration/Habits';
 import WeightHeightMod from './components/settings/WeightHeightMod';
 import Food from './components/meal_recording/Food';
 import Journal from './components/journal/Journal';
+
 
 
 
@@ -104,13 +108,15 @@ ReactDOM.render(
             <Route path="quicknote/*" element={<FoodQuickNote />} />
             <Route path="login/*" element={<LoginScreen />} />
             <Route path="Onboarding5/*" element={<Onboarding5 />} />
+            <Route path="datejournal/*" element={<DateJournal />} />
+            <Route path="datehabit/*" element={<DateHabit />} />
             <Route path="Onboarding4/*" element={<Onboarding4 />} />
             <Route path="Onboarding3/*" element={<Onboarding3 />} />
             <Route path="Onboarding2/*" element={<Onboarding2 />} />
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="registration/*" element={<Registration />} />
-            <Route path="accounting/*" element={<Accountsetting />} /> 
+            <Route path="accounting/*" element={<Accountsetting />} />
 
 
 
@@ -124,7 +130,7 @@ ReactDOM.render(
             <Route path="login" element={<LoginScreen />} />
             <Route path="notification-setup" element={<Notificationsetup />} />
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
-          
+
 
 
           </Route>

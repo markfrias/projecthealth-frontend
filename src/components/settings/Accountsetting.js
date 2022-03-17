@@ -6,14 +6,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import React, { useState } from 'react';
+import React from 'react';
 
 
 
 const Accountsetting = () => {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,49 +43,50 @@ const Accountsetting = () => {
         <Typography variant='subtitle1B' component='h2'>Acoount Management</Typography>
         <Button variant='subtitle1B' color='#730707' position='left' onClick={handleClickOpen}>Delete account</Button>
         <Dialog
-        open={open}
-        keepMounted
-        onClose={handleClose}
-        aria-labelledby="title"
-        aria-describedby="description"
+          open={open}
+          keepMounted
+          onClose={handleClose}
+          aria-labelledby="title"
+          aria-describedby="description"
         >
-        <DialogTitle id="title">{"Account Deletion"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="description">
-            Are you sure you want to delete this account?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => {setOpen2(true)
-          setOpen(false)
-          }} color="primary">
-            Confirm
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-        </Dialog> 
+          <DialogTitle id="title">{"Account Deletion"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="description">
+              Are you sure you want to delete this account?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => {
+              setOpen2(true)
+              setOpen(false)
+            }} color="primary">
+              Confirm
+            </Button>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <Dialog
-         open={open2}
-         keepMounted
-         onClose={handleClose2}
-         aria-labelledby="title"
-         aria-describedby="description"
-         > 
-        <DialogTitle id="title">{"Account Deletion"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="description2">
-            Your account has been successfully deleted
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose2} color="primary">
-            Okay
-          </Button>
-        </DialogActions>
-        </Dialog> 
+          open={open2}
+          keepMounted
+          onClose={handleClose2}
+          aria-labelledby="title"
+          aria-describedby="description"
+        >
+          <DialogTitle id="title">{"Account Deletion"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="description2">
+              Your account has been successfully deleted
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose2} color="primary">
+              Okay
+            </Button>
+          </DialogActions>
+        </Dialog>
 
       </Container>
 

@@ -4,6 +4,7 @@ import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { saveWeightHeightSettings } from '../auth/APIServices';
 import Registration6 from '../registration/Registration6';
 import Registration7 from '../registration/Registration7';
+
 import Registration8 from '../registration/Registration8';
 
 const WeightHeightMod = () => {
@@ -17,8 +18,6 @@ const WeightHeightMod = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
-
-
 
     const handleChanges = (event) => {
         const target = event.target;
