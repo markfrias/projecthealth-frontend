@@ -9,9 +9,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import React from 'react';
 import { deleteAccount, logout } from '../auth/APIServices';
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/system';
-
-
 
 const Accountsetting = () => {
   const navigate = useNavigate();
