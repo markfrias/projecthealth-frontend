@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Registration6 from '../registration/Registration6';
+import Registration7 from '../registration/Registration7';
 
 const WeightHeightMod = () => {
     const [isInvalid, setIsInvalid] = useState(false);
-    const [weightHeight, setWeightHeight] = useState({ height: "" });
+    const [height, setHeight] = useState({ height: "" });
+    const [weight, setWeight] = useState({ weight: "" });
 
 
 
     const handleChanges = (event) => {
         const target = event.target;
-        setWeightHeight({
-            ...weightHeight,
+        setHeight({
+            ...height,
             height: target.value
+        })
+        setWeight({
+            ...weight,
+            weight: target.value
         })
     }
 
@@ -22,7 +28,8 @@ const WeightHeightMod = () => {
     return (
         <div>
             <Routes>
-                <Route path="height" element={<Registration6 handleChange={handleChanges} setState={setWeightHeight} values={weightHeight} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
+                <Route path="height" element={<Registration6 handleChange={handleChanges} setState={setHeight} values={height} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
+                <Route path="weight" element={<Registration7 handleChange={handleChanges} setState={setWeight} values={weight} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
             </Routes>
         </div>
     );
