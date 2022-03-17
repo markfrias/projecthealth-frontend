@@ -78,6 +78,17 @@ const theme = createTheme({
       },
     },
 
+    profileLogout: {
+      fontSize: '1.15rem',
+      color: '#730807',
+      width: '80%',
+      lineHeight: '1.25',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+
+    },
+
     button: {
       textTransform: 'none',
       fontWeight: '1000',

@@ -27,6 +27,7 @@ import LogScreen from './components/meal_recording/LogScreen';
 import NotificationSettings from './components/settings/NotificationSettings';
 import DateJournal from './components/journal/DateJournal';
 import DateHabit from './components/journal/DateHabit';
+import Profile from './components/profile/Profile';
 
 
 
@@ -114,6 +115,7 @@ ReactDOM.render(
             <Route path="Onboarding2/*" element={<Onboarding2 />} />
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
+            <Route path="profile-main/*" element={<Profile />} />
             
             <Route path="registration/*" element={<Registration />}>
             
