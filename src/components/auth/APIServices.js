@@ -657,6 +657,34 @@ const saveMissionStatus = async (body) => {
   // Add code to handle errors and display error states and messages
 }
 
+// Save mission accomplishment status changes
+const deleteAccount = async () => {
+  const response = await fetch(
+    "http://localhost:8000/api/users/delete",
+    {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': localStorage.getItem('jwt')
+
+      },
+
+    }
+  );
+
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return response.status;
+  } else {
+    return response.status;
+  }
+
+  // Add code to handle errors and display error states and messages
+}
 
 
 
@@ -674,5 +702,5 @@ const logout = () => {
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
-  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus
+  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount
 }
