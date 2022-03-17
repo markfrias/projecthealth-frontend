@@ -1,5 +1,28 @@
 import { Chip, Grid, Typography } from '@mui/material';
 import React from 'react';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
+
+function StaticDatePickerDemo() {
+    const [value, setValue] = React.useState(new Date());
+  
+    return (
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <StaticDatePicker
+          displayStaticWrapperAs="desktop"
+          openTo="year"
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
+    );
+  }
+
 
 const Journal = () => {
     return (
@@ -22,25 +45,26 @@ const Journal = () => {
 
                 <Grid item container direction="column">
                     <Grid item xs={12}>
-                        <Typography variant="subtitle1" component="h1">Which logs are you looking for?</Typography>
+                        <Typography variant="subtitle1B" component="h1">Which logs are you looking for?</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Chip label="Chip Filled" />
-                        <Chip label="Chip Filled" />
-                        <Chip label="Chip Filled" />
-                        <Chip label="Chip Filled" />
-                        <Chip label="Chip Filled" />
-                        <Chip label="Chip Filled" />
-                        <Chip label="Chip Filled" />
+                        <Chip label="Food" />
+                        <Chip label="Sleep" />
+                        <Chip label="Habit" />
+                        <Chip label="Exercise" />
+                        <Chip label="Missions" />
+                        <Chip label="Challenges" />
+                        <Chip label="Water" />
                     </Grid>
                 </Grid>
 
                 <Grid item container direction="column">
                     <Grid item xs={12}>
-                        <Typography variant="subtitle1" component="h1">Which logs are you looking for?</Typography>
+                        <Typography variant="subtitle1B" component="h1">Pick a date to select specific log</Typography>
                     </Grid>
 
                     <Grid item xs={12}>
+                    <StaticDatePickerDemo></StaticDatePickerDemo>
 
                     </Grid>
                 </Grid>
