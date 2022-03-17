@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Container, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -7,7 +7,6 @@ import Stack from '@mui/material/Stack';
 import { deepOrange } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 const style = {
