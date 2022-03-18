@@ -158,6 +158,8 @@ const DetailedFoodLog = (props) => {
             // Set nutrients state to the fetched data above
             setNutrients(fetchedNutrients);
         })()
+        // Fix this useEffect problem
+        // eslint-disable-next-line
     }, [])
 
 
@@ -205,9 +207,9 @@ const DetailedFoodLog = (props) => {
                 return prev + current.fat;
             }, 0);
 
-            const sodiumTotalFromLogs = logs[0].reduce((prev, current) => {
+            /*const sodiumTotalFromLogs = logs[0].reduce((prev, current) => {
                 return prev + current.sodium;
-            }, 0);
+            }, 0); */
 
             // Set summary values
             setSummaryValues({
@@ -221,6 +223,8 @@ const DetailedFoodLog = (props) => {
             setCalorieBudget(logs[1][0].calorieBudget)
 
         })();
+        // Fix this useEffect problem
+        // eslint-disable-next-line
     }, [nutrients]);
 
     // Turn off loading state when summary values and form data have been updated
@@ -259,6 +263,8 @@ const DetailedFoodLog = (props) => {
             // Set nutrients state to the fetched data above
             setNutrients(fetchedNutrients);
         })()
+        // Fix this useEffect problem
+        // eslint-disable-next-line
     }, [currentUnit]);
 
     useEffect(() => {

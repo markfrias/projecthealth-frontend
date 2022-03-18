@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React/*, { useState }*/ from "react";
 import "./App.css";
-import { Link, Outlet } from "react-router-dom";
+import { /*Link, */ Outlet } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import { AccountCircleRounded, BookRounded, HomeRounded, NoteRounded } from "@mui/icons-material";
+/*import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import { AccountCircleRounded, BookRounded, HomeRounded, NoteRounded } from "@mui/icons-material";*/
 import { Box } from "@mui/system";
 
 const theme = createTheme({
@@ -131,7 +131,7 @@ const theme = createTheme({
 
 function App() {
 
-  const [value, setValue] = useState(0);
+  //const [value, setValue] = useState(0);
 
   return (
     <Box>

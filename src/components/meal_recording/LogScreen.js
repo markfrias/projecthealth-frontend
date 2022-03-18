@@ -15,7 +15,7 @@ const LogScreen = (props) => {
 
   // Recommended values
   const recommendedCarbs = 300;
-  const recommendedFat = 65;
+  //const recommendedFat = 65;
   const recommendedProtein = 50;
 
   const [open, setOpen] = useState(false);
@@ -139,9 +139,9 @@ const LogScreen = (props) => {
         return prev + current.fat * current.servingQty;
       }, 0);
 
-      const sodiumTotalFromLogs = todayLogs[0].reduce((prev, current) => {
+      /*const sodiumTotalFromLogs = todayLogs[0].reduce((prev, current) => {
         return prev + current.sodium * current.servingQty;
-      }, 0);
+      }, 0);*/
 
       // Set remaining budgets (budget minus deductions from previous logs within the day)
       setRemainingBudgets({

@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getFoodLogsPersonal } from '../auth/APIServices';
 import toTitleCase from '../auth/StringServices';
 
@@ -134,6 +134,8 @@ const DateJournal = () => {
 
 
     })()
+    // Fix this useEffect problem
+    // eslint-disable-next-line
   }, []);
 
   // Test food log state
@@ -157,9 +159,9 @@ const DateJournal = () => {
         return prev + current.fat;
       }, 0);
 
-      const sodiumTotalFromLogs = foodLogs.reduce((prev, current) => {
+      /*const sodiumTotalFromLogs = foodLogs.reduce((prev, current) => {
         return prev + current.sodium;
-      }, 0);
+      }, 0); */
 
       console.log(calorieTotalFromLogs);
 
