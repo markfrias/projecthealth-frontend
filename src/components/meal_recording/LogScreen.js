@@ -76,6 +76,7 @@ const LogScreen = (props) => {
       }))
 
       const userNutrients = await getTodayUserNutrients();
+      console.log(userNutrients)
       setNutrients(initialNutrients)
       setNutrientContext(userNutrients[0]);
       if (userNutrients[0].calorieBudget === null) {
@@ -89,10 +90,23 @@ const LogScreen = (props) => {
         ))
 
       }
+    })()
 
+
+    // eslint-disable-next-line
+  }, []);
+
+  // Set new budgets after the calorie budget has been set to state
+  useEffect(() => {
+    if (nutrientContext === undefined) {
+      setLoading(true)
+    }
+    (async () => {
       // Fetch all meals from today
+      setLoading(true)
       const todayLogs = await getFoodLogsPersonal(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
       setLoading(true)
+      console.log(todayLogs)
       if (todayLogs.length <= 0) {
         return;
       }
@@ -125,15 +139,17 @@ const LogScreen = (props) => {
         protein: recommendedProtein - proteinTotalFromLogs,
         fat: recommendedProtein - fatTotalFromLogs
       })
-      console.log(remainingBudgets)
       setLoading(false);
-
-
 
     })()
     // Resolve this useEffect issue later
-    // eslint-disable-next-line
-  }, []);
+  }, [nutrientContext])
+
+  useEffect(() => {
+    console.log(remainingBudgets)
+  }, [remainingBudgets])
+
+
 
   const handleToggle = (value) => {
     const newChecked = [];
@@ -344,10 +360,10 @@ const LogScreen = (props) => {
                   <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / remainingBudgets.calories * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'red' : 'primary'} />
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="p" component="p">{`${remainingBudgets.calories} cal ${remainingBudgets.calories > quickNoteState.baseCalories * quickNoteState.servingQty ? '>' : '<'} ${remainingBudgets.calories} - ${quickNoteState.baseCalories * quickNoteState.servingQty} cal`}</Typography>
+                  <Typography variant="p" component="p">{`Remaining budget: ${remainingBudgets.calories} cal ${remainingBudgets.calories > quickNoteState.baseCalories * quickNoteState.servingQty ? '>' : '<'} ${remainingBudgets.calories} - ${quickNoteState.baseCalories * quickNoteState.servingQty} cal`}</Typography>
                 </Grid>
                 <Grid item md={12}>
-                  <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100) > 100 ? "exceed" : "be within"} your calorie budget if you eat this amount.</Typography>
+                  <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty / remainingBudgets.calorieBudget * 100) > 100 ? "exceed" : "be within"} your calorie budget if you eat this amount.</Typography>
                 </Grid>
 
                 <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
