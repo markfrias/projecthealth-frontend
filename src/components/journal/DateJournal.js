@@ -1,5 +1,5 @@
 import { Chip, Grid, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -15,6 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getFoodLogsPersonal } from '../auth/APIServices';
+import toTitleCase from '../auth/StringServices';
 
 
 function CircularProgressWithLabel(props) {
@@ -89,6 +90,14 @@ function ViewsDatePicker() {
 const DateJournal = () => {
   const params = useParams();
   const { year, month, day } = params;
+
+  // State for this page's data (food logs)
+  const [foodLogs, setFoodLogs] = useState();
+
+  // State to enable loading UI elements
+  const [loading, setLoading] = useState(true);
+
+  // Fetch and set data for food log breakdown
   useEffect(() => {
     console.log(year);
     console.log(month);
@@ -97,11 +106,20 @@ const DateJournal = () => {
       const response = await getFoodLogsPersonal(year, month, day);
       console.log(`${year} ${month} ${day}`)
       console.log(response);
-
+      setFoodLogs(response);
     })()
+  }, []);
+
+  // Turns off loading state if foodLogs is loaded already
+  useEffect(() => {
+    // If food logs is not undefined, turn off loading state
+    if (foodLogs !== undefined) {
+      setLoading(false);
+    }
+    console.log(foodLogs)
+  }, [foodLogs])
 
 
-  });
   return (
     <div>
       <Grid container direction="column">
@@ -112,70 +130,88 @@ const DateJournal = () => {
         </Grid>
 
 
+        {/* Load other page parts only when data has been loaded */}
 
-        <Grid item container direction="column">
-          <Grid item xs={12}>
-            <ViewsDatePicker></ViewsDatePicker>
+        {loading ?
+          <Grid item container direction="column" md={12} justifyContent="center" alignItems="center" sx={{ width: '100%', minHeight: '80vh' }}>
+            <Grid item>
+              <CircularProgress variant='indeterminate' md={12} />
+            </Grid>
+            <Grid item md={12}>
+              <Typography variant="p" component="p" sx={{ textAlign: 'center' }}>Loading your logs...</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Chip label="Food" />
-            <Chip label="Sleep" />
-            <Chip label="Habit" />
-            <Chip label="Exercise" />
-            <Chip label="Missions" />
-            <Chip label="Challenges" />
-            <Chip label="Water" />
-          </Grid>
-        </Grid>
+          :
+          <Box>
+            <Grid item container direction="column">
+              <Grid item xs={12}>
+                <ViewsDatePicker></ViewsDatePicker>
+              </Grid>
+              <Grid item xs={12}>
+                <Chip label="Food" />
+                <Chip label="Sleep" />
+                <Chip label="Habit" />
+                <Chip label="Exercise" />
+                <Chip label="Missions" />
+                <Chip label="Challenges" />
+                <Chip label="Water" />
+              </Grid>
+            </Grid>
 
-        <Grid item container alignItems="center">
-          <Grid item xs={9}>
-            <CircularStatic></CircularStatic>
-            <Typography variant='subtitle1' component='p'>You overate on this day by 12% more than your budget</Typography>
-          </Grid>
-        </Grid>
+            <Grid item container alignItems="center">
+              <Grid item xs={9}>
+                <CircularStatic></CircularStatic>
+                <Typography variant='subtitle1' component='p'>You overate on this day by 12% more than your budget</Typography>
+              </Grid>
+            </Grid>
 
-        <Grid item container alignItems="center">
-          <Grid item xs={9}>
-            <CircularStatic></CircularStatic>
-            <Typography variant='subtitle1B' component='p'>Carbs</Typography>
-          </Grid>
-        </Grid>
+            <Grid item container alignItems="center">
+              <Grid item xs={9}>
+                <CircularStatic></CircularStatic>
+                <Typography variant='subtitle1B' component='p'>Carbs</Typography>
+              </Grid>
+            </Grid>
 
-        <Grid item container alignItems="center">
-          <Grid item xs={9}>
-            <CircularStatic></CircularStatic>
-            <Typography variant='subtitle1B' component='p'>Fat</Typography>
-          </Grid>
-        </Grid>
+            <Grid item container alignItems="center">
+              <Grid item xs={9}>
+                <CircularStatic></CircularStatic>
+                <Typography variant='subtitle1B' component='p'>Fat</Typography>
+              </Grid>
+            </Grid>
 
-        <Grid item container alignItems="center">
-          <Grid item xs={9}>
-            <CircularStatic></CircularStatic>
-            <Typography variant='subtitle1B' component='p'>Protein</Typography>
-          </Grid>
-        </Grid>
+            <Grid item container alignItems="center">
+              <Grid item xs={9}>
+                <CircularStatic></CircularStatic>
+                <Typography variant='subtitle1B' component='p'>Protein</Typography>
+              </Grid>
+            </Grid>
 
-        <Grid item container alignItems="center">
-          <Grid item xs={9}>
-            <Typography variant='subtitle1B' component='h1' >Breakfast</Typography>
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-              {[1, 2, 3].map((value) => (
-                <ListItem
-                  key={value}
-                  disableGutters
-                  secondaryAction={
-                    <IconButton>
-                      <ReorderIcon />
-                    </IconButton>
-                  }
-                >
-                  <ListItemText primary={`Line item ${value}`} />
-                </ListItem>
-              ))}
-            </List>
-          </Grid>
-        </Grid>
+            <Grid item container alignItems="center">
+              <Grid item xs={9}>
+                <Typography variant='subtitle1B' component='h1' >Breakfast</Typography>
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                  {foodLogs.map((value) => (
+                    <ListItem
+                      key={value.foodJournalId}
+                      disableGutters
+                      secondaryAction={
+                        <IconButton>
+                          <ReorderIcon />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemText primary={toTitleCase(value.foodName)} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            </Grid>
+          </Box>
+        }
+
+
+
+
 
       </Grid>
     </div>
