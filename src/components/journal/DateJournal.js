@@ -99,6 +99,13 @@ const DateJournal = () => {
   // State to enable loading UI elements
   const [loading, setLoading] = useState(true);
 
+  // Segregated meal logs for each mealType
+  const [breakfastLog, setBreakfastLog] = useState();
+  const [lunchLog, setLunchLog] = useState();
+  const [dinnerLog, setDinnerLog] = useState();
+  const [snackLog, setSnackLog] = useState();
+
+
   // Fetch and set data for food log breakdown
   useEffect(() => {
     console.log(year);
@@ -113,6 +120,19 @@ const DateJournal = () => {
       // Set calorie budget state
       console.log(response[1][0].calorieBudget)
       setCalorieBudget(response[1][0].calorieBudget);
+
+      // Set categorized meal states
+      const breakfast = response[0].filter((value) => value.mealType === "breakfast");
+      const lunch = response[0].filter((value) => value.mealType === "lunch");
+      const dinner = response[0].filter((value) => value.mealType === "dinner");
+      const snack = response[0].filter((value) => value.mealType === "snack");
+
+      setBreakfastLog(breakfast);
+      setLunchLog(lunch);
+      setDinnerLog(dinner);
+      setSnackLog(snack);
+
+
     })()
   }, []);
 
@@ -151,8 +171,7 @@ const DateJournal = () => {
       })
 
     }
-    console.log(foodLogs);
-  }, [foodLogs, calorieBudget]);
+  }, [foodLogs, calorieBudget, breakfastLog, lunchLog, dinnerLog, snackLog]);
 
   // Turn off loading state once summary values is defined
   useEffect(() => {
@@ -234,21 +253,107 @@ const DateJournal = () => {
             <Grid item container alignItems="center">
               <Grid item xs={9}>
                 <Typography variant='subtitle1B' component='h1' >Breakfast</Typography>
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                  {foodLogs.map((value) => (
-                    <ListItem
-                      key={value.foodJournalId}
-                      disableGutters
-                      secondaryAction={
-                        <IconButton>
-                          <ReorderIcon />
-                        </IconButton>
-                      }
-                    >
-                      <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
-                    </ListItem>
-                  ))}
-                </List>
+                {breakfastLog.length > 0 ?
+                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    {breakfastLog.map((value) => (
+                      <ListItem
+                        key={value.foodJournalId}
+                        disableGutters
+                        secondaryAction={
+                          <IconButton>
+                            <ReorderIcon />
+                          </IconButton>
+                        }
+                      >
+                        {value.diaryType === "detailed" ?
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
+                          :
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
+                        }
+                      </ListItem>
+                    ))}
+                  </List>
+                  :
+                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                }
+
+                <Typography variant='subtitle1B' component='h1' >Lunch</Typography>
+                {lunchLog.length > 0 ?
+                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    {lunchLog.map((value) => (
+                      <ListItem
+                        key={value.foodJournalId}
+                        disableGutters
+                        secondaryAction={
+                          <IconButton>
+                            <ReorderIcon />
+                          </IconButton>
+                        }
+                      >
+                        {value.diaryType === "detailed" ?
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
+                          :
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
+                        }
+                      </ListItem>
+                    ))}
+                  </List>
+                  :
+                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                }
+
+                <Typography variant='subtitle1B' component='h1' >Dinner</Typography>
+                {dinnerLog.length > 0 ?
+                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    {dinnerLog.map((value) => (
+                      <ListItem
+                        key={value.foodJournalId}
+                        disableGutters
+                        secondaryAction={
+                          <IconButton>
+                            <ReorderIcon />
+                          </IconButton>
+                        }
+                      >
+                        {value.diaryType === "detailed" ?
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
+                          :
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
+                        }
+                      </ListItem>
+                    ))}
+                  </List>
+                  :
+                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                }
+
+                <Typography variant='subtitle1B' component='h1' >Snacks</Typography>
+                {snackLog.length > 0 ?
+                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                    {snackLog.map((value) => (
+                      <ListItem
+                        key={value.foodJournalId}
+                        disableGutters
+                        secondaryAction={
+                          <IconButton>
+                            <ReorderIcon />
+                          </IconButton>
+                        }
+                      >
+                        {value.diaryType === "detailed" ?
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
+                          :
+                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
+                        }
+                      </ListItem>
+                    ))}
+                  </List>
+                  :
+                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                }
+
+
+
               </Grid>
             </Grid>
           </Box>
