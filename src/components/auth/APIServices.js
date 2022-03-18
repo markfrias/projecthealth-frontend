@@ -660,7 +660,7 @@ const saveMissionStatus = async (body) => {
 // Save mission accomplishment status changes
 const deleteAccount = async () => {
   const response = await fetch(
-    "http://localhost:8000/api/users/delete",
+    "https://projecthealthapp.herokuapp.com/api/users/delete",
     {
       method: "DELETE",
       mode: "cors",
@@ -691,7 +691,7 @@ const deleteAccount = async () => {
 const getFoodLogsPersonal = async (year, month, day) => {
 
   const response = await fetch(
-    `http://localhost:8000/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
+    `https://projecthealthapp.herokuapp.com/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
     {
       method: "GET",
       mode: "cors",

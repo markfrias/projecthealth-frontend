@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import { Backdrop, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select } from '@mui/material';
+import { Box, Backdrop, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { getCalorieBudget, getNutrients, getTodayUserNutrients, saveDetailedFoodLog } from '../auth/APIServices';
+import { getCalorieBudget, getFoodLogsPersonal, getNutrients, getTodayUserNutrients, saveDetailedFoodLog } from '../auth/APIServices';
+import moment from 'moment';
 
 
 
@@ -49,6 +50,7 @@ const LogScreen = (props) => {
   const [nutrients, setNutrients] = useState({
 
   });
+  const [remainingBudgets, setRemainingBudgets] = useState();
   const [measureItem, setMeasureItem] = useState();
   const [loading, setLoading] = useState(false);
   const [nutrientContext, setNutrientContext] = useState({
@@ -65,6 +67,7 @@ const LogScreen = (props) => {
       return;
     }
     (async () => {
+      setLoading(true);
       const initialNutrients = await getNutrients(props.measures[0].uri, props.foodItem.food.foodId);
 
       setQuickNoteState((quickNoteState) => ({
@@ -86,6 +89,45 @@ const LogScreen = (props) => {
         ))
 
       }
+
+      // Fetch all meals from today
+      const todayLogs = await getFoodLogsPersonal(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
+      setLoading(true)
+      if (todayLogs.length <= 0) {
+        return;
+      }
+
+      // Calculate all calories, carbs, protein, fat, and sodium from those meals and set to state, subtract with calorie budget and save as calorie budget
+      const calorieTotalFromLogs = todayLogs.reduce((prev, current) => {
+        return prev + current.caloriesPerUnit
+      }, 0);
+
+      const carbsTotalFromLogs = todayLogs.reduce((prev, current) => {
+        return prev + current.carbs
+      }, 0);
+
+      const proteinTotalFromLogs = todayLogs.reduce((prev, current) => {
+        return prev + current.protein
+      }, 0);
+
+      const fatTotalFromLogs = todayLogs.reduce((prev, current) => {
+        return prev + current.fat
+      }, 0);
+
+      const sodiumTotalFromLogs = todayLogs.reduce((prev, current) => {
+        return prev + current.sodium
+      }, 0);
+
+      // Set remaining budgets (budget minus deductions from previous logs within the day)
+      setRemainingBudgets({
+        calories: nutrientContext.calorieBudget - calorieTotalFromLogs,
+        carbs: recommendedCarbs - carbsTotalFromLogs,
+        protein: recommendedProtein - proteinTotalFromLogs,
+        fat: recommendedProtein - fatTotalFromLogs
+      })
+      console.log(remainingBudgets)
+      setLoading(false);
+
 
 
     })()
@@ -134,6 +176,7 @@ const LogScreen = (props) => {
   }
 
   useEffect(() => {
+    setLoading(true);
     if (props.measures === undefined) {
       return;
     }
@@ -148,8 +191,9 @@ const LogScreen = (props) => {
           servingUnit: toTitleCase(newNutrients.ingredients[0].parsed[0].measure)
         });
         setNutrients(newNutrients);
-        setLoading(false);
-
+        if (remainingBudgets !== undefined) {
+          setLoading(false);
+        }
       })()
       return;
     }
@@ -164,7 +208,10 @@ const LogScreen = (props) => {
         }
       ))
       setNutrients(newNutrients);
-      setLoading(false);
+      if (remainingBudgets !== undefined) {
+        setLoading(false);
+      }
+
     })()
     // Resolve this useEffect issue later
     // eslint-disable-next-line
@@ -291,52 +338,34 @@ const LogScreen = (props) => {
               <Typography variant="subtitle1" component="h2">Context</Typography>
             </Grid>
 
-            <Grid item md={12}>
-              {nutrientContext.calorieBudget === null ?
-                <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
-                :
-                <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
-              }
-            </Grid>
-            <Grid item md={12}>
-              <Typography variant="p" component="p">1500 + 780 cal > 1700 cal</Typography>
-            </Grid>
-            <Grid item md={12}>
-              <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100) > 100 ? "exceed" : "be within"} your calorie budget if you eat this amount.</Typography>
-              <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty)} </Typography>
-              <Typography variant="p" component="p">You’d {(nutrientContext.calorieBudget)} </Typography>
+            {remainingBudgets !== undefined ?
+              <Box>
+                <Grid item md={12}>
+                  <LinearProgress variant='determinate' value={quickNoteState.baseCalories * quickNoteState.servingQty / remainingBudgets.calories * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'red' : 'primary'} />
+                </Grid>
+                <Grid item md={12}>
+                  <Typography variant="p" component="p">{`${remainingBudgets.calories} cal ${remainingBudgets.calories > quickNoteState.baseCalories * quickNoteState.servingQty ? '>' : '<'} ${remainingBudgets.calories} - ${quickNoteState.baseCalories * quickNoteState.servingQty} cal`}</Typography>
+                </Grid>
+                <Grid item md={12}>
+                  <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100) > 100 ? "exceed" : "be within"} your calorie budget if you eat this amount.</Typography>
+                </Grid>
 
+                <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
+                  <Grid item xs={4}>
+                    <LinearProgress variant='determinate' value={(nutrientContext.sumCarbs + nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty) / remainingBudgets.carbs * 100} color={(nutrientContext.sumCarbs + nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty) / remainingBudgets.carbs * 100 > 100 ? 'red' : 'primary'} />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <LinearProgress variant='determinate' value={(nutrientContext.sumFat + nutrients.totalNutrients.FAT.quantity * quickNoteState.servingQty) / remainingBudgets.fat * 100} color={(nutrientContext.sumFat + nutrients.totalNutrients.FAT.quantity * quickNoteState.servingQty) / remainingBudgets.fat * 100 > 100 ? 'red' : 'primary'} />
+                  </Grid>
+                  <Grid item xs={4}>
 
-            </Grid>
+                    <LinearProgress variant='determinate' value={(nutrientContext.sumProtein + nutrients.totalNutrients.PROCNT.quantity * quickNoteState.servingQty) / remainingBudgets.protein * 100} color={(nutrientContext.sumProtein + nutrients.totalNutrients.PROCNT.quantity * quickNoteState.servingQty) / remainingBudgets.protein * 100 > 100 ? 'red' : 'primary'} />
+                  </Grid>
+                </Grid>
+              </Box>
+              : <CircularProgress variant='indeterminate' />
 
-            <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
-              <Grid item xs={4}>
-                {
-                  nutrients.totalNutrients === undefined ?
-                    <CircularProgress variant='indeterminate' /> :
-                    <LinearProgress variant='determinate' value={(nutrientContext.sumCarbs + nutrients.totalNutrients.CHOCDF.quantity * quickNoteState.servingQty) / recommendedCarbs * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
-
-
-                }
-              </Grid>
-              <Grid item xs={4}>
-                {
-                  nutrients.totalNutrients === undefined ?
-                    <CircularProgress variant='indeterminate' /> :
-                    <LinearProgress variant='determinate' value={(nutrientContext.sumFat + nutrients.totalNutrients.FAT.quantity * quickNoteState.servingQty) / recommendedFat * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
-
-
-                }
-              </Grid>
-              <Grid item xs={4}>
-                {
-                  nutrients.totalNutrients === undefined ?
-                    <CircularProgress variant='indeterminate' /> :
-                    <LinearProgress variant='determinate' value={(nutrientContext.sumProtein + nutrients.totalNutrients.PROCNT.quantity * quickNoteState.servingQty) / recommendedProtein * 100} color={quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? 'secondary' : 'primary'} />
-
-
-                }              </Grid>
-            </Grid>
+            }
 
           </Grid>
 
