@@ -503,7 +503,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
+    "http://localhost:8000/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -686,6 +686,34 @@ const deleteAccount = async () => {
   // Add code to handle errors and display error states and messages
 }
 
+// Get all logs for the day of the user
+// Fetch calorie budget of signed in user
+const getFoodLogsPersonal = async (year, month, day) => {
+
+  const response = await fetch(
+    `http://localhost:8000/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+};
+
 
 
 
@@ -702,5 +730,5 @@ const logout = () => {
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
-  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount
+  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount, getFoodLogsPersonal
 }

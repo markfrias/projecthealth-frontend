@@ -108,7 +108,7 @@ ReactDOM.render(
             <Route path="quicknote/*" element={<FoodQuickNote />} />
             <Route path="login/*" element={<LoginScreen />} />
             <Route path="Onboarding5/*" element={<Onboarding5 />} />
-            <Route path="datejournal/*" element={<DateJournal />} />
+            <Route path="datejournal/:year/:month/:day" element={<DateJournal />} />
             <Route path="datehabit/*" element={<DateHabit />} />
             <Route path="Onboarding4/*" element={<Onboarding4 />} />
             <Route path="Onboarding3/*" element={<Onboarding3 />} />
