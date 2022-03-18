@@ -100,10 +100,10 @@ const DateJournal = () => {
   const [loading, setLoading] = useState(true);
 
   // Segregated meal logs for each mealType
-  const [breakfastLog, setBreakfastLog] = useState();
-  const [lunchLog, setLunchLog] = useState();
-  const [dinnerLog, setDinnerLog] = useState();
-  const [snackLog, setSnackLog] = useState();
+  const [breakfastLog, setBreakfastLog] = useState([]);
+  const [lunchLog, setLunchLog] = useState([]);
+  const [dinnerLog, setDinnerLog] = useState([]);
+  const [snackLog, setSnackLog] = useState([]);
 
 
   // Fetch and set data for food log breakdown
@@ -179,7 +179,7 @@ const DateJournal = () => {
     if (summaryValues !== undefined) {
       setLoading(false);
     }
-  }, [summaryValues])
+  }, [summaryValues, breakfastLog, lunchLog, dinnerLog, snackLog])
 
 
   return (
