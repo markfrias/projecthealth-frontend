@@ -503,7 +503,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "http://localhost:8000/api/food/createEntry/",
+    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -691,7 +691,7 @@ const deleteAccount = async () => {
 const getFoodLogsPersonal = async (year, month, day) => {
 
   const response = await fetch(
-    `http://localhost:8000/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
+    `http://projecthealthapp.herokuapp.com/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
     {
       method: "GET",
       mode: "cors",
