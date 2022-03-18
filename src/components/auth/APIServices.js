@@ -503,7 +503,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "http://projecthealthapp.herokuapp.com/api/food/createEntry/",
+    "http://localhost:8000/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",

@@ -146,19 +146,19 @@ const DateJournal = () => {
       }, 0);
 
       const carbsTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.carbs * current.servingQty;
+        return prev + current.carbs;
       }, 0);
 
       const proteinTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.protein * current.servingQty;
+        return prev + current.protein;
       }, 0);
 
       const fatTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.fat * current.servingQty;
+        return prev + current.fat;
       }, 0);
 
       const sodiumTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.sodium * current.servingQty;
+        return prev + current.sodium;
       }, 0);
 
       console.log(calorieTotalFromLogs);
