@@ -172,7 +172,7 @@ const DetailedFoodLogScreen = (props) => {
                   <ListItemButton onClick={() => {
                     props.setMeasures(value.measures);
                     props.setFoodItem(value);
-                    navigate(`/app/food/log?q=${value.food.foodId}`);
+                    navigate(`/app/food/detailed-log?q=${value.food.foodId}`);
                   }}>
 
                     <ListItemText primary={value.food.label} secondary={value.food.nutrients.ENERC_KCAL + " calories"} />
