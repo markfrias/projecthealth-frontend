@@ -200,7 +200,7 @@ const DateJournal = () => {
                         </IconButton>
                       }
                     >
-                      <ListItemText primary={toTitleCase(value.foodName)} />
+                      <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
                     </ListItem>
                   ))}
                 </List>
