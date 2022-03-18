@@ -113,23 +113,23 @@ const LogScreen = (props) => {
 
       // Calculate all calories, carbs, protein, fat, and sodium from those meals and set to state, subtract with calorie budget and save as calorie budget
       const calorieTotalFromLogs = todayLogs.reduce((prev, current) => {
-        return prev + current.caloriesPerUnit
+        return prev + current.caloriesPerUnit * current.servingQty;
       }, 0);
 
       const carbsTotalFromLogs = todayLogs.reduce((prev, current) => {
-        return prev + current.carbs
+        return prev + current.carbs * current.servingQty;
       }, 0);
 
       const proteinTotalFromLogs = todayLogs.reduce((prev, current) => {
-        return prev + current.protein
+        return prev + current.protein * current.servingQty;
       }, 0);
 
       const fatTotalFromLogs = todayLogs.reduce((prev, current) => {
-        return prev + current.fat
+        return prev + current.fat * current.servingQty;
       }, 0);
 
       const sodiumTotalFromLogs = todayLogs.reduce((prev, current) => {
-        return prev + current.sodium
+        return prev + current.sodium * current.servingQty;
       }, 0);
 
       // Set remaining budgets (budget minus deductions from previous logs within the day)

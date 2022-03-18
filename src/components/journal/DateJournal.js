@@ -51,19 +51,10 @@ CircularProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function CircularStatic() {
-  const [progress, setProgress] = React.useState(10);
+function CircularStatic(props) {
+  const progress = props.numerator / props.denominator * 100;
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  return <CircularProgressWithLabel value={progress} />;
+  return <CircularProgressWithLabel value={progress} color={progress <= 100 ? 'primary' : 'red'} />;
 }
 
 function ViewsDatePicker() {
@@ -91,8 +82,19 @@ const DateJournal = () => {
   const params = useParams();
   const { year, month, day } = params;
 
+  // Recommended values
+  const recommendedCarbs = 300;
+  const recommendedFat = 65;
+  const recommendedProtein = 50;
+
   // State for this page's data (food logs)
   const [foodLogs, setFoodLogs] = useState();
+
+  // State for summary values like total carbs
+  const [summaryValues, setSummaryValues] = useState();
+
+  // State for calorie budget
+  const [calorieBudget, setCalorieBudget] = useState();
 
   // State to enable loading UI elements
   const [loading, setLoading] = useState(true);
@@ -106,18 +108,59 @@ const DateJournal = () => {
       const response = await getFoodLogsPersonal(year, month, day);
       console.log(`${year} ${month} ${day}`)
       console.log(response);
-      setFoodLogs(response);
+      setFoodLogs(response[0]);
+
+      // Set calorie budget state
+      console.log(response[1][0].calorieBudget)
+      setCalorieBudget(response[1][0].calorieBudget);
     })()
   }, []);
 
-  // Turns off loading state if foodLogs is loaded already
+  // Test food log state
   useEffect(() => {
-    // If food logs is not undefined, turn off loading state
+    // Assign summary values once foodLogs is defined
     if (foodLogs !== undefined) {
+      // Calculate all calories, carbs, protein, fat, and sodium from those meals and set to state, subtract with calorie budget and save as calorie budget
+      const calorieTotalFromLogs = foodLogs.reduce((prev, current) => {
+        return prev + current.caloriesPerUnit * current.servingQty;
+      }, 0);
+
+      const carbsTotalFromLogs = foodLogs.reduce((prev, current) => {
+        return prev + current.carbs * current.servingQty;
+      }, 0);
+
+      const proteinTotalFromLogs = foodLogs.reduce((prev, current) => {
+        return prev + current.protein * current.servingQty;
+      }, 0);
+
+      const fatTotalFromLogs = foodLogs.reduce((prev, current) => {
+        return prev + current.fat * current.servingQty;
+      }, 0);
+
+      const sodiumTotalFromLogs = foodLogs.reduce((prev, current) => {
+        return prev + current.sodium * current.servingQty;
+      }, 0);
+
+      console.log(calorieTotalFromLogs);
+
+      setSummaryValues({
+        calories: calorieTotalFromLogs,
+        carbs: carbsTotalFromLogs,
+        protein: proteinTotalFromLogs,
+        fat: fatTotalFromLogs,
+      })
+
+    }
+    console.log(foodLogs);
+  }, [foodLogs, calorieBudget]);
+
+  // Turn off loading state once summary values is defined
+  useEffect(() => {
+    // If summary values is not undefined, turn off loading state
+    if (summaryValues !== undefined) {
       setLoading(false);
     }
-    console.log(foodLogs)
-  }, [foodLogs])
+  }, [summaryValues])
 
 
   return (
@@ -160,28 +203,30 @@ const DateJournal = () => {
 
             <Grid item container alignItems="center">
               <Grid item xs={9}>
-                <CircularStatic></CircularStatic>
-                <Typography variant='subtitle1' component='p'>You overate on this day by 12% more than your budget</Typography>
+                <CircularStatic numerator={summaryValues.calories} denominator={calorieBudget}></CircularStatic>
+                <Typography variant='subtitle1' component='p'>{(summaryValues.calories / calorieBudget * 100) < 100 ? 'You are still on track to reach your calorie target for today.' :
+                  `You exceeded your calorie budget by ${calorieBudget - summaryValues.calories} calories.`
+                }</Typography>
               </Grid>
             </Grid>
 
             <Grid item container alignItems="center">
               <Grid item xs={9}>
-                <CircularStatic></CircularStatic>
+                <CircularStatic numerator={summaryValues.carbs} denominator={recommendedCarbs}></CircularStatic>
                 <Typography variant='subtitle1B' component='p'>Carbs</Typography>
               </Grid>
             </Grid>
 
             <Grid item container alignItems="center">
               <Grid item xs={9}>
-                <CircularStatic></CircularStatic>
+                <CircularStatic numerator={summaryValues.fat} denominator={recommendedFat}></CircularStatic>
                 <Typography variant='subtitle1B' component='p'>Fat</Typography>
               </Grid>
             </Grid>
 
             <Grid item container alignItems="center">
               <Grid item xs={9}>
-                <CircularStatic></CircularStatic>
+                <CircularStatic numerator={summaryValues.protein} denominator={recommendedProtein}></CircularStatic>
                 <Typography variant='subtitle1B' component='p'>Protein</Typography>
               </Grid>
             </Grid>

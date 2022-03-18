@@ -691,7 +691,7 @@ const deleteAccount = async () => {
 const getFoodLogsPersonal = async (year, month, day) => {
 
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
+    `http://localhost:8000/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
     {
       method: "GET",
       mode: "cors",
