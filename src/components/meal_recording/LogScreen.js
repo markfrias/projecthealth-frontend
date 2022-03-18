@@ -61,7 +61,7 @@ const LogScreen = (props) => {
 
   // Test code
   useEffect(() => {
-    if (props.measured === undefined) {
+    if (props.measures === undefined) {
       return;
     }
     (async () => {
@@ -77,6 +77,7 @@ const LogScreen = (props) => {
       setNutrientContext(userNutrients[0]);
       if (userNutrients[0].calorieBudget === null) {
         const calorieBudget = await getCalorieBudget();
+        console.log(calorieBudget[0].calorieBudget)
         setNutrientContext((nutrientContext) => (
           {
             ...nutrientContext,
@@ -301,7 +302,11 @@ const LogScreen = (props) => {
               <Typography variant="p" component="p">1500 + 780 cal > 1700 cal</Typography>
             </Grid>
             <Grid item md={12}>
-              <Typography variant="p" component="p">You’d {quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100 > 100 ? "exceed" : "be within"} your calorie budget if you eat this amount.</Typography>
+              <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty / nutrientContext.calorieBudget * 100) > 100 ? "exceed" : "be within"} your calorie budget if you eat this amount.</Typography>
+              <Typography variant="p" component="p">You’d {(quickNoteState.baseCalories * quickNoteState.servingQty)} </Typography>
+              <Typography variant="p" component="p">You’d {(nutrientContext.calorieBudget)} </Typography>
+
+
             </Grid>
 
             <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
