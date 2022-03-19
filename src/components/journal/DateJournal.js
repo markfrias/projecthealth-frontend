@@ -77,11 +77,22 @@ const DateJournal = () => {
   // State to enable loading UI elements
   const [loading, setLoading] = useState(true);
 
+  // Chip highlighting state
+  const [checked, setChecked] = useState([0]);
+
   // Segregated meal logs for each mealType
   const [breakfastLog, setBreakfastLog] = useState([]);
   const [lunchLog, setLunchLog] = useState([]);
   const [dinnerLog, setDinnerLog] = useState([]);
   const [snackLog, setSnackLog] = useState([]);
+
+  // Chip options state
+  const logTypes = [
+    { logId: 1, label: "Breakfast" },
+    { logId: 2, label: "Lunch" },
+    { logId: 3, label: "Dinner" },
+    { logId: 4, label: "Snack" }
+  ];
 
   // Navigates the user to the previous day's log
   const handleLeft = () => {
@@ -95,6 +106,12 @@ const DateJournal = () => {
     navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
   }
 
+  // Chip click handler
+  const handleToggle = (value) => {
+    const newChecked = [];
+    newChecked.push(value.logId);
+    setChecked(newChecked);
+  };
 
   // Fetch and set data for food log breakdown
   useEffect(() => {
@@ -190,14 +207,12 @@ const DateJournal = () => {
               <ChevronRight />
             </IconButton>
           </Grid>
-          <Grid item xs={12}>
-            <Chip label="Food" />
-            <Chip label="Sleep" />
-            <Chip label="Habit" />
-            <Chip label="Exercise" />
-            <Chip label="Missions" />
-            <Chip label="Challenges" />
-            <Chip label="Water" />
+          <Grid item xs={12} rowSpacing={4}>
+            {logTypes.map((log) => {
+              return (
+                <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+              )
+            })}
           </Grid>
         </Grid>
 
