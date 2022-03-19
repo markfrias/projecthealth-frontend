@@ -16,6 +16,9 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 import { useParams } from 'react-router-dom';
 import { getFoodLogsPersonal } from '../auth/APIServices';
 import toTitleCase from '../auth/StringServices';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import moment from 'moment';
+import { ChevronRight } from '@mui/icons-material';
 
 
 function CircularProgressWithLabel(props) {
@@ -192,6 +195,26 @@ const DateJournal = () => {
             <Typography variant="subtitle1B" component="h1">Journal</Typography>
           </Grid>
         </Grid>
+        <Grid item container direction="column">
+          <Grid item xs={12} container direction="row" alignItems="center" justifyContent="center">
+            <IconButton aria-label='left-button'>
+              <ChevronLeftIcon />
+            </IconButton>
+            <Typography component="p">{moment(`${year}-${month}-${day}`).format('MMMM DD, YYYY')}</Typography>
+            <IconButton aria-label='right-button'>
+              <ChevronRight />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12}>
+            <Chip label="Food" />
+            <Chip label="Sleep" />
+            <Chip label="Habit" />
+            <Chip label="Exercise" />
+            <Chip label="Missions" />
+            <Chip label="Challenges" />
+            <Chip label="Water" />
+          </Grid>
+        </Grid>
 
 
         {/* Load other page parts only when data has been loaded */}
@@ -207,20 +230,6 @@ const DateJournal = () => {
           </Grid>
           :
           <Box>
-            <Grid item container direction="column">
-              <Grid item xs={12}>
-                <ViewsDatePicker></ViewsDatePicker>
-              </Grid>
-              <Grid item xs={12}>
-                <Chip label="Food" />
-                <Chip label="Sleep" />
-                <Chip label="Habit" />
-                <Chip label="Exercise" />
-                <Chip label="Missions" />
-                <Chip label="Challenges" />
-                <Chip label="Water" />
-              </Grid>
-            </Grid>
 
             <Grid item container alignItems="center">
               <Grid item xs={9}>
