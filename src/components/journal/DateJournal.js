@@ -1,11 +1,6 @@
 import { Chip, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import PropTypes from 'prop-types';
-import Stack from '@mui/material/Stack';
-import DatePicker from '@mui/lab/DatePicker';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -58,27 +53,6 @@ function CircularStatic(props) {
   const progress = props.numerator / props.denominator * 100;
 
   return <CircularProgressWithLabel value={progress} color={progress <= 100 ? 'primary' : 'red'} />;
-}
-
-function ViewsDatePicker() {
-  const [value, setValue] = React.useState(new Date());
-
-  return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Stack spacing={3}>
-
-        <DatePicker
-          views={['day']}
-          label="Just date"
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} helperText={null} />}
-        />
-      </Stack>
-    </LocalizationProvider>
-  );
 }
 
 const DateJournal = () => {
