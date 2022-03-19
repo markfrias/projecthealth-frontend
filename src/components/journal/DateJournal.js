@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getFoodLogsPersonal } from '../auth/APIServices';
 import toTitleCase from '../auth/StringServices';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -83,6 +83,7 @@ function ViewsDatePicker() {
 
 const DateJournal = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const { year, month, day } = params;
 
   // Recommended values
@@ -107,6 +108,18 @@ const DateJournal = () => {
   const [lunchLog, setLunchLog] = useState([]);
   const [dinnerLog, setDinnerLog] = useState([]);
   const [snackLog, setSnackLog] = useState([]);
+
+  // Navigates the user to the previous day's log
+  const handleLeft = () => {
+    const yesterday = moment(`${year}-${month}-${day}`).subtract(1, 'days');
+    navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+  }
+
+  // Navigates the user to the previous day's log
+  const handleRight = () => {
+    const yesterday = moment(`${year}-${month}-${day}`).add(1, 'days');
+    navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+  }
 
 
   // Fetch and set data for food log breakdown
@@ -197,11 +210,11 @@ const DateJournal = () => {
         </Grid>
         <Grid item container direction="column">
           <Grid item xs={12} container direction="row" alignItems="center" justifyContent="center">
-            <IconButton aria-label='left-button'>
+            <IconButton aria-label='left-button' onClick={handleLeft}>
               <ChevronLeftIcon />
             </IconButton>
             <Typography component="p">{moment(`${year}-${month}-${day}`).format('MMMM DD, YYYY')}</Typography>
-            <IconButton aria-label='right-button'>
+            <IconButton aria-label='right-button' onClick={handleRight}>
               <ChevronRight />
             </IconButton>
           </Grid>
