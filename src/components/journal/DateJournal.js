@@ -124,9 +124,7 @@ const DateJournal = () => {
 
   // Fetch and set data for food log breakdown
   useEffect(() => {
-    console.log(year);
-    console.log(month);
-    console.log(day);
+    setLoading(true);
     (async () => {
       const response = await getFoodLogsPersonal(year, month, day);
       console.log(`${year} ${month} ${day}`)
@@ -152,7 +150,7 @@ const DateJournal = () => {
     })()
     // Fix this useEffect problem
     // eslint-disable-next-line
-  }, []);
+  }, [params]);
 
   // Test food log state
   useEffect(() => {
