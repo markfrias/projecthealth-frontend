@@ -258,12 +258,6 @@ const Registration = () => {
         }
     }
 
-    // Test calorie budget 
-    useEffect(() => {
-        console.log(regState.calorieBudget);
-    }, [regState.calorieBudget])
-
-
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", paddingTop: "1rem" }}>
             <Routes>

@@ -1,11 +1,6 @@
 import { Chip, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import PropTypes from 'prop-types';
-import Stack from '@mui/material/Stack';
-import DatePicker from '@mui/lab/DatePicker';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -13,9 +8,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getFoodLogsPersonal } from '../auth/APIServices';
 import toTitleCase from '../auth/StringServices';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import moment from 'moment';
+import { ChevronRight } from '@mui/icons-material';
 
 
 function CircularProgressWithLabel(props) {
@@ -57,29 +55,9 @@ function CircularStatic(props) {
   return <CircularProgressWithLabel value={progress} color={progress <= 100 ? 'primary' : 'red'} />;
 }
 
-function ViewsDatePicker() {
-  const [value, setValue] = React.useState(new Date());
-
-  return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Stack spacing={3}>
-
-        <DatePicker
-          views={['day']}
-          label="Just date"
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} helperText={null} />}
-        />
-      </Stack>
-    </LocalizationProvider>
-  );
-}
-
 const DateJournal = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const { year, month, day } = params;
 
   // Recommended values
@@ -105,12 +83,22 @@ const DateJournal = () => {
   const [dinnerLog, setDinnerLog] = useState([]);
   const [snackLog, setSnackLog] = useState([]);
 
+  // Navigates the user to the previous day's log
+  const handleLeft = () => {
+    const yesterday = moment(`${year}-${month}-${day}`).subtract(1, 'days');
+    navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+  }
+
+  // Navigates the user to the previous day's log
+  const handleRight = () => {
+    const yesterday = moment(`${year}-${month}-${day}`).add(1, 'days');
+    navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+  }
+
 
   // Fetch and set data for food log breakdown
   useEffect(() => {
-    console.log(year);
-    console.log(month);
-    console.log(day);
+    setLoading(true);
     (async () => {
       const response = await getFoodLogsPersonal(year, month, day);
       console.log(`${year} ${month} ${day}`)
@@ -136,7 +124,7 @@ const DateJournal = () => {
     })()
     // Fix this useEffect problem
     // eslint-disable-next-line
-  }, []);
+  }, [params]);
 
   // Test food log state
   useEffect(() => {
@@ -192,6 +180,26 @@ const DateJournal = () => {
             <Typography variant="subtitle1B" component="h1">Journal</Typography>
           </Grid>
         </Grid>
+        <Grid item container direction="column">
+          <Grid item xs={12} container direction="row" alignItems="center" justifyContent="center">
+            <IconButton aria-label='left-button' onClick={handleLeft}>
+              <ChevronLeftIcon />
+            </IconButton>
+            <Typography component="p">{moment(`${year}-${month}-${day}`).format('MMMM DD, YYYY')}</Typography>
+            <IconButton aria-label='right-button' onClick={handleRight}>
+              <ChevronRight />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12}>
+            <Chip label="Food" />
+            <Chip label="Sleep" />
+            <Chip label="Habit" />
+            <Chip label="Exercise" />
+            <Chip label="Missions" />
+            <Chip label="Challenges" />
+            <Chip label="Water" />
+          </Grid>
+        </Grid>
 
 
         {/* Load other page parts only when data has been loaded */}
@@ -207,20 +215,6 @@ const DateJournal = () => {
           </Grid>
           :
           <Box>
-            <Grid item container direction="column">
-              <Grid item xs={12}>
-                <ViewsDatePicker></ViewsDatePicker>
-              </Grid>
-              <Grid item xs={12}>
-                <Chip label="Food" />
-                <Chip label="Sleep" />
-                <Chip label="Habit" />
-                <Chip label="Exercise" />
-                <Chip label="Missions" />
-                <Chip label="Challenges" />
-                <Chip label="Water" />
-              </Grid>
-            </Grid>
 
             <Grid item container alignItems="center">
               <Grid item xs={9}>
