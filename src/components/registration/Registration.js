@@ -138,7 +138,7 @@ const Registration = () => {
         // Check if the last part of the address is a number or if it is one
         if (location.pathname.slice(18) === "" || parseInt(location.pathname.slice(18)) === 1) {
             navigate(stepBasis + 2);
-        } else if (parseInt(location.pathname.slice(18)) === 10) {
+        } else if (parseInt(location.pathname.slice(18)) === 9 || parseInt(location.pathname.slice(18)) === 10) {
             calculateCalorieBudget()
             const stepNumber = parseInt(location.pathname.slice(18));
             navigate(stepBasis + (stepNumber + 1));
@@ -257,6 +257,11 @@ const Registration = () => {
             goNext();
         }
     }
+
+    // Test calorie budget 
+    useEffect(() => {
+        console.log(regState.calorieBudget);
+    }, [regState.calorieBudget])
 
 
     return (
