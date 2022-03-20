@@ -1,16 +1,7 @@
 import { Chip, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import ReorderIcon from '@mui/icons-material/Reorder';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getFoodLogsPersonal } from '../auth/APIServices';
-import toTitleCase from '../auth/StringServices';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import moment from 'moment';
 import { ChevronRight } from '@mui/icons-material';
@@ -26,14 +17,13 @@ const DateJournal = () => {
   const { category, year, month, day } = params;
 
   // Chip highlighting state
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState([]);
 
   // Chip options state
   const logTypes = [
-    { logId: 1, label: "Breakfast" },
-    { logId: 2, label: "Lunch" },
-    { logId: 3, label: "Dinner" },
-    { logId: 4, label: "Snack" }
+    { logId: 0, label: "Food" },
+    { logId: 1, label: "Habits" },
+
   ];
 
   // Navigates the user to the previous day's log
@@ -56,8 +46,33 @@ const DateJournal = () => {
   };
 
   useEffect(() => {
-    console.log(params)
-  }, [params])
+    try {
+      console.log(params.category)
+      setChecked([parseInt(params.category)]);
+      // Change highlighted chip on change of category url
+    } catch (error) {
+      navigate('/app/journal');
+    }
+
+    // Fix this useEffect thing later
+    // eslint-disable-next-line
+  }, [params.category])
+
+  useEffect(() => {
+    if (checked.length > 0) {
+      navigate(`/app/journal-log/${checked[0]}/${year}/${month}/${day}`)
+    }
+    // Fix this useEffect thing later
+    // eslint-disable-next-line
+  }, [checked])
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      setChecked();
+    }
+  }, [])
+
 
   return (
     <div>
@@ -86,10 +101,10 @@ const DateJournal = () => {
           </Grid>
         </Grid>
 
-        {category === "food" ?
+        {category === "0" ?
           <FoodJournalLog params={params} /> :
           /* If habit log */
-          category === "habit" ?
+          category === "1" ?
             <HabitJournalLog params={params} /> :
             "Hello"
         }

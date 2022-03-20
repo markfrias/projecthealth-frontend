@@ -1,19 +1,27 @@
-import { Reorder, ThumbUpRounded } from '@mui/icons-material';
-import { Box, CircularProgress, Grid, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { ThumbDownRounded, ThumbUpRounded } from '@mui/icons-material';
+import { CircularProgress, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { getHabitLogsPersonal, getHabitsLogPersonal } from '../auth/APIServices';
-import toTitleCase from '../auth/StringServices';
+import { getHabitLogsPersonal } from '../auth/APIServices';
+import { Link } from 'react-router-dom';
 
 const
     HabitJournalLog = (props) => {
         // Url params
-        const { category, year, month, day } = props.params;
+        const { year, month, day } = props.params;
 
         // State for this page's data (food logs)
         const [habitLogs, setHabitLogs] = useState();
 
         // State to enable loading UI elements
         const [loading, setLoading] = useState(true);
+
+        // Cleanup
+        useEffect(() => {
+            return () => {
+                setHabitLogs();
+                setLoading();
+            }
+        }, [])
 
         // Fetch and set data for food log breakdown
         useEffect(() => {
@@ -49,11 +57,11 @@ const
                 </Grid> :
                 <Grid container direction="column">
 
-                    <Grid item container alignItems="center">
-                        <Grid item xs={9}>
+                    <Grid item container alignItems="center" justifyContent={'center'}>
+                        <Grid item xs={12}>
                             <Typography variant='subtitle1B' component='h1' >Habits tracked</Typography>
                             {habitLogs.length > 0 ?
-                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                <List sx={{ width: '100%', maxWidth: '50em', bgcolor: '#fdf8ec' }}>
                                     {habitLogs.map((value) => (
                                         <ListItem
                                             key={value.habitEntryId}
@@ -62,12 +70,22 @@ const
 
                                             <ListItemText primary={value.habitName} secondary={value.goalName} />
 
+                                            {/* Change color depending on habit status */}
+
+                                            {value.habitAccomplished ?
+                                                <ListItemIcon>
+                                                    <ThumbUpRounded color="green" />
+                                                </ListItemIcon> :
+                                                <ListItemIcon>
+                                                    <ThumbDownRounded color="red" />
+                                                </ListItemIcon>
+                                            }
 
                                         </ListItem>
                                     ))}
                                 </List>
                                 :
-                                <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography variant="p" component="p">Arf. You seem to have not tracked any habit for this day. <Link to="/app/habits/1">Track habits</Link> to satisfy your gotchi.</Typography>
                             }
 
 

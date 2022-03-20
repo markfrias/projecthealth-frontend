@@ -17,6 +17,9 @@ const theme = createTheme({
     },
     red: {
       main: "#6F0000"
+    },
+    green: {
+      main: "#7A8D44"
     }
   },
   typography: {

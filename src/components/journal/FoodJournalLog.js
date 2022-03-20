@@ -47,7 +47,7 @@ function CircularStatic(props) {
 const
     FoodJournalLog = (props) => {
         // Url params
-        const { category, year, month, day } = props.params;
+        const { year, month, day } = props.params;
 
         // Recommended values
         const recommendedCarbs = 300;
@@ -70,6 +70,21 @@ const
         const [lunchLog, setLunchLog] = useState([]);
         const [dinnerLog, setDinnerLog] = useState([]);
         const [snackLog, setSnackLog] = useState([]);
+
+
+        // Cleanup
+        useEffect(() => {
+            return () => {
+                setBreakfastLog();
+                setLunchLog();
+                setDinnerLog();
+                setSnackLog();
+                setLoading();
+                setCalorieBudget();
+                setSummaryValues();
+                setFoodLogs();
+            }
+        }, []);
 
         // Fetch and set data for food log breakdown
         useEffect(() => {
