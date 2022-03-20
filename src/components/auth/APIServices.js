@@ -716,7 +716,7 @@ const getFoodLogsPersonal = async (year, month, day) => {
 // Get all logs for the day for habits
 const getHabitLogsPersonal = async (year, month, day) => {
   const response = await fetch(
-    `http://localhost:8000/api/habit/entry/day?year=${year}&month=${month}&day=${day}`,
+    `https://projecthealthapp.herokuapp.com/api/habit/entry/day?year=${year}&month=${month}&day=${day}`,
     {
       method: "GET",
       mode: "cors",
