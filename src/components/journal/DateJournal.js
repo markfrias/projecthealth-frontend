@@ -1,175 +1,77 @@
 import { Chip, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import ReorderIcon from '@mui/icons-material/Reorder';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getFoodLogsPersonal } from '../auth/APIServices';
-import toTitleCase from '../auth/StringServices';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import moment from 'moment';
 import { ChevronRight } from '@mui/icons-material';
+import FoodJournalLog from './FoodJournalLog';
+import HabitJournalLog from './HabitJournalLog';
 
 
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
 
-CircularProgressWithLabel.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate variant.
-   * Value between 0 and 100.
-   * @default 0
-   */
-  value: PropTypes.number.isRequired,
-};
-
-function CircularStatic(props) {
-  const progress = props.numerator / props.denominator * 100;
-
-  return <CircularProgressWithLabel value={progress} color={progress <= 100 ? 'primary' : 'red'} />;
-}
 
 const DateJournal = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { year, month, day } = params;
+  const { category, year, month, day } = params;
 
-  // Recommended values
-  const recommendedCarbs = 300;
-  const recommendedFat = 65;
-  const recommendedProtein = 50;
+  // Chip highlighting state
+  const [checked, setChecked] = useState([]);
 
-  // State for this page's data (food logs)
-  const [foodLogs, setFoodLogs] = useState();
+  // Chip options state
+  const logTypes = [
+    { logId: 0, label: "Food" },
+    { logId: 1, label: "Habits" },
 
-  // State for summary values like total carbs
-  const [summaryValues, setSummaryValues] = useState();
-
-  // State for calorie budget
-  const [calorieBudget, setCalorieBudget] = useState();
-
-  // State to enable loading UI elements
-  const [loading, setLoading] = useState(true);
-
-  // Segregated meal logs for each mealType
-  const [breakfastLog, setBreakfastLog] = useState([]);
-  const [lunchLog, setLunchLog] = useState([]);
-  const [dinnerLog, setDinnerLog] = useState([]);
-  const [snackLog, setSnackLog] = useState([]);
+  ];
 
   // Navigates the user to the previous day's log
   const handleLeft = () => {
     const yesterday = moment(`${year}-${month}-${day}`).subtract(1, 'days');
-    navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+    navigate(`/app/journal-log/${category}/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
   }
 
   // Navigates the user to the previous day's log
   const handleRight = () => {
     const yesterday = moment(`${year}-${month}-${day}`).add(1, 'days');
-    navigate(`/app/datejournal/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+    navigate(`/app/journal-log/${category}/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
   }
 
+  // Chip click handler
+  const handleToggle = (value) => {
+    const newChecked = [];
+    newChecked.push(value.logId);
+    setChecked(newChecked);
+  };
 
-  // Fetch and set data for food log breakdown
   useEffect(() => {
-    setLoading(true);
-    (async () => {
-      const response = await getFoodLogsPersonal(year, month, day);
-      console.log(`${year} ${month} ${day}`)
-      console.log(response);
-      setFoodLogs(response[0]);
+    try {
+      console.log(params.category)
+      setChecked([parseInt(params.category)]);
+      // Change highlighted chip on change of category url
+    } catch (error) {
+      navigate('/app/journal');
+    }
 
-      // Set calorie budget state
-      console.log(response[1][0].calorieBudget)
-      setCalorieBudget(response[1][0].calorieBudget);
-
-      // Set categorized meal states
-      const breakfast = response[0].filter((value) => value.mealType === "breakfast");
-      const lunch = response[0].filter((value) => value.mealType === "lunch");
-      const dinner = response[0].filter((value) => value.mealType === "dinner");
-      const snack = response[0].filter((value) => value.mealType === "snack");
-
-      setBreakfastLog(breakfast);
-      setLunchLog(lunch);
-      setDinnerLog(dinner);
-      setSnackLog(snack);
-
-
-    })()
-    // Fix this useEffect problem
+    // Fix this useEffect thing later
     // eslint-disable-next-line
-  }, [params]);
+  }, [params.category])
 
-  // Test food log state
   useEffect(() => {
-    // Assign summary values once foodLogs is defined
-    if (foodLogs !== undefined) {
-      // Calculate all calories, carbs, protein, fat, and sodium from those meals and set to state, subtract with calorie budget and save as calorie budget
-      const calorieTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.caloriesPerUnit * current.servingQty;
-      }, 0);
-
-      const carbsTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.carbs;
-      }, 0);
-
-      const proteinTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.protein;
-      }, 0);
-
-      const fatTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.fat;
-      }, 0);
-
-      /*const sodiumTotalFromLogs = foodLogs.reduce((prev, current) => {
-        return prev + current.sodium;
-      }, 0); */
-
-      console.log(calorieTotalFromLogs);
-
-      setSummaryValues({
-        calories: calorieTotalFromLogs,
-        carbs: carbsTotalFromLogs,
-        protein: proteinTotalFromLogs,
-        fat: fatTotalFromLogs,
-      })
-
+    if (checked.length > 0) {
+      navigate(`/app/journal-log/${checked[0]}/${year}/${month}/${day}`)
     }
-  }, [foodLogs, calorieBudget, breakfastLog, lunchLog, dinnerLog, snackLog]);
+    // Fix this useEffect thing later
+    // eslint-disable-next-line
+  }, [checked])
 
-  // Turn off loading state once summary values is defined
+  // Cleanup
   useEffect(() => {
-    // If summary values is not undefined, turn off loading state
-    if (summaryValues !== undefined) {
-      setLoading(false);
+    return () => {
+      setChecked();
     }
-  }, [summaryValues, breakfastLog, lunchLog, dinnerLog, snackLog])
+  }, [])
 
 
   return (
@@ -190,173 +92,22 @@ const DateJournal = () => {
               <ChevronRight />
             </IconButton>
           </Grid>
-          <Grid item xs={12}>
-            <Chip label="Food" />
-            <Chip label="Sleep" />
-            <Chip label="Habit" />
-            <Chip label="Exercise" />
-            <Chip label="Missions" />
-            <Chip label="Challenges" />
-            <Chip label="Water" />
+          <Grid item xs={12} rowSpacing={4}>
+            {logTypes.map((log) => {
+              return (
+                <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+              )
+            })}
           </Grid>
         </Grid>
 
-
-        {/* Load other page parts only when data has been loaded */}
-
-        {loading ?
-          <Grid item container direction="column" md={12} justifyContent="center" alignItems="center" sx={{ width: '100%', minHeight: '80vh' }}>
-            <Grid item>
-              <CircularProgress variant='indeterminate' md={12} />
-            </Grid>
-            <Grid item md={12}>
-              <Typography variant="p" component="p" sx={{ textAlign: 'center' }}>Loading your logs...</Typography>
-            </Grid>
-          </Grid>
-          :
-          <Box>
-
-            <Grid item container alignItems="center">
-              <Grid item xs={9}>
-                <CircularStatic numerator={summaryValues.calories} denominator={calorieBudget}></CircularStatic>
-                <Typography variant='subtitle1' component='p'>{(summaryValues.calories / calorieBudget * 100) < 100 ? 'You are still on track to reach your calorie target for today.' :
-                  `You exceeded your calorie budget by ${calorieBudget - summaryValues.calories} calories.`
-                }</Typography>
-              </Grid>
-            </Grid>
-
-            <Grid item container alignItems="center">
-              <Grid item xs={9}>
-                <CircularStatic numerator={summaryValues.carbs} denominator={recommendedCarbs}></CircularStatic>
-                <Typography variant='subtitle1B' component='p'>Carbs</Typography>
-              </Grid>
-            </Grid>
-
-            <Grid item container alignItems="center">
-              <Grid item xs={9}>
-                <CircularStatic numerator={summaryValues.fat} denominator={recommendedFat}></CircularStatic>
-                <Typography variant='subtitle1B' component='p'>Fat</Typography>
-              </Grid>
-            </Grid>
-
-            <Grid item container alignItems="center">
-              <Grid item xs={9}>
-                <CircularStatic numerator={summaryValues.protein} denominator={recommendedProtein}></CircularStatic>
-                <Typography variant='subtitle1B' component='p'>Protein</Typography>
-              </Grid>
-            </Grid>
-
-            <Grid item container alignItems="center">
-              <Grid item xs={9}>
-                <Typography variant='subtitle1B' component='h1' >Breakfast</Typography>
-                {breakfastLog.length > 0 ?
-                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    {breakfastLog.map((value) => (
-                      <ListItem
-                        key={value.foodJournalId}
-                        disableGutters
-                        secondaryAction={
-                          <IconButton>
-                            <ReorderIcon />
-                          </IconButton>
-                        }
-                      >
-                        {value.diaryType === "detailed" ?
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
-                          :
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
-                        }
-                      </ListItem>
-                    ))}
-                  </List>
-                  :
-                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
-                }
-
-                <Typography variant='subtitle1B' component='h1' >Lunch</Typography>
-                {lunchLog.length > 0 ?
-                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    {lunchLog.map((value) => (
-                      <ListItem
-                        key={value.foodJournalId}
-                        disableGutters
-                        secondaryAction={
-                          <IconButton>
-                            <ReorderIcon />
-                          </IconButton>
-                        }
-                      >
-                        {value.diaryType === "detailed" ?
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
-                          :
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
-                        }
-                      </ListItem>
-                    ))}
-                  </List>
-                  :
-                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
-                }
-
-                <Typography variant='subtitle1B' component='h1' >Dinner</Typography>
-                {dinnerLog.length > 0 ?
-                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    {dinnerLog.map((value) => (
-                      <ListItem
-                        key={value.foodJournalId}
-                        disableGutters
-                        secondaryAction={
-                          <IconButton>
-                            <ReorderIcon />
-                          </IconButton>
-                        }
-                      >
-                        {value.diaryType === "detailed" ?
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
-                          :
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
-                        }
-                      </ListItem>
-                    ))}
-                  </List>
-                  :
-                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
-                }
-
-                <Typography variant='subtitle1B' component='h1' >Snacks</Typography>
-                {snackLog.length > 0 ?
-                  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                    {snackLog.map((value) => (
-                      <ListItem
-                        key={value.foodJournalId}
-                        disableGutters
-                        secondaryAction={
-                          <IconButton>
-                            <ReorderIcon />
-                          </IconButton>
-                        }
-                      >
-                        {value.diaryType === "detailed" ?
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
-                          :
-                          <ListItemText primary={toTitleCase(value.foodName)} secondary={value.servingDescription} />
-                        }
-                      </ListItem>
-                    ))}
-                  </List>
-                  :
-                  <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
-                }
-
-
-
-              </Grid>
-            </Grid>
-          </Box>
+        {category === "0" ?
+          <FoodJournalLog params={params} /> :
+          /* If habit log */
+          category === "1" ?
+            <HabitJournalLog params={params} /> :
+            "Hello"
         }
-
-
-
 
 
       </Grid>
