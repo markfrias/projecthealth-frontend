@@ -45,6 +45,7 @@ import Habits from './components/registration/Habits';
 import WeightHeightMod from './components/settings/WeightHeightMod';
 import Food from './components/meal_recording/Food';
 import Journal from './components/journal/Journal';
+import HabitScreen from './components/habits/HabitScreen'
 
 
 
@@ -122,6 +123,7 @@ ReactDOM.render(
             <Route path="accounting/*" element={<Accountsetting />} />
 
             <Route path="habits/*" element={<Habits />} />
+            <Route path="habitscreen" element={<HabitScreen />} />
 
             <Route path="Onboarding1" element={<Onboarding1 />} />
             <Route path="Onboarding2" element={<Onboarding2 />} />
