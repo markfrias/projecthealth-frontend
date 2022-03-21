@@ -117,8 +117,8 @@ ReactDOM.render(
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="profile-main/*" element={<Profile />} />
-            
-            <Route path="registration/*" element={<Registration />}>
+
+            <Route path="registration/*" element={<Registration />} />
             <Route path="accounting/*" element={<Accountsetting />} />
 
             <Route path="habits/*" element={<Habits />} />
