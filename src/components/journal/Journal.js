@@ -1,30 +1,54 @@
 import { Chip, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
-function StaticDatePickerDemo() {
-    const [value, setValue] = React.useState(new Date());
-  
+function StaticDatePickerDemo(props) {
+
     return (
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <StaticDatePicker
-          displayStaticWrapperAs="desktop"
-          openTo="year"
-          value={value}
-          onChange={(newValue) => {
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <StaticDatePicker
+                displayStaticWrapperAs="desktop"
+                openTo="day"
+                value={props.value}
+                onChange={(newValue) => {
+                    props.setValue(newValue);
+                    props.handleChange(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+
+            />
+        </LocalizationProvider>
     );
-  }
+}
 
 
 const Journal = () => {
+    const [value, setValue] = React.useState();
+    const navigate = useNavigate();
+
+    // Change handler
+    const handleChange = (value) => {
+        const year = moment(value).format('YYYY');
+        const month = moment(value).format('MM');
+        const day = moment(value).format('DD');
+
+        navigate(`/app/journal-log/0/${year}/${month}/${day}`)
+
+    }
+
+    // test value
+    useEffect(() => {
+        if (value !== undefined) {
+            console.log(value)
+
+        }
+    }, [value])
+
     return (
         <div>
             <Grid container direction="column">
@@ -64,7 +88,7 @@ const Journal = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                    <StaticDatePickerDemo></StaticDatePickerDemo>
+                        <StaticDatePickerDemo value={value} setValue={setValue} handleChange={handleChange}></StaticDatePickerDemo>
 
                     </Grid>
                 </Grid>

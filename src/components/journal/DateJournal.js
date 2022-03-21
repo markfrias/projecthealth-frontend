@@ -1,168 +1,118 @@
 import { Chip, Grid, Typography } from '@mui/material';
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import PropTypes from 'prop-types';
-import Stack from '@mui/material/Stack';
-import DatePicker from '@mui/lab/DatePicker';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
+import React, { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
-import ReorderIcon from '@mui/icons-material/Reorder';
+import { useNavigate, useParams } from 'react-router-dom';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import moment from 'moment';
+import { ChevronRight } from '@mui/icons-material';
+import FoodJournalLog from './FoodJournalLog';
+import HabitJournalLog from './HabitJournalLog';
 
 
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
 
-CircularProgressWithLabel.propTypes = {
-  /**
-   * The value of the progress indicator for the determinate variant.
-   * Value between 0 and 100.
-   * @default 0
-   */
-  value: PropTypes.number.isRequired,
-};
-
- function CircularStatic() {
-  const [progress, setProgress] = React.useState(10);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  return <CircularProgressWithLabel value={progress} />;
-}
-
-function ViewsDatePicker() {
-    const [value, setValue] = React.useState(new Date());
-  
-    return (
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Stack spacing={3}>
-
-          <DatePicker
-            views={['day']}
-            label="Just date"
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} helperText={null} />}
-          />
-        </Stack>
-      </LocalizationProvider>
-    );
-  }
 
 const DateJournal = () => {
-    return (
-        <div>
-            <Grid container direction="column">
-                <Grid item container sx={{ background: "#F9AB10", height: "4rem" }}>
-                    <Grid item>
-                        <Typography variant="subtitle1B" component="h1">Journal</Typography>
-                    </Grid>
-                </Grid>
+  const params = useParams();
+  const navigate = useNavigate();
+  const { category, year, month, day } = params;
+
+  // Chip highlighting state
+  const [checked, setChecked] = useState([]);
+
+  // Chip options state
+  const logTypes = [
+    { logId: 0, label: "Food" },
+    { logId: 1, label: "Habits" },
+
+  ];
+
+  // Navigates the user to the previous day's log
+  const handleLeft = () => {
+    const yesterday = moment(`${year}-${month}-${day}`).subtract(1, 'days');
+    navigate(`/app/journal-log/${category}/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+  }
+
+  // Navigates the user to the previous day's log
+  const handleRight = () => {
+    const yesterday = moment(`${year}-${month}-${day}`).add(1, 'days');
+    navigate(`/app/journal-log/${category}/${yesterday.format('YYYY')}/${yesterday.format('MM')}/${yesterday.format('DD')}`);
+  }
+
+  // Chip click handler
+  const handleToggle = (value) => {
+    const newChecked = [];
+    newChecked.push(value.logId);
+    setChecked(newChecked);
+  };
+
+  useEffect(() => {
+    try {
+      console.log(params.category)
+      setChecked([parseInt(params.category)]);
+      // Change highlighted chip on change of category url
+    } catch (error) {
+      navigate('/app/journal');
+    }
+
+    // Fix this useEffect thing later
+    // eslint-disable-next-line
+  }, [params.category])
+
+  useEffect(() => {
+    if (checked.length > 0) {
+      navigate(`/app/journal-log/${checked[0]}/${year}/${month}/${day}`)
+    }
+    // Fix this useEffect thing later
+    // eslint-disable-next-line
+  }, [checked])
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      setChecked();
+    }
+  }, [])
 
 
+  return (
+    <div>
+      <Grid container direction="column">
+        <Grid item container sx={{ background: "#F9AB10", height: "4rem" }}>
+          <Grid item>
+            <Typography variant="subtitle1B" component="h1">Journal</Typography>
+          </Grid>
+        </Grid>
+        <Grid item container direction="column">
+          <Grid item xs={12} container direction="row" alignItems="center" justifyContent="center">
+            <IconButton aria-label='left-button' onClick={handleLeft}>
+              <ChevronLeftIcon />
+            </IconButton>
+            <Typography component="p">{moment(`${year}-${month}-${day}`).format('MMMM DD, YYYY')}</Typography>
+            <IconButton aria-label='right-button' onClick={handleRight}>
+              <ChevronRight />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12} rowSpacing={4}>
+            {logTypes.map((log) => {
+              return (
+                <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+              )
+            })}
+          </Grid>
+        </Grid>
 
-                <Grid item container direction="column">
-                    <Grid item xs={12}>
-                        <ViewsDatePicker></ViewsDatePicker>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Chip label="Food" />
-                        <Chip label="Sleep" />
-                        <Chip label="Habit" />
-                        <Chip label="Exercise" />
-                        <Chip label="Missions" />
-                        <Chip label="Challenges" />
-                        <Chip label="Water" />
-                    </Grid>
-                </Grid>
+        {category === "0" ?
+          <FoodJournalLog params={params} /> :
+          /* If habit log */
+          category === "1" ?
+            <HabitJournalLog params={params} /> :
+            "Hello"
+        }
 
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
-                        <CircularStatic></CircularStatic>
-                        <Typography variant='subtitle1' component='p'>You overate on this day by 12% more than your budget</Typography>
-                    </Grid>
-                </Grid>
 
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
-                        <CircularStatic></CircularStatic>
-                        <Typography variant='subtitle1B' component='p'>Carbs</Typography>
-                    </Grid>
-                </Grid>
-
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
-                        <CircularStatic></CircularStatic>
-                        <Typography variant='subtitle1B' component='p'>Fat</Typography>
-                    </Grid>
-                </Grid>
-
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
-                        <CircularStatic></CircularStatic>
-                        <Typography variant='subtitle1B' component='p'>Protein</Typography>
-                    </Grid>
-                </Grid>
-
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
-                        <Typography variant='subtitle1B' component='h1' >Breakfast</Typography>
-                        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {[1, 2, 3].map((value) => (
-            <ListItem
-              key={value}
-              disableGutters
-              secondaryAction={
-                <IconButton>
-                  <ReorderIcon />
-                </IconButton>
-              }
-            >
-              <ListItemText primary={`Line item ${value}`} />
-            </ListItem>
-          ))}
-        </List>
-                    </Grid>
-                </Grid>
-
-            </Grid>
-        </div>
-    );
+      </Grid>
+    </div>
+  );
 }
 
 export default DateJournal;
