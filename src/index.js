@@ -28,6 +28,7 @@ import NotificationSettings from './components/settings/NotificationSettings';
 import Accountsetting from './components/settings/Accountsetting';
 import DateJournal from './components/journal/DateJournal';
 import DateHabit from './components/journal/DateHabit';
+import Profile from './components/profile/Profile';
 
 
 
@@ -115,10 +116,10 @@ ReactDOM.render(
             <Route path="Onboarding2/*" element={<Onboarding2 />} />
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
+            <Route path="profile-main/*" element={<Profile />} />
+
             <Route path="registration/*" element={<Registration />} />
             <Route path="accounting/*" element={<Accountsetting />} />
-
-
 
             <Route path="habits/*" element={<Habits />} />
 
