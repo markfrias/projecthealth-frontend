@@ -28,7 +28,17 @@ export default function HabitsOnboarding4(props) {
 
     ]
 
+    // Test state
+    /*
+    React.useEffect(() => {
+        console.log(props.habitsState.goalCategoryInputValue)
+        if (props.habitsState.goalCategoryInputValue === "") {
+            return;
+        }
+        getHabitAutocomplete(props.habitsState.goalCategoryInputValue).then(data => props.setHabitsDef(data));
 
+    }, [props]);
+    */
 
     return (
         <Container maxWidth="md" sx={{
@@ -235,6 +245,7 @@ export default function HabitsOnboarding4(props) {
                     props.habitsToAdd.forEach((value) => {
                         newArray.push(value);
                     })
+                    console.log(newArray)
                     props.setHabitsState({
                         ...props.habitsState,
                         habitsForSubmission: newArray

@@ -1,6 +1,5 @@
 import { Button, Container } from '@mui/material';
 import React from 'react';
-import { Typography } from '@mui/material';
 
 const Onboarding4 = () => {
     return (
@@ -14,9 +13,9 @@ const Onboarding4 = () => {
             <div>
 
             </div>
-                <Typography variant='onboardingHeader' component='h1'>Stick to healthy behavior.</Typography>
+                <h1>Stick to healthy behavior</h1>
             <div>
-            <Typography variant='subtitle1' component='p'>Create and choose habits. Whether it is exercising or sleeping longer.</Typography>
+            <p>Create and choose habits. Whether it is exercising or sleeping longer.</p>
  
             </div>
             <div className='button-group'>

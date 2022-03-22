@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import React from 'react';
 
 const Onboarding2 = () => {
@@ -13,9 +13,9 @@ const Onboarding2 = () => {
             <div>
 
             </div>
-                <Typography variant='onboardingHeader' component='h1' >Meet you gotchi, Pobi</Typography>
+                <h1>Meet your gotchi, Pobi.</h1>
             <div>
-            <Typography variant='subtitle1' component='p'>Take care of your health, take care of your gotchi.</Typography>
+            <p>Take care of your health, take care of your gotchi.</p>
  
             </div>
             <div className='button-group'>

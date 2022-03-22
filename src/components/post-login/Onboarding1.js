@@ -1,10 +1,63 @@
-import { Alert, Button, Container, Typography, } from '@mui/material';
+import { Alert, Button, Container, } from '@mui/material';
 import { Switch } from '@mui/material';
 import { Box } from '@mui/system';
 import { getToken } from 'firebase/messaging';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { messaging } from '../firebase';
+/*import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';*/
+
+/* function ProgressMobileStepper() {
+    const theme = useTheme();
+    const [activeStep, setActiveStep] = React.useState(0);
+  
+    const handleNext = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+  
+    const handleBack = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+  
+    return (
+      <MobileStepper
+        variant="progress"
+        steps={6}
+        position="static"
+        activeStep={activeStep}
+        sx={{ maxWidth: 400, flexGrow: 1 }}
+        nextButton={
+          <Button size="small" onClick={handleNext} disabled={activeStep === 5}>
+            Next
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+            Back
+          </Button>
+        }
+      />
+    );
+    }
+    */
+/*import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';*/
+
 
 const Onboarding1 = () => {
 
@@ -18,6 +71,7 @@ const Onboarding1 = () => {
   // Ask permission for notifications
   const askNotifPermission = () => {
     Notification.requestPermission().then((result) => {
+      console.log(result);
       // Display error if denied
       if (result === "denied") {
         setNotifIsAllowed(false);
@@ -29,11 +83,14 @@ const Onboarding1 = () => {
           if (currentToken) {
             // Send the token to your server and update the UI if necessary
             // ...
+            console.log(currentToken)
           } else {
             // Show permission request UI
+            console.log('No registration token available. Request permission to generate one.');
             // ...
           }
         }).catch((err) => {
+          console.log('An error occurred while retrieving token. ', err);
           // ...
         });
       }
@@ -81,7 +138,7 @@ const Onboarding1 = () => {
       }}>
 
         <div>
-          <Typography variant='onboardingHeader' component='h1' >Don't forget to log your meals</Typography>
+          <h1 className='text-onboarding1'>Don't forget to log your meals</h1>
         </div>
 
         <div className='hero_container'>
@@ -89,7 +146,7 @@ const Onboarding1 = () => {
         </div>
 
         <div>
-          <Typography variant='subtitle1' component='p'>By turning on reminders, you'll be able to consistently track how you eat.</Typography>
+          <p>By turning on reminders, you'll be able to consistently track how you eat.</p>
         </div>
 
         {/* Display info message if notification permission is not asked yet*/}
@@ -113,7 +170,7 @@ const Onboarding1 = () => {
 
 
         <div className='switch_with_text'>
-          <Typography variant='onboardingSubheader' component='p' >Enable meal reminders</Typography>
+          <p>Enable meal reminders</p>
 
           {notifIsAllowed === false ?
             <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} disabled checked={false} />
