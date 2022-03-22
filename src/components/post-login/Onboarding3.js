@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container } from '@mui/material';
 
 import React from 'react';
 
@@ -12,10 +12,10 @@ const Onboarding3 = () => {
                 <img alt="Side view of Beagle dog" src={require("../../assets/img/healthy.png")} />
             </div>
                 <div>
-                <Typography variant='onboardingHeader' component='h1'>Eat healthy.</Typography>
+                <h1>Eat healthy.</h1>
                 </div>
             <div>
-            <Typography variant='subtitle1' component='p'>Log healthy food to your journal to improve your gotchi’s health and happiness.</Typography>
+            <p>Log healthy food to your journal to improve your gotchi’s health and happiness.</p>
  
             </div>
             <div className='button-group'>

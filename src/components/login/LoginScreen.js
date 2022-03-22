@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, CircularProgress, Container, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, CircularProgress, Container } from "@mui/material";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -107,7 +107,7 @@ const LoginScreen = () => {
         >
           <div className="hero_container"></div>
           <div>
-            <Typography variant='onboardingHeader' component='h1' >Login and start health + fun.</Typography>
+            <h1>Login and start health + fun.</h1>
           </div>
 
           {error ?
@@ -125,7 +125,7 @@ const LoginScreen = () => {
             validate
             autoComplete="on"
           >
-            <Typography variant='subtitle1' component='p' >Email address</Typography>
+            <p>Email address</p>
             <TextField
               id="email"
               type="email"
@@ -135,7 +135,7 @@ const LoginScreen = () => {
               value={loginForm.emailAddress}
               onChange={handleChange}
             />
-            <Typography variant='subtitle1' component='p' >Password</Typography>
+            <p>Password</p>
             <TextField
               id="password"
               type="password"
