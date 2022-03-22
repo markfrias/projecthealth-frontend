@@ -817,6 +817,33 @@ const getHabitLogs = async () => {
   }
 };
 
+// Update status of habit journal entry
+const updateHabitJournalEntry = async (habitEntryId, habitAccomplished) => {
+  const response = await fetch(
+    `http://localhost:8000/api/habit/entry/update`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ habitEntryId: habitEntryId, habitAccomplished: habitAccomplished }),
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+};
+
 
 
 const logout = () => {
@@ -828,5 +855,5 @@ export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
   getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount, getFoodLogsPersonal, getHabitLogsPersonal,
-  getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth
+  getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth, updateHabitJournalEntry
 }
