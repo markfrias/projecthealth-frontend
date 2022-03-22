@@ -101,7 +101,7 @@ const registerAccount = async (form) => {
 
 
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/register/",
+    "http://localhost:8000/api/users/register/",
     {
       method: "POST",
       mode: "cors",
@@ -270,7 +270,7 @@ const saveHabits = async (habits) => {
     habits: habits
   };
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/habit/save/",
+    "http://localhost:8000/api/habit/save/",
     {
       method: "POST",
       mode: "cors",
@@ -305,7 +305,7 @@ const saveNote = async (body) => {
   }
   body.diaryType = "quick";
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
+    "http://localhost:8000/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -503,7 +503,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
+    "http://localhost:8000/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -739,6 +739,34 @@ const getHabitLogsPersonal = async (year, month, day) => {
   }
 };
 
+// Get food log streaks for the user
+const getFoodLogStreaks = async () => {
+  const response = await fetch(
+    `http://localhost:8000/api/food/streaks`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+};
+
+
+
 
 const logout = () => {
   localStorage.removeItem('jwt');
@@ -748,5 +776,6 @@ const logout = () => {
 export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
-  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount, getFoodLogsPersonal, getHabitLogsPersonal
+  getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount, getFoodLogsPersonal, getHabitLogsPersonal,
+  getFoodLogStreaks
 }
