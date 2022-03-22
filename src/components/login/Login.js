@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, FormControl, Input, InputLabel, FormHelperText, Button } from "@mui/material";
+import { Container, FormControl, Input, InputLabel, FormHelperText, Button, Typography } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import authService from "../auth/auth";
 
@@ -46,7 +46,7 @@ const Login = () => {
 
       <div>
         <Container maxWidth="md" sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          <h1>Login</h1>
+          <Typography variant='onboardingHeader' component='h1'>Login</Typography>
 
           <FormControl sx={{ mt: 2, mb: 2 }}>
             <InputLabel htmlFor="emailAddress">Email address</InputLabel>
