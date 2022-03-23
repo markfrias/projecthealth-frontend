@@ -25,6 +25,7 @@ import FoodQuickNote from './components/meal_recording/FoodQuickNote';
 import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import LogScreen from './components/meal_recording/LogScreen';
 import NotificationSettings from './components/settings/NotificationSettings';
+import Accountsetting from './components/settings/Accountsetting';
 import DateJournal from './components/journal/DateJournal';
 import DateHabit from './components/journal/DateHabit';
 import Profile from './components/profile/Profile';
@@ -45,6 +46,7 @@ import Habits from './components/registration/Habits';
 import WeightHeightMod from './components/settings/WeightHeightMod';
 import Food from './components/meal_recording/Food';
 import Journal from './components/journal/Journal';
+import HabitScreen from './components/habits/HabitScreen'
 
 
 
@@ -109,7 +111,7 @@ ReactDOM.render(
             <Route path="quicknote/*" element={<FoodQuickNote />} />
             <Route path="login/*" element={<LoginScreen />} />
             <Route path="Onboarding5/*" element={<Onboarding5 />} />
-            <Route path="datejournal/*" element={<DateJournal />} />
+            <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
             <Route path="datehabit/*" element={<DateHabit />} />
             <Route path="Onboarding4/*" element={<Onboarding4 />} />
             <Route path="Onboarding3/*" element={<Onboarding3 />} />
@@ -118,13 +120,11 @@ ReactDOM.render(
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="profile-main/*" element={<Profile />} />
             <Route path="progress-report/*" element={<ProgressReport />} />
-            
-            <Route path="registration/*" element={<Registration />}>
-            
-
-            </Route>
+            <Route path="registration/*" element={<Registration />} />
+            <Route path="accounting/*" element={<Accountsetting />} />
 
             <Route path="habits/*" element={<Habits />} />
+            <Route path="habitscreen" element={<HabitScreen />} />
 
             <Route path="Onboarding1" element={<Onboarding1 />} />
             <Route path="Onboarding2" element={<Onboarding2 />} />
@@ -134,7 +134,7 @@ ReactDOM.render(
             <Route path="login" element={<LoginScreen />} />
             <Route path="notification-setup" element={<Notificationsetup />} />
             <Route path="notif-unsupported" element={<NotificationUnsupported />} />
-          
+
 
 
           </Route>

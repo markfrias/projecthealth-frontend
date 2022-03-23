@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Grid, Typography } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -8,56 +8,80 @@ import { deepOrange } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../auth/APIServices';
 
 const style = {
-    width: '100%',
-    maxWidth: 360,
-    bgcolor: 'floralwhite',
-  };
-  
-function ListDividers() {
-    return (
-      <List sx={style} component="nav" aria-label="mailbox folders">
-        <ListItem button>
+  width: '100%',
+  maxWidth: 360,
+  bgcolor: 'floralwhite',
+};
+
+function ListDividers(props) {
+  return (
+    <List sx={style} component="nav" aria-label="mailbox folders">
+      <ListItem button>
         <Typography variant='subtitle1' component='p'>Progress report</Typography>
-        </ListItem>
-        <Divider />
-        <ListItem button divider>
+      </ListItem>
+      <Divider />
+      <ListItem button divider>
         <Typography variant='subtitle1' component='p'>Settings</Typography>
-        </ListItem>
-        <ListItem button>
+      </ListItem>
+      <ListItem button>
         <Typography variant='subtitle1' component='p'>Account settings</Typography>
-        </ListItem>
-        <Divider />
-        <ListItem button>
+      </ListItem>
+      <Divider />
+      <ListItem button>
         <Typography variant='subtitle1' component='p'>Notification settings</Typography>
-        </ListItem>
-        <Divider />
-        <ListItem button>
+      </ListItem>
+      <Divider />
+      <ListItem button>
         <Typography variant='subtitle1' component='p'>Goal settings</Typography>
-        </ListItem>
-        <Divider />
-        <ListItem button>
+      </ListItem>
+      <Divider />
+      <ListItem button>
         <Typography variant='subtitle1' component='p'>Weight and height</Typography>
-        </ListItem>
-        <Divider />
-        <ListItem button>
-          <Typography variant='profileLogout' component='p'>Logout</Typography>
-        </ListItem>
-      </List>
-    );
-  }
+      </ListItem>
+      <Divider />
+      <ListItem button onClick={props.handleClick}>
+        <Typography variant='profileLogout' component='p'>Logout</Typography>
+      </ListItem>
+    </List>
+  );
+}
 
 function LetterAvatars() {
-    return (
-      <Stack direction="row" spacing={2}>  
-        <Avatar sx={{ bgcolor: deepOrange[500] }}>AD</Avatar>
-      </Stack>
-    );
+  return (
+    <Stack direction="row" spacing={2}>
+      <Avatar sx={{ bgcolor: deepOrange[500] }}>AD</Avatar>
+    </Stack>
+  );
+}
+
+const Profile = (props) => {
+  const [open, setOpen] = React.useState(false);
+  const [modalHeading, setModalHeading] = React.useState("");
+  const [modalBody, setModalBody] = React.useState("");
+  const navigate = useNavigate();
+
+  const handleClickOpen = () => {
+    setModalHeading("Log out");
+    setModalBody("Do you want to log out your account from this device?");
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Account deletion handler
+  const handleConfirm = async () => {
+    setOpen(false);
+    navigate("/");
+    logout();
+
   }
 
-const Profile = () => {
-  
 
   return (
     <Grid container spacing={4} >
@@ -67,22 +91,57 @@ const Profile = () => {
         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
         <Typography variant='onboardingHeader' component='h1' >Profile</Typography>
       </Grid>
-        <Grid item xs={12} container direction='row'>
+      <Grid item xs={12} container direction='row'>
         <LetterAvatars></LetterAvatars>
         <Typography variant='subtitle1B' component='h1' >Ashley Dela Cruz</Typography>
-        </Grid>
+      </Grid>
 
-        <Grid item xs={12} container direction='row'>
+      <Grid item xs={12} container direction='row'>
         <Typography variant='subtitle1' component='p' >ashleycruz@newscorp.com</Typography>
-        </Grid>
+      </Grid>
 
-        <Grid item xs={12} container direction='row'>
-            <ListDividers></ListDividers>
-            </Grid>
-        </Grid>
-     
+      <Grid item xs={12} container direction='row'>
+        <ListDividers handleClick={handleClickOpen}></ListDividers>
+      </Grid>
 
-    
+
+
+      <Dialog
+        open={open}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="title"
+        aria-describedby="description"
+      >
+
+        <DialogTitle id="title">{modalHeading}</DialogTitle>
+        <DialogContent>
+
+          <DialogContentText id="description">
+            {modalBody}
+          </DialogContentText>
+
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => {
+            handleConfirm();
+          }} color="primary">
+            Confirm
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+
+
+
+      </Dialog>
+
+    </Grid>
+
+
+
 
 
 

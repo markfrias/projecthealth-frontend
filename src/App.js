@@ -1,7 +1,10 @@
-import React from "react";
+import React/*, { useState }*/ from "react";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { /*Link, */ Outlet } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+/*import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import { AccountCircleRounded, BookRounded, HomeRounded, NoteRounded } from "@mui/icons-material";*/
+import { Box } from "@mui/system";
 
 const theme = createTheme({
   palette: {
@@ -12,6 +15,12 @@ const theme = createTheme({
     secondary: {
       main: "#d3f76c",
     },
+    red: {
+      main: "#6F0000"
+    },
+    green: {
+      main: "#7A8D44"
+    }
   },
   typography: {
     fontFamily: '"Poppins" ,"Roboto", "Helvetica", "Arial", sans-serif',
@@ -135,10 +144,34 @@ const theme = createTheme({
 });
 
 function App() {
+
+  //const [value, setValue] = useState(0);
+
   return (
-    <ThemeProvider theme={theme}>
-      <Outlet />
-    </ThemeProvider>
+    <Box>
+      <ThemeProvider theme={theme}>
+        <Outlet />
+        {/*<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue)
+            }}
+
+          >
+
+            <BottomNavigationAction label="Dashboard" icon={<HomeRounded />} component={Link} to="/app/" />
+            <BottomNavigationAction label="Journal" icon={<NoteRounded />} component={Link} to="/app/habits/1" />
+            <BottomNavigationAction label="Habits" icon={<BookRounded />} />
+            <BottomNavigationAction label="Profile" icon={<AccountCircleRounded />} />
+
+          </BottomNavigation>
+          </Paper> */}
+
+      </ThemeProvider>
+    </Box>
+
   );
 }
 
