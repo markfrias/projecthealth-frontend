@@ -29,6 +29,7 @@ import Accountsetting from './components/settings/Accountsetting';
 import DateJournal from './components/journal/DateJournal';
 import DateHabit from './components/journal/DateHabit';
 import Profile from './components/profile/Profile';
+import ProgressReport from './components/journal/ProgressReport';
 
 
 
@@ -118,7 +119,7 @@ ReactDOM.render(
             <Route path="Onboarding1/*" element={<Onboarding1 />} />
             <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
             <Route path="profile-main/*" element={<Profile />} />
-
+            <Route path="progress-report/*" element={<ProgressReport />} />
             <Route path="registration/*" element={<Registration />} />
             <Route path="accounting/*" element={<Accountsetting />} />
 
