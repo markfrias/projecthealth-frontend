@@ -13,6 +13,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import ReorderIcon from '@mui/icons-material/Reorder';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import Button from '@mui/material/Button';
 
 
 function CircularProgressWithLabel(props) {
@@ -88,9 +90,10 @@ const DateJournal = () => {
     return (
         <div>
             <Grid container direction="column">
-                <Grid item container sx={{ background: "#F9AB10", height: "4rem" }}>
+                <Grid item container sx={{ background: "#F9AB10", height: "6rem" }}>
                     <Grid item>
-                        <Typography variant="subtitle1B" component="h1">Journal</Typography>
+                    <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Journal</Button>
+                        
                     </Grid>
                 </Grid>
 
@@ -110,33 +113,40 @@ const DateJournal = () => {
                         <Chip label="Water" />
                     </Grid>
                 </Grid>
+            </Grid>
 
+                <Grid container spacing={4}>
                 <Grid item container alignItems="center">
-                    <Grid item xs={9}>
+                    <Grid item xs={6}>
                         <CircularStatic></CircularStatic>
+                    </Grid>
+                    <Grid item xs={6}>
                         <Typography variant='subtitle1' component='p'>You overate on this day by 12% more than your budget</Typography>
                     </Grid>
                 </Grid>
+                </Grid>
 
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
+                <Grid container spacing={4}>
+                
+                    <Grid item xs={3}>
                         <CircularStatic></CircularStatic>
                         <Typography variant='subtitle1B' component='p'>Carbs</Typography>
                     </Grid>
-                </Grid>
+                
 
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
+                
+                    <Grid item xs={3}>
                         <CircularStatic></CircularStatic>
                         <Typography variant='subtitle1B' component='p'>Fat</Typography>
                     </Grid>
-                </Grid>
+                
 
-                <Grid item container alignItems="center">
-                    <Grid item xs={9}>
+                
+                    <Grid item xs={3}>
                         <CircularStatic></CircularStatic>
                         <Typography variant='subtitle1B' component='p'>Protein</Typography>
                     </Grid>
+                
                 </Grid>
 
                 <Grid item container alignItems="center">
@@ -160,7 +170,7 @@ const DateJournal = () => {
                     </Grid>
                 </Grid>
 
-            </Grid>
+            
         </div>
     );
 }
