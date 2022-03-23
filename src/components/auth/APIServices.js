@@ -237,7 +237,7 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
 // Fetch all habits for a specific user
 const getUserHabits = async () => {
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/habit/userhabits/",
+    "http://localhost:8000/api/habit/userhabits/",
     {
       method: "GET",
       mode: "cors",
@@ -844,6 +844,32 @@ const updateHabitJournalEntry = async (habitEntryId, habitAccomplished) => {
   }
 };
 
+// Get all logs for the current user
+const getProgressReport = async () => {
+  const response = await fetch(
+    `http://localhost:8000/api/users/progress-report`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+};
+
 
 
 const logout = () => {
@@ -855,5 +881,5 @@ export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
   getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount, getFoodLogsPersonal, getHabitLogsPersonal,
-  getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth, updateHabitJournalEntry
+  getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth, updateHabitJournalEntry, getProgressReport
 }
