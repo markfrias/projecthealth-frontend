@@ -32,7 +32,9 @@ function StaticDatePickerDemo(props) {
                 renderDay={(day, _value, DayComponentProps) => {
                     const isSelected =
                         !DayComponentProps.outsideCurrentMonth &&
-                        props.highlightedDays.indexOf(day.getDate()) > 0;
+                        props.highlightedDays.indexOf(day.getDate()) > -1;
+                    console.log(props.highlightedDays.indexOf(day.getDate()) > 0)
+                    console.log(`${day.getDate()} : ${props.highlightedDays}`)
                     return (
                         <Badge
                             key={day.toString()}
