@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { getUsers, logout } from "../auth/APIServices";
+import { getUserHabits, logout } from "../auth/APIServices";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
 
     // Get users
     try {
-      getUsers()
+      console.log(getUserHabits())
 
     } catch (error) {
       console.log("Error: Wrong data")

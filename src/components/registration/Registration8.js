@@ -16,8 +16,8 @@ export default function Registration8(props) {
         return lbs / 2.205;
     }
     const [isMetric, setIsMetric] = useState(true);
-    const [lbsMeasurement, setLbsMeasurement] = useState(kgToLbs(props.values.goalWeight));
-    const [metricMeasurement, setMetricMeasurement] = useState(props.values.goalWeight);
+    const [lbsMeasurement, setLbsMeasurement] = useState(kgToLbs(props.values.targetWeight));
+    const [metricMeasurement, setMetricMeasurement] = useState(props.values.targetWeight);
 
     const handleFieldChange = (event) => {
         const target = event.target;
@@ -53,7 +53,7 @@ export default function Registration8(props) {
                     sx={{ mb: '.5rem' }}
                     variant="filled"
                     id="filled-adornment-weight"
-                    name="goalWeight"
+                    name="targetWeight"
                     type="number"
                     value={isMetric ? metricMeasurement : lbsMeasurement}
                     onChange={handleFieldChange}
