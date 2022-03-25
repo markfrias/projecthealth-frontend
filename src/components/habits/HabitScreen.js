@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import {
     Container,
-    ToggleButtonGroup,
-    Button,
-    Chip,
     Typography,
     ListItem,
     ListItemButton,
-    ListItemIcon,
-    Checkbox,
     ListItemText,
     List,
     IconButton
 } from "@mui/material";
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
-import EditIcon from '@mui/icons-material/Edit';
-import { Comment, ThumbDownAltRounded, ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
+import { ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
 import moment from "moment";
@@ -25,13 +17,6 @@ import moment from "moment";
 export default function HabitScreen() {
 
     const [habits, setHabits] = useState([]);
-
-    const [like, setView] = React.useState('like');
-
-
-    const handleChange = (event, nextLike) => {
-        setView(nextLike);
-    };
 
     const [checked, setChecked] = React.useState([0]);
 

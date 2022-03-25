@@ -98,10 +98,11 @@ const registerAccount = async (form) => {
     dateOfBirth: form.birthday,
     passcode: form.password1
   }
+  console.log(revisedForm)
 
 
   const response = await fetch(
-    "http://localhost:8000/api/users/register/",
+    "https://projecthealthapp.herokuapp.com/api/users/register/",
     {
       method: "POST",
       mode: "cors",
@@ -237,7 +238,7 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
 // Fetch all habits for a specific user
 const getUserHabits = async () => {
   const response = await fetch(
-    "http://localhost:8000/api/habit/userhabits/",
+    "https://projecthealthapp.herokuapp.com/api/habit/userhabits/",
     {
       method: "GET",
       mode: "cors",
@@ -270,7 +271,7 @@ const saveHabits = async (habits) => {
     habits: habits
   };
   const response = await fetch(
-    "http://localhost:8000/api/habit/save/",
+    "https://projecthealthapp.herokuapp.com/api/habit/save/",
     {
       method: "POST",
       mode: "cors",
@@ -305,7 +306,7 @@ const saveNote = async (body) => {
   }
   body.diaryType = "quick";
   const response = await fetch(
-    "http://localhost:8000/api/food/createEntry/",
+    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -503,7 +504,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "http://localhost:8000/api/food/createEntry/",
+    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -768,7 +769,7 @@ const getHabitLogsOnMonth = async (year, month) => {
 // Get food log streaks for the user
 const getFoodLogStreaks = async () => {
   const response = await fetch(
-    `http://localhost:8000/api/food/streaks`,
+    `https://projecthealthapp.herokuapp.com/api/food/streaks`,
     {
       method: "GET",
       mode: "cors",
@@ -794,7 +795,7 @@ const getFoodLogStreaks = async () => {
 // Get all logs for the current user
 const getHabitLogs = async () => {
   const response = await fetch(
-    `http://localhost:8000/api/habit/entry/all`,
+    `https://projecthealthapp.herokuapp.com/api/habit/entry/all`,
     {
       method: "GET",
       mode: "cors",
@@ -820,7 +821,7 @@ const getHabitLogs = async () => {
 // Update status of habit journal entry
 const updateHabitJournalEntry = async (habitEntryId, habitAccomplished) => {
   const response = await fetch(
-    `http://localhost:8000/api/habit/entry/update`,
+    `https://projecthealthapp.herokuapp.com/api/habit/entry/update`,
     {
       method: "PATCH",
       body: JSON.stringify({ habitEntryId: habitEntryId, habitAccomplished: habitAccomplished }),
@@ -847,7 +848,7 @@ const updateHabitJournalEntry = async (habitEntryId, habitAccomplished) => {
 // Get all logs for the current user
 const getProgressReport = async () => {
   const response = await fetch(
-    `http://localhost:8000/api/users/progress-report`,
+    `https://projecthealthapp.herokuapp.com/api/users/progress-report`,
     {
       method: "GET",
       mode: "cors",

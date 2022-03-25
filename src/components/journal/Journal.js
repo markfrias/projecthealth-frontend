@@ -5,8 +5,8 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import moment from 'moment';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth, getHabitLogsPersonal } from '../auth/APIServices';
+import { useNavigate } from 'react-router-dom';
+import { getFoodLogStreaks, getHabitLogsOnMonth } from '../auth/APIServices';
 import { Box } from '@mui/system';
 import { CalendarPickerSkeleton, PickersDay } from '@mui/lab';
 
@@ -54,7 +54,6 @@ function StaticDatePickerDemo(props) {
 
 
 const Journal = () => {
-    const params = useParams();
     const [value, setValue] = React.useState();
     const navigate = useNavigate();
 
@@ -118,14 +117,6 @@ const Journal = () => {
             const logs = await getHabitLogsOnMonth(year, month);
             console.log(logs)
             setLogs(logs)
-            const habits = logs.map(((value) => {
-                return {
-                    habitId: value.habitId,
-                    habitName: value.habitName
-                }
-            }))
-            let uniqueObjArray = [...new Map(logs.map((item) => [item["habitId"], item])).values()];
-            let unique = [...new Set(habits)]
             setSelectedHabit(selectedHabit);
         }
     }
@@ -195,14 +186,8 @@ const Journal = () => {
                     const logs = await getHabitLogsOnMonth(year, month);
                     setLogs(logs);
                     console.log(logs)
-                    const habits = logs.map(((value) => {
-                        return {
-                            habitId: value.habitId,
-                            habitName: value.habitName
-                        }
-                    }))
+
                     let uniqueObjArray = [...new Map(logs.map((item) => [item["habitId"], item])).values()];
-                    let unique = [...new Set(habits)]
                     setCurrentHabits(uniqueObjArray);
                     setSelectedHabit(uniqueObjArray[0].habitId)
 
@@ -240,6 +225,8 @@ const Journal = () => {
             setHighlightedDays(days)
 
         }
+        // Solve this useEffect problem
+        // eslint-disable-next-line
     }, [selectedHabit]);
 
     // Change highlighted days on logs state changing
@@ -256,6 +243,8 @@ const Journal = () => {
             setHighlightedDays(days)
 
         }
+        // Solve this useEffect problem
+        // eslint-disable-next-line
     }, [logs]);
 
 

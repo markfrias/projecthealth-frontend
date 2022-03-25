@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { getUserHabits, getUsers, logout } from "../auth/APIServices";
+import { getUserHabits, logout } from "../auth/APIServices";
 import { useEffect } from "react";
 
 const Home = () => {

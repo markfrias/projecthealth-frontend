@@ -33,7 +33,7 @@ const Registration = () => {
         birthday: new Date(),
         height: "",
         weight: "",
-        goalWeight: "",
+        targetWeight: "",
         emailAddress: "",
         firstName: "",
         lastName: "",
@@ -42,7 +42,7 @@ const Registration = () => {
         activityLevel: "",
         weightRange: 0.1,
         isWarning: false,
-        calorieBudget: 0
+        calorieBudget: 0,
     }
 
     const [step, setStep] = useState(1);
@@ -243,7 +243,7 @@ const Registration = () => {
 
     // Checks if necessary fields in the first part are filled out
     const handleRegPart1 = () => {
-        if (!regState.height || !regState.weight || !regState.goalWeight) {
+        if (!regState.height || !regState.weight || !regState.targetWeight) {
             setIsInvalidDialog(true)
         } else {
             goNext();
