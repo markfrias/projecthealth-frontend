@@ -287,11 +287,11 @@ const DetailedFoodLog = (props) => {
                         container direction='column' sx={{ background: '#F9AB10', paddingBottom: '1em' }
                         }
                     >
-                        <LoadingButton loading={loadingButton} className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Save</LoadingButton>
+                        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Back</Button>
                         <Grid container justifyContent="space-between" paddingX="1em">
                             <Grid item> <h1>{props.foodItem.food.label}</h1></Grid>
                             <Grid item>
-                                <Button color='secondary' className='button-foodlog' variant='contained' onClick={handleSave}>Save</Button></Grid>
+                                <LoadingButton color='secondary' className='button-foodlog' variant='contained' onClick={handleSave} loading={loadingButton}>Save</LoadingButton></Grid>
 
                         </Grid>
                     </Grid>
