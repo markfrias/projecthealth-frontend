@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress, Container, Fab, Grid, Modal, Snackbar, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Fab, Grid, IconButton, Modal, Snackbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
@@ -9,9 +9,9 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Backdrop from '@mui/material/Backdrop';
 import AddIcon from '@mui/icons-material/Add';
-import { Navigation } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
+import { Close } from '@mui/icons-material';
 
 function SimpleBackdrop() {
   const [open, setOpen] = React.useState(false);
@@ -63,11 +63,8 @@ function JournalBackdrop() {
         open={open}
         onClick={handleClose}>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} />
-            <p>Food</p>
-          </Grid>
+        <Grid container spacing={2} direction="column">
+
           <Grid item xs={12}>
             <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} />
             <p>Excercise</p>
@@ -189,7 +186,8 @@ const Dashboard = () => {
       minHeight: "100vh",
       justifyContent: "space-between",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      pb: '3.75rem'
     }}>
       <SimpleBackdrop></SimpleBackdrop>
       <JournalBackdrop></JournalBackdrop>
@@ -204,9 +202,6 @@ const Dashboard = () => {
         <Typography variant='subtitle1B' component='h2' >Tip</Typography>
         <Typography variant='subtitle1' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
           a mission or logging your food/habit/activity.</Typography>
-      </div>
-      <div>
-        <Button variant='contained' sx={{ color: 'black' }} startIcon={<AddIcon />} >Log</Button>
       </div>
       <div className='dashboard-container2'>
         <Typography variant='subtitle1B' component='h1'>Daily Missions</Typography>
@@ -239,9 +234,9 @@ const Dashboard = () => {
         }
       </div>
 
-      <Fab variant="extended" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
-        <Navigation />
-        Navigate
+      <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
+        <AddIcon />
+        Log
       </Fab>
 
       <Backdrop
@@ -266,11 +261,20 @@ const Dashboard = () => {
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "rgba(249, 171, 16, .16)" }}
         open={open}
         /*onClick={handleClose}*/ >
-        <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }}>
-          <Grid item xs={10} sx={{
-            width: '100%', height: 'auto'
-          }}>
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+        <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }} direction="row">
+          <Grid item container direction="row" xs={12} sx={{ width: '100%', height: 'auto' }}>
+
+            <Grid item container onClick={() => { setOpen(false) }} xs={12} justifyContent="flex-end" direction="row"   >
+              <Grid item >
+                <IconButton>
+                  <Close fontSize="large" />
+                </IconButton>
+              </Grid>
+
+            </Grid>
+
+
+            <Grid item container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
               <Grid item xs={5}>
                 <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} height="auto" width="35%" />
 

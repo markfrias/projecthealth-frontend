@@ -6,7 +6,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { AddRounded, SearchRounded } from '@mui/icons-material';
 import { getFoodAutocomplete, getFoodSearchResults } from '../auth/APIServices';
@@ -88,7 +88,7 @@ const DetailedFoodLogScreen = (props) => {
       <Grid item xs={12} className='quicknote-container1'
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
+        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/foodlogmainscreen">Back</Button>
         <Typography variant='onboardingHeader' component='h1' >Log with Details</Typography>
       </Grid>
 

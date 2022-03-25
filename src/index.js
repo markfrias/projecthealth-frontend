@@ -47,6 +47,7 @@ import WeightHeightMod from './components/settings/WeightHeightMod';
 import Food from './components/meal_recording/Food';
 import Journal from './components/journal/Journal';
 import HabitScreen from './components/habits/HabitScreen'
+import BottomNavFilter from './components/bottom-nav/BottomNavFilter';
 
 
 
@@ -216,31 +217,40 @@ ReactDOM.render(
         <Routes>
 
           <Route element={<PrivateRoutes />} >
-            <Route path="/" element={<Dashboard />} />
+            <Route element={<BottomNavFilter />}>
+              <Route path="/" element={<Dashboard />} />
+
+            </Route>
+
+
 
             <Route path="/app" element={<App />}>
-              <Route path="" element={<Dashboard />} />
+              <Route element={<BottomNavFilter />}>
+                <Route path="" element={<Dashboard />} />
+                <Route path="journal/*" element={<Journal />} />
+                <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
+                <Route path="datehabit/*" element={<DateHabit />} />
+                <Route path="habitscreen" element={<HabitScreen />} />
+                <Route path="profile" element={<Profile />} />
+
+
+              </Route>
               <Route path="food/*" element={<Food />} />
-              <Route path="journal/*" element={<Journal />} />
               <Route path="settings/*" element={<WeightHeightMod />} />
               <Route path="notif-settings" element={<NotificationSettings />} />
               <Route path="logscreen/*" element={<LogScreen />} />
               <Route path="quicknote/*" element={<FoodQuickNote />} />
               <Route path="onboarding/5" element={<Onboarding5 />} />
-              <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
-              <Route path="datehabit/*" element={<DateHabit />} />
               <Route path="onboarding/4" element={<Onboarding4 />} />
               <Route path="onboarding/3" element={<Onboarding3 />} />
               <Route path="onboarding/2" element={<Onboarding2 />} />
               <Route path="onboarding/1" element={<Onboarding1 />} />
-              <Route path="foodlogmainscreen/*" element={<FoodLogMainScreen />} />
-              <Route path="profile-main/*" element={<Profile />} />
+              <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
               <Route path="progress-report/*" element={<ProgressReport />} />
 
-              <Route path="accounting/*" element={<Accountsetting />} />
+              <Route path="settings/account" element={<Accountsetting />} />
 
               <Route path="habits/*" element={<Habits />} />
-              <Route path="habitscreen" element={<HabitScreen />} />
 
 
               <Route path="notification-setup" element={<Notificationsetup />} />
