@@ -40,7 +40,7 @@ const FoodLogMainScreen = () => {
           <Typography variant='subtitle1' component='p' >Type away and leave for later logging.</Typography>
         </Grid>
 
-        <Grid item xs={12} container spacing={4} onClick={() => { navigate('/app/food/search') }}>
+        <Grid container spacing={4} onClick={() => { navigate('/app/food/search') }}>
           <img alt='Confetti' src={require('../../assets/img/blackman.png')} width='200px' height='200px' margin='auto' />
           <Typography variant='subtitle1B' component='h2'>Log with Details</Typography>
           <Typography variant='subtitle1' component='p'>See full details of meal and nutritional value</Typography>
@@ -48,22 +48,8 @@ const FoodLogMainScreen = () => {
 
         <Grid>
           <Typography variant='subtitle1' component='p' >*You can choose to log your quick note later as a detailed log</Typography>
-          <Typography variant='subtitle1B' component='h2' >Quick Add</Typography>
-          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            {[1, 2, 3].map((value) => (
-              <ListItem
-                key={value}
-                disableGutters
-                secondaryAction={
-                  <IconButton>
-                    <ReorderIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemText primary={`Line item ${value}`} />
-              </ListItem>
-            ))}
-          </List>
+
+
         </Grid>
 
       </Container>

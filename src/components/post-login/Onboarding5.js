@@ -1,5 +1,6 @@
 import { Button, Container, Typography } from '@mui/material';
 import React from 'react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Onboarding5 = () => {
     return (
@@ -19,8 +20,8 @@ const Onboarding5 = () => {
             <Typography variant='subtitle1' component='p'>Accomplish missions and challenges to unlock items or characters.</Typography>
  
             </div>
-            <div className='button-group'>
-            <Button className="button-onboarding5" variant="contained">Start now</Button>
+            <div className='button-group3'>
+            <Button className="button-onboarding5" variant="contained" endIcon={<ArrowForwardIosIcon />}>Start now</Button>
             </div>
         </Container>
             

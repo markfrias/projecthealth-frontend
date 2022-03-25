@@ -1,5 +1,5 @@
 import { Button, Container, Typography, Grid } from '@mui/material';
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import React from 'react';
 
@@ -20,9 +20,9 @@ const Onboarding3 = () => {
             
  
         
-            <div className='button-group'>
-            <Button className="button-onboarding" variant="contained">Continue</Button>
-            </div>
+                <div className='button-group2'>
+                    <Button className="button-onboarding" variant="contained" endIcon={<ArrowForwardIosIcon />}>Continue</Button>
+                    </div>
         </Container>
             
             

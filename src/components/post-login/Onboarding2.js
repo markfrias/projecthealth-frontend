@@ -1,5 +1,7 @@
 import { Button, Container, Typography } from '@mui/material';
 import React from 'react';
+import { Grid } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const Onboarding2 = () => {
     return (
@@ -10,17 +12,30 @@ const Onboarding2 = () => {
             <div className='hero_container'>
                 <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} />          
             </div>
-            <div>
-
-            </div>
+            <Grid Container spacing={4}>
+                <Grid item xs={12}>
                 <Typography variant='onboardingHeader' component='h1' >Meet you gotchi, Pobi</Typography>
-            <div>
-            <Typography variant='subtitle1' component='p'>Take care of your health, take care of your gotchi.</Typography>
- 
-            </div>
-            <div className='button-group'>
-            <Button className="button-onboarding" variant="contained">Continue</Button>
-            </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                <Typography variant='subtitle1' component='p'>Take care of your health, take care of your gotchi.</Typography>
+                </Grid>
+            </Grid>
+            
+            <Grid container spacing={4}>
+                <Grid item xs={6}>
+                    <div className='button-group'>
+                    <Button variant='text'>Skip intro</Button>
+                        
+                    </div>
+                </Grid>
+
+                <Grid item xs={6}>
+                    <div className='button-group'>
+                    <Button className="button-onboarding" variant="contained" endIcon={<ArrowForwardIosIcon />}>Continue</Button>
+                    </div>
+                </Grid>
+            </Grid>
         </Container>
             
             

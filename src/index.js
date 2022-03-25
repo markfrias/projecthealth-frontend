@@ -102,7 +102,7 @@ ReactDOM.render(
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/app" element={<App />}>
-            <Route path="" element={<Dashboard />} />
+            <Route path="dashboard/*" element={<Dashboard />} />
             <Route path="food/*" element={<Food />} />
             <Route path="journal/*" element={<Journal />} />
             <Route path="settings/*" element={<WeightHeightMod />} />

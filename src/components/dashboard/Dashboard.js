@@ -13,6 +13,7 @@ import { Navigation } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 
+
 function SimpleBackdrop() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -191,8 +192,7 @@ const Dashboard = () => {
       display: "flex",
       flexDirection: "column"
     }}>
-      <SimpleBackdrop></SimpleBackdrop>
-      <JournalBackdrop></JournalBackdrop>
+
       <div className='hero_container'>
         <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} />
         <LinearDeterminate></LinearDeterminate>
@@ -205,9 +205,7 @@ const Dashboard = () => {
         <Typography variant='subtitle1' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
           a mission or logging your food/habit/activity.</Typography>
       </div>
-      <div>
-        <Button variant='contained' sx={{ color: 'black' }} startIcon={<AddIcon />} >Log</Button>
-      </div>
+
       <div className='dashboard-container2'>
         <Typography variant='subtitle1B' component='h1'>Daily Missions</Typography>
         {missions <= 0 ?
@@ -240,8 +238,8 @@ const Dashboard = () => {
       </div>
 
       <Fab variant="extended" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
-        <Navigation />
-        Navigate
+        <AddIcon />
+        Log
       </Fab>
 
       <Backdrop
@@ -281,23 +279,55 @@ const Dashboard = () => {
               </Grid>
             </Grid>
 
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Excercise</p>
+
+              </Grid>
+            </Grid>
+
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="Blue wrist watch" src={require("../../assets/img/blue-clock.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Sleep</p>
+
+              </Grid>
+            </Grid>
+
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="White mug" src={require("../../assets/img/white-cup.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Water</p>
+
+              </Grid>
+            </Grid>
+
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Weight</p>
+
+              </Grid>
+            </Grid>
+
           </Grid>
-          <Grid item xs={12}>
-            <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Blue Clock" src={require("../../assets/img/blue-clock.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="White Cup" src={require("../../assets/img/white-cup.png")} />
-            <p>Water</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} />
-            <p>Water</p>
-          </Grid>
+
+
+
+
         </Grid>
       </Modal>
       <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
