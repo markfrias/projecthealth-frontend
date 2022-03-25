@@ -8,7 +8,6 @@ import { deepOrange } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
-import { useNavigate } from 'react-router-dom';
 import { logout } from '../auth/APIServices';
 import { Link } from 'react-router-dom';
 
@@ -60,7 +59,6 @@ const Profile = (props) => {
   const [open, setOpen] = React.useState(false);
   const [modalHeading, setModalHeading] = React.useState("");
   const [modalBody, setModalBody] = React.useState("");
-  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setModalHeading("Log out");
