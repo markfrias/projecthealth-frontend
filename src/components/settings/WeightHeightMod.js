@@ -9,7 +9,7 @@ import Registration8 from '../registration/Registration8';
 
 const WeightHeightMod = () => {
     const [isInvalid, setIsInvalid] = useState(false);
-    const [weightHeight, setWeightHeight] = useState({ height: "", weight: "", goalWeight: "" });
+    const [weightHeight, setWeightHeight] = useState({ height: "", weight: "", targetWeight: "" });
     const [linkValue, setLinkValue] = useState("");
     const [buttonLabel, setButtonLabel] = useState("Next")
     const [modalHeading, setModalHeading] = useState("");
@@ -29,8 +29,10 @@ const WeightHeightMod = () => {
 
     // Handle button click
     const handleButtonClick = async () => {
+        console.log(weightHeight)
         const slicedPath = location.pathname.slice(14);
         if (slicedPath === "target-weight") {
+            console.log(weightHeight)
             const response = await saveWeightHeightSettings(weightHeight);
             if (response === 400) {
                 setModalHeading("Incomplete information")
@@ -73,6 +75,10 @@ const WeightHeightMod = () => {
         }
 
     }, [location]);
+
+    useEffect(() => {
+        console.log(weightHeight)
+    }, [weightHeight])
 
 
 

@@ -8,8 +8,8 @@ import { deepOrange } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
-import { useNavigate } from 'react-router-dom';
 import { logout } from '../auth/APIServices';
+import { Link } from 'react-router-dom';
 
 const style = {
   width: '100%',
@@ -20,26 +20,23 @@ const style = {
 function ListDividers(props) {
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      <ListItem button>
-        <Typography variant='subtitle1' component='p'>Progress report</Typography>
+      <ListItem button component={Link} to="/app/progress-report">
+        <Typography variant='subtitle1' component='p' >Progress report</Typography>
       </ListItem>
       <Divider />
-      <ListItem button divider>
-        <Typography variant='subtitle1' component='p'>Settings</Typography>
-      </ListItem>
-      <ListItem button>
+      <ListItem button component={Link} to="/app/settings/account ">
         <Typography variant='subtitle1' component='p'>Account settings</Typography>
       </ListItem>
       <Divider />
-      <ListItem button>
+      <ListItem button component={Link} to="/app/notif-settings">
         <Typography variant='subtitle1' component='p'>Notification settings</Typography>
       </ListItem>
       <Divider />
-      <ListItem button>
+      {/*<ListItem button>
         <Typography variant='subtitle1' component='p'>Goal settings</Typography>
-      </ListItem>
+  </ListItem>*/}
       <Divider />
-      <ListItem button>
+      <ListItem button component={Link} to="/app/settings/height">
         <Typography variant='subtitle1' component='p'>Weight and height</Typography>
       </ListItem>
       <Divider />
@@ -62,7 +59,6 @@ const Profile = (props) => {
   const [open, setOpen] = React.useState(false);
   const [modalHeading, setModalHeading] = React.useState("");
   const [modalBody, setModalBody] = React.useState("");
-  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setModalHeading("Log out");
@@ -77,7 +73,6 @@ const Profile = (props) => {
   // Account deletion handler
   const handleConfirm = async () => {
     setOpen(false);
-    navigate("/");
     logout();
 
   }
