@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
 
 const Onboarding2 = () => {
@@ -15,20 +16,26 @@ const Onboarding2 = () => {
             <div className='hero_container'>
                 <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} />
             </div>
-            <div>
+            <Grid container spacing={4}>
+                <Grid item xs={12}>
+                    <Typography variant='onboardingHeader' component='h1' >Meet you gotchi, Pobi</Typography>
+                </Grid>
 
-            </div>
-            <Typography variant='onboardingHeader' component='h1' >Meet you gotchi, Pobi</Typography>
-            <div>
-                <Typography variant='subtitle1' component='p'>Take care of your health, take care of your gotchi.</Typography>
-
-            </div>
-
-            <Grid container justifyContent="space-between">
-                <Button component={Link} to="/app/" sx={{ padding: '0', color: "black" }}>Skip intro</Button>
-                <Button variant="contained" component={Link} to="/app/onboarding/3">Continue</Button>
+                <Grid item xs={12}>
+                    <Typography variant='subtitle1' component='p'>Take care of your health, take care of your gotchi.</Typography>
+                </Grid>
             </Grid>
-        </Container >
+
+            <Grid container spacing={4}>
+
+                <Grid item container justifyContent="space-between">
+                    <Button component={Link} to="/app/" sx={{ padding: '0', color: "black" }}>Skip intro</Button>
+                    <Button variant="contained" component={Link} to="/app/onboarding/3" endIcon={<ArrowForwardIosIcon />}>Continue</Button>
+                </Grid>
+            </Grid>
+        </Container>
+
+
 
 
 

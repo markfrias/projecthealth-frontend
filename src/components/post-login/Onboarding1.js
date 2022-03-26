@@ -80,7 +80,8 @@ const Onboarding1 = () => {
         minHeight: "100vh",
         justifyContent: "space-between",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        p: '1em'
       }}>
 
         <div>
@@ -126,7 +127,7 @@ const Onboarding1 = () => {
         </div>
 
 
-        <div className='button-group'>
+        <div>
           <Button className="button-onboarding" variant="contained" onClick={navigateConditionally}>Continue</Button>
         </div>
         {/*<ProgressMobileStepper></ProgressMobileStepper>*/}

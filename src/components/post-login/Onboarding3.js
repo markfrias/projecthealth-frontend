@@ -1,5 +1,5 @@
 import { Button, Container, Typography, Grid } from '@mui/material';
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -26,7 +26,7 @@ const Onboarding3 = () => {
 
 
             <div className='button-group'>
-                <Button className="button-onboarding" variant="contained" component={Link} to="/app/onboarding/4">Continue</Button>
+                <Button className="button-onboarding" variant="contained" component={Link} to="/app/onboarding/4" endIcon={<ArrowForwardIosIcon />}>Continue</Button>
             </div>
         </Container>
 

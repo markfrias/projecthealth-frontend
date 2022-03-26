@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress, Container, Fab, Grid, IconButton, Modal, Snackbar, Typography } from '@mui/material';
+import { Alert, CircularProgress, Container, Fab, Grid, IconButton, Modal, Snackbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
@@ -12,81 +12,6 @@ import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 import { Close } from '@mui/icons-material';
-
-function SimpleBackdrop() {
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <div>
-      <Button onClick={handleToggle}>Show backdrop</Button>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}>
-
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
-          </Grid>
-          <Grid item xs={12}>
-            <h1>All missions completed</h1>
-          </Grid>
-          <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points</p>
-          </Grid>
-        </Grid>
-      </Backdrop>
-    </div>
-  );
-}
-
-function JournalBackdrop() {
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <div>
-      <Button onClick={handleToggle}>Log</Button>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}>
-
-        <Grid container spacing={2} direction="column">
-
-          <Grid item xs={12}>
-            <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Blue Clock" src={require("../../assets/img/blue-clock.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="White Cup" src={require("../../assets/img/white-cup.png")} />
-            <p>Water</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} />
-            <p>Water</p>
-          </Grid>
-        </Grid>
-      </Backdrop>
-    </div>
-  );
-}
-
 
 function LinearDeterminate() {
   const [progress] = React.useState(0);
@@ -189,8 +114,7 @@ const Dashboard = () => {
       flexDirection: "column",
       pb: '3.75rem'
     }}>
-      <SimpleBackdrop></SimpleBackdrop>
-      <JournalBackdrop></JournalBackdrop>
+
       <div className='hero_container'>
         <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} />
         <LinearDeterminate></LinearDeterminate>
@@ -285,23 +209,55 @@ const Dashboard = () => {
               </Grid>
             </Grid>
 
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Excercise</p>
+
+              </Grid>
+            </Grid>
+
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="Blue wrist watch" src={require("../../assets/img/blue-clock.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Sleep</p>
+
+              </Grid>
+            </Grid>
+
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="White mug" src={require("../../assets/img/white-cup.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Water</p>
+
+              </Grid>
+            </Grid>
+
+            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+              <Grid item xs={5}>
+                <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} height="auto" width="35%" />
+
+              </Grid>
+              <Grid item xs={7}>
+                <p>Weight</p>
+
+              </Grid>
+            </Grid>
+
           </Grid>
-          <Grid item xs={12}>
-            <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Blue Clock" src={require("../../assets/img/blue-clock.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="White Cup" src={require("../../assets/img/white-cup.png")} />
-            <p>Water</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} />
-            <p>Water</p>
-          </Grid>
+
+
+
+
         </Grid>
       </Modal>
       <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
