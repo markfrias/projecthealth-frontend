@@ -33,11 +33,7 @@ const Habits = () => {
     ]
 
     const defaultArrForHabits = [
-        {
-            habitId: 3,
-            habitName: "Luh, ganda ka ghorl?",
-            goalId: 2
-        }
+
     ]
 
     // Habits pages state
@@ -50,7 +46,7 @@ const Habits = () => {
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const goalOptions = options;
     const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
-    const [habitsAutoComplete, setHabitsAutocomplete] = useState({ habitName: "Eat" })
+    const [habitsAutoComplete, setHabitsAutocomplete] = useState()
 
 
 
