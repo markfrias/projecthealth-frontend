@@ -6,12 +6,14 @@ import {
     ListItemButton,
     ListItemText,
     List,
-    IconButton
+    IconButton,
+    Fab
 } from "@mui/material";
-import { ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
+import { Edit, ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 
 export default function HabitScreen() {
@@ -120,6 +122,11 @@ export default function HabitScreen() {
                     );
                 })}
             </List>
+
+            <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
+                <Edit />
+                Edit habits
+            </Fab>
 
 
         </Container >

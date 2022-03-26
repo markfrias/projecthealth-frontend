@@ -33,11 +33,7 @@ const Habits = () => {
     ]
 
     const defaultArrForHabits = [
-        {
-            habitId: 3,
-            habitName: "Luh, ganda ka ghorl?",
-            goalId: 2
-        }
+
     ]
 
     // Habits pages state
@@ -50,7 +46,7 @@ const Habits = () => {
     const [selectionChecked, setSelectionChecked] = useState([0]);
     const goalOptions = options;
     const [goalCategoryValue, setGoalCategoryValue] = useState(getGoalsSync()[0])
-    const [habitsAutoComplete, setHabitsAutocomplete] = useState({ habitName: "Eat" })
+    const [habitsAutoComplete, setHabitsAutocomplete] = useState()
 
 
 
@@ -143,25 +139,30 @@ const Habits = () => {
     useEffect(() => {
     }, [selectionChecked]);
 
+    // Test after habitsState changes
     useEffect(() => {
-        const fetchUsers = async () => {
-            const habits = await getUserHabits();
-            const newArray = habitsState.habitsForSubmission;
-            habits.forEach((habit) => {
-                newArray.push(habit);
-            });
-            setHabitsState({
-                ...habitsState,
-                habitsForSubmission: newArray
+        console.log(habitsState)
+        if (habitsState.habitsForSubmission.length === 0) {
+            console.log("I'm here")
+            const fetchUsers = async () => {
+                const habits = await getUserHabits();
+                const newArray = habitsState.habitsForSubmission;
+                habits.forEach((habit) => {
+                    newArray.push(habit);
+                });
+                setHabitsState({
+                    ...habitsState,
+                    habitsForSubmission: newArray
 
-            })
+                })
+            }
+            if (habitsState.habitsForSubmission.length <= 0) {
+                fetchUsers();
+            }
         }
-        if (habitsState.habitsForSubmission.length <= 0) {
-            fetchUsers();
-        }
-    }, [habitsState])
-
-
+        // Fix this later
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <Routes>
