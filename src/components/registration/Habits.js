@@ -160,15 +160,9 @@ const Habits = () => {
                 fetchUsers();
             }
         }
-
+        // Fix this later
+        // eslint-disable-next-line
     }, [])
-
-    // Test after render
-    useEffect(() => {
-        console.log(habitsState)
-    }, [])
-
-
 
     return (
         <Routes>
