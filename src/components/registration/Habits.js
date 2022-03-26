@@ -143,23 +143,34 @@ const Habits = () => {
     useEffect(() => {
     }, [selectionChecked]);
 
+    // Test after habitsState changes
     useEffect(() => {
-        const fetchUsers = async () => {
-            const habits = await getUserHabits();
-            const newArray = habitsState.habitsForSubmission;
-            habits.forEach((habit) => {
-                newArray.push(habit);
-            });
-            setHabitsState({
-                ...habitsState,
-                habitsForSubmission: newArray
+        console.log(habitsState)
+        if (habitsState.habitsForSubmission.length === 0) {
+            console.log("I'm here")
+            const fetchUsers = async () => {
+                const habits = await getUserHabits();
+                const newArray = habitsState.habitsForSubmission;
+                habits.forEach((habit) => {
+                    newArray.push(habit);
+                });
+                setHabitsState({
+                    ...habitsState,
+                    habitsForSubmission: newArray
 
-            })
+                })
+            }
+            if (habitsState.habitsForSubmission.length <= 0) {
+                fetchUsers();
+            }
         }
-        if (habitsState.habitsForSubmission.length <= 0) {
-            fetchUsers();
-        }
-    }, [habitsState])
+
+    }, [])
+
+    // Test after render
+    useEffect(() => {
+        console.log(habitsState)
+    }, [])
 
 
 
