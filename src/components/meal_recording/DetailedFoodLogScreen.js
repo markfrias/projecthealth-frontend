@@ -84,82 +84,85 @@ const DetailedFoodLogScreen = (props) => {
   }
 
   return (
-    <Grid container spacing={4} >
-      <Grid item xs={12} className='quicknote-container1'
+    <Grid container direction="column">
+      <Grid item xs={12} sx={{ background: '#F9AB10', p: "1em", mb: '2.5em' }}
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/foodlogmainscreen">Back</Button>
-        <Typography variant='onboardingHeader' component='h1' >Log with Details</Typography>
+        <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/">Back</Button>
+        <Typography variant='onboardingHeader2' component='h1' >Log with Details</Typography>
       </Grid>
 
 
-      <Container
-        sx={{
-          '& > :not(style)': { m: 2, width: 300 },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <Grid container>
-          <Autocomplete
-            open={open}
-            onOpen={() => { setOpen(true) }}
-            onClose={() => { setOpen(false) }}
-            disablePortal
-            freeSolo
-            sx={{ width: '75%' }}
-            id="combo-box-demo"
-            options={options}
-            value={autocompleteValue}
-            onChange={(event, newValue) => {
-              setAutocompleteValue(newValue);
+      <Grid item container xs={12} sx={{ px: '1em' }} direction="column">
 
-            }}
-            inputValue={autoInputValue}
-            onInputChange={(event, newInputValue) => {
-              setAutoInputValue(newInputValue);
-            }}
-            renderInput={(params) => <TextField {...params} label="Search for habits" fullWidth
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <React.Fragment>
-                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </React.Fragment>
-                ),
-              }} />}
-            filterOptions={(x) => x}
+        <Grid item container direction="row" mb="2em"
+        >
+          <Grid item xs={9}>
+            <Autocomplete
+              open={open}
+              onOpen={() => { setOpen(true) }}
+              onClose={() => { setOpen(false) }}
+              disablePortal
+              freeSolo
+              id="combo-box-demo"
+              options={options}
+              value={autocompleteValue}
+              onChange={(event, newValue) => {
+                setAutocompleteValue(newValue);
 
-          />
-          <Button onClick={() => { handleSearchClick() }}>
-            <SearchRounded />
-          </Button>
+              }}
+              inputValue={autoInputValue}
+              onInputChange={(event, newInputValue) => {
+                setAutoInputValue(newInputValue);
+              }}
+              renderInput={(params) => <TextField {...params} label="Search for habits" fullWidth
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <React.Fragment>
+                      {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                      {params.InputProps.endAdornment}
+                    </React.Fragment>
+                  ),
+                }} />}
+              filterOptions={(x) => x}
 
+            />
+          </Grid>
+          <Grid item xs={3} >
+            <Button onClick={() => { handleSearchClick() }}>
+              <SearchRounded />
+            </Button>
 
-
-
-
-
-
-
+          </Grid>
         </Grid>
+
+
         <Grid>
-          <Typography variant='subtitle1B' component='h2'>{resultsList.length <= 0 ? "Quick Add" : "Results"}</Typography>
+          <Typography variant='subtitle1B' component='h2'>{resultsList.length <= 0 ? "" : "Results"}</Typography>
         </Grid>
 
 
-        <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {resultsLoading ? <CircularProgress variant='indeterminate' /> : <Box />}
+        <List dense sx={{ width: '100%', maxWidth: '400px' }}>
+          {resultsLoading ?
+            <Grid container alignItems="center" mb="1em" direction="column">
+              <CircularProgress variant='indeterminate' />
+              <Typography variant="p">Loading results</Typography>
+            </Grid>
+            : <Box />}
           {resultsList.length <= 0 ?
-            <Alert severity="info">Please create or select a habit.</Alert> :
+            <Alert severity="info">Your search results will appear here.</Alert> :
 
             resultsList.map((value) => {
               return (
                 <ListItem
                   key={value.food.foodId + (Math.random() * 20)}
                   secondaryAction={
-                    <ListItemButton>
+                    <ListItemButton onClick={() => {
+                      props.setMeasures(value.measures);
+                      props.setFoodItem(value);
+                      navigate(`/app/food/detailed-log?q=${value.food.foodId}`);
+                    }}>
                       <AddRounded
                         edge="end"
 
@@ -185,8 +188,8 @@ const DetailedFoodLogScreen = (props) => {
           }
 
         </List>
-        );
-      </Container>
+
+      </Grid>
 
     </Grid>
 
