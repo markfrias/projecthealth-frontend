@@ -79,7 +79,7 @@ export default function HabitsOnboarding4(props) {
                                     const labelId = `checkbox-list-secondary-label-${value.habitName}`;
                                     return (
                                         <ListItem
-                                            key={value.habitId}
+                                            key={`${value.habitId}${Math.random()}`}
                                             secondaryAction={
                                                 <Checkbox
                                                     edge="end"
@@ -135,7 +135,7 @@ export default function HabitsOnboarding4(props) {
                                     const labelId = `checkbox-list-secondary-label-${value.habitName}`;
                                     return (
                                         <ListItem
-                                            key={value.habitId}
+                                            key={`${value.habitId}${Math.random()}`}
                                             secondaryAction={
                                                 <ListItemButton>
                                                     <AddRounded
@@ -191,7 +191,7 @@ export default function HabitsOnboarding4(props) {
                             const labelId = `checkbox-list-secondary-label-${value.habitName}`;
                             return (
                                 <ListItem
-                                    key={value.habitId}
+                                    key={`${value.habitId}${Math.random()}`}
                                     secondaryAction={
 
                                         <IconButton edge="end" aria-label="delete" onClick={

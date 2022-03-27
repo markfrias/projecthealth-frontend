@@ -115,8 +115,15 @@ const ProgressReport = () => {
 
 
   return (
+<<<<<<< HEAD
     <Grid container spacing={4} >
       <Grid item container sx={{ background: "#F9AB10", height: "8rem" }}>
+=======
+    <Grid container spacing={4} p={1} >
+      <Grid item xs={12} className='quick note-container1'
+        container direction='column'
+      >
+>>>>>>> 13f04f02df47434fee25c7958a7c5c517dfbec2f
         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
 
         <Grid item xs={12} container direction='row'>
@@ -204,12 +211,15 @@ const ProgressReport = () => {
 
       {checked[0] === 0 ?
         <Grid item xs={12} container direction='row'>
-          <Paper>
-            <VictoryLine
-              data={weightTrend}
-              x="weightJournalDate"
-              y="weight"
-            />
+          <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            {weightTrend.length === 1 ?
+              <Typography component="p">Log your weight regularly to view trend.</Typography> :
+              <VictoryLine
+                data={weightTrend}
+                x="weightJournalDate"
+                y="weight"
+              />
+            }
           </Paper>
 
         </Grid>
@@ -218,22 +228,28 @@ const ProgressReport = () => {
 
         checked[0] === 1 ?
           <Grid item xs={12} container direction='row'>
-            <Paper>
-              <VictoryLine
-                data={bmiTrend}
-                x=""
-                y="bmi"
-              />
+            <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              {bmiTrend.length <= 1 ?
+                <Typography component="p">Log your weight regularly to view trend.</Typography> :
+                <VictoryLine
+                  data={bmiTrend}
+                  x=""
+                  y="bmi"
+                />
+              }
             </Paper>
 
           </Grid> :
           <Grid item xs={12} container direction='row'>
-            <Paper>
-              <VictoryLine
-                data={calorieTrend}
-                x="foodJournalDate"
-                y="calories"
-              />
+            <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              {bmiTrend.length <= 1 ?
+                <Typography component="p">Log your weight regularly to view trend.</Typography> :
+                <VictoryLine
+                  data={calorieTrend}
+                  x="foodJournalDate"
+                  y="calories"
+                />
+              }
             </Paper>
 
           </Grid>

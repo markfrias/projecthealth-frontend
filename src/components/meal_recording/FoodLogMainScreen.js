@@ -3,12 +3,7 @@ import Button from '@mui/material/Button';
 import { Container, Grid } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import { List } from '@mui/material';
-import { ListItem } from '@mui/material';
-import ListItemText from '@mui/material/IconButton';
-import ReorderIcon from '@mui/icons-material/Reorder';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -19,7 +14,7 @@ const FoodLogMainScreen = () => {
       <Grid item xs={12} className='quicknote-container1'
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
+        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/">Back</Button>
         <Typography variant='onboardingHeader' component='h1' >Log Food</Typography>
       </Grid>
 

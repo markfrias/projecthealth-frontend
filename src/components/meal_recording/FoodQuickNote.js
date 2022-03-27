@@ -7,7 +7,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
 import { saveNote } from '../auth/APIServices';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const FoodQuickNote = () => {
@@ -85,7 +85,7 @@ const FoodQuickNote = () => {
       <Grid item xs={12} className='quicknote-container1'
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
+        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/foodlogmainscreen">Back</Button>
         <Typography variant='onboardingHeader' component='h1' >Quick Note</Typography>
       </Grid>
 
@@ -166,7 +166,7 @@ const FoodQuickNote = () => {
         </DialogActions>
       </Dialog>
 
-    </Grid>
+    </Grid >
 
 
 

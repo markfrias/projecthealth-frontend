@@ -11,7 +11,7 @@ const NotificationUnsupported = () => {
 
     // Convert time to string that can be sent to the server
     const handleSubmission = () => {
-        navigate('/app/Onboarding2');
+        navigate('/app/onboarding/2');
 
     }
 
@@ -19,7 +19,7 @@ const NotificationUnsupported = () => {
 
     return (
         <div>
-            <Container sx={{ paddingTop: "3em", minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Container sx={{ pt: "3em", minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', pb: '1em' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography variant='bigHeading' component="h1" sx={{ mb: '2.5rem' }}>Crossing our fingers</Typography>
                     <Container sx={{ height: '100%', width: '40%', mx: 0, mb: '2.5rem' }}>

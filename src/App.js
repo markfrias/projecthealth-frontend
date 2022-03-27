@@ -164,6 +164,41 @@ const theme = createTheme({
         },
       },
     },
+    MuiFab: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          height: '3.75rem',
+          fontSize: '1.05rem'
+        },
+      },
+    },
+    MuiBottomNavigation: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          background: '#FFD974'
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          color: '#49454F',
+          py: '3rem',
+          "&.Mui-selected": {
+            "color": "black"
+          },
+        },
+
+      },
+
+    },
+
   },
 });
 

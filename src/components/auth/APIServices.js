@@ -563,7 +563,7 @@ const getNotifSettings = async () => {
 
 // Save quick note
 const saveWeightHeightSettings = async (body) => {
-  body.targetWeight = body.goalWeight;
+  console.log(body)
   if (body.weight === "" || body.height === "" || body.targetWeight === "") {
     return 400;
   }

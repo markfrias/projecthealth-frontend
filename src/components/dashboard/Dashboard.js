@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress, Container, Fab, Grid, Modal, Snackbar, Typography } from '@mui/material';
+import { Alert, CircularProgress, Container, Fab, Grid, IconButton, Modal, Snackbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
@@ -9,88 +9,9 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Backdrop from '@mui/material/Backdrop';
 import AddIcon from '@mui/icons-material/Add';
-import { Navigation } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
-
-
-function SimpleBackdrop() {
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <div>
-      <Button onClick={handleToggle}>Show backdrop</Button>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}>
-
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
-          </Grid>
-          <Grid item xs={12}>
-            <h1>All missions completed</h1>
-          </Grid>
-          <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points</p>
-          </Grid>
-        </Grid>
-      </Backdrop>
-    </div>
-  );
-}
-
-function JournalBackdrop() {
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <div>
-      <Button onClick={handleToggle}>Log</Button>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-        onClick={handleClose}>
-
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} />
-            <p>Food</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Blue Clock" src={require("../../assets/img/blue-clock.png")} />
-            <p>Excercise</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="White Cup" src={require("../../assets/img/white-cup.png")} />
-            <p>Water</p>
-          </Grid>
-          <Grid item xs={12}>
-            <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} />
-            <p>Water</p>
-          </Grid>
-        </Grid>
-      </Backdrop>
-    </div>
-  );
-}
-
+import { Close } from '@mui/icons-material';
 
 function LinearDeterminate() {
   const [progress] = React.useState(0);
@@ -190,7 +111,8 @@ const Dashboard = () => {
       minHeight: "100vh",
       justifyContent: "space-between",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      pb: '3.75rem'
     }}>
 
       <div className='hero_container'>
@@ -242,7 +164,6 @@ const Dashboard = () => {
         <Typography variant='onboardingSubheader2' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
           a mission or logging your food/habit/activity.</Typography>
       </div>
-
       <div className='dashboard-container2'>
         <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
         {missions <= 0 ?
@@ -274,7 +195,7 @@ const Dashboard = () => {
         }
       </div>
 
-      <Fab variant="extended" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
+      <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
         <AddIcon />
         Log
       </Fab>
@@ -301,11 +222,20 @@ const Dashboard = () => {
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "rgba(249, 171, 16, .16)" }}
         open={open}
         /*onClick={handleClose}*/ >
-        <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }}>
-          <Grid item xs={10} sx={{
-            width: '100%', height: 'auto'
-          }}>
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+        <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }} direction="row">
+          <Grid item container direction="row" xs={12} sx={{ width: '100%', height: 'auto' }}>
+
+            <Grid item container onClick={() => { setOpen(false) }} xs={12} justifyContent="flex-end" direction="row"   >
+              <Grid item >
+                <IconButton>
+                  <Close fontSize="large" />
+                </IconButton>
+              </Grid>
+
+            </Grid>
+
+
+            <Grid item container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
               <Grid item xs={5}>
                 <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} height="auto" width="35%" />
 
