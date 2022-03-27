@@ -9,7 +9,7 @@ import toTitleCase from '../auth/StringServices';
 function CircularProgressWithLabel(props) {
     return (
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-            <CircularProgress variant="determinate" {...props} />
+            <CircularProgress thickness={10} size="4rem" variant="determinate" {...props} />
             <Box
                 sx={{
                     top: 0,
@@ -175,51 +175,44 @@ const
                         </Grid>
                     </Grid>
                 </Grid> :
-                <Grid container direction="column">
-                    <Grid container alignItems="center">
-                        <Grid item xs={9}>
+                <Grid container direction="column" sx={{ px: '1em' }}>
+                    <Grid container item xs={12} alignItems="center" direction="row" sx={{ mb: '3em' }}>
+                        <Grid item xs={6}>
                             <CircularStatic numerator={summaryValues.calories} denominator={calorieBudget}></CircularStatic>
+                        </Grid>
+
+                        <Grid item xs={6}>
                             <Typography variant='subtitle1' component='p'>{(summaryValues.calories / calorieBudget * 100) < 100 ? 'You are still on track to reach your calorie target for today.' :
                                 `You exceeded your calorie budget by ${calorieBudget - summaryValues.calories} calories.`
                             }</Typography>
                         </Grid>
                     </Grid>
 
-                    <Grid item container alignItems="center">
-                        <Grid item xs={9}>
+                    <Grid item container direction="row" alignItems="center" mb={3}>
+                        <Grid item xs={4}>
                             <CircularStatic numerator={summaryValues.carbs} denominator={recommendedCarbs}></CircularStatic>
                             <Typography variant='subtitle1B' component='p'>Carbs</Typography>
                         </Grid>
-                    </Grid>
-
-                    <Grid item container alignItems="center">
-                        <Grid item xs={9}>
+                        <Grid item xs={4}>
                             <CircularStatic numerator={summaryValues.fat} denominator={recommendedFat}></CircularStatic>
                             <Typography variant='subtitle1B' component='p'>Fat</Typography>
                         </Grid>
-                    </Grid>
-
-                    <Grid item container alignItems="center">
-                        <Grid item xs={9}>
+                        <Grid item xs={4}>
                             <CircularStatic numerator={summaryValues.protein} denominator={recommendedProtein}></CircularStatic>
                             <Typography variant='subtitle1B' component='p'>Protein</Typography>
                         </Grid>
                     </Grid>
 
+
                     <Grid item container alignItems="center">
-                        <Grid item xs={9}>
-                            <Typography variant='subtitle1B' component='h1' >Breakfast</Typography>
+                        <Grid item xs={12}>
+                            <Typography variant='categorySubheader' component='h1' >Breakfast</Typography>
                             {breakfastLog.length > 0 ?
-                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                <List sx={{ width: '100%', maxWidth: 500, }}>
                                     {breakfastLog.map((value) => (
                                         <ListItem
                                             key={value.foodJournalId}
                                             disableGutters
-                                            secondaryAction={
-                                                <IconButton>
-                                                    <Reorder />
-                                                </IconButton>
-                                            }
                                         >
                                             {value.diaryType === "detailed" ?
                                                 <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
@@ -230,21 +223,16 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography variant="p" component="p" my={2}>You might not have eaten breakfast on this day.</Typography>
                             }
 
-                            <Typography variant='subtitle1B' component='h1' >Lunch</Typography>
+                            <Typography variant='categorySubheader' component='h1' >Lunch</Typography>
                             {lunchLog.length > 0 ?
-                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                <List sx={{ width: '100%', maxWidth: 500 }}>
                                     {lunchLog.map((value) => (
                                         <ListItem
                                             key={value.foodJournalId}
                                             disableGutters
-                                            secondaryAction={
-                                                <IconButton>
-                                                    <Reorder />
-                                                </IconButton>
-                                            }
                                         >
                                             {value.diaryType === "detailed" ?
                                                 <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
@@ -255,21 +243,16 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography my={2} variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
                             }
 
-                            <Typography variant='subtitle1B' component='h1' >Dinner</Typography>
+                            <Typography variant='categorySubheader' component='h1' >Dinner</Typography>
                             {dinnerLog.length > 0 ?
-                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                <List sx={{ width: '100%', maxWidth: 500 }}>
                                     {dinnerLog.map((value) => (
                                         <ListItem
                                             key={value.foodJournalId}
                                             disableGutters
-                                            secondaryAction={
-                                                <IconButton>
-                                                    <Reorder />
-                                                </IconButton>
-                                            }
                                         >
                                             {value.diaryType === "detailed" ?
                                                 <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
@@ -280,21 +263,17 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography my={2} variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
                             }
 
-                            <Typography variant='subtitle1B' component='h1' >Snacks</Typography>
+                            <Typography variant='categorySubheader' component='h1' >Snacks</Typography>
                             {snackLog.length > 0 ?
-                                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                                <List sx={{ width: '100%', maxWidth: 500 }}>
                                     {snackLog.map((value) => (
                                         <ListItem
                                             key={value.foodJournalId}
                                             disableGutters
-                                            secondaryAction={
-                                                <IconButton>
-                                                    <Reorder />
-                                                </IconButton>
-                                            }
+
                                         >
                                             {value.diaryType === "detailed" ?
                                                 <ListItemText primary={toTitleCase(value.foodName)} secondary={`${value.servingQty} ${value.servingUnit.toLowerCase()}${value.servingQty > 0 ? 's' : ''}    |    ${value.caloriesPerUnit * value.servingQty} calories`} />
@@ -305,7 +284,7 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography my={2} variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
                             }
 
 
