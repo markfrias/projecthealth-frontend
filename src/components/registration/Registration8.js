@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Chip, TextField } from '@mui/material';
+import { Container, Chip, TextField, Typography } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
@@ -43,10 +43,11 @@ export default function Registration8(props) {
 
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
-            <Box sx={{ mb: '5rem' }}>
-                <h2>What is your goal weight?</h2>
-                <p>This information will only be used to personalize your experience.</p>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", pt: '1em' }}>
+
+            <Box sx={{ mb: "5rem" }}>
+                <Typography variant="onboardingHeader" component="h1" sx={{ mb: "1rem" }}>What is your target weight?</Typography>
+                <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "5rem" }}>This information will only be used to personalize your experience.</Typography>
             </Box>
             <FormControl>
                 <TextField
@@ -71,7 +72,7 @@ export default function Registration8(props) {
                         }
                     }
                 />
-                <Stack direction="row" spacing={1} marginLeft={18} marginTop={3}>
+                <Stack direction="row" spacing={1} justifyContent="center">
                     <Chip label="kg" size="small" color={isMetric ? "primary" : "default"} clickable={true} onClick={handleMeasurementClick} variant={isMetric ? "filled" : "outlined"} />
                     <Chip label="lbs" size="small" color={!isMetric ? "primary" : "default"} variant={isMetric ? "outlined" : "filled"} clickable={true} onClick={handleMeasurementClick} />
                 </Stack>

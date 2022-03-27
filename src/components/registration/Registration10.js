@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 export default function Registration10(props) {
     return (
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", pt: '1em' }}>
             <Box sx={{ textAlign: "center", mb: "5rem" }}>
-                <h2>Register your account</h2>
+                <Typography variant="onboardingHeader" component="h1" sx={{ mb: "1rem", width: '100%', px: '1em' }}>Register your account</Typography>
             </Box>
             <Box
                 sx={{
@@ -23,7 +23,7 @@ export default function Registration10(props) {
                     type="email"
                     value={props.values.emailAddress}
                     onChange={props.handleChange}
-                    sx={{ width: "100%", mb: "1rem" }}
+                    sx={{ width: "100%", mb: "1.5rem" }}
 
                 />
                 <TextField
@@ -33,7 +33,7 @@ export default function Registration10(props) {
                     type="text"
                     value={props.values.firstName}
                     onChange={props.handleChange}
-                    sx={{ width: "100%", mb: "1rem" }}
+                    sx={{ width: "100%", mb: "1.5rem" }}
 
 
 
@@ -45,7 +45,7 @@ export default function Registration10(props) {
                     type="text"
                     value={props.values.lastName}
                     onChange={props.handleChange}
-                    sx={{ width: "100%", mb: "1rem" }}
+                    sx={{ width: "100%", mb: "1.5rem" }}
 
 
                 />

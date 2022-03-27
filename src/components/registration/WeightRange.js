@@ -12,7 +12,7 @@ const WeightRange = (props) => {
     return (
 
         props.values.goals.weightGoal === "gainWeight" || props.values.goals.weightGoal === "loseWeight" ?
-            <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
+            <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start", pt: '1em' }}>
                 <Box sx={{ mb: "5rem" }}>
                     <Typography variant="onboardingHeader" component="h1" sx={{ mb: '1rem' }}>Set your pace for {props.values.goals.weightGoal === "gainWeight" ? "weight gain" : "weight loss"}.</Typography>
                     <Typography variant="onboardingSubheader" component="h2" sx={{ mb: '0.5rem' }}>You’ll be able to choose your pace based on your preference.</Typography>
@@ -21,7 +21,7 @@ const WeightRange = (props) => {
 
                 </Box>
 
-                <Box>
+                <Box >
                     <Slider
                         aria-label="WeightPace"
                         defaultValue={0.1}

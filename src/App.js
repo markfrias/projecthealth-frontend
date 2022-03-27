@@ -66,6 +66,34 @@ const theme = createTheme({
       '@media (max-width:376px)': {
         fontSize: '1.10rem',
       },
+    }, bigRegistration: {
+      fontSize: '2.75rem',
+      color: '#624100',
+      lineHeight: '121.5%',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '2.5rem'
+      },
+    },
+    bigRegistrationSub: {
+      fontSize: '1.25rem',
+      color: '#624100',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.25rem',
+      },
+    },
+
+    loginHeader: {
+      fontSize: '2rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
     },
     onboardingHeader: {
       fontSize: '1.4rem',
