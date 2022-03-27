@@ -197,7 +197,7 @@ const Dashboard = () => {
         }
       </div>
 
-      <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { setOpen(true) }}>
+      <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { /*setOpen(true)*/ navigate('/app/foodlogmainscreen') }}>
         <AddIcon />
         Log
       </Fab>
@@ -220,27 +220,54 @@ const Dashboard = () => {
         </Grid>
       </Backdrop>
 
+
+      {/* log selection */}
       <Modal
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "rgba(249, 171, 16, .16)" }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: "rgba(255,248,236, 1)" }}
         open={open}
         /*onClick={handleClose}*/ >
-        <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }} direction="row">
+
+        <Grid container direction="column" px="1em" alignItems="space-between" height="100vh">
+
+          <Grid item container justifyContent="flex-end">
+            <IconButton onClick={handleClose}>
+              <Close fontSize="large" sx={{ color: 'white' }} />
+            </IconButton>
+          </Grid>
+
+          <Grid item container sx={{ border: 'solid 2px black', borderRadius: '20px', padding: '1em' }} onClick={() => { navigate('/app/foodlogmainscreen') }} direction="row" alignItems="center" >
+            <Grid item xs={5}>
+              <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} height="auto" width="35%" />
+            </Grid>
+            <Grid item xs={7} sx={{ fontSize: '1.25em' }}>
+              <p>Food</p>
+
+            </Grid>
+          </Grid>
+
+          <Grid item>
+
+          </Grid>
+
+        </Grid>
+
+        {/*
+          
+           <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }} direction="row" px='1em'>
           <Grid item container direction="row" xs={12} sx={{ width: '100%', height: 'auto' }}>
 
-            <Grid item container onClick={() => { setOpen(false) }} xs={12} justifyContent="flex-end" direction="row"   >
+            <Grid item container onClick={() => { setOpen(false) }} justifyContent="flex-end" direction="row"   >
               <Grid item >
                 <IconButton>
-                  <Close fontSize="large" />
+                  <Close fontSize="large" sx={{ color: 'white' }} />
                 </IconButton>
               </Grid>
-
             </Grid>
 
 
-            <Grid item container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
+            <Grid item container sx={{ border: 'solid 2px black', borderRadius: '20px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
               <Grid item xs={5}>
                 <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} height="auto" width="35%" />
-
               </Grid>
               <Grid item xs={7}>
                 <p>Food</p>
@@ -248,6 +275,7 @@ const Dashboard = () => {
               </Grid>
             </Grid>
 
+            {/* 
             <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
               <Grid item xs={5}>
                 <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} height="auto" width="35%" />
@@ -291,13 +319,18 @@ const Dashboard = () => {
 
               </Grid>
             </Grid>
-
-          </Grid>
-
-
+            
+            
 
 
-        </Grid>
+</Grid>
+
+
+
+
+</Grid>
+        */}
+
       </Modal>
       <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
         <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>

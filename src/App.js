@@ -84,6 +84,16 @@ const theme = createTheme({
         fontSize: '1.25rem',
       },
     },
+    categorySubheader: {
+      fontSize: '1.25rem',
+      color: '#624100',
+      lineHeight: '110%',
+      fontWeight: 'bold',
+      width: '80%',
+      '@media (max-width:376px)': {
+        fontSize: '1.25rem',
+      },
+    },
 
     loginHeader: {
       fontSize: '2rem',
