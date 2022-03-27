@@ -122,7 +122,7 @@ const ProgressReport = () => {
         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
 
         <Grid item xs={12} container direction='row'>
-          <Typography variant='onboardingHeader' component='h1' >Progress report</Typography>
+          <Typography variant='onboardingHeader2' component='h1' >Progress report</Typography>
         </Grid>
 
 
