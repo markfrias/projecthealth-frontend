@@ -117,18 +117,55 @@ const Dashboard = () => {
 
       <div className='hero_container'>
         <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} />
-        <LinearDeterminate></LinearDeterminate>
+        <Grid item xs={12} container>
+          <Grid item xs={12} container direction='row'>
+            <Typography variant='subtitle1B' component='h1' >Feeling meh</Typography>
+          </Grid>
+
+          <Grid item xs={12} container direction='column'>
+            <Typography variant='subtitle1' component='h1' >Health </Typography>
+          </Grid>
+          <Grid item xs={12} container direction='column'>
+            <LinearDeterminate></LinearDeterminate>
+          </Grid>
+          <Grid item xs={12} container direction='column'>
+            <Typography variant='subtitle1B' component='h1' >100/150</Typography>
+          </Grid>
+
+
+          <Grid item xs={12} container direction='column'>
+            <Typography variant='subtitle1' component='h1' >Progress </Typography>
+          </Grid>
+          <Grid item xs={12} container direction='column'>
+            <LinearDeterminate></LinearDeterminate>
+          </Grid>
+          <Grid item xs={12} container direction='column'>
+            <Typography variant='subtitle1B' component='h1' >100/150</Typography>
+          </Grid>
+          <Grid item xs={12} container direction='row'>
+            <Typography variant='subtitle1B' component='h1' >Level 4</Typography>
+          </Grid>
+
+
+
+
+
+
+
+
+        </Grid>
+      
 
       </div>
 
 
       <div className='dashboard-container1'>
-        <Typography variant='subtitle1B' component='h2' >Tip</Typography>
-        <Typography variant='subtitle1' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
+        <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
+        <Typography variant='onboardingSubheader2' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
           a mission or logging your food/habit/activity.</Typography>
       </div>
       <div className='dashboard-container2'>
-        <Typography variant='subtitle1B' component='h1'>Daily Missions</Typography>
+        <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
         {missions <= 0 ?
           <CircularProgress variant='indeterminate' /> :
           <List dense sx={{ width: '100%', maxWidth: 360 }}>

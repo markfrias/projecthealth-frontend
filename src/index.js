@@ -272,7 +272,7 @@ ReactDOM.render(
 
             <Route path="/app" element={<App />}>
               <Route element={<BottomNavFilter />}>
-                <Route path="" element={<Dashboard />} />
+                <Route path="dashboard/*" element={<Dashboard />} />
                 <Route path="journal/*" element={<Journal />} />
                 <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
                 <Route path="datehabit/*" element={<DateHabit />} />

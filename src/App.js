@@ -106,9 +106,31 @@ const theme = createTheme({
       },
     },
 
+    onboardingHeader2: {
+      fontSize: '1.4rem',
+      color: '#000000',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+
     onboardingSubheader: {
       fontSize: '1.05rem',
       color: '#624100',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.01rem',
+      },
+    },
+
+    onboardingSubheader2: {
+      fontSize: '1.05rem',
+      color: '#000000',
       width: '80%',
       lineHeight: 'normal',
       fontWeight: 'normal',
