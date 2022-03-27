@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import {
-    Container,
     Typography,
     ListItem,
     ListItemButton,
     ListItemText,
     List,
     IconButton,
-    Fab
+    Fab,
+    Grid,
+    CircularProgress,
+    Button
 } from "@mui/material";
-import { Edit, ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
+import { Edit, KeyboardArrowLeft, ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function HabitScreen() {
 
     const [habits, setHabits] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const [checked, setChecked] = React.useState([0]);
 
@@ -58,6 +61,7 @@ export default function HabitScreen() {
     // Fetch habits
     useEffect(() => {
         (async () => {
+            setLoading(true);
             const newHabits = await getHabitLogsPersonal(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
             console.log(newHabits)
             console.log(moment().format('YYYY'), moment().format('MM'), moment().format('DD'))
@@ -65,71 +69,124 @@ export default function HabitScreen() {
         })()
     }, []);
 
+    useEffect(() => {
+        if (habits.length !== undefined) {
+            setLoading(false);
+        }
+    }, [habits])
+
+    const navigate = useNavigate();
+
     return (
 
-        <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-            <div className="header" style={{ marginLeft: 10 }}>
-                <h2>Habits</h2>
-                <img alt="Success" height={100} width={100} src={require("../../assets/img/success.png")} />You’ve stuck with all your habits for the past 3 days
+        loading ?
+            <Grid container direction="column" sx={{ height: '100vh' }} alignItems="center" justifyContent="center">
+                <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                <Typography variant="p">Loading content</Typography>
+            </Grid>
+            :
 
-            </div>
-            <Typography component="h2">Looking for habit logs? Click here.</Typography>
-            <Typography component="h2">Did I stick to my habits today?</Typography>
-
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                {habits.map((value, index, array) => {
-                    const labelId = `checkbox-list-label-${value.habitId}`;
-
-                    return (
-                        <ListItem
-                            key={value.habitEntryId}
-                            secondaryAction={
-                                value.habitAccomplished ?
-                                    <Box>
-                                        <IconButton edge="end" aria-label="comments" onClick={() => { handleLike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                            <ThumbUpAltRounded color="green" />
-
-                                        </IconButton>
-                                        <IconButton edge="end" aria-label="comments" onClick={() => { handleUnlike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                            <ThumbDownRounded />
+            habits.length < 1 ?
 
 
-                                        </IconButton>
-
-                                    </Box> :
-                                    <Box>
-                                        <IconButton edge="end" aria-label="comments" onClick={() => { handleLike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                            <ThumbUpAltRounded />
-
-                                        </IconButton>
-                                        <IconButton edge="end" aria-label="comments" onClick={() => { handleUnlike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                            <ThumbDownRounded color="red" />
 
 
-                                        </IconButton>
-
-                                    </Box>
-
-
-                            }
-                            disablePadding
-                        >
-                            <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
-
-                                <ListItemText id={labelId} primary={value.habitName} secondary={"Goal habits"} />
-                            </ListItemButton>
-                        </ListItem>
-                    );
-                })}
-            </List>
-
-            <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
-                <Edit />
-                Edit habits
-            </Fab>
+                <Grid container direction="column">
+                    < Grid item xs={12}
+                        container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+                        }
+                    >
+                        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/profile') }}>Back</Button>
+                        <Grid container justifyContent="space-between" alignItems="center">
+                            <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
 
 
-        </Container >
+                        </Grid>
+                    </Grid>
+
+                    <Grid item>You don't have any tracked habits. Press the edit habits button to get started.</Grid>
+
+                    <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
+                        <Edit />
+                        Edit habits
+                    </Fab>
+
+
+                </Grid >
+                :
+                <Grid container>
+                    < Grid item xs={12}
+                        container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+                        }
+                    >
+                        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Back</Button>
+                        <Grid container justifyContent="space-between" alignItems="center">
+                            <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
+
+
+                        </Grid>
+                    </Grid>
+                    <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
+                        <Edit />
+                        Edit habits
+                    </Fab>
+
+                    <List sx={{ width: '100%', maxWidth: 360 }}>
+                        {habits.map((value, index, array) => {
+                            const labelId = `checkbox-list-label-${value.habitId}`;
+
+                            return (
+                                <ListItem
+                                    key={value.habitEntryId}
+                                    secondaryAction={
+                                        value.habitAccomplished ?
+                                            <Box>
+                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleLike(value.habitEntryId, value.habitAccomplished, index, array) }}>
+                                                    <ThumbUpAltRounded color="green" />
+
+                                                </IconButton>
+                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleUnlike(value.habitEntryId, value.habitAccomplished, index, array) }}>
+                                                    <ThumbDownRounded />
+
+
+                                                </IconButton>
+
+                                            </Box> :
+                                            <Box>
+                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleLike(value.habitEntryId, value.habitAccomplished, index, array) }}>
+                                                    <ThumbUpAltRounded />
+
+                                                </IconButton>
+                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleUnlike(value.habitEntryId, value.habitAccomplished, index, array) }}>
+                                                    <ThumbDownRounded color="red" />
+
+
+                                                </IconButton>
+
+                                            </Box>
+
+
+                                    }
+                                    disablePadding
+                                >
+                                    <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+
+                                        <ListItemText id={labelId} primary={value.habitName} secondary={"Goal habits"} />
+                                    </ListItemButton>
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+
+                    <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
+                        <Edit />
+                        Edit habits
+                    </Fab>
+
+
+                </Grid >
+
+
 
     );
 }

@@ -281,79 +281,95 @@ const DetailedFoodLog = (props) => {
     return (
         <div>
             {loading ?
-                <CircularProgress variant='indeterminate' /> :
-                <Grid container direction="column" spacing={6}>
+                <Grid container direction="column" sx={{ height: '100vh' }} alignItems="center" justifyContent="center">
+                    <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                    <Typography variant="p">Loading content</Typography>
+                </Grid>
+                :
+                <Grid container direction="column">
                     < Grid item xs={12}
-                        container direction='column' sx={{ background: '#F9AB10', paddingBottom: '1em' }
+                        container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
                         }
                     >
                         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Back</Button>
-                        <Grid container justifyContent="space-between" paddingX="1em">
-                            <Grid item> <h1>{props.foodItem.food.label}</h1></Grid>
+                        <Grid container justifyContent="space-between" alignItems="center">
+                            <Grid item> <Typography variant="onboardingHeader2" component="h1">{props.foodItem.food.label}</Typography  ></Grid>
                             <Grid item>
                                 <LoadingButton color='secondary' className='button-foodlog' variant='contained' onClick={handleSave} loading={loadingButton}>Save</LoadingButton></Grid>
 
                         </Grid>
                     </Grid>
-
-                    <Grid item xs={12} container rowSpacing={4}>
+                    {/*  <Grid item xs={12} container rowSpacing={4}>
                         <img alt='Confetti' src={require('../../assets/img/sideview-beagle.png')} width='200px' height='200px' margin='auto' />
 
                         <p>Please stop eating already</p>
-                    </Grid>
+                    </Grid>*/}
 
-                    <Grid item xs={6} container rowSpacing={4}>
+                    <Grid item px="1em">
+                        <Typography variant="categorySubheader" component="h2">What's this meal for?</Typography>
+                    </Grid>
+                    <Grid item xs={12} container direction="row" px="1em" mb="2em">
                         {mealTypes.map((meal) => {
                             return (
-                                <Chip key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} />
+                                <Chip sx={{ mr: '.5em' }} key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} />
                             )
                         })}
                     </Grid>
 
-                    <Grid item md={12}>
-                        <Grid container direction="row" justifyContent="flex-start">
-                            <Grid item md={6}>
-                                <TextField id="filled-basic" variant='filled' type="number" value={formData.servingQty} name="servingQty" onChange={handleInputChange} fullWidth />
+                    < Grid item container direction="column" px="1em">
+                        <Grid item mb="1em">
+                            <Typography variant="categorySubheader" component="h2">Serving</Typography>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <Grid container direction="row" justifyContent="flex-start" sx={{ mb: '2em' }}>
+                                <Grid item xs={3} mr={2}>
+                                    <TextField id="filled-basic" variant='filled' type="number" value={formData.servingQty} name="servingQty" onChange={handleInputChange} fullWidth />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                    <FormControl sx={{ minWidth: '5em' }}>
+                                        <InputLabel id="serving-unit-label">Serving Unit</InputLabel>
+                                        <Select
+                                            labelId="serving-unit-label"
+                                            id="serving-unit-select"
+                                            value={formData.servingUnit}
+                                            label="Serving Unit"
+                                            onChange={handleInputChange}
+                                            name="servingUnit"
+                                            fullWidth
+                                        >
+                                            {props.units.map((value) => (
+                                                <MenuItem key={value.label} value={value.label}>{value.label}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
                             </Grid>
 
-                            <Grid item md={6}>
-                                <FormControl sx={{ minWidth: '5em' }}>
-                                    <InputLabel id="serving-unit-label">Serving Unit</InputLabel>
-                                    <Select
-                                        labelId="serving-unit-label"
-                                        id="serving-unit-select"
-                                        value={formData.servingUnit}
-                                        label="Serving Unit"
-                                        onChange={handleInputChange}
-                                        name="servingUnit"
-                                        fullWidth
-                                    >
-                                        {props.units.map((value) => (
-                                            <MenuItem key={value.label} value={value.label}>{value.label}</MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
+                        </Grid>
+
+
+                        <Grid item md={12}>
+                            <Grid item mb="1em">
+                                <Typography variant="categorySubheader" component="h2">Weight in grams</Typography>
+                            </Grid>                            <Typography variant="p">{formData.totalWeight + " g"}</Typography>
                         </Grid>
 
                         <Grid item md={12}>
-                            <Typography variant="subtitle1" component="h2">Weight in grams</Typography>
-                            <Typography variant="p">{formData.totalWeight + " g"}</Typography>
-                        </Grid>
-
-                        <Grid item md={12}>
-                            <Typography variant="subtitle1" component="h2">Amount of calories</Typography>
-                            <Typography variant="p">{formData.servingQty <= 0 || formData.servingQty === undefined ? 0 :
+                            <Grid item mb="1em">
+                                <Typography variant="categorySubheader" component="h2">Amount of calories</Typography>
+                            </Grid>                            <Typography variant="p">{formData.servingQty <= 0 || formData.servingQty === undefined ? 0 :
                                 Math.round(formData.baseCalories * formData.servingQty) + " calories"}</Typography>
                         </Grid>
 
-                        <Grid item container md={12} direction="column">
-                            <Grid item md={12}>
+                        <Grid item container md={12} direction="column" sx={{ borderRadius: '20px', background: '#E7DDC9', padding: '1em' }}>
+                            <Grid item md={12} mb={2}>
                                 <Typography variant="subtitle1" component="h2">Context</Typography>
                             </Grid>
 
                             <Grid item md={12}>
-                                <LinearProgress variant='determinate' value={((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100} color={((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100 > 100 ? 'red' : 'primary'} />
+                                <LinearProgress sx={{ borderRadius: '20px', height: '1em', mb: '1em' }} variant='determinate' value={((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100} color={((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100 > 100 ? 'red' : 'primary'} />
                             </Grid>
 
                             <Grid item md={12}>
@@ -365,15 +381,20 @@ const DetailedFoodLog = (props) => {
                             </Grid>
 
                             <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
-                                <Grid item xs={4}>
-                                    <LinearProgress variant='determinate' value={(summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100} color={(summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 > 100 ? 'red' : 'primary'} />
+                                <Grid item xs={4} container direction="column">
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={(summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100} color={(summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 > 100 ? 'red' : 'primary'} />
+                                    <Typography component="p" alignSelf="center">Carbs</Typography>
                                 </Grid>
-                                <Grid item xs={4}>
-                                    <LinearProgress variant='determinate' value={(summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100} color={(summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat.fat * 100 > 100 ? 'red' : 'primary'} />
-                                </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={4} container direction="column">
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={(summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100} color={(summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat.fat * 100 > 100 ? 'red' : 'primary'} />
+                                    <Typography component="p" alignSelf="center">Fat</Typography>
 
-                                    <LinearProgress variant='determinate' value={(summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100} color={(summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedFat.protein * 100 > 100 ? 'red' : 'primary'} />
+                                </Grid>
+                                <Grid item xs={4} container direction="column">
+
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={(summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100} color={(summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedFat.protein * 100 > 100 ? 'red' : 'primary'} />
+                                    <Typography component="p" alignSelf="center">Protein</Typography>
+
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -400,7 +421,7 @@ const DetailedFoodLog = (props) => {
                     </Dialog>
                 </Grid>
             }
-        </div>
+        </div >
     );
 }
 

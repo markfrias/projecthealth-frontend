@@ -115,7 +115,7 @@ const ProgressReport = () => {
 
 
   return (
-    <Grid container spacing={4} p={1} >
+    <Grid container spacing={4} p={1} direction="column" >
       <Grid item xs={12} className='quick note-container1'
         container direction='column'
       >

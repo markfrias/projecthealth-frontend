@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Chip, Container, Grid, Input } from '@mui/material';
+import { Chip, /*Container,*/ Grid /*,Input*/ } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+//import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
 import { saveNote } from '../auth/APIServices';
@@ -81,26 +81,19 @@ const FoodQuickNote = () => {
   }
 
   return (
-    <Grid container spacing={4} >
-      <Grid item xs={12} className='quicknote-container1'
+    <Grid container direction="column">
+      <Grid item xs={12} sx={{ background: '#F9AB10', p: "1em", mb: '2.5em' }}
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/foodlogmainscreen">Back</Button>
-        <Typography variant='onboardingHeader' component='h1' >Quick Note</Typography>
+        <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/">Back</Button>
+        <Typography variant='onboardingHeader2' component='h1' >Quick Note</Typography>
       </Grid>
 
-
-      <Container
-        sx={{
-          '& > :not(style)': { m: 2, width: 300 },
-        }}
-        noValidate
-        autoComplete="off"
-      >
+      <Grid item container direction="column" px="1em">
         <Grid item xs={12}>
-          <Typography variant='subtitle1B' component='p' >What's this meal for?</Typography>
+          <Typography variant='subtitle1B' component='p'  >What's this meal for?</Typography>
         </Grid>
-        <Grid item xs={6} container rowSpacing={4}>
+        <Grid item xs={12} container direction="row" mb="1em" >
           {mealTypes.map((meal) => {
             return (
               <Chip key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} />
@@ -114,38 +107,29 @@ const FoodQuickNote = () => {
           value={quickNoteState.foodName}
           onChange={handleChange}
           name="foodName"
-          label="Food Description" variant="outlined" />
+          label="Food Description" variant="outlined"
+          sx={{
+            mb: '1em'
+          }} />
         <Typography variant='subtitle1B' component='p' >Description of food amount</Typography>
         <TextField id="outlined-basic" label="Amount of food"
           value={quickNoteState.servingDescription}
           onChange={handleChange}
-          name="servingDescription" variant="outlined" />
-        <Grid item xs={12} container spacing={4}>
+          name="servingDescription" variant="outlined" sx={{
+            mb: '1em'
+          }} />
 
-          <Typography variant='subtitle1' component='p' >(Optional) Picture of the meal, food, or drink</Typography>
 
-          <Button variant='contained' startIcon={<AddAPhotoOutlinedIcon />} ></Button>
 
-          <Input name="photosUrl" type="file" id="file-upload-btn" onChange={handleChange} hidden />
+        <Grid item sx={{ position: 'fixed', bottom: '1em', left: '0', right: '0', width: '100%', px: '1em' }}>
 
-          <label htmlFor='file-upload-btn'>
-            <Button htmlFor="file-upload-btn" component="span">
-              Upload
-            </Button>
-
-          </label>
-
-          <img alt="upload" src={quickNoteState.photosUrl} />
-
-        </Grid>
-
-        <Grid>
-
-          <Button variant='contained' onClick={handleSave}>Save Note</Button>
+          <Button variant='contained' onClick={handleSave} sx={{ width: '100%' }}>Save Note</Button>
 
 
         </Grid>
-      </Container>
+      </Grid>
+
+
 
       <Dialog
         open={open}

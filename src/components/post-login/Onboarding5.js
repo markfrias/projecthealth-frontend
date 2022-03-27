@@ -21,7 +21,7 @@ const Onboarding5 = () => {
             </Box>
             <Box sx={{ textAlign: 'center', }}>
                 <Typography variant="bigHeading" component="h1" pb=".5em" width="100%">Achieve missions and challenges</Typography>
-                <Typography variant="bigHeadingSub" component="h2" width="100%">Accomplish missions and challenges to unlock items or characters.</Typography>
+                <Typography variant="bigHeadingSub" component="h2" width="100%">Accomplish missions and challenges to encourage good health.</Typography>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
                 <Button className="button-half" variant="contained" component={Link} to="/app/" endIcon={<ArrowForwardIosIcon />} >
