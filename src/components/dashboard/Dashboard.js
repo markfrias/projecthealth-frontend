@@ -112,7 +112,8 @@ const Dashboard = () => {
       justifyContent: "space-between",
       display: "flex",
       flexDirection: "column",
-      pb: '3.75rem'
+      pb: '3.75rem',
+      pt: '2em'
     }}>
 
       <div className='hero_container'>
@@ -154,7 +155,7 @@ const Dashboard = () => {
 
 
         </Grid>
-      
+
 
       </div>
 
