@@ -160,10 +160,12 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-
+      <Alert severity='warning'>
+        The feature above is not yet available. It will be available very soon. Thanks for your understanding. In the meantime, you can still use the other features of the app.
+      </Alert>
       <div className='dashboard-container1'>
         <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
-        <Typography variant='onboardingSubheader2' component='p'>Increase progress points and unlock new characteers and stickers by accomplishing
+        <Typography variant='onboardingSubheader2' component='p'>Increase progress points and level up by accomplishing
           a mission or logging your food/habit/activity.</Typography>
       </div>
       <div className='dashboard-container2'>

@@ -1,5 +1,4 @@
-import { Reorder } from '@mui/icons-material';
-import { Box, CircularProgress, Grid, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { getFoodLogsPersonal } from '../auth/APIServices';
 import PropTypes from 'prop-types';

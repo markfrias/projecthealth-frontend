@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Chip, Container, Grid, Input } from '@mui/material';
+import { Chip, /*Container,*/ Grid /*,Input*/ } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+//import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
 import { saveNote } from '../auth/APIServices';
