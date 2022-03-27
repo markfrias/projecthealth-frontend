@@ -403,7 +403,11 @@ const LogScreen = (props) => {
                     </Grid>
                   </Grid>
                 </Box>
-                : <CircularProgress variant='indeterminate' />
+                :
+                <Grid container direction="column" sx={{ height: '100vh' }} alignItems="center" justifyContent="center">
+                  <CircularProgress variant='indeterminate' />
+                  <Typography variant="p">Loading content</Typography>
+                </Grid>
 
               }
 

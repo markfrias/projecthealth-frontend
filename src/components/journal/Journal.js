@@ -1,14 +1,15 @@
-import { Chip, Grid, Typography, CircularProgress, FormControl, Select, InputLabel, MenuItem, Badge } from '@mui/material';
+import { Button, Chip, Grid, Typography, CircularProgress, FormControl, Select, InputLabel, MenuItem, Badge } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getFoodLogStreaks, getHabitLogsOnMonth } from '../auth/APIServices';
 import { Box } from '@mui/system';
 import { CalendarPickerSkeleton, PickersDay } from '@mui/lab';
+import { KeyboardArrowLeftRounded } from '@mui/icons-material';
 
 function StaticDatePickerDemo(props) {
 
@@ -39,7 +40,7 @@ function StaticDatePickerDemo(props) {
                         <Badge
                             key={day.toString()}
                             overlap="circular"
-                            badgeContent={isSelected ? '🌚' : undefined}
+                            badgeContent={isSelected ? '✅' : undefined}
                         >
                             <PickersDay {...DayComponentProps} sx={isSelected ? { background: 'green' } : {}} />
                         </Badge>
@@ -261,42 +262,51 @@ const Journal = () => {
 
         <div>
             <Grid container direction="column">
-                <Grid item container sx={{ background: "#F9AB10", height: "4rem" }}>
-                    <Grid item>
-                        <Typography variant="subtitle1" component="h1">Journal</Typography>
-                    </Grid>
+                < Grid item xs={12}
+                    container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+                    }
+                >
+                    <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftRounded />} component={Link} to="/app/">Back</Button>
+                    <Typography variant='onboardingHeader2' component='h1' >Log Food</Typography>
                 </Grid>
 
                 {loading ?
-                    <CircularProgress variant="indeterminate" /> :
-                    <div>
-                        <Grid item container alignItems="center">
-                            {loading ?
-                                <CircularProgress variant="indeterminate" /> :
 
-                                <Box>
+                    <Grid item container direction="column" sx={{ height: '100vh', px: '1em' }} alignItems="center" justifyContent="center">
+                        <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                        <Typography variant="p">Loading content</Typography>
+                    </Grid> :
+                    <div>
+                        <Grid item container alignItems="center" sx={{ px: '1em' }}>
+                            {loading ?
+                                <Grid container direction="column" sx={{ height: '100vh' }} alignItems="center" justifyContent="center">
+                                    <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                                    <Typography variant="p">Loading content</Typography>
+                                </Grid> :
+
+                                <Grid item container direction="row" xs={12} mb={2} >
                                     {checked[0] === 1 ?
                                         <Typography component="p">You can view your individual habit streaks by selecting the specific date, then, selecting the specific habit.</Typography> :
                                         <Box>
-                                            <Grid item xs={3}>
+                                            <Grid item xs={2}>
                                                 <img alt="Party popper" src={require('../../assets/img/3d-confetti.png')} width="100%" height="100%" />
                                             </Grid>
-                                            <Grid item xs={9}>
+                                            <Grid item xs={10} mb={2}>
                                                 <Typography variant="subtitle1" component="h1">You fed Pobi for <strong>{currentStreak} {currentStreak > 1 ? "days" : "day"}</strong> straight. Log every day to increase your streak and strengthen your gotchi.</Typography>
                                             </Grid>
                                         </Box>
 
                                     }
 
-                                </Box>
+                                </Grid>
                             }
 
                         </Grid>
 
                         {checked[0] === 1 ?
-                            <Grid item container direction="column">
+                            <Grid item container direction="column" px={1} mb={2}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                    <InputLabel id="demo-simple-select-label">Habits</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -314,11 +324,11 @@ const Journal = () => {
                         }
 
 
-                        <Grid item container direction="column">
+                        <Grid item container direction="column" px={1}>
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1B" component="h1">Which logs are you looking for?</Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} mb={2}>
                                 {logTypes.map((log) => {
                                     return (
                                         <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
@@ -327,7 +337,7 @@ const Journal = () => {
                             </Grid>
                         </Grid>
 
-                        <Grid item container direction="column">
+                        <Grid item container direction="column" px={1}>
                             <Grid item xs={12}>
                                 <Typography variant="subtitle1B" component="h1">Pick a date to select specific log</Typography>
                             </Grid>
@@ -341,8 +351,8 @@ const Journal = () => {
 
                 }
 
-            </Grid>
-        </div>
+            </Grid >
+        </div >
     );
 }
 

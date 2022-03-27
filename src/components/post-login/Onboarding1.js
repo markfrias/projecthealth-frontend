@@ -138,7 +138,8 @@ const Onboarding1 = () => {
         justifyContent: "space-between",
         display: "flex",
         flexDirection: "column",
-        p: '1em'
+        p: '1em',
+        pt: '2em'
       }}>
 
         <div>

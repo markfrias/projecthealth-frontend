@@ -58,7 +58,7 @@ const
                 <Grid container direction="column">
 
                     <Grid item container alignItems="center" justifyContent={'center'}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} px={1}>
                             <Typography variant='subtitle1B' component='h1' >Habits tracked</Typography>
                             {habitLogs.length > 0 ?
                                 <List sx={{ width: '100%', maxWidth: '50em', bgcolor: '#fdf8ec' }}>

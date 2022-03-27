@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from '@mui/material';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
@@ -79,12 +78,14 @@ const Profile = (props) => {
 
 
   return (
-    <Grid container spacing={4} >
-      <Grid item xs={12} className='quicknote-container1'
-        container direction='column'
+    <Grid container direction="column" >
+      < Grid item xs={12}
+        container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+        }
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
-        <Typography variant='onboardingHeader' component='h1' >Profile</Typography>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item> <Typography variant="onboardingHeader2" component="h1">Profile</Typography  ></Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} container direction='row'>
         <LetterAvatars></LetterAvatars>

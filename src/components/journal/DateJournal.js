@@ -1,12 +1,13 @@
-import { Chip, Grid, Typography } from '@mui/material';
+import { Button, Chip, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import { useNavigate, useParams } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import moment from 'moment';
-import { ChevronRight } from '@mui/icons-material';
+import { ChevronRight, KeyboardArrowLeftRounded } from '@mui/icons-material';
 import FoodJournalLog from './FoodJournalLog';
 import HabitJournalLog from './HabitJournalLog';
+import { Link } from 'react-router-dom';
 
 
 
@@ -77,22 +78,27 @@ const DateJournal = () => {
   return (
     <div>
       <Grid container direction="column">
-        <Grid item container sx={{ background: "#F9AB10", height: "4rem" }}>
-          <Grid item>
-            <Typography variant="subtitle1B" component="h1">Journal</Typography>
-          </Grid>
+        < Grid item xs={12}
+          container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+          }
+        >
+
+          <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftRounded />} component={Link} to="/app/">Back</Button>
+          <Typography variant='onboardingHeader2' component='h1' >Log Food</Typography>
         </Grid>
-        <Grid item container direction="column">
-          <Grid item xs={12} container direction="row" alignItems="center" justifyContent="center">
+
+
+        <Grid item container direction="column" px={1} justifyContent="center" alignItems="center">
+          <Grid item xs={12} container direction="row" alignItems="center" justifyContent="center" mb={2}>
             <IconButton aria-label='left-button' onClick={handleLeft}>
               <ChevronLeftIcon />
             </IconButton>
-            <Typography component="p">{moment(`${year}-${month}-${day}`).format('MMMM DD, YYYY')}</Typography>
+            <Typography variant="p" sx={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#624100' }} >{moment(`${year}-${month}-${day}`).format('MMMM DD, YYYY')}</Typography>
             <IconButton aria-label='right-button' onClick={handleRight}>
               <ChevronRight />
             </IconButton>
           </Grid>
-          <Grid item xs={12} rowSpacing={4}>
+          <Grid item xs={12} rowSpacing={4} mb={3}>
             {logTypes.map((log) => {
               return (
                 <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
@@ -102,10 +108,10 @@ const DateJournal = () => {
         </Grid>
 
         {category === "0" ?
-          <FoodJournalLog params={params} /> :
+          <FoodJournalLog params={params} sx={{ px: '1em' }} /> :
           /* If habit log */
           category === "1" ?
-            <HabitJournalLog params={params} /> :
+            <HabitJournalLog params={params} sx={{ px: '1em' }} /> :
             "Hello"
         }
 

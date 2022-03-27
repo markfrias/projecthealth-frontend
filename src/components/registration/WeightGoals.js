@@ -6,7 +6,7 @@ export default function WeightGoals(props) {
     return (
 
 
-        < Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", overflow: "scroll" }} >
+        < Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", overflow: "scroll", pt: '1em' }} >
             <Box>
                 <Typography variant="onboardingHeader" component="h1" sx={{ mb: "1rem" }}>What are your health goals?</Typography>
                 <Typography variant="onboardingSubheader" component="h2" sx={{ mb: "5rem" }}>We’d like to know your goals and conditions so that we can personalize the experience for you.</Typography>
@@ -23,9 +23,9 @@ export default function WeightGoals(props) {
                         value={props.values.goals.weightGoal}
                         onChange={props.handleChange}
                     >
-                        <FormControlLabel value="loseWeight" control={<Radio />} label="Lose weight" />
-                        <FormControlLabel value="gainWeight" control={<Radio />} label="Gain weight" />
-                        <FormControlLabel value="maintainWeight" control={<Radio />} label="Maintain weight" />
+                        <FormControlLabel value="loseWeight" control={<Radio />} label="Lose weight" sx={{ color: '#624100' }} />
+                        <FormControlLabel value="gainWeight" control={<Radio />} label="Gain weight" sx={{ color: '#624100' }} />
+                        <FormControlLabel value="maintainWeight" control={<Radio />} label="Maintain weight" sx={{ color: '#624100' }} />
                     </RadioGroup>
                 </FormControl>
             </Box>

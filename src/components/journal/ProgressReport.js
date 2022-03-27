@@ -115,14 +115,14 @@ const ProgressReport = () => {
 
 
   return (
-    <Grid container spacing={4} p={1} >
+    <Grid container spacing={4} p={1} direction="column" >
       <Grid item xs={12} className='quick note-container1'
         container direction='column'
       >
         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
 
         <Grid item xs={12} container direction='row'>
-          <Typography variant='onboardingHeader' component='h1' >Progress report</Typography>
+          <Typography variant='onboardingHeader2' component='h1' >Progress report</Typography>
         </Grid>
 
 

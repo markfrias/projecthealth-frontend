@@ -3,31 +3,34 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 const Onboarding3 = () => {
     return (
         <Container maxWidth="md" sx={{
-            minHeight: "100vh",
+            height: "100vh",
             justifyContent: "space-between",
             display: "flex",
             flexDirection: "column",
-            pb: '1em'
+            pb: '1em',
+            pt: '2em'
 
         }}>
-            <div className='hero_container'>
-                <img alt="Side view of Beagle dog" src={require("../../assets/img/healthy.png")} />
-            </div>
-            <Grid item xs={12}>
-                <Typography variant='onboardingHeader' component='h1'>Eat healthy.</Typography>
-                <Typography variant='subtitle1' component='p'>Log healthy food to your journal to improve your gotchi’s health and happiness.</Typography>
-            </Grid>
 
 
 
-
-            <div className='button-group'>
-                <Button className="button-onboarding" variant="contained" component={Link} to="/app/onboarding/4" endIcon={<ArrowForwardIosIcon />}>Continue</Button>
-            </div>
+            <Box sx={{ width: "100%", height: "auto", display: 'flex', direction: 'column', justifyContent: 'center', px: '10%', pt: '3em' }}>
+                <img alt="Side view of Beagle dog" src={require("../../assets/img/healthy.png")} height="100%" width="100%" />
+            </Box>
+            <Box sx={{ textAlign: 'center', }}>
+                <Typography variant="bigHeading" component="h1" pb=".5em" width="100%">Eat healthy</Typography>
+                <Typography variant="bigHeadingSub" component="h2" width="100%">Log healthy food to your journal to improve your gotchi’s health and happiness.</Typography>
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+                <Button className="button-half" variant="contained" component={Link} to="/app/onboarding/4" endIcon={<ArrowForwardIosIcon />} >
+                    Continue
+                </Button>
+            </Box>
         </Container>
 
 
