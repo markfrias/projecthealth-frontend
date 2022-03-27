@@ -33,7 +33,7 @@ const Registration = () => {
         birthday: new Date(),
         height: "",
         weight: "",
-        goalWeight: "",
+        targetWeight: "",
         emailAddress: "",
         firstName: "",
         lastName: "",
@@ -42,7 +42,7 @@ const Registration = () => {
         activityLevel: "",
         weightRange: 0.1,
         isWarning: false,
-        calorieBudget: 0
+        calorieBudget: 0,
     }
 
     const [step, setStep] = useState(1);
@@ -138,7 +138,7 @@ const Registration = () => {
         // Check if the last part of the address is a number or if it is one
         if (location.pathname.slice(18) === "" || parseInt(location.pathname.slice(18)) === 1) {
             navigate(stepBasis + 2);
-        } else if (parseInt(location.pathname.slice(18)) === 10) {
+        } else if (parseInt(location.pathname.slice(18)) === 9 || parseInt(location.pathname.slice(18)) === 10) {
             calculateCalorieBudget()
             const stepNumber = parseInt(location.pathname.slice(18));
             navigate(stepBasis + (stepNumber + 1));
@@ -243,7 +243,7 @@ const Registration = () => {
 
     // Checks if necessary fields in the first part are filled out
     const handleRegPart1 = () => {
-        if (!regState.height || !regState.weight || !regState.goalWeight) {
+        if (!regState.height || !regState.weight || !regState.targetWeight) {
             setIsInvalidDialog(true)
         } else {
             goNext();
@@ -257,7 +257,6 @@ const Registration = () => {
             goNext();
         }
     }
-
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", height: "100vh", paddingTop: "1rem" }}>

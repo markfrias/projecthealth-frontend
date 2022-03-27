@@ -1,7 +1,12 @@
-import React from "react";
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import React/*, { useState }*/ from "react";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { /*Link, */ Outlet } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+/*import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import { AccountCircleRounded, BookRounded, HomeRounded, NoteRounded } from "@mui/icons-material";*/
+import { Box } from "@mui/system";
 
 const theme = createTheme({
   palette: {
@@ -12,6 +17,12 @@ const theme = createTheme({
     secondary: {
       main: "#d3f76c",
     },
+    red: {
+      main: "#6F0000"
+    },
+    green: {
+      main: "#7A8D44"
+    }
   },
   typography: {
     fontFamily: '"Poppins" ,"Roboto", "Helvetica", "Arial", sans-serif',
@@ -78,6 +89,17 @@ const theme = createTheme({
       },
     },
 
+    profileLogout: {
+      fontSize: '1.15rem',
+      color: '#730807',
+      width: '80%',
+      lineHeight: '1.25',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+
+    },
+
     button: {
       textTransform: 'none',
       fontWeight: '1000',
@@ -120,14 +142,73 @@ const theme = createTheme({
         },
       },
     },
+    MuiFab: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          height: '3.75rem',
+          fontSize: '1.05rem'
+        },
+      },
+    },
+    MuiBottomNavigation: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          background: '#FFD974'
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          color: '#49454F',
+          py: '3rem',
+          "&.Mui-selected": {
+            "color": "black"
+          },
+        },
+
+      },
+
+    },
+
   },
 });
 
 function App() {
+
+  //const [value, setValue] = useState(0);
+
   return (
-    <ThemeProvider theme={theme}>
-      <Outlet />
-    </ThemeProvider>
+    <Box>
+      <ThemeProvider theme={theme}>
+        <Outlet />
+        {/*<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue)
+            }}
+
+          >
+
+            <BottomNavigationAction label="Dashboard" icon={<HomeRounded />} component={Link} to="/app/" />
+            <BottomNavigationAction label="Journal" icon={<NoteRounded />} component={Link} to="/app/habits/1" />
+            <BottomNavigationAction label="Habits" icon={<BookRounded />} />
+            <BottomNavigationAction label="Profile" icon={<AccountCircleRounded />} />
+
+          </BottomNavigation>
+          </Paper> */}
+
+      </ThemeProvider>
+    </Box>
+
   );
 }
 

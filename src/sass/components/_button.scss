@@ -11,8 +11,25 @@
 
 .button-group > button {
   margin-bottom: 1em;
+  width: 80%;
 }
 
+.button-group2 > button {
+  margin-bottom: 1em;
+  width: 50%;
+}
+
+.button-group3 > button {
+  margin-bottom: 1em;
+  width: 50%;
+  background-color: #d3f76c;
+}
+
+.button-group4 > button {
+  margin-bottom: 1em;
+  width: 20%;
+  float: left;
+}
 
 .button-onboarding {
   width: 50%;
@@ -40,3 +57,20 @@
   border-radius: 10px;
 }
 
+.button-quicknote {
+  width: 20%;
+  font-weight: 1000;
+  height: 3.5em;
+  float: left;
+  background-color: #f9ab10;
+  border-radius: 10px;
+}
+
+.button-foodlog {
+  width: 20%;
+  font-weight: 1000;
+  height: 3.5em;
+  float: right;
+  background-color: #f9ab10;
+  border-radius: 10px;
+}

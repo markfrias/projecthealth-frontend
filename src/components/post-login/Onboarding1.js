@@ -107,6 +107,9 @@ const Onboarding1 = () => {
   const navigateConditionally = () => {
     if (isChecked) {
       navigate("/app/notification-setup")
+    } else {
+      navigate("/app/onboarding/2")
+
     }
   }
 
@@ -134,7 +137,8 @@ const Onboarding1 = () => {
         minHeight: "100vh",
         justifyContent: "space-between",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        p: '1em'
       }}>
 
         <div>
@@ -157,7 +161,7 @@ const Onboarding1 = () => {
 
         {/* Display error message if notification permission is denied*/}
         {notifIsAllowed === false ?
-          <Alert severity="error">Notifications will not be turned on. For instructions on turning on, <strong>tap</strong> here.</Alert>
+          <Alert severity="error">You have blocked notifications from our site. For instructions on turning on, <a style={{ fontWeight: 'bold', color: "black", textDecoration: "none" }} href="https://support.google.com/chrome/answer/3220216?hl=en&co=GENIE.Platform%3DAndroid&oco=1">tap</a> here.</Alert>
           : <Box sx={{ display: "none" }} />
         }
 
@@ -180,7 +184,7 @@ const Onboarding1 = () => {
         </div>
 
 
-        <div className='button-group'>
+        <div>
           <Button className="button-onboarding" variant="contained" onClick={navigateConditionally}>Continue</Button>
         </div>
         {/*<ProgressMobileStepper></ProgressMobileStepper>*/}

@@ -69,7 +69,7 @@ const LoginScreen = () => {
         let localStorage = window.localStorage;
         localStorage.setItem("jwt", data.jwt);
         logEvent(analytics, 'login');
-        navigate("/app/Onboarding1");
+        navigate("/app/onboarding/1");
       } else {
         setError(true);
         // Remove spinner on login button when login fails
