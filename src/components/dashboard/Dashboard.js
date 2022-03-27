@@ -23,8 +23,8 @@ function LinearDeterminate() {
   }, []);
 
   return (
-    <Box sx={{ width: '20%' }}>
-      <LinearProgress variant="determinate" value={progress} />
+    <Box>
+      <LinearProgress variant="determinate" value={progress} sx={{ height: '1em', borderRadius: '20px', border: 'solid 2px black' }} color="green" />
     </Box>
   );
 }
@@ -116,34 +116,37 @@ const Dashboard = () => {
       pt: '2em'
     }}>
 
-      <div className='hero_container'>
-        <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} />
-        <Grid item xs={12} container>
-          <Grid item xs={12} container direction='row'>
-            <Typography variant='subtitle1B' component='h1' >Feeling meh</Typography>
+
+      <Grid item sx={12} container direction="row">
+        <Grid item xs={6}>
+          <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} height="100%" width="100%" />
+        </Grid>
+        <Grid item xs={6} container>
+          <Grid item xs={12}>
+            <Typography variant='subtitle1B' component='h1' >😐 Feeling meh</Typography>
           </Grid>
 
-          <Grid item xs={12} container direction='column'>
+          <Grid item xs={12} >
             <Typography variant='subtitle1' component='h1' >Health </Typography>
           </Grid>
-          <Grid item xs={12} container direction='column'>
+          <Grid item xs={12}  >
             <LinearDeterminate></LinearDeterminate>
           </Grid>
-          <Grid item xs={12} container direction='column'>
+          <Grid item xs={12}  >
             <Typography variant='subtitle1B' component='h1' >100/150</Typography>
           </Grid>
 
 
-          <Grid item xs={12} container direction='column'>
+          <Grid item xs={12}  >
             <Typography variant='subtitle1' component='h1' >Progress </Typography>
           </Grid>
-          <Grid item xs={12} container direction='column'>
+          <Grid item xs={12}  >
             <LinearDeterminate></LinearDeterminate>
           </Grid>
-          <Grid item xs={12} container direction='column'>
+          <Grid item xs={6} >
             <Typography variant='subtitle1B' component='h1' >100/150</Typography>
           </Grid>
-          <Grid item xs={12} container direction='row'>
+          <Grid item xs={6}>
             <Typography variant='subtitle1B' component='h1' >Level 4</Typography>
           </Grid>
 
@@ -155,9 +158,7 @@ const Dashboard = () => {
 
 
         </Grid>
-
-
-      </div>
+      </Grid>
 
 
       <div className='dashboard-container1'>
