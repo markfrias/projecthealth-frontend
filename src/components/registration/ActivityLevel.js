@@ -4,8 +4,8 @@ import React from 'react';
 
 const ActivityLevel = (props) => {
     return (
-        <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
-            <Box sx={{ mb: "1rem" }}>
+        <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start", pt: '1em' }}>
+            <Box sx={{ mb: "5rem" }}>
                 <Typography variant="onboardingHeader" component="h1" sx={{ mb: '1rem' }}>How physically active are you?</Typography>
                 <Typography variant="onboardingSubheader" component="h2">This information will only be used to personalize your experience.</Typography>
             </Box>

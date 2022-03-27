@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, CircularProgress, Container, Typography } from "@mui/material";
+import { Alert, AlertTitle, Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -100,65 +100,86 @@ const LoginScreen = () => {
           maxWidth="md"
           sx={{
             minHeight: "100vh",
-            justifyContent: "space-between",
             display: "flex",
             flexDirection: "column",
+            justifyContent: 'space-between',
+            px: '1em',
+            pb: '1em',
+            pt: '2em'
           }}
         >
-          <div className="hero_container"></div>
-          <div>
-            <Typography variant='onboardingHeader' component='h1' >Login and start health + fun.</Typography>
-          </div>
-
-          {error ?
-            <Alert severity="error">
-              <AlertTitle>Email address or password mismatch</AlertTitle>
-              Please re-enter your email address and password.
-            </Alert> : <Container sx={{ display: "none" }} />
-          }
-
-          <Box
-            component="form"
-            sx={{
-              "& > :not(style)": { m: 1, width: "99%" },
-            }}
-            validate
-            autoComplete="on"
-          >
-            <Typography variant='subtitle1' component='p' >Email address</Typography>
-            <TextField
-              id="email"
-              type="email"
-              label="Enter your email address"
-              variant="outlined"
-              name="emailAddress"
-              value={loginForm.emailAddress}
-              onChange={handleChange}
-            />
-            <Typography variant='subtitle1' component='p' >Password</Typography>
-            <TextField
-              id="password"
-              type="password"
-              label="Enter your strong password"
-              variant="outlined"
-              name="passcode"
-              value={loginForm.passcode}
-              onChange={handleChange}
-            />
-          </Box>
-
-          <div className="button-group">
-            <Button
-              className="button-loginScreen"
-              variant="contained"
-              onClick={authenticationService}
-            >
-              Login
-            </Button>
-          </div>
           <Box>
-            <p>I don't have an account yet.  <Link to="/app/registration" style={{ color: "black", textDecoration: "none" }}><strong>Register for a new account.</strong></Link></p>
+            <Grid container sx={{}} direction="row" columnSpacing={2} alignItems="center" mb="1em">
+              <Grid item xs={2} sx={{ width: 'auto' }}>
+                <img alt="Healevate logo, cross made of cards" src={require('../../assets/img/healevate-logo.png')} width="100%" height="100%" />
+
+              </Grid>
+              <Grid item>
+
+              </Grid>
+              <Typography variant='logo'>healevate</Typography>
+            </Grid>
+            <div>
+              <Typography sx={{ mb: '1.5em' }} variant='loginHeader' component='h1' >Login and start health + fun.</Typography>
+            </div>
+
+            {error ?
+              <Alert severity="error">
+                <AlertTitle>Email address or password mismatch</AlertTitle>
+                Please re-enter your email address and password.
+              </Alert> : <Container sx={{ display: "none" }} />
+            }
+
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { width: "99%" },
+              }}
+              validate
+              autoComplete="on"
+            >
+              <Typography variant='subtitle1' component='p' mb={1} >Email address</Typography>
+              <TextField
+                id="email"
+                type="email"
+                label="Enter your email address"
+                variant="outlined"
+                name="emailAddress"
+                value={loginForm.emailAddress}
+                onChange={handleChange}
+                sx={{ pb: '1.5em' }}
+              />
+              <Typography variant='subtitle1' component='p' mb={1} >Password</Typography>
+              <TextField
+                id="password"
+                type="password"
+                label="Enter your strong password"
+                variant="outlined"
+                name="passcode"
+                value={loginForm.passcode}
+                onChange={handleChange}
+                sx={{ pb: '3em' }}
+
+              />
+            </Box>
+            <div>
+              <Button
+                variant="contained"
+                onClick={authenticationService}
+                fullWidth
+              >
+                Login
+              </Button>
+            </div>
           </Box>
+
+          <Box>
+
+            <Box>
+              <Typography variant="loginSubtext" component="p">I don't have an account yet.  <Link to="/app/registration" style={{ color: "black", textDecoration: "none" }}><strong>Register for a new account.</strong></Link></Typography>
+            </Box>
+          </Box>
+
         </Container>
     )
   );

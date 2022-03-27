@@ -8,7 +8,7 @@ const Recommendation = (props) => {
     }
 
     return (
-        <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
+        <Container sx={{ height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-start", pt: '1rem' }}>
             <Box sx={{ mb: "1rem" }}>
                 <Typography variant="onboardingHeader" component="h1" sx={{ mb: '5rem' }}>Your plan is ready to go.</Typography>
 

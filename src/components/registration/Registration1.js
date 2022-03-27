@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 const Registration1 = () => {
     return (
@@ -7,8 +7,8 @@ const Registration1 = () => {
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-around", height: "100%" }}>
 
             <div >
-                <h2 style={{ fontSize: 42 }}>Let's get to know each other.</h2>
-                <p style={{ fontSize: 20 }} >We’d like to know your goals and conditions so that we can personalize the experience for you.</p>
+                <Typography variant="bigRegistration" component="h1" mb="1.5rem">Let's get to know each other.</Typography>
+                <Typography variant="bigRegistrationSub" >We’d like to know your goals and conditions so that we can personalize the experience for you.</Typography>
             </div>
         </Container>
 
