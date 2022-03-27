@@ -115,15 +115,10 @@ const ProgressReport = () => {
 
 
   return (
-<<<<<<< HEAD
-    <Grid container spacing={4} >
-      <Grid item container sx={{ background: "#F9AB10", height: "8rem" }}>
-=======
     <Grid container spacing={4} p={1} >
       <Grid item xs={12} className='quick note-container1'
         container direction='column'
       >
->>>>>>> 13f04f02df47434fee25c7958a7c5c517dfbec2f
         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
 
         <Grid item xs={12} container direction='row'>
