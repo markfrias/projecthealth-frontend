@@ -386,7 +386,7 @@ const DetailedFoodLog = (props) => {
                                     <Typography component="p" alignSelf="center">Carbs</Typography>
                                 </Grid>
                                 <Grid item xs={4} container direction="column">
-                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 : (summaryValues.fat) / recommendedFat * 100} color={nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat.fat * 100 > 100 ? 'red' : 'primary' : (summaryValues.fat) / recommendedFat.fat * 100 > 100 ? 'red' : 'primary'} />
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 : (summaryValues.fat) / recommendedFat * 100} color={nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 > 100 ? 'red' : 'primary' : (summaryValues.fat) / recommendedFat * 100 > 100 ? 'red' : 'primary'} />
                                     <Typography component="p" alignSelf="center">Fat</Typography>
 
                                 </Grid>
