@@ -382,17 +382,17 @@ const DetailedFoodLog = (props) => {
 
                             <Grid item md={12} container paddingY={2} spacing={5} justifyContent="center">
                                 <Grid item xs={4} container direction="column">
-                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={(summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100} color={(summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 > 100 ? 'red' : 'primary'} />
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={nutrients.totalNutrients.CHOCDF !== undefined ? (summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 : (summaryValues.carbs) / recommendedCarbs * 100} color={nutrients.totalNutrients.CHOCDF !== undefined ? (summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 > 100 ? 'red' : 'primary' : (summaryValues.carbs) / recommendedCarbs * 100 > 100 ? 'red' : 'primary'} />
                                     <Typography component="p" alignSelf="center">Carbs</Typography>
                                 </Grid>
                                 <Grid item xs={4} container direction="column">
-                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={(summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100} color={(summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat.fat * 100 > 100 ? 'red' : 'primary'} />
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 : (summaryValues.fat) / recommendedFat * 100} color={nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 > 100 ? 'red' : 'primary' : (summaryValues.fat) / recommendedFat * 100 > 100 ? 'red' : 'primary'} />
                                     <Typography component="p" alignSelf="center">Fat</Typography>
 
                                 </Grid>
                                 <Grid item xs={4} container direction="column">
 
-                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={(summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100} color={(summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedFat.protein * 100 > 100 ? 'red' : 'primary'} />
+                                    <LinearProgress sx={{ mb: '.5em', borderRadius: '20px', height: '.5em' }} variant='determinate' value={nutrients.totalNutrients.PROCNT !== undefined ? (summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100 : (summaryValues.protein) / recommendedProtein * 100} color={nutrients.totalNutrients.PROCNT !== undefined ? (summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100 > 100 ? 'red' : 'primary' : (summaryValues.protein) / recommendedProtein * 100 > 100 ? 'red' : 'primary'} />
                                     <Typography component="p" alignSelf="center">Protein</Typography>
 
                                 </Grid>
