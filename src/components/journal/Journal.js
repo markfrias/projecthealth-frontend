@@ -266,7 +266,7 @@ const Journal = () => {
                     container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
                     }
                 >
-                    <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftRounded />} component={Link} to="/app/">Back</Button>
+                    <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftRounded />} component={Link} to="/app/journal">Back</Button>
                     <Typography variant='onboardingHeader2' component='h1' >Log Food</Typography>
                 </Grid>
 

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import { VictoryLine } from 'victory';
-
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -15,6 +15,7 @@ import { getProgressReport } from '../auth/APIServices';
 
 
 function LinearDeterminate(props) {
+
 
   const [progress, setProgress] = React.useState(0);
 
@@ -35,6 +36,8 @@ function LinearDeterminate(props) {
   );
 }
 
+
+
 const ProgressReport = () => {
   const data = [
     { weightJournalDate: 1, weight: 50 },
@@ -42,6 +45,12 @@ const ProgressReport = () => {
     { weightJournalDate: 3, weight: 500 }
 
   ];
+
+  const navigate = useNavigate();
+
+  const handleLinkClick = (url) => {
+    navigate(url);
+  }
 
   // Chip highlighting state
   const [checked, setChecked] = useState([0]);// Chip click handler
@@ -119,7 +128,7 @@ const ProgressReport = () => {
       <Grid item xs={12} className='quick note-container1'
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
+        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/profile">Back</Button>
 
         <Grid item xs={12} container direction='row'>
           <Typography variant='onboardingHeader2' component='h1' >Progress report</Typography>

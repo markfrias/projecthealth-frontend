@@ -8,11 +8,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import React from 'react';
 import { deleteAccount, logout } from '../auth/APIServices';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+
 
 const Accountsetting = () => {
   const navigate = useNavigate();
 
+  const handleLinkClick = (url) => {
+    navigate(url);
+  }
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [modalHeading, setModalHeading] = React.useState("");
@@ -58,8 +63,9 @@ const Accountsetting = () => {
       <Grid item xs={12} className='quicknote-container1'
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
-        <Typography variant='onboardingHeader' component='h1' >Account settings</Typography>
+        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}
+          component={Link} to="/app/profile/">Back</Button>
+        <Typography variant='onboardingHeader2' component='h1' >Account settings</Typography>
       </Grid>
       <Container
         sx={{
@@ -69,7 +75,7 @@ const Accountsetting = () => {
         autoComplete="off"
       >
         <Typography variant='subtitle1B' component='h2'>Account Management</Typography>
-        <Button variant='subtitle1B' color='#730707' position='left' onClick={handleClickOpen}>Delete account</Button>
+        <Button csx={{ color: 'red', maxWidth: '100%', mb: '.5em' }} variant="contained" position='center' onClick={handleClickOpen} >Delete account</Button>
         <Dialog
           open={open}
           keepMounted
