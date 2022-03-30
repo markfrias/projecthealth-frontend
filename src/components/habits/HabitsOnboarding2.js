@@ -80,8 +80,8 @@ const HabitsOnboarding2 = (props) => {
             </div>
             <FormGroup>
                 <h2 style={{ fontSize: 18 }}>Your habits</h2>
-                <Button className="button-full" variant="contained" style={{ marginTop: 25, marginBottom: 20 }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
-                <Button className="button-full" variant="contained" onClick={() => { handleLinkClick('/app/habits/4') }}>Choose from our list</Button>
+                <Button color="secondary" className="button-full" variant="contained" style={{ marginTop: 25, marginBottom: 20 }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
+                <Button color="secondary" className="button-full" variant="contained" onClick={() => { handleLinkClick('/app/habits/4') }}>Choose from our list</Button>
                 <List dense sx={{ width: '100%', maxWidth: 360 }}>
                     {props.habitsState.habitsForSubmission.length <= 0 ?
                         <Alert severity="info">Please create or select a habit.</Alert> :
@@ -132,11 +132,11 @@ const HabitsOnboarding2 = (props) => {
 
             </FormGroup>
             <Box sx={{ width: "100%", justifyContent: 'space-between' }}>
-                
-                <Button fullWidth variant="contained" onClick={handleSaveHabits}> Save habits</Button>
-                
+
+                <Button fullWidth variant="contained" onClick={handleSaveHabits} sx={{ mb: '1rem' }}> Save habits</Button>
+
                 <Button fullWidth variant="contained" component={Link} to="/app/habitscreen"> Back</Button>
-               
+
             </Box>
 
             <Dialog

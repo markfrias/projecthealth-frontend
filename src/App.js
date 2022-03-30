@@ -1,12 +1,40 @@
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
-import React/*, { useState }*/ from "react";
+import React, { useState }/*, { useState }*/ from "react";
 import "./App.css";
-import { /*Link, */ Outlet } from "react-router-dom";
+import { /*Link, */ BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 /*import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { AccountCircleRounded, BookRounded, HomeRounded, NoteRounded } from "@mui/icons-material";*/
 import { Box } from "@mui/system";
+import PrivateRoutes from './components/auth/PrivateRoutes';
+import BottomNavFilter from './components/bottom-nav/BottomNavFilter';
+
+import Journal from './components/journal/Journal';
+import DateJournal from './components/journal/DateJournal';
+import DateHabit from './components/journal/DateHabit';
+import HabitScreen from './components/habits/HabitScreen';
+import Profile from './components/profile/Profile';
+import Food from './components/meal_recording/Food';
+import WeightHeightMod from './components/settings/WeightHeightMod';
+import NotificationSettings from './components/settings/NotificationSettings';
+import LogScreen from './components/meal_recording/LogScreen';
+import FoodQuickNote from './components/meal_recording/FoodQuickNote';
+import Onboarding5 from './components/post-login/Onboarding5';
+import Onboarding4 from './components/post-login/Onboarding4';
+import Onboarding3 from './components/post-login/Onboarding3';
+import Onboarding2 from './components/post-login/Onboarding2';
+import Onboarding1 from './components/post-login/Onboarding1';
+import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
+import ProgressReport from './components/journal/ProgressReport';
+import Accountsetting from './components/settings/Accountsetting';
+import Habits from './components/registration/Habits';
+import Notificationsetup from './components/post-login/NotificationSetup';
+import NotificationUnsupported from './components/post-login/NotificationUnsupported';
+import UnPrivateRoutes from './components/auth/UnPrivateRoutes';
+import LoginScreen from './components/login/LoginScreen';
+import Registration from './components/registration/Registration';
+import Dashboard from './components/dashboard/Dashboard';
 
 const theme = createTheme({
   palette: {
@@ -242,32 +270,87 @@ const theme = createTheme({
 
 function App() {
 
+  // PP and HP states
+  const [hp, setHp] = useState(100);
+  const [pp, setPp] = useState(10);
+
   //const [value, setValue] = useState(0);
 
   return (
-    <Box>
+    <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Outlet />
-        {/*<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-          <BottomNavigation
-            showLabels
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue)
-            }}
+        <Routes>
 
-          >
+          <Route element={<PrivateRoutes />} >
+            <Route element={<BottomNavFilter />}>
+              <Route path="/" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} />} />
 
-            <BottomNavigationAction label="Dashboard" icon={<HomeRounded />} component={Link} to="/app/" />
-            <BottomNavigationAction label="Journal" icon={<NoteRounded />} component={Link} to="/app/habits/1" />
-            <BottomNavigationAction label="Habits" icon={<BookRounded />} />
-            <BottomNavigationAction label="Profile" icon={<AccountCircleRounded />} />
+            </Route>
 
-          </BottomNavigation>
-          </Paper> */}
 
+
+            <Route path="/app">
+              <Route element={<BottomNavFilter />}>
+                <Route path="" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} />} />
+                <Route path="journal/*" element={<Journal />} />
+                <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
+                <Route path="datehabit/*" element={<DateHabit />} />
+                <Route path="habitscreen" element={<HabitScreen />} />
+                <Route path="profile" element={<Profile />} />
+
+
+              </Route>
+              <Route path="food/*" element={<Food />} />
+              <Route path="settings/*" element={<WeightHeightMod />} />
+              <Route path="notif-settings" element={<NotificationSettings />} />
+              <Route path="logscreen/*" element={<LogScreen />} />
+              <Route path="quicknote/*" element={<FoodQuickNote />} />
+              <Route path="onboarding/5" element={<Onboarding5 />} />
+              <Route path="onboarding/4" element={<Onboarding4 />} />
+              <Route path="onboarding/3" element={<Onboarding3 />} />
+              <Route path="onboarding/2" element={<Onboarding2 />} />
+              <Route path="onboarding/1" element={<Onboarding1 />} />
+              <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
+              <Route path="progress-report/*" element={<ProgressReport />} />
+
+              <Route path="settings/account" element={<Accountsetting />} />
+
+              <Route path="habits/*" element={<Habits />} />
+
+
+              <Route path="notification-setup" element={<Notificationsetup />} />
+              <Route path="notif-unsupported" element={<NotificationUnsupported />} />
+
+
+
+            </Route>
+          </Route>
+
+          <Route element={<UnPrivateRoutes />} >
+            <Route path="/app">
+              <Route path="registration/*" element={<Registration />} />
+            </Route>
+          </Route>
+
+          <Route path="/app/login" element={<LoginScreen />} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </Routes>
       </ThemeProvider>
-    </Box>
+
+
+    </BrowserRouter>
 
   );
 }

@@ -258,80 +258,9 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Routes>
+    <App
+    />
 
-          <Route element={<PrivateRoutes />} >
-            <Route element={<BottomNavFilter />}>
-              <Route path="/" element={<Dashboard />} />
-
-            </Route>
-
-
-
-            <Route path="/app" element={<App />}>
-              <Route element={<BottomNavFilter />}>
-                <Route path="" element={<Dashboard />} />
-                <Route path="journal/*" element={<Journal />} />
-                <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
-                <Route path="datehabit/*" element={<DateHabit />} />
-                <Route path="habitscreen" element={<HabitScreen />} />
-                <Route path="profile" element={<Profile />} />
-
-
-              </Route>
-              <Route path="food/*" element={<Food />} />
-              <Route path="settings/*" element={<WeightHeightMod />} />
-              <Route path="notif-settings" element={<NotificationSettings />} />
-              <Route path="logscreen/*" element={<LogScreen />} />
-              <Route path="quicknote/*" element={<FoodQuickNote />} />
-              <Route path="onboarding/5" element={<Onboarding5 />} />
-              <Route path="onboarding/4" element={<Onboarding4 />} />
-              <Route path="onboarding/3" element={<Onboarding3 />} />
-              <Route path="onboarding/2" element={<Onboarding2 />} />
-              <Route path="onboarding/1" element={<Onboarding1 />} />
-              <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
-              <Route path="progress-report/*" element={<ProgressReport />} />
-
-              <Route path="settings/account" element={<Accountsetting />} />
-
-              <Route path="habits/*" element={<Habits />} />
-
-
-              <Route path="notification-setup" element={<Notificationsetup />} />
-              <Route path="notif-unsupported" element={<NotificationUnsupported />} />
-
-
-
-            </Route>
-          </Route>
-
-          <Route element={<UnPrivateRoutes />} >
-            <Route path="/app" element={<App />}>
-              <Route path="registration/*" element={<Registration />} />
-            </Route>
-          </Route>
-
-          <Route path="/app/login" element={<LoginScreen />} />
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </Routes>
-      </ThemeProvider>
-
-
-    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

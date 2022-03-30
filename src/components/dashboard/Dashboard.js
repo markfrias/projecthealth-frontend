@@ -13,23 +13,17 @@ import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 import { Close } from '@mui/icons-material';
 
-function LinearDeterminate() {
-  const [progress] = React.useState(0);
-
-  React.useEffect(() => {
-    return () => {
-      clearInterval();
-    };
-  }, []);
+function LinearDeterminate(props) {
+  const progress = props.numerator / props.denominator * 100;
 
   return (
     <Box>
-      <LinearProgress variant="determinate" value={progress} sx={{ height: '1em', borderRadius: '20px', border: 'solid 2px black' }} color="green" />
+      <LinearProgress variant="determinate" value={progress} sx={{ height: '1em', borderRadius: '20px', border: 'solid 2px black' }} color={props.type === "hp" ? progress > 50 ? 'green' : 'red' : 'green'} />
     </Box>
   );
 }
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -89,9 +83,11 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
+
     (async () => {
       // On render get missions
       const newMissions = await getMissions();
+
       setMissions(newMissions);
       console.log(newMissions)
 
@@ -117,7 +113,7 @@ const Dashboard = () => {
     }}>
 
 
-      <Grid item sx={12} container direction="row">
+      <Grid item xs={12} container direction="row">
         <Grid item xs={6}>
           <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} height="100%" width="100%" />
         </Grid>
@@ -130,10 +126,10 @@ const Dashboard = () => {
             <Typography variant='subtitle1' component='h1' >Health </Typography>
           </Grid>
           <Grid item xs={12}  >
-            <LinearDeterminate></LinearDeterminate>
+            <LinearDeterminate numerator={props.hp} denominator={100} type="hp"></LinearDeterminate>
           </Grid>
           <Grid item xs={12}  >
-            <Typography variant='subtitle1B' component='h1' >100/150</Typography>
+            <Typography variant='subtitle1B' component='h1' >{props.hp} / 100</Typography>
           </Grid>
 
 
@@ -141,7 +137,7 @@ const Dashboard = () => {
             <Typography variant='subtitle1' component='h1' >Progress </Typography>
           </Grid>
           <Grid item xs={12}  >
-            <LinearDeterminate></LinearDeterminate>
+            <LinearDeterminate numerator={20} denominator={120} type="pp"></LinearDeterminate>
           </Grid>
           <Grid item xs={6} >
             <Typography variant='subtitle1B' component='h1' >100/150</Typography>

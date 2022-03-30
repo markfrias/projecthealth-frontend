@@ -11,17 +11,17 @@ export default function HabitsOnboarding4(props) {
     const navigate = useNavigate();
     const sampleHabits = [
         {
-            habitId: 7,
+            habitId: 1,
             habitName: "Drink 3 glasses of water in the morning",
             goalId: 2
         },
         {
-            habitId: 8,
+            habitId: 2,
             habitName: "Walk at least 30 minutes a day",
             goalId: 3
         },
         {
-            habitId: 9,
+            habitId: 3,
             habitName: "Don't eat fast food for at least two meals a day",
             goalId: 3
         }
