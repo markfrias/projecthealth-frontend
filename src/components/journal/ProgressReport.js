@@ -246,7 +246,7 @@ const ProgressReport = () => {
           </Grid> :
           <Grid item xs={12} container direction='row'>
             <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              {bmiTrend.length <= 1 ?
+              {calorieTrend.length <= 1 ?
                 <Typography component="p">Log your weight regularly to view trend.</Typography> :
                 <VictoryLine
                   data={calorieTrend}
