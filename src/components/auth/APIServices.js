@@ -5,10 +5,6 @@ const appId = "e0bb0e7f";
 const appKey = "d1e12e6309c19f0a1557030bc73be338";
 
 
-// API call handlers
-
-
-
 // Fetch all users ** test function
 const getUsers = async () => {
   const response = await fetch(
@@ -50,6 +46,7 @@ const saveNotifSchedule = async (array, registrationToken) => {
     dinnerTime: array[2],
     registrationToken: registrationToken
   }
+  console.log(reqBody)
 
   const response = await fetch(
     "https://projecthealthapp.herokuapp.com/api/notifications/subscribe/",
@@ -100,6 +97,7 @@ const registerAccount = async (form) => {
   }
   console.log(revisedForm)
 
+  console.log(revisedForm)
 
   const response = await fetch(
     "https://projecthealthapp.herokuapp.com/api/users/register/",
@@ -121,8 +119,10 @@ const registerAccount = async (form) => {
     // If not, trigger log out function
     logout();
   } else if (response.status === 200) {
+    console.log(response.status)
     return response.status;
   } else {
+    console.log(response.status)
     return response.status;
   }
 
@@ -187,6 +187,7 @@ const getHabitAutocomplete = async (query) => {
     }
   );
   const newResponse = await response.json();
+  console.log(newResponse)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -202,6 +203,7 @@ const getHabitAutocomplete = async (query) => {
 
 // Creates a new habit
 const createHabit = async (habitName, habitDescription, goalCategory) => {
+  console.log(habitName, habitDescription, goalCategory)
   const body = {
     habitName: habitName,
     habitDescription: habitDescription,
@@ -222,6 +224,8 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
     }
   );
 
+
+  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -229,6 +233,7 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
   } else if (response.status === 200) {
     return response;
   } else {
+    console.log(response.status)
     return response;
   }
 
@@ -286,6 +291,7 @@ const saveHabits = async (habits) => {
   );
 
 
+  console.log(response)
   // Check if user is authorized
   if (response.status === 401) {
     // If not, trigger log out function
@@ -293,6 +299,7 @@ const saveHabits = async (habits) => {
   } else if (response.status === 200) {
     return response;
   } else {
+    console.log(response.status)
     return response;
   }
 

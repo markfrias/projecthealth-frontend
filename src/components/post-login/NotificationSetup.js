@@ -18,6 +18,11 @@ const Notificationsetup = () => {
     const [dinnerValue, setDinnerValue] = React.useState(new Date('Sat Feb 19 2022 19:00:00 GMT+0800 (Philippine Standard Time)'));
     const [registrationToken, setRegistrationToken] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(null);
+    //const [isError, setIsError] = React.useState(false);
+
+
+
+
 
     // Convert time to string that can be sent to the server
     const handleSubmission = () => {
@@ -45,9 +50,11 @@ const Notificationsetup = () => {
                 setRegistrationToken(currentToken);
             } else {
                 // Show permission request UI
+                console.log('No registration token available. Request permission to generate one.');
                 // ...
             }
         }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
             // ...
         });
     }, []);

@@ -22,6 +22,9 @@ const HabitsOnboarding2 = (props) => {
 
     const handleSaveHabits = async () => {
         const rawResponse = await saveHabits(props.habitsState.habitsForSubmission);
+        const response = await rawResponse.json();
+        console.log(response)
+
         if (rawResponse.status === 200) {
             setOpen(true);
             setModalHeading("Habit preferences saved!")
@@ -42,6 +45,29 @@ const HabitsOnboarding2 = (props) => {
         }
     }
 
+
+
+    /*useEffect(() => {
+        const fetchUsers = async () => {
+            const habits = await getUserHabits();
+            const newArray = props.habitsState.habitsForSubmission;
+            habits.forEach((habit) => {
+                newArray.push(habit);
+            });
+            console.log(newArray)
+            props.setHabitsState({
+                ...props.habitsState,
+                habitsForSubmission: newArray
+
+            })
+        }
+
+        if (props.habitsState.habitsForSubmission.length <= 0) {
+            fetchUsers();
+        }
+
+
+    }, [props])*/
 
     return (
         < Container maxWidth="md" sx={{
