@@ -1,7 +1,7 @@
 import { Alert, Avatar, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
 import React, { useState } from "react";
 import { FormGroup, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Delete } from "@mui/icons-material";
 import { saveHabits } from "../auth/APIServices";
@@ -131,8 +131,12 @@ const HabitsOnboarding2 = (props) => {
 
 
             </FormGroup>
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%", justifyContent: 'space-between' }}>
+                
                 <Button fullWidth variant="contained" onClick={handleSaveHabits}> Save habits</Button>
+                
+                <Button fullWidth variant="contained" component={Link} to="/app/habitscreen"> Back</Button>
+               
             </Box>
 
             <Dialog

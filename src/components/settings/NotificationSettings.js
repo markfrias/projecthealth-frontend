@@ -8,7 +8,7 @@ import { messaging } from '../firebase';
 import ThemedTimePicker from '../ThemedTimePicker/ThemedTimePicker';
 import { convertTimesToStrings } from '../post-login/timeConverter';
 import { getNotifSettings, saveNotifSchedule } from '../auth/APIServices';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { convertStringToTime } from './stringConverter';
 
 
@@ -103,14 +103,16 @@ const NotificationSettings = () => {
         });
     }
 
-    return (
-        <Grid container spacing={4} >
-            <Grid item xs={12} className='quicknote-container1'
-                container direction='column'
-            >
-                <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}>Back</Button>
-                <Typography variant='onboardingHeader' component='h1' >Notification settings</Typography>
-            </Grid>
+
+
+  return (
+    <Grid container spacing={4} >
+      <Grid item xs={12} className='quicknote-container1'
+        container direction='column'
+      >
+        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/profile">Back</Button>
+        <Typography variant='onboardingHeader2' component='h1' >Notification settings</Typography>
+      </Grid>
 
 
             <Container
