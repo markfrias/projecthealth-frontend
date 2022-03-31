@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 import { Close } from '@mui/icons-material';
-import { addPp } from '../auth/GamificationAPI';
+import { addPp, pickMeme } from '../auth/GamificationAPI';
 
 function LinearDeterminate(props) {
   const progress = props.numerator / props.denominator * 100;
@@ -48,8 +48,7 @@ const Dashboard = (props) => {
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
-      newChecked.splice(currentIndex, 1);
-      status = 0;
+      return;
     }
 
     props.setChecked(newChecked);
@@ -179,7 +178,7 @@ const Dashboard = (props) => {
         </Grid>
         <Grid item xs={6} container>
           <Grid item xs={12}>
-            <Typography variant='subtitle1B' component='h1' >😐 Feeling meh</Typography>
+            <Typography variant='subtitle1B' component='h1' >😇 Feeling great</Typography>
           </Grid>
 
           <Grid item xs={12} >
@@ -216,8 +215,8 @@ const Dashboard = (props) => {
         </Grid>
       </Grid>
 
-      <Alert severity='warning'>
-        The feature above is not yet available. It will be available very soon. Thanks for your understanding. In the meantime, you can still use the other features of the app.
+      <Alert severity='success'>
+        A new feature has arrived. Your actions will now count towards the progress points of your pet. Complete your missions, habits, and log your meals to make progress.
       </Alert>
       <div className='dashboard-container1'>
         <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
@@ -240,6 +239,7 @@ const Dashboard = (props) => {
                       onChange={handleToggle(value.missionEntryId)}
                       checked={props.checked.indexOf(value.missionEntryId) !== -1}
                       inputProps={{ 'aria-labelledby': labelId }}
+                      disabled={props.checked.indexOf(value.missionEntryId) !== -1 ? true : false}
                     />
                   }
                   disablePadding
@@ -399,19 +399,21 @@ const Dashboard = (props) => {
 
       {/* Done with daily missions backdrop */}
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)' }}
         open={missionsAccomplishedOpen}
         onClick={handleMissionAccomplished}>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} px={3} >
+
           <Grid item xs={12}>
-            <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
+            <div sx={{ width: '100%', height: '0', paddingBottom: '80%', position: 'relative' }}><iframe src={`https://giphy.com/embed/${pickMeme('success')}`} width="100%" height="100%" sx={{ position: "absolute" }} frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div>
           </Grid>
           <Grid item xs={12}>
             <h1>All missions completed</h1>
           </Grid>
+
           <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points</p>
+            <p>You're done for today. Continue logging to get more progress points.</p>
           </Grid>
         </Grid>
       </Backdrop>

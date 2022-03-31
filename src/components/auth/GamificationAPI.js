@@ -54,11 +54,34 @@ const addPp = async (data, boundary, level) => {
     }
 };
 
+const pickMeme = (theme) => {
+    const successMemes = [
+        'yJFeycRK2DB4c', 'qPcX2mzk3NmjC', 'l0HTYUmU67pLWv1a8', 'B0vFTrb0ZGDf2', 'SYzDscQMN98G0LUHib'
+    ]
+
+    if (theme === 'success') {
+        const randomNumber = Math.floor(Math.random() * (successMemes.length - 0) + 0);
+        return successMemes[randomNumber]
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 const logout = () => {
     localStorage.removeItem('jwt');
     window.location.reload();
 }
 
 export {
-    addPp
+    addPp, pickMeme
 }
