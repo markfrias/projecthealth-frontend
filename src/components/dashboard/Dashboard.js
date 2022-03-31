@@ -79,7 +79,7 @@ const Dashboard = (props) => {
   }
 
   useEffect(() => {
-    if (props.missions !== undefined) {
+    if (props.missions.length === 0) {
       (async () => {
         // On render get missions
         const newMissions = await getMissions();
@@ -99,7 +99,7 @@ const Dashboard = (props) => {
       })()
     }
 
-  }, []);
+  }, [props]);
 
   return (
     <Container maxWidth="md" sx={{

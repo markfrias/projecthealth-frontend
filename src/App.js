@@ -279,6 +279,12 @@ function App() {
   const [missions, setMissions] = useState([]);
   const [missionsChecked, setMissionsChecked] = React.useState([]);
 
+  // Account details states
+  const [account, setAccount] = useState({
+    firstName: 'Your account',
+    emailAddress: 'All your settings are here'
+  });
+
   // Set missions and user profile from database to global state
   useEffect(() => {
     (async () => {
@@ -303,9 +309,11 @@ function App() {
 
       // Set HP and PP
       setHp(newMissions[1][0].healthPoints);
-
-
       setPp(newMissions[1][0].progressPoints);
+
+      // Set account details
+      setAccount(newMissions[1][0])
+      console.log(newMissions[1][0])
     })()
   }, [])
 
@@ -324,12 +332,12 @@ function App() {
 
             <Route path="/app">
               <Route element={<BottomNavFilter />}>
-                <Route path="" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} />} />
+                <Route path="" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
                 <Route path="journal/*" element={<Journal />} />
                 <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
                 <Route path="datehabit/*" element={<DateHabit />} />
                 <Route path="habitscreen" element={<HabitScreen />} />
-                <Route path="profile" element={<Profile />} />
+                <Route path="profile" element={<Profile account={account} />} />
 
 
               </Route>
