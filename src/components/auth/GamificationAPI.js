@@ -1,14 +1,5 @@
 const localStorage = window.localStorage;
 
-// App details
-const appId = "e0bb0e7f";
-const appKey = "d1e12e6309c19f0a1557030bc73be338";
-
-
-
-
-
-
 // Get all logs for the current user
 const addPp = async (data, boundary, level) => {
     const body = {
@@ -30,7 +21,7 @@ const addPp = async (data, boundary, level) => {
 
 
     const response = await fetch(
-        `http://localhost:8000/api/users/progress/update`,
+        `https://projecthealthapp.herokuapp.com/api/users/progress/update`,
         {
             method: "PATCH",
             mode: "cors",

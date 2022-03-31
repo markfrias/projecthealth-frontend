@@ -406,7 +406,7 @@ const Dashboard = (props) => {
         <Grid container spacing={2} px={3} >
 
           <Grid item xs={12}>
-            <div sx={{ width: '100%', height: '0', paddingBottom: '80%', position: 'relative' }}><iframe src={`https://giphy.com/embed/${pickMeme('success')}`} width="100%" height="100%" sx={{ position: "absolute" }} frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div>
+            <div sx={{ width: '100%', height: '0', paddingBottom: '80%', position: 'relative' }}><iframe title="gif" src={`https://giphy.com/embed/${pickMeme('success')}`} width="100%" height="100%" sx={{ position: "absolute" }} frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div>
           </Grid>
           <Grid item xs={12}>
             <h1>All missions completed</h1>
