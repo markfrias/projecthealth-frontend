@@ -12,59 +12,93 @@ import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 import { Close } from '@mui/icons-material';
+import { addPp, pickMeme } from '../auth/GamificationAPI';
 
-function LinearDeterminate() {
-  const [progress] = React.useState(0);
-
-  React.useEffect(() => {
-    return () => {
-      clearInterval();
-    };
-  }, []);
+function LinearDeterminate(props) {
+  const progress = props.numerator / props.denominator * 100;
 
   return (
     <Box>
-      <LinearProgress variant="determinate" value={progress} sx={{ height: '1em', borderRadius: '20px', border: 'solid 2px black' }} color="green" />
+      <LinearProgress variant="determinate" value={progress} sx={{ height: '1em', borderRadius: '20px', border: 'solid 2px black' }} color={props.type === "hp" ? progress > 50 ? 'green' : 'red' : 'green'} />
     </Box>
   );
 }
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [openSuccess] = React.useState(false);
-  const [checked, setChecked] = React.useState([1]);
+  const [openSuccess, setOpenSuccess] = React.useState(false);
   const [snackbarContent, setSnackbarContent] = useState("");
   const [missionsAccomplishedOpen, setMissionsAccomplishedOpen] = useState(false);
 
-  // State for missions
-  const [missions, setMissions] = useState([]);
+  // State for modal content
+  const [dialogHead, setDialogHead] = useState();
+  const [dialogBody, setDialogBody] = useState();
 
   const handleClose = () => {
     setOpen(false);
   }
 
   const handleToggle = (value) => async () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = props.checked.indexOf(value);
+    const newChecked = [...props.checked];
     let status = 1;
 
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
-      newChecked.splice(currentIndex, 1);
-      status = 0;
+      return;
     }
 
-    setChecked(newChecked);
+    props.setChecked(newChecked);
     // Send request to server to change the status in the DB
     const body = { missionEntryId: value, missionAccomplished: status };
 
     // Make missions accomplished backdrop appear when all three checkboxes are checked
-    if (checked.length === 2 && status === 1) {
+    if (props.checked.length === 2 && status === 1 && (props.pp + 5) / props.ppBoundary * 100 < 100) {
       setMissionsAccomplishedOpen(true);
     }
+
+
+
+    if (status === 1) {
+      // Level up if pp expands beyond boundary
+      if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+        // Save old level
+        const oldLevel = props.account.levelId;
+
+        props.setAccount({
+          ...props.account,
+          levelId: props.account.levelId + 1
+        })
+        console.log((props.pp + 5) - props.ppBoundary)
+        props.setPp((props.pp + 5) - props.ppBoundary);
+        console.log(props.ppBoundary + 5)
+
+        props.setPpBoundary(props.ppBoundary + 5)
+        setDialogHead('Your pet leveled up');
+        setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+        setOpenSuccess(true);
+
+        addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+
+        return
+
+
+      }
+      props.setPp(props.pp + 5, props.ppBoundary)
+      addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
+
+    } else {
+      if (props.pp > 4) {
+        props.setPp(props.pp - 5)
+        addPp(props.pp - 5, props.ppBoundary, props.account.levelId)
+      }
+
+
+    }
+
 
     const response = await saveMissionStatus(body);
     console.log(response)
@@ -73,8 +107,16 @@ const Dashboard = () => {
       setSnackbarContent("An error occurred on our end. Please try again soon.")
       setSnackbarOpen(true)
     } else if (response === 200) {
-      setSnackbarContent("Mission status succesfully saved")
-      setSnackbarOpen(true)
+      if (status === 1) {
+        setSnackbarContent("😁😁😁 Pobi received 5 progress points. Good job!")
+        setSnackbarOpen(true)
+
+      } else {
+        setSnackbarContent("😭😭😭 Pobi got deducted 5 progress points. Don't make him sad.")
+        setSnackbarOpen(true)
+
+      }
+
     }
 
 
@@ -89,22 +131,35 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    (async () => {
-      // On render get missions
-      const newMissions = await getMissions();
-      setMissions(newMissions);
-      console.log(newMissions)
+    if (props.missions.length === 0) {
+      (async () => {
+        // On render get missions
+        const newMissions = await getMissions();
+        console.log(newMissions);
 
-      // Set checkboxes
-      const newChecked = [];
-      newMissions.forEach((mission) => {
-        if (mission.missionAccomplished === 1) {
-          newChecked.push(mission.missionEntryId);
-        }
-      });
-      setChecked(newChecked);
-    })()
-  }, []);
+        props.setMissions(newMissions[0]);
+        console.log(newMissions)
+
+        // Set checkboxes
+        const newChecked = [];
+        newMissions[0].forEach((mission) => {
+          if (mission.missionAccomplished === 1) {
+            newChecked.push(mission.missionEntryId);
+          }
+        });
+        props.setChecked(newChecked);
+        props.setAccount(newMissions[1][0])
+
+        // Set HP and PP
+        props.setHp(newMissions[1][0].healthPoints);
+        props.setPp(newMissions[1][0].progressPoints);
+        props.setPpBoundary(newMissions[1][0].levelBoundary);
+
+        console.log(newMissions[1][0])
+      })()
+    }
+
+  }, [props]);
 
   return (
     <Container maxWidth="md" sx={{
@@ -117,23 +172,23 @@ const Dashboard = () => {
     }}>
 
 
-      <Grid item sx={12} container direction="row">
+      <Grid item xs={12} container direction="row">
         <Grid item xs={6}>
           <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} height="100%" width="100%" />
         </Grid>
         <Grid item xs={6} container>
           <Grid item xs={12}>
-            <Typography variant='subtitle1B' component='h1' >😐 Feeling meh</Typography>
+            <Typography variant='subtitle1B' component='h1' >😇 Feeling great</Typography>
           </Grid>
 
           <Grid item xs={12} >
             <Typography variant='subtitle1' component='h1' >Health </Typography>
           </Grid>
           <Grid item xs={12}  >
-            <LinearDeterminate></LinearDeterminate>
+            <LinearDeterminate numerator={props.hp} denominator={100} type="hp"></LinearDeterminate>
           </Grid>
           <Grid item xs={12}  >
-            <Typography variant='subtitle1B' component='h1' >100/150</Typography>
+            <Typography variant='subtitle1B' component='h1' >{props.hp} / 100</Typography>
           </Grid>
 
 
@@ -141,13 +196,13 @@ const Dashboard = () => {
             <Typography variant='subtitle1' component='h1' >Progress </Typography>
           </Grid>
           <Grid item xs={12}  >
-            <LinearDeterminate></LinearDeterminate>
+            <LinearDeterminate numerator={props.pp} denominator={props.ppBoundary} type="pp"></LinearDeterminate>
           </Grid>
           <Grid item xs={6} >
-            <Typography variant='subtitle1B' component='h1' >100/150</Typography>
+            <Typography variant='subtitle1B' component='h1' >{props.pp}/{props.ppBoundary}</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant='subtitle1B' component='h1' >Level 4</Typography>
+            <Typography variant='subtitle1B' component='h1' >Level {props.account.levelId}</Typography>
           </Grid>
 
 
@@ -160,8 +215,8 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      <Alert severity='warning'>
-        The feature above is not yet available. It will be available very soon. Thanks for your understanding. In the meantime, you can still use the other features of the app.
+      <Alert severity='success'>
+        A new feature has arrived. Your actions will now count towards the progress points of your pet. Complete your missions, habits, and log your meals to make progress.
       </Alert>
       <div className='dashboard-container1'>
         <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
@@ -170,10 +225,10 @@ const Dashboard = () => {
       </div>
       <div className='dashboard-container2'>
         <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
-        {missions <= 0 ?
+        {props.missions <= 0 ?
           <CircularProgress variant='indeterminate' /> :
           <List dense sx={{ width: '100%', maxWidth: 360 }}>
-            {missions.map((value) => {
+            {props.missions.map((value) => {
               const labelId = `checkbox-list-secondary-label-${value}`;
               return (
                 <ListItem
@@ -182,11 +237,13 @@ const Dashboard = () => {
                     <Checkbox
                       edge="end"
                       onChange={handleToggle(value.missionEntryId)}
-                      checked={checked.indexOf(value.missionEntryId) !== -1}
+                      checked={props.checked.indexOf(value.missionEntryId) !== -1}
                       inputProps={{ 'aria-labelledby': labelId }}
+                      disabled={props.checked.indexOf(value.missionEntryId) !== -1 ? true : false}
                     />
                   }
                   disablePadding
+                  onClick={handleToggle(value.missionEntryId)}
                 >
                   <ListItemButton>
 
@@ -207,17 +264,17 @@ const Dashboard = () => {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openSuccess}
-        onClick={handleClose}>
+        onClick={() => { setOpenSuccess(false) }}>
 
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
           </Grid>
           <Grid item xs={12}>
-            <h1>All missions completed</h1>
+            <h1>{dialogHead}</h1>
           </Grid>
           <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points</p>
+            <p>{dialogBody}</p>
           </Grid>
         </Grid>
       </Backdrop>
@@ -342,19 +399,21 @@ const Dashboard = () => {
 
       {/* Done with daily missions backdrop */}
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(5px)' }}
         open={missionsAccomplishedOpen}
         onClick={handleMissionAccomplished}>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} px={3} >
+
           <Grid item xs={12}>
-            <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
+            <div sx={{ width: '100%', height: '0', paddingBottom: '80%', position: 'relative' }}><iframe src={`https://giphy.com/embed/${pickMeme('success')}`} width="100%" height="100%" sx={{ position: "absolute" }} frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div>
           </Grid>
           <Grid item xs={12}>
             <h1>All missions completed</h1>
           </Grid>
+
           <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points</p>
+            <p>You're done for today. Continue logging to get more progress points.</p>
           </Grid>
         </Grid>
       </Backdrop>

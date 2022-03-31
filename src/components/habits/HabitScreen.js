@@ -9,9 +9,11 @@ import {
     Fab,
     Grid,
     CircularProgress,
-    Button
+    Button,
+    ToggleButtonGroup,
+    ToggleButton
 } from "@mui/material";
-import { Edit, KeyboardArrowLeft, ThumbDownRounded, ThumbUpAltRounded } from "@mui/icons-material";
+import { Edit, KeyboardArrowLeft, ThumbDownRounded, ThumbUp, ThumbUpAltRounded } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
 import moment from "moment";
@@ -38,14 +40,17 @@ export default function HabitScreen() {
         setChecked(newChecked);
     };
 
-    const handleLike = async (habitEntryId, habitAccomplished, index, arr) => {
-        console.log(index)
-        await updateHabitJournalEntry(habitEntryId, 1);
+    const handleLike = async (event, value, habitEntryId, index, arr) => {
+        console.log(value)
+        setLoading(true)
+        await updateHabitJournalEntry(habitEntryId, value);
         const habitsCopy = habits;
         console.log(habitsCopy)
-        habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: 1, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
-        //console.log(splicedHabits)
+        habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: value, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
+        console.log(habitsCopy)
         setHabits(habitsCopy)
+        window.location.reload();
+
     }
 
     const handleUnlike = async (habitEntryId, habitAccomplished, index, arr) => {
@@ -56,6 +61,7 @@ export default function HabitScreen() {
         habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: 0, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
         //console.log(splicedHabits)
         setHabits(habitsCopy)
+        window.location.reload();
     }
 
     // Fetch habits
@@ -70,10 +76,13 @@ export default function HabitScreen() {
     }, []);
 
     useEffect(() => {
+        console.log(habits)
         if (habits.length !== undefined) {
             setLoading(false);
         }
     }, [habits])
+
+
 
     const navigate = useNavigate();
 
@@ -89,30 +98,35 @@ export default function HabitScreen() {
             habits.length < 1 ?
 
 
-
-
-                <Grid container direction="column">
-                    < Grid item xs={12}
-                        container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
-                        }
-                    >
-                        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/profile') }}>Back</Button>
-                        <Grid container justifyContent="space-between" alignItems="center">
-                            <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
-
-
-                        </Grid>
+                loading ?
+                    <Grid container direction="column" sx={{ height: '100vh' }} alignItems="center" justifyContent="center">
+                        <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                        <Typography variant="p">Loading content</Typography>
                     </Grid>
+                    :
 
-                    <Grid item>You don't have any tracked habits. Press the edit habits button to get started.</Grid>
+                    <Grid container direction="column">
+                        < Grid item xs={12}
+                            container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+                            }
+                        >
+                            <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/profile') }}>Back</Button>
+                            <Grid container justifyContent="space-between" alignItems="center">
+                                <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
 
-                    <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
-                        <Edit />
-                        Edit habits
-                    </Fab>
+
+                            </Grid>
+                        </Grid>
+
+                        <Grid item>You don't have any tracked habits. Press the edit habits button to get started.</Grid>
+
+                        <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
+                            <Edit />
+                            Edit habits
+                        </Fab>
 
 
-                </Grid >
+                    </Grid >
                 :
                 <Grid container>
                     < Grid item xs={12}
@@ -135,45 +149,39 @@ export default function HabitScreen() {
                         {habits.map((value, index, array) => {
                             const labelId = `checkbox-list-label-${value.habitId}`;
 
+
                             return (
                                 <ListItem
                                     key={value.habitEntryId}
-                                    secondaryAction={
-                                        value.habitAccomplished ?
-                                            <Box>
-                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleLike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                                    <ThumbUpAltRounded color="green" />
-
-                                                </IconButton>
-                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleUnlike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                                    <ThumbDownRounded />
 
 
-                                                </IconButton>
-
-                                            </Box> :
-                                            <Box>
-                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleLike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                                    <ThumbUpAltRounded />
-
-                                                </IconButton>
-                                                <IconButton edge="end" aria-label="comments" onClick={() => { handleUnlike(value.habitEntryId, value.habitAccomplished, index, array) }}>
-                                                    <ThumbDownRounded color="red" />
 
 
-                                                </IconButton>
-
-                                            </Box>
 
 
-                                    }
+
                                     disablePadding
                                 >
-                                    <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                                    <ListItemButton role={undefined} dense>
 
-                                        <ListItemText id={labelId} primary={value.habitName} secondary={"Goal habits"} />
+                                        <ListItemText id={labelId} primary={value.habitName} secondary={"Goal habits" + habits[0].habitAccomplished} />
                                     </ListItemButton>
+                                    <ToggleButtonGroup
+                                        value={habits[index].habitAccomplished}
+                                        exclusive
+                                        onChange={(event, newValue) => { handleLike(event, newValue, value.habitEntryId, index, array) }}
+                                    >
+
+                                        <ToggleButton value={1}>
+                                            <ThumbUp />
+                                        </ToggleButton>
+                                        <ToggleButton value={0}>
+                                            <ThumbDownRounded />
+                                        </ToggleButton>
+                                    </ToggleButtonGroup>
                                 </ListItem>
+
+
                             );
                         })}
                     </List>
