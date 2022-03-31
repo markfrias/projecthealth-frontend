@@ -5,64 +5,90 @@ import {
     ListItemButton,
     ListItemText,
     List,
-    IconButton,
     Fab,
     Grid,
     CircularProgress,
-    Button,
     ToggleButtonGroup,
-    ToggleButton
+    ToggleButton,
+    Backdrop
 } from "@mui/material";
-import { Edit, KeyboardArrowLeft, ThumbDownRounded, ThumbUp, ThumbUpAltRounded } from "@mui/icons-material";
-import { Box } from "@mui/system";
+import { Edit, ThumbDownRounded, ThumbUp } from "@mui/icons-material";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
 import moment from "moment";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { addPp, pickMeme } from "../auth/GamificationAPI";
 
 
-export default function HabitScreen() {
+export default function HabitScreen(props) {
 
     const [habits, setHabits] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [checked, setChecked] = React.useState([0]);
-
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-    };
+    // State for modal content
+    const [dialogHead, setDialogHead] = useState();
+    const [dialogBody, setDialogBody] = useState();
+    const [openSuccess, setOpenSuccess] = React.useState(false);
 
     const handleLike = async (event, value, habitEntryId, index, arr) => {
+        if (value === 1) {
+            setDialogHead('Your pet earned 5 points');
+            setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+            setOpenSuccess(true);
+        }
+
+        // Level up if pp expands beyond boundary
+        if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+            // Save old level
+            const oldLevel = props.account.levelId;
+
+            props.setAccount({
+                ...props.account,
+                levelId: props.account.levelId + 1
+            })
+            console.log((props.pp + 5) - props.ppBoundary)
+            props.setPp((props.pp + 5) - props.ppBoundary);
+            console.log(props.ppBoundary + 5)
+
+            props.setPpBoundary(props.ppBoundary + 5)
+            setDialogHead('Your pet leveled up');
+            setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+            setOpenSuccess(true);
+
+            addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+
+            await updateHabitJournalEntry(habitEntryId, value);
+            const habitsCopy = habits;
+            console.log(habitsCopy)
+            habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: value, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
+            console.log(habitsCopy)
+            setHabits(habitsCopy)
+            window.location.reload();
+
+            return
+
+
+        }
+        if (value === 1) {
+            props.setPp(props.pp + 5, props.ppBoundary)
+            addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
+        }
+
+
+
         console.log(value)
-        setLoading(true)
         await updateHabitJournalEntry(habitEntryId, value);
         const habitsCopy = habits;
         console.log(habitsCopy)
         habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: value, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
         console.log(habitsCopy)
         setHabits(habitsCopy)
-        window.location.reload();
+        if (value === 0) {
+            window.location.reload();
+        }
+
 
     }
 
-    const handleUnlike = async (habitEntryId, habitAccomplished, index, arr) => {
-        console.log(index)
-        await updateHabitJournalEntry(habitEntryId, 0);
-        const habitsCopy = habits;
-        console.log(habitsCopy)
-        habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: 0, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
-        //console.log(splicedHabits)
-        setHabits(habitsCopy)
-        window.location.reload();
-    }
 
     // Fetch habits
     useEffect(() => {
@@ -82,13 +108,9 @@ export default function HabitScreen() {
         }
     }, [habits])
 
-
-
-    const navigate = useNavigate();
-
     return (
 
-        loading ?
+        loading || habits.length === 0 ?
             <Grid container direction="column" sx={{ height: '100vh' }} alignItems="center" justifyContent="center">
                 <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
                 <Typography variant="p">Loading content</Typography>
@@ -110,15 +132,14 @@ export default function HabitScreen() {
                             container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
                             }
                         >
-                            <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/profile') }}>Back</Button>
-                            <Grid container justifyContent="space-between" alignItems="center">
+                            <Grid container justifyContent="space-between" alignItems="center" pt={1}>
                                 <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
 
 
                             </Grid>
                         </Grid>
 
-                        <Grid item>You don't have any tracked habits. Press the edit habits button to get started.</Grid>
+                        <Grid item px={1}>You don't have any tracked habits. Press the edit habits button to get started.</Grid>
 
                         <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} component={Link} to="/app/habits/1">
                             <Edit />
@@ -133,8 +154,7 @@ export default function HabitScreen() {
                         container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
                         }
                     >
-                        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Back</Button>
-                        <Grid container justifyContent="space-between" alignItems="center">
+                        <Grid container justifyContent="space-between" alignItems="center" pt={1}>
                             <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
 
 
@@ -190,6 +210,26 @@ export default function HabitScreen() {
                         <Edit />
                         Edit habits
                     </Fab>
+
+                    <Backdrop
+                        sx={{ color: '#fff', backdropFilter: 'blur(5px)', zIndex: (theme) => theme.zIndex.drawer + 1, px: 1 }}
+                        open={openSuccess}
+                        onClick={() => {
+                            window.location.reload();
+                        }}>
+
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <div sx={{ width: '100%', height: '0', paddingBottom: '80%', position: 'relative' }}><iframe title="gif" src={`https://giphy.com/embed/${pickMeme('success')}`} width="100%" height="100%" sx={{ position: "absolute" }} frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <h1>{dialogHead}</h1>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <p>{dialogBody}</p>
+                            </Grid>
+                        </Grid>
+                    </Backdrop>
 
 
                 </Grid >
