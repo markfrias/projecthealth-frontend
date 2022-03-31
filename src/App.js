@@ -2,11 +2,10 @@ import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
 import React, { useEffect, useState }/*, { useState }*/ from "react";
 import "./App.css";
-import { /*Link, */ BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { /*Link, */ BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 /*import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { AccountCircleRounded, BookRounded, HomeRounded, NoteRounded } from "@mui/icons-material";*/
-import { Box } from "@mui/system";
 import PrivateRoutes from './components/auth/PrivateRoutes';
 import BottomNavFilter from './components/bottom-nav/BottomNavFilter';
 
@@ -340,16 +339,16 @@ function App() {
                 <Route path="journal/*" element={<Journal />} />
                 <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
                 <Route path="datehabit/*" element={<DateHabit />} />
-                <Route path="habitscreen" element={<HabitScreen />} />
+                <Route path="habitscreen" element={<HabitScreen ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
                 <Route path="profile" element={<Profile account={account} />} />
 
 
               </Route>
-              <Route path="food/*" element={<Food />} />
+              <Route path="food/*" element={<Food ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
               <Route path="settings/*" element={<WeightHeightMod />} />
               <Route path="notif-settings" element={<NotificationSettings />} />
               <Route path="logscreen/*" element={<LogScreen />} />
-              <Route path="quicknote/*" element={<FoodQuickNote />} />
+              <Route path="quicknote/*" element={<FoodQuickNote ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
               <Route path="onboarding/5" element={<Onboarding5 />} />
               <Route path="onboarding/4" element={<Onboarding4 />} />
               <Route path="onboarding/3" element={<Onboarding3 />} />

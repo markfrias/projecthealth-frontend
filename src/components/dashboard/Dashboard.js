@@ -83,6 +83,25 @@ const Dashboard = (props) => {
 
         addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
 
+        const response = await saveMissionStatus(body);
+        console.log(response)
+
+        if (response === 500) {
+          setSnackbarContent("An error occurred on our end. Please try again soon.")
+          setSnackbarOpen(true)
+        } else if (response === 200) {
+          if (status === 1) {
+            setSnackbarContent("😁😁😁 Pobi received 5 progress points. Good job!")
+            setSnackbarOpen(true)
+
+          } else {
+            setSnackbarContent("😭😭😭 Pobi got deducted 5 progress points. Don't make him sad.")
+            setSnackbarOpen(true)
+
+          }
+
+        }
+
         return
 
 
