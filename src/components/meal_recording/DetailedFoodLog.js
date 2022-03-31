@@ -1,10 +1,11 @@
 import { KeyboardArrowLeft } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Backdrop, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, LinearProgress, MenuItem, Select, TextField, Typography } from '@mui/material';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFoodLogsPersonal, getNutrients, saveDetailedFoodLog } from '../auth/APIServices';
+import { addPp } from '../auth/GamificationAPI';
 
 const DetailedFoodLog = (props) => {
     // Recommended values
@@ -56,6 +57,12 @@ const DetailedFoodLog = (props) => {
         { mealId: 4, label: "Snack" }
     ];
 
+    // State for modal content
+    const [dialogHead, setDialogHead] = useState();
+    const [dialogBody, setDialogBody] = useState();
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+
+
 
     // State for summary values of nutrients (aggregates)
     const [summaryValues, setSummaryValues] = useState();
@@ -84,14 +91,68 @@ const DetailedFoodLog = (props) => {
             weightInG: nutrients.totalWeight
         }
 
+        // Level up if pp expands beyond boundary
+        if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+            // Save old level
+            const oldLevel = props.account.levelId;
+
+            props.setAccount({
+                ...props.account,
+                levelId: props.account.levelId + 1
+            })
+            console.log((props.pp + 5) - props.ppBoundary)
+            props.setPp((props.pp + 5) - props.ppBoundary);
+            console.log(props.ppBoundary + 5)
+
+            props.setPpBoundary(props.ppBoundary + 5)
+            setDialogHead('Your pet leveled up');
+            setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+            setOpenSuccess(true);
+
+            addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+            const response = await saveDetailedFoodLog(body);
+
+
+            if (response === 200) {
+                setOpen(true);
+                setModalHeading("Note saved!")
+                setModalBody("The note you created has been successfully saved. Plus 5 progress points 😻");
+                setTimeout(() => {
+                    navigate('/app/food/search');
+                }, 2000);
+            } else if (response === 400) {
+                setOpen(true);
+                setModalHeading("Incorrect or incomplete input")
+                setModalBody("Please make sure that you have completely filled up all required fields.")
+                setLoadingButton(false);
+            } else if (response === 500) {
+                setOpen(true);
+                setModalHeading("Server error")
+                setModalBody("Oops! Something wrong happened on our end. Please try again later.")
+                setLoadingButton(false);
+
+            } else {
+                setOpen(true);
+                setModalHeading("Something wrong happened")
+                setModalBody("We're not sure what happened, but we're at it to fix it.")
+                setLoadingButton(false);
+
+            }
+
+            return
+
+
+        }
+        props.setPp(props.pp + 5, props.ppBoundary)
+        addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
         const response = await saveDetailedFoodLog(body);
         if (response === 200) {
             setOpen(true);
             setModalHeading("Note saved!")
-            setModalBody("The note you created has been successfully saved.");
+            setModalBody("The note you created has been successfully saved. Plus 5 progress points 😻");
             setTimeout(() => {
                 navigate('/app/food/search');
-            }, 2000);
+            }, 5000);
         } else if (response === 400) {
             setOpen(true);
             setModalHeading("Incorrect or incomplete input")
@@ -421,6 +482,23 @@ const DetailedFoodLog = (props) => {
                     </Dialog>
                 </Grid>
             }
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={openSuccess}
+                onClick={() => { setOpenSuccess(false) }}>
+
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <h1>{dialogHead}</h1>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>{dialogBody}</p>
+                    </Grid>
+                </Grid>
+            </Backdrop>
         </div >
     );
 }
