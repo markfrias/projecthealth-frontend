@@ -1,15 +1,14 @@
-import { Button, Chip, Grid, Typography, CircularProgress, FormControl, Select, InputLabel, MenuItem, Badge } from '@mui/material';
+import { Chip, Grid, Typography, CircularProgress, FormControl, Select, InputLabel, MenuItem, Badge } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import moment from 'moment';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getFoodLogStreaks, getHabitLogsOnMonth } from '../auth/APIServices';
 import { Box } from '@mui/system';
 import { CalendarPickerSkeleton, PickersDay } from '@mui/lab';
-import { KeyboardArrowLeftRounded } from '@mui/icons-material';
 
 function StaticDatePickerDemo(props) {
 
@@ -263,10 +262,9 @@ const Journal = () => {
         <div>
             <Grid container direction="column">
                 < Grid item xs={12}
-                    container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
+                    container direction='column' sx={{ background: '#F9AB10', px: '1em', pt: '2em', pb: '1em', mb: '1em' }
                     }
                 >
-                    <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftRounded />} component={Link} to="/app/journal">Back</Button>
                     <Typography variant='onboardingHeader2' component='h1' >Log Food</Typography>
                 </Grid>
 
