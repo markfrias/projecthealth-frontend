@@ -1,6 +1,6 @@
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
-import React, { useState }/*, { useState }*/ from "react";
+import React, { useEffect, useState }/*, { useState }*/ from "react";
 import "./App.css";
 import { /*Link, */ BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -35,6 +35,7 @@ import UnPrivateRoutes from './components/auth/UnPrivateRoutes';
 import LoginScreen from './components/login/LoginScreen';
 import Registration from './components/registration/Registration';
 import Dashboard from './components/dashboard/Dashboard';
+import { getMissions } from './components/auth/APIServices';
 
 const theme = createTheme({
   palette: {
@@ -53,7 +54,7 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: '"Poppins" ,"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Poppins" ,"Roboto", "Helvetica", "Arial", "Josefin Sans", sans-serif',
     bigHeading: {
       fontSize: '2.25rem',
       lineHeight: '1.25',
@@ -274,7 +275,39 @@ function App() {
   const [hp, setHp] = useState(100);
   const [pp, setPp] = useState(10);
 
-  //const [value, setValue] = useState(0);
+  // Missions states
+  const [missions, setMissions] = useState([]);
+  const [missionsChecked, setMissionsChecked] = React.useState([]);
+
+  // Set missions and user profile from database to global state
+  useEffect(() => {
+    (async () => {
+      // On render get missions
+      const newMissions = await getMissions();
+      console.log(newMissions);
+
+      setMissions(newMissions[0]);
+      console.log(newMissions)
+
+      // Set checkboxes
+      const newChecked = [];
+      newMissions[0].forEach((mission) => {
+        if (mission.missionAccomplished === 1) {
+          newChecked.push(mission.missionEntryId);
+        }
+      });
+      setMissionsChecked(newChecked);
+      console.log(newMissions[1][0])
+      console.log(newMissions[1][0].progressPoints)
+      console.log(newMissions[1][0].healthPoints)
+
+      // Set HP and PP
+      setHp(newMissions[1][0].healthPoints);
+
+
+      setPp(newMissions[1][0].progressPoints);
+    })()
+  }, [])
 
   return (
     <BrowserRouter>
@@ -283,7 +316,7 @@ function App() {
 
           <Route element={<PrivateRoutes />} >
             <Route element={<BottomNavFilter />}>
-              <Route path="/" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} />} />
+              <Route path="/" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} />} />
 
             </Route>
 
@@ -291,7 +324,7 @@ function App() {
 
             <Route path="/app">
               <Route element={<BottomNavFilter />}>
-                <Route path="" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} />} />
+                <Route path="" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} />} />
                 <Route path="journal/*" element={<Journal />} />
                 <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
                 <Route path="datehabit/*" element={<DateHabit />} />

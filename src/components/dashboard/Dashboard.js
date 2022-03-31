@@ -28,20 +28,16 @@ const Dashboard = (props) => {
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [openSuccess] = React.useState(false);
-  const [checked, setChecked] = React.useState([1]);
   const [snackbarContent, setSnackbarContent] = useState("");
   const [missionsAccomplishedOpen, setMissionsAccomplishedOpen] = useState(false);
-
-  // State for missions
-  const [missions, setMissions] = useState([]);
 
   const handleClose = () => {
     setOpen(false);
   }
 
   const handleToggle = (value) => async () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = props.checked.indexOf(value);
+    const newChecked = [...props.checked];
     let status = 1;
 
     if (currentIndex === -1) {
@@ -51,12 +47,12 @@ const Dashboard = (props) => {
       status = 0;
     }
 
-    setChecked(newChecked);
+    props.setChecked(newChecked);
     // Send request to server to change the status in the DB
     const body = { missionEntryId: value, missionAccomplished: status };
 
     // Make missions accomplished backdrop appear when all three checkboxes are checked
-    if (checked.length === 2 && status === 1) {
+    if (props.checked.length === 2 && status === 1) {
       setMissionsAccomplishedOpen(true);
     }
 
@@ -83,23 +79,26 @@ const Dashboard = (props) => {
   }
 
   useEffect(() => {
+    if (props.missions !== undefined) {
+      (async () => {
+        // On render get missions
+        const newMissions = await getMissions();
+        console.log(newMissions);
 
-    (async () => {
-      // On render get missions
-      const newMissions = await getMissions();
+        props.setMissions(newMissions[0]);
+        console.log(newMissions)
 
-      setMissions(newMissions);
-      console.log(newMissions)
+        // Set checkboxes
+        const newChecked = [];
+        newMissions[0].forEach((mission) => {
+          if (mission.missionAccomplished === 1) {
+            newChecked.push(mission.missionEntryId);
+          }
+        });
+        props.setChecked(newChecked);
+      })()
+    }
 
-      // Set checkboxes
-      const newChecked = [];
-      newMissions.forEach((mission) => {
-        if (mission.missionAccomplished === 1) {
-          newChecked.push(mission.missionEntryId);
-        }
-      });
-      setChecked(newChecked);
-    })()
   }, []);
 
   return (
@@ -137,10 +136,10 @@ const Dashboard = (props) => {
             <Typography variant='subtitle1' component='h1' >Progress </Typography>
           </Grid>
           <Grid item xs={12}  >
-            <LinearDeterminate numerator={20} denominator={120} type="pp"></LinearDeterminate>
+            <LinearDeterminate numerator={props.pp} denominator={120} type="pp"></LinearDeterminate>
           </Grid>
           <Grid item xs={6} >
-            <Typography variant='subtitle1B' component='h1' >100/150</Typography>
+            <Typography variant='subtitle1B' component='h1' >{props.pp}/150</Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant='subtitle1B' component='h1' >Level 4</Typography>
@@ -166,10 +165,10 @@ const Dashboard = (props) => {
       </div>
       <div className='dashboard-container2'>
         <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
-        {missions <= 0 ?
+        {props.missions <= 0 ?
           <CircularProgress variant='indeterminate' /> :
           <List dense sx={{ width: '100%', maxWidth: 360 }}>
-            {missions.map((value) => {
+            {props.missions.map((value) => {
               const labelId = `checkbox-list-secondary-label-${value}`;
               return (
                 <ListItem
@@ -178,11 +177,12 @@ const Dashboard = (props) => {
                     <Checkbox
                       edge="end"
                       onChange={handleToggle(value.missionEntryId)}
-                      checked={checked.indexOf(value.missionEntryId) !== -1}
+                      checked={props.checked.indexOf(value.missionEntryId) !== -1}
                       inputProps={{ 'aria-labelledby': labelId }}
                     />
                   }
                   disablePadding
+                  onClick={handleToggle(value.missionEntryId)}
                 >
                   <ListItemButton>
 

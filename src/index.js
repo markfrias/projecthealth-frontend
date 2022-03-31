@@ -129,57 +129,59 @@ const theme = createTheme({
       '@media (max-width:376px)': {
         fontSize: '1.10rem',
       },
-    },
-    loginHeader: {
-      fontSize: '2rem',
+    }, bigRegistration: {
+      fontSize: '2.75rem',
       color: '#624100',
-      width: '80%',
-      lineHeight: 'normal',
+      lineHeight: '121.5%',
       fontWeight: '900',
       '@media (max-width:376px)': {
-        fontSize: '1.75rem',
+        fontSize: '2.5rem'
       },
     },
-    loginSubtext: {
-      fontSize: '1rem',
+    bigRegistrationSub: {
+      fontSize: '1.25rem',
       color: '#624100',
       lineHeight: 'normal',
       fontWeight: 'normal',
       '@media (max-width:376px)': {
-        fontSize: '1rem',
+        fontSize: '1.25rem',
       },
     },
-    logo: {
-      fontFamily: 'Josefin Sans',
-      fontSize: '1.9rem',
+    categorySubheader: {
+      fontSize: '1.25rem',
       color: '#624100',
-      lineHeight: 'normal',
-      fontWeight: 'bolder',
+      lineHeight: '110%',
+      fontWeight: 'bold',
+      width: '80%',
       '@media (max-width:376px)': {
-        fontSize: '1.5rem',
+        fontSize: '1.25rem',
       },
     },
-    bigRegistration: {
-      fontSize: '1.9rem',
+
+    loginHeader: {
+      fontSize: '2rem',
       color: '#624100',
-      lineHeight: 'normal',
-      fontWeight: 'bolder',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
       '@media (max-width:376px)': {
-        fontSize: '1.5rem'
-      },
-    },
-    bigRegistrationSub: {
-      fontSize: '1.9rem',
-      color: '#624100',
-      lineHeight: 'normal',
-      fontWeight: 'bolder',
-      '@media (max-width:376px)': {
-        fontSize: '1.5rem',
+        fontSize: '1.35rem',
       },
     },
     onboardingHeader: {
       fontSize: '1.4rem',
       color: '#624100',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+
+    onboardingHeader2: {
+      fontSize: '1.4rem',
+      color: '#000000',
       width: '80%',
       lineHeight: '1.75rem',
       fontWeight: '900',
@@ -199,6 +201,17 @@ const theme = createTheme({
       },
     },
 
+    onboardingSubheader2: {
+      fontSize: '1.05rem',
+      color: '#000000',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.01rem',
+      },
+    },
+
     profileLogout: {
       fontSize: '1.15rem',
       color: '#730807',
@@ -207,11 +220,15 @@ const theme = createTheme({
       '@media (max-width:376px)': {
         fontSize: '1.10rem',
       },
+
     },
 
     button: {
       textTransform: 'none',
       fontWeight: '1000',
+    },
+    logo: {
+      fontFamily: 'Josefin Sans'
     }
 
   },
@@ -251,6 +268,41 @@ const theme = createTheme({
         },
       },
     },
+    MuiFab: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          height: '3.75rem',
+          fontSize: '1.05rem'
+        },
+      },
+    },
+    MuiBottomNavigation: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          background: '#FFD974'
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          color: '#49454F',
+          py: '3rem',
+          "&.Mui-selected": {
+            "color": "black"
+          },
+        },
+
+      },
+
+    },
+
   },
 });
 
@@ -258,8 +310,11 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-    />
+    <ThemeProvider theme={theme}>
+      <App
+      />
+    </ThemeProvider>
+
 
   </React.StrictMode>,
   document.getElementById("root")

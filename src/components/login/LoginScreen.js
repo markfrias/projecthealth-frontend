@@ -7,6 +7,7 @@ import authService from "../auth/auth";
 import { Navigate, Link } from "react-router-dom";
 import { getAnalytics, logEvent } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
+import { createTheme, ThemeProvider } from "@mui/system";
 
 
 
@@ -21,6 +22,241 @@ const firebaseConfig = {
   appId: "1:798975874598:web:c5814636dcd645312b38e7",
   measurementId: "G-7ZBZF5PN0V"
 };
+
+const theme = createTheme({
+  palette: {
+    type: "light",
+    primary: {
+      main: "#F9AB10",
+    },
+    secondary: {
+      main: "#d3f76c",
+    },
+    red: {
+      main: "#6F0000"
+    },
+    green: {
+      main: "#7A8D44"
+    }
+  },
+  typography: {
+    fontFamily: '"Poppins" ,"Roboto", "Helvetica", "Arial", "Josefin Sans", sans-serif',
+    bigHeading: {
+      fontSize: '2.25rem',
+      lineHeight: '1.25',
+      fontWeight: '800',
+      width: '80%',
+      color: '#624100',
+      '@media (max-width: 376px)': {
+        fontSize: '1.75rem',
+      }
+    },
+    bigHeadingSub: {
+      fontSize: '1.5rem',
+      lineHeight: '1.25',
+      fontWeight: 'normal',
+      width: '80%',
+      color: '#624100',
+      '@media (max-width: 376px)': {
+        fontSize: '1.17rem',
+      }
+    },
+    subtitle1: {
+      fontSize: '1.15rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.25',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+
+
+    },
+    subtitle1B: {
+      fontSize: '1.15rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'bold',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+    }, bigRegistration: {
+      fontSize: '2.75rem',
+      color: '#624100',
+      lineHeight: '121.5%',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '2.5rem'
+      },
+    },
+    bigRegistrationSub: {
+      fontSize: '1.25rem',
+      color: '#624100',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.25rem',
+      },
+    },
+    categorySubheader: {
+      fontSize: '1.25rem',
+      color: '#624100',
+      lineHeight: '110%',
+      fontWeight: 'bold',
+      width: '80%',
+      '@media (max-width:376px)': {
+        fontSize: '1.25rem',
+      },
+    },
+
+    loginHeader: {
+      fontSize: '2rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+    onboardingHeader: {
+      fontSize: '1.4rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+
+    onboardingHeader2: {
+      fontSize: '1.4rem',
+      color: '#000000',
+      width: '80%',
+      lineHeight: '1.75rem',
+      fontWeight: '900',
+      '@media (max-width:376px)': {
+        fontSize: '1.35rem',
+      },
+    },
+
+    onboardingSubheader: {
+      fontSize: '1.05rem',
+      color: '#624100',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.01rem',
+      },
+    },
+
+    onboardingSubheader2: {
+      fontSize: '1.05rem',
+      color: '#000000',
+      width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'normal',
+      '@media (max-width:376px)': {
+        fontSize: '1.01rem',
+      },
+    },
+
+    profileLogout: {
+      fontSize: '1.15rem',
+      color: '#730807',
+      width: '80%',
+      lineHeight: '1.25',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+
+    },
+    logo: {
+      fontFamily: 'Josefin Sans'
+    },
+
+    button: {
+      textTransform: 'none',
+      fontWeight: '1000',
+    }
+
+  },
+  shape: {
+    borderRadius: 20,
+  },
+
+  components: {
+    // Name of the component
+    MuiOutlinedInput: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          backgroundColor: '#E7DDC9',
+
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          backgroundColor: '#E7DDC9',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          boxShadow: 'none',
+          height: '3.25rem',
+          fontSize: '1.05rem'
+        },
+      },
+    },
+    MuiFab: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          height: '3.75rem',
+          fontSize: '1.05rem'
+        },
+      },
+    },
+    MuiBottomNavigation: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          background: '#FFD974'
+        },
+      },
+    },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        // Name of the slot
+        root: {
+          // Some CSS
+          color: '#49454F',
+          py: '3rem',
+          "&.Mui-selected": {
+            "color": "black"
+          },
+        },
+
+      },
+
+    },
+
+  },
+});
 
 
 // Initialize Firebase
@@ -181,6 +417,7 @@ const LoginScreen = () => {
           </Box>
 
         </Container>
+
     )
   );
 };
