@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 import { Close } from '@mui/icons-material';
+import { addPp } from '../auth/GamificationAPI';
 
 function LinearDeterminate(props) {
   const progress = props.numerator / props.denominator * 100;
@@ -27,9 +28,13 @@ const Dashboard = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [openSuccess] = React.useState(false);
+  const [openSuccess, setOpenSuccess] = React.useState(false);
   const [snackbarContent, setSnackbarContent] = useState("");
   const [missionsAccomplishedOpen, setMissionsAccomplishedOpen] = useState(false);
+
+  // State for modal content
+  const [dialogHead, setDialogHead] = useState();
+  const [dialogBody, setDialogBody] = useState();
 
   const handleClose = () => {
     setOpen(false);
@@ -52,9 +57,42 @@ const Dashboard = (props) => {
     const body = { missionEntryId: value, missionAccomplished: status };
 
     // Make missions accomplished backdrop appear when all three checkboxes are checked
-    if (props.checked.length === 2 && status === 1) {
+    if (props.checked.length === 2 && status === 1 && (props.pp + 5) / props.ppBoundary * 100 < 100) {
       setMissionsAccomplishedOpen(true);
     }
+
+
+
+    if (status === 1) {
+      // Level up if pp expands beyond boundary
+      if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+        props.setAccount({
+          ...props.account,
+          levelId: props.account.levelId + 1
+        })
+        console.log((props.pp + 5) - props.ppBoundary)
+        props.setPp((props.pp + 5) - props.ppBoundary);
+        props.setPpBoundary(props.pp + 5)
+        setDialogHead('Your pet leveled up');
+        setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+        setOpenSuccess(true);
+
+        return
+
+
+      }
+      props.setPp(props.pp + 5, props.ppBoundary)
+      addPp(props.pp + 5)
+
+    } else {
+      if (props.pp > 4) {
+        props.setPp(props.pp - 5)
+        addPp(props.pp - 5, props.ppBoundary)
+      }
+
+
+    }
+
 
     const response = await saveMissionStatus(body);
     console.log(response)
@@ -63,8 +101,16 @@ const Dashboard = (props) => {
       setSnackbarContent("An error occurred on our end. Please try again soon.")
       setSnackbarOpen(true)
     } else if (response === 200) {
-      setSnackbarContent("Mission status succesfully saved")
-      setSnackbarOpen(true)
+      if (status === 1) {
+        setSnackbarContent("😁😁😁 Pobi received 5 progress points. Good job!")
+        setSnackbarOpen(true)
+
+      } else {
+        setSnackbarContent("😭😭😭 Pobi got deducted 5 progress points. Don't make him sad.")
+        setSnackbarOpen(true)
+
+      }
+
     }
 
 
@@ -96,6 +142,14 @@ const Dashboard = (props) => {
           }
         });
         props.setChecked(newChecked);
+        props.setAccount(newMissions[1][0])
+
+        // Set HP and PP
+        props.setHp(newMissions[1][0].healthPoints);
+        props.setPp(newMissions[1][0].progressPoints);
+        props.setPpBoundary(newMissions[1][0].levelBoundary);
+
+        console.log(newMissions[1][0])
       })()
     }
 
@@ -136,13 +190,13 @@ const Dashboard = (props) => {
             <Typography variant='subtitle1' component='h1' >Progress </Typography>
           </Grid>
           <Grid item xs={12}  >
-            <LinearDeterminate numerator={props.pp} denominator={120} type="pp"></LinearDeterminate>
+            <LinearDeterminate numerator={props.pp} denominator={props.ppBoundary} type="pp"></LinearDeterminate>
           </Grid>
           <Grid item xs={6} >
-            <Typography variant='subtitle1B' component='h1' >{props.pp}/150</Typography>
+            <Typography variant='subtitle1B' component='h1' >{props.pp}/{props.ppBoundary}</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant='subtitle1B' component='h1' >Level 4</Typography>
+            <Typography variant='subtitle1B' component='h1' >Level {props.account.levelId}</Typography>
           </Grid>
 
 
@@ -203,17 +257,17 @@ const Dashboard = (props) => {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openSuccess}
-        onClick={handleClose}>
+        onClick={() => { setOpenSuccess(false) }}>
 
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <img alt='Confetti' src={require('../../assets/img/3d-confetti.png')} width='200px' height='200px' margin='auto' />
           </Grid>
           <Grid item xs={12}>
-            <h1>All missions completed</h1>
+            <h1>{dialogHead}</h1>
           </Grid>
           <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points</p>
+            <p>{dialogBody}</p>
           </Grid>
         </Grid>
       </Backdrop>

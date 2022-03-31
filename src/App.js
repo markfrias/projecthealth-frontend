@@ -274,6 +274,7 @@ function App() {
   // PP and HP states
   const [hp, setHp] = useState(100);
   const [pp, setPp] = useState(10);
+  const [ppBoundary, setPpBoundary] = useState(50)
 
   // Missions states
   const [missions, setMissions] = useState([]);
@@ -310,6 +311,9 @@ function App() {
       // Set HP and PP
       setHp(newMissions[1][0].healthPoints);
       setPp(newMissions[1][0].progressPoints);
+      setPpBoundary(newMissions[1][0].levelBoundary);
+      console.log(newMissions[1][0].levelBoundary)
+
 
       // Set account details
       setAccount(newMissions[1][0])
@@ -324,7 +328,7 @@ function App() {
 
           <Route element={<PrivateRoutes />} >
             <Route element={<BottomNavFilter />}>
-              <Route path="/" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} />} />
+              <Route path="/" element={<Dashboard ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
 
             </Route>
 
@@ -332,7 +336,7 @@ function App() {
 
             <Route path="/app">
               <Route element={<BottomNavFilter />}>
-                <Route path="" element={<Dashboard hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
+                <Route path="" element={<Dashboard ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
                 <Route path="journal/*" element={<Journal />} />
                 <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
                 <Route path="datehabit/*" element={<DateHabit />} />
