@@ -66,28 +66,35 @@ const Dashboard = (props) => {
     if (status === 1) {
       // Level up if pp expands beyond boundary
       if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+        // Save old level
+        const oldLevel = props.account.levelId;
+
         props.setAccount({
           ...props.account,
           levelId: props.account.levelId + 1
         })
         console.log((props.pp + 5) - props.ppBoundary)
         props.setPp((props.pp + 5) - props.ppBoundary);
-        props.setPpBoundary(props.pp + 5)
+        console.log(props.ppBoundary + 5)
+
+        props.setPpBoundary(props.ppBoundary + 5)
         setDialogHead('Your pet leveled up');
         setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
         setOpenSuccess(true);
+
+        addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
 
         return
 
 
       }
       props.setPp(props.pp + 5, props.ppBoundary)
-      addPp(props.pp + 5)
+      addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
 
     } else {
       if (props.pp > 4) {
         props.setPp(props.pp - 5)
-        addPp(props.pp - 5, props.ppBoundary)
+        addPp(props.pp - 5, props.ppBoundary, props.account.levelId)
       }
 
 

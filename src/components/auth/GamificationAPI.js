@@ -10,11 +10,12 @@ const appKey = "d1e12e6309c19f0a1557030bc73be338";
 
 
 // Get all logs for the current user
-const addPp = async (data, boundary) => {
+const addPp = async (data, boundary, level) => {
     const body = {
-        progressPoints: data
+        progressPoints: data,
+        levelId: level
     }
-    console.log(data, boundary)
+    console.log(data, boundary, level)
 
     if (data / boundary * 100 >= 100) {
         // Level up (reflect in state and DB)
