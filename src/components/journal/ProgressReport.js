@@ -231,7 +231,7 @@ const ProgressReport = () => {
 
       </Grid>
 
-      {checked[0] === 0 ?
+      {checked[0] === 0 && lessChanging !== undefined ?
         <Grid item xs={12} container direction='row' px={1}>
           <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             {weightTrend.length === 1 ?
@@ -252,7 +252,8 @@ const ProgressReport = () => {
 
         :
 
-        checked[0] === 1 ?
+        checked[0] === 1 && lessChanging !== undefined
+          ?
           <Grid item xs={12} container direction='row' px={1}>
             <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
               {bmiTrend.length <= 1 ?
