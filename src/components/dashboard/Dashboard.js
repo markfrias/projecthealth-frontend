@@ -277,7 +277,7 @@ const Dashboard = (props) => {
 
       <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { /*setOpen(true)*/ navigate('/app/foodlogmainscreen') }}>
         <AddIcon />
-        Log
+        Feed your pet
       </Fab>
 
       <Backdrop
