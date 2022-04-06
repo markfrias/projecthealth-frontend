@@ -70,7 +70,7 @@ const HabitsOnboarding2 = (props) => {
     }, [props])*/
 
     return (
-        < Container maxWidth="md" sx={{
+        < Container maxWidth="sm" sx={{
             display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh", padding: "1em 1em"
         }
         }>
@@ -78,11 +78,11 @@ const HabitsOnboarding2 = (props) => {
                 <h2>Stick to habits</h2>
                 <p>Choose from a list of health habits or create your own to start your habit tracking journey.</p>
             </div>
-            <FormGroup>
-                <h2 style={{ fontSize: 18 }}>Your habits</h2>
-                <Button color="secondary" className="button-full" variant="contained" style={{ marginTop: 25, marginBottom: 20 }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
+            <FormGroup sx={{ width: '100%' }}>
+                <h2 style={{ fontSize: '1em' }}>Your habits</h2>
+                <Button color="secondary" className="button-full" variant="contained" sx={{ mb: '.5em' }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
                 <Button color="secondary" className="button-full" variant="contained" onClick={() => { handleLinkClick('/app/habits/4') }}>Choose from our list</Button>
-                <List dense sx={{ width: '100%', maxWidth: 360 }}>
+                <List dense sx={{ width: '100%' }}>
                     {props.habitsState.habitsForSubmission.length <= 0 ?
                         <Alert severity="info">Please create or select a habit.</Alert> :
 

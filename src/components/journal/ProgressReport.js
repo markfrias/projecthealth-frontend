@@ -6,12 +6,13 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
-import { VictoryLine } from 'victory';
-import { Link, useNavigate } from "react-router-dom";
+import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
+import { Link } from "react-router-dom";
 
 
 
 import { getProgressReport } from '../auth/APIServices';
+import moment from 'moment';
 
 
 function LinearDeterminate(props) {
@@ -46,11 +47,6 @@ const ProgressReport = () => {
 
   ];
 
-  const navigate = useNavigate();
-
-  const handleLinkClick = (url) => {
-    navigate(url);
-  }
 
   // Chip highlighting state
   const [checked, setChecked] = useState([0]);// Chip click handler
@@ -85,17 +81,34 @@ const ProgressReport = () => {
       const progressReport = await getProgressReport();
       console.log(progressReport)
       setLessChanging(progressReport[0][0]);
-      setWeightTrend(progressReport[1])
-      setBmiTrend(progressReport[3]);
-      setCalorieTrend(progressReport[2]);
-      console.log("bitch")
+      const revisedWeightTrend = progressReport[1].map((data) => {
+        return {
+          weight: Math.round(data.weight),
+          weightJournalDate: moment(data.weightJournalDate).format('MM/DD')
+        }
+      })
+      setWeightTrend(revisedWeightTrend)
+
+      const revisedBmiTrend = progressReport[3].map((data) => {
+        return {
+          bmi: Math.round(data.bmi),
+        }
+      })
+      setBmiTrend(revisedBmiTrend);
+
+      const revisedCalTrend = progressReport[2].map((data) => {
+        return {
+          calories: data.calories,
+          foodJournalDate: moment(data.foodJournalDate).format('MM/DD')
+        }
+      })
+      setCalorieTrend(revisedCalTrend);
 
     })()
 
     return () => {
       setLoading(true)
 
-      console.log("you passed here bithc")
     };
   }, []);
 
@@ -124,11 +137,13 @@ const ProgressReport = () => {
 
 
   return (
-    <Grid container spacing={4} p={1} direction="column" >
-      <Grid item xs={12} className='quick note-container1'
+    <Grid container direction="column" >
+      <Grid item xs={12} sx={{ background: '#F9AB10', padding: '1em' }}
         container direction='column'
       >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/profile">Back</Button>
+        <Grid item>
+          <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/profile">Back</Button>
+        </Grid>
 
         <Grid item xs={12} container direction='row'>
           <Typography variant='onboardingHeader2' component='h1' >Progress report</Typography>
@@ -139,7 +154,7 @@ const ProgressReport = () => {
 
       {loading ?
         <CircularProgress variant="indeterminate" /> :
-        <Grid item xs={12} container>
+        <Grid item xs={12} container px={1} pb={3}>
           <Grid item xs={12} container direction='row'>
             <Typography variant='subtitle1B' component='h1' >How much have you progressed?</Typography>
           </Grid>
@@ -202,27 +217,34 @@ const ProgressReport = () => {
 
 
 
-      <Grid item xs={12} container direction='row'>
-        <Typography variant='subtitle1B' component='h1' >Trends</Typography>
-        {logTypes.map((log) => {
-          return (
-            <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
-          )
-        })}
+      <Grid item xs={12} container direction='column' px={1}>
+        <Typography variant='subtitle1B' component='h1' pb={1} >Trends</Typography>
+        <Grid item pb={2}>
+          {logTypes.map((log) => {
+            return (
+              <Chip sx={{ mr: '.25em' }} key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+            )
+          })}
+        </Grid>
+
 
 
       </Grid>
 
-      {checked[0] === 0 ?
-        <Grid item xs={12} container direction='row'>
+      {checked[0] === 0 && lessChanging !== undefined ?
+        <Grid item xs={12} container direction='row' px={1}>
           <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             {weightTrend.length === 1 ?
               <Typography component="p">Log your weight regularly to view trend.</Typography> :
-              <VictoryLine
-                data={weightTrend}
-                x="weightJournalDate"
-                y="weight"
-              />
+              <VictoryChart theme={VictoryTheme.material} domain={{ y: [0, lessChanging.targetWeight + 20] }}
+              >
+                <VictoryLine
+                  data={weightTrend}
+                  x="weightJournalDate"
+                  y="weight"
+                />
+              </VictoryChart>
+
             }
           </Paper>
 
@@ -230,47 +252,49 @@ const ProgressReport = () => {
 
         :
 
-        checked[0] === 1 ?
-          <Grid item xs={12} container direction='row'>
+        checked[0] === 1 && lessChanging !== undefined
+          ?
+          <Grid item xs={12} container direction='row' px={1}>
             <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
               {bmiTrend.length <= 1 ?
                 <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                <VictoryLine
-                  data={bmiTrend}
-                  x=""
-                  y="bmi"
-                />
+                <VictoryChart domain={{ y: [0, 40] }} theme={VictoryTheme.material}>
+                  <VictoryLine
+                    data={bmiTrend}
+                    x=""
+                    y="bmi"
+                  />
+                </VictoryChart>
+
               }
             </Paper>
 
           </Grid> :
-          <Grid item xs={12} container direction='row'>
+          <Grid item xs={12} container direction='row' px={1}>
             <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
               {calorieTrend.length <= 1 ?
                 <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                <VictoryLine
-                  data={calorieTrend}
-                  x="foodJournalDate"
-                  y="calories"
-                />
+                <VictoryChart theme={VictoryTheme.material}>
+                  <VictoryLine
+                    data={calorieTrend}
+                    x="foodJournalDate"
+                    y="calories"
+                  />
+                </VictoryChart>
+
               }
             </Paper>
 
+
+
           </Grid>
+
+
 
       }
 
 
-
-
-
-
-
-
-      );
-
-
-    </Grid>
+    </Grid >
 
 
 

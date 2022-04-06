@@ -84,7 +84,7 @@ const DateJournal = () => {
         >
 
           <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftRounded />} component={Link} to="/app/journal">Back</Button>
-          <Typography variant='onboardingHeader2' component='h1' >Log Food</Typography>
+          <Typography variant='onboardingHeader2' component='h1' >Journal</Typography>
         </Grid>
 
 

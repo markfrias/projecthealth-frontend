@@ -7,7 +7,6 @@ import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { getFoodLogStreaks, getHabitLogsOnMonth } from '../auth/APIServices';
-import { Box } from '@mui/system';
 import { CalendarPickerSkeleton, PickersDay } from '@mui/lab';
 
 function StaticDatePickerDemo(props) {
@@ -265,7 +264,7 @@ const Journal = () => {
                     container direction='column' sx={{ background: '#F9AB10', px: '1em', pt: '2em', pb: '1em', mb: '1em' }
                     }
                 >
-                    <Typography variant='onboardingHeader2' component='h1' >Log Food</Typography>
+                    <Typography variant='onboardingHeader2' component='h1' >Journal</Typography>
                 </Grid>
 
                 {loading ?
@@ -282,21 +281,23 @@ const Journal = () => {
                                     <Typography variant="p">Loading content</Typography>
                                 </Grid> :
 
-                                <Grid item container direction="row" xs={12} mb={2} >
-                                    {checked[0] === 1 ?
-                                        <Typography component="p">You can view your individual habit streaks by selecting the specific date, then, selecting the specific habit.</Typography> :
-                                        <Box>
-                                            <Grid item xs={2}>
-                                                <img alt="Party popper" src={require('../../assets/img/3d-confetti.png')} width="100%" height="100%" />
-                                            </Grid>
-                                            <Grid item xs={10} mb={2}>
-                                                <Typography variant="subtitle1" component="h1">You fed Pobi for <strong>{currentStreak} {currentStreak > 1 ? "days" : "day"}</strong> straight. Log every day to increase your streak and strengthen your gotchi.</Typography>
-                                            </Grid>
-                                        </Box>
+                                checked[0] === 1 ?
+                                    <Grid item mb={2}>
+                                        <Typography component="p">You can view your individual habit streaks by selecting the specific date, then, selecting the specific habit.</Typography>
 
-                                    }
+                                    </Grid> :
+                                    <Grid item container direction="row" xs={12} mb={2} spacing={2} alignItems="center">
 
-                                </Grid>
+                                        <Grid item xs={4} >
+                                            <img alt="Party popper" src={require('../../assets/img/3d-confetti.png')} width="100%" height="auto" />
+                                        </Grid>
+                                        <Grid item mb={2} xs={8}>
+                                            <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You fed Pobi for <strong>{currentStreak} {currentStreak > 1 ? "days" : "day"}</strong> straight. Log every day to increase your streak and strengthen your gotchi.</Typography>
+                                        </Grid>
+                                    </Grid>
+
+
+
                             }
 
                         </Grid>
@@ -329,7 +330,7 @@ const Journal = () => {
                             <Grid item xs={12} mb={2}>
                                 {logTypes.map((log) => {
                                     return (
-                                        <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+                                        <Chip sx={{ mr: '.25em' }} key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
                                     )
                                 })}
                             </Grid>
