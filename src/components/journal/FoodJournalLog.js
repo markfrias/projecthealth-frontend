@@ -242,7 +242,7 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography my={2} variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography my={2} variant="p" component="p">You might not have eaten lunch on this day.</Typography>
                             }
 
                             <Typography variant='categorySubheader' component='h1' >Dinner</Typography>
@@ -262,7 +262,7 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography my={2} variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography my={2} variant="p" component="p">You might not have eaten dinner on this day.</Typography>
                             }
 
                             <Typography variant='categorySubheader' component='h1' >Snacks</Typography>
@@ -283,7 +283,7 @@ const
                                     ))}
                                 </List>
                                 :
-                                <Typography my={2} variant="p" component="p">You might not have eaten breakfast on this day.</Typography>
+                                <Typography my={2} variant="p" component="p">You might not have eaten snacks on this day.</Typography>
                             }
 
 
