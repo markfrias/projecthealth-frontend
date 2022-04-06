@@ -1,4 +1,4 @@
-import { Button, Container, Typography, Grid } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import React from 'react';

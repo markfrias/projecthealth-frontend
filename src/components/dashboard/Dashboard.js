@@ -1,4 +1,4 @@
-import { Alert, CircularProgress, Container, Fab, Grid, IconButton, Modal, Snackbar, Typography } from '@mui/material';
+import { Alert, CircularProgress, Fab, Grid, IconButton, Modal, Snackbar, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
@@ -181,13 +181,15 @@ const Dashboard = (props) => {
   }, [props]);
 
   return (
-    <Container maxWidth="md" sx={{
+    <Grid container maxWidth="md" sx={{
       minHeight: "100vh",
       justifyContent: "space-between",
       display: "flex",
       flexDirection: "column",
       pb: '3.75rem',
-      pt: '2em'
+      pt: '2em',
+      px: '1em',
+      gap: '1em'
     }}>
 
 
@@ -197,7 +199,7 @@ const Dashboard = (props) => {
         </Grid>
         <Grid item xs={6} container>
           <Grid item xs={12}>
-            <Typography variant='subtitle1B' component='h1' >😇 Feeling great</Typography>
+            <Typography variant='subtitle1B' component='h1' sx={{ width: '100%' }} >😇 Feeling great</Typography>
           </Grid>
 
           <Grid item xs={12} >
@@ -218,10 +220,10 @@ const Dashboard = (props) => {
             <LinearDeterminate numerator={props.pp} denominator={props.ppBoundary} type="pp"></LinearDeterminate>
           </Grid>
           <Grid item xs={6} >
-            <Typography variant='subtitle1B' component='h1' >{props.pp}/{props.ppBoundary}</Typography>
+            <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >{props.pp}/{props.ppBoundary}</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant='subtitle1B' component='h1' >Level {props.account.levelId}</Typography>
+            <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >Level {props.account.levelId}</Typography>
           </Grid>
 
 
@@ -234,45 +236,51 @@ const Dashboard = (props) => {
         </Grid>
       </Grid>
 
-      <Alert severity='success'>
-        A new feature has arrived. Your actions will now count towards the progress points of your pet. Complete your missions, habits, and log your meals to make progress.
-      </Alert>
+      <Grid item>
+        <Alert severity='success'>
+          A new feature has arrived. Your actions will now count towards the progress points of your pet. Complete your missions, habits, and log your meals to make progress.
+        </Alert>
+      </Grid>
+
       <div className='dashboard-container1'>
         <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
         <Typography variant='onboardingSubheader2' component='p'>Increase progress points and level up by accomplishing
           a mission or logging your food/habit/activity.</Typography>
       </div>
       <div className='dashboard-container2'>
-        <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
-        {props.missions <= 0 ?
-          <CircularProgress variant='indeterminate' /> :
-          <List dense sx={{ width: '100%', maxWidth: 360 }}>
-            {props.missions.map((value) => {
-              const labelId = `checkbox-list-secondary-label-${value}`;
-              return (
-                <ListItem
-                  key={value.missionEntryId}
-                  secondaryAction={
-                    <Checkbox
-                      edge="end"
-                      onChange={handleToggle(value.missionEntryId)}
-                      checked={props.checked.indexOf(value.missionEntryId) !== -1}
-                      inputProps={{ 'aria-labelledby': labelId }}
-                      disabled={props.checked.indexOf(value.missionEntryId) !== -1 ? true : false}
-                    />
-                  }
-                  disablePadding
-                  onClick={handleToggle(value.missionEntryId)}
-                >
-                  <ListItemButton>
+        <Box sx={{ backdropFilter: 'blur(3px)', width: '100%', height: '100%', borderRadius: '20px', padding: '1em' }}>
+          <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
+          {props.missions <= 0 ?
+            <CircularProgress variant='indeterminate' /> :
+            <List dense sx={{ width: '100%', maxWidth: 360 }}>
+              {props.missions.map((value) => {
+                const labelId = `checkbox-list-secondary-label-${value}`;
+                return (
+                  <ListItem
+                    key={value.missionEntryId}
+                    secondaryAction={
+                      <Checkbox
+                        edge="end"
+                        onChange={handleToggle(value.missionEntryId)}
+                        checked={props.checked.indexOf(value.missionEntryId) !== -1}
+                        inputProps={{ 'aria-labelledby': labelId }}
+                        disabled={props.checked.indexOf(value.missionEntryId) !== -1 ? true : false}
+                      />
+                    }
+                    disablePadding
+                    onClick={handleToggle(value.missionEntryId)}
+                  >
+                    <ListItemButton>
 
-                    <ListItemText id={labelId} primary={value.missionName} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        }
+                      <ListItemText id={labelId} primary={value.missionName} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+          }
+        </Box>
+
       </div>
 
       <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { /*setOpen(true)*/ navigate('/app/foodlogmainscreen') }}>
@@ -437,7 +445,7 @@ const Dashboard = (props) => {
         </Grid>
       </Backdrop>
 
-    </Container >
+    </Grid >
 
 
 
