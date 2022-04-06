@@ -14,10 +14,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Accountsetting = () => {
   const navigate = useNavigate();
-
-  const handleLinkClick = (url) => {
-    navigate(url);
-  }
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [modalHeading, setModalHeading] = React.useState("");
@@ -59,23 +55,20 @@ const Accountsetting = () => {
   }
 
   return (
-    <Grid container spacing={4} >
-      <Grid item xs={12} className='quicknote-container1'
-        container direction='column'
+    <Grid container >
+      <Grid item xs={12} sx={{ background: '#F9AB10', p: '1em', mb: '1em' }}
+        container direction='column' px={1}
       >
         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />}
           component={Link} to="/app/profile/">Back</Button>
         <Typography variant='onboardingHeader2' component='h1' >Account settings</Typography>
       </Grid>
       <Container
-        sx={{
-          '& > :not(style)': { m: 2, width: 300 },
-        }}
         noValidate
         autoComplete="off"
       >
-        <Typography variant='subtitle1B' component='h2'>Account Management</Typography>
-        <Button csx={{ color: 'red', maxWidth: '100%', mb: '.5em' }} variant="contained" position='center' onClick={handleClickOpen} >Delete account</Button>
+        <Typography variant='subtitle1B' component='h2' sx={{ mb: '.5em' }}>Account management</Typography>
+        <Button sx={{ maxWidth: '100%', mb: '.5em', color: 'white' }} variant="contained" position='center' onClick={handleClickOpen} color="red" >Delete my account</Button>
         <Dialog
           open={open}
           keepMounted
