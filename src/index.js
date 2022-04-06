@@ -9,48 +9,15 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 //import Landing from "./components/landing/Landing";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import PrivateRoutes from './components/auth/PrivateRoutes';
-import LoginScreen from './components/login/LoginScreen';
-import Onboarding1 from './components/post-login/Onboarding1';
-import Onboarding2 from './components/post-login/Onboarding2';
-import Onboarding3 from './components/post-login/Onboarding3';
-import Onboarding4 from './components/post-login/Onboarding4';
-import Onboarding5 from './components/post-login/Onboarding5';
-import Dashboard from './components/dashboard/Dashboard';
-import FoodQuickNote from './components/meal_recording/FoodQuickNote';
-import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
-import LogScreen from './components/meal_recording/LogScreen';
-import NotificationSettings from './components/settings/NotificationSettings';
-import Accountsetting from './components/settings/Accountsetting';
-import DateJournal from './components/journal/DateJournal';
-import DateHabit from './components/journal/DateHabit';
-import Profile from './components/profile/Profile';
-import ProgressReport from './components/journal/ProgressReport';
-import UnPrivateRoutes from './components/auth/UnPrivateRoutes';
-
-
 
 // Firebase imports
 //import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
 //import { getMessaging } from "firebase/messaging";
-import Notificationsetup from './components/post-login/NotificationSetup';
-import NotificationUnsupported from './components/post-login/NotificationUnsupported';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import Registration from './components/registration/Registration';
-import Habits from './components/registration/Habits';
-import WeightHeightMod from './components/settings/WeightHeightMod';
-import Food from './components/meal_recording/Food';
-import Journal from './components/journal/Journal';
-import HabitScreen from './components/habits/HabitScreen'
-import BottomNavFilter from './components/bottom-nav/BottomNavFilter';
-
-
-
 
 // Firebase config
 const firebaseConfig = {
@@ -124,6 +91,16 @@ const theme = createTheme({
       fontSize: '1.15rem',
       color: '#624100',
       width: '80%',
+      lineHeight: 'normal',
+      fontWeight: 'bold',
+      '@media (max-width:376px)': {
+        fontSize: '1.10rem',
+      },
+    },
+    subtitle100B: {
+      fontSize: '1.15rem',
+      color: '#624100',
+      width: '100%',
       lineHeight: 'normal',
       fontWeight: 'bold',
       '@media (max-width:376px)': {
