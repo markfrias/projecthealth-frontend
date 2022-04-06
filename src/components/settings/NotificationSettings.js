@@ -105,50 +105,43 @@ const NotificationSettings = () => {
 
 
 
-  return (
-    <Grid container spacing={4} >
-      <Grid item xs={12} className='quicknote-container1'
-        container direction='column'
-      >
-        <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/profile">Back</Button>
-        <Typography variant='onboardingHeader2' component='h1' >Notification settings</Typography>
-      </Grid>
+    return (
+        <Grid container>
+            <Grid item xs={12} sx={{ background: '#F9AB10', p: '1em', mb: '1em' }}
+                container direction='column'
+            >
+                <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/profile">Back</Button>
+                <Typography variant='onboardingHeader2' component='h1' >Notification settings</Typography>
+            </Grid>
 
 
             <Container
-                sx={{
-                    '& > :not(style)': { m: 2, width: 300 },
-                }}
                 noValidate
                 autoComplete="off"
             >
                 <Grid>
 
-                    <Typography variant='subtitle1B' component='h2'>Notification on/off</Typography>
-                    <div className='switch_with_text'>
-
-                        <Typography variant='subtitle1' component='p' >Enable meal reminders</Typography>
+                    <Typography variant='subtitle1B' component='h2' sx={{ mb: '1em' }}>Notification on/off</Typography>
+                    <Grid item container direction="row" justifyContent="space-between" sx={{ mb: '1.5em' }}>
+                        <Typography variant='p' component='p' >Enable meal reminders</Typography>
                         {notifIsAllowed === false ?
                             <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} disabled checked={false} />
                             :
                             <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} checked={isChecked} />
                         }
-                    </div>
+                    </Grid>
                     <Grid>
-                        <Typography variant='subtitle1B' component='h2' >Notificiation time</Typography>
-                        <Typography variant='subtitle1' component='p' >Breakfast</Typography>
+                        <Typography variant='subtitle1B' component='h2' sx={{ mb: '1em' }} >Notification time</Typography>
                         <ThemedTimePicker value={breakfastValue} setValue={setBreakfastValue} label="Breakfast" />
 
 
                     </Grid>
                     <Grid>
-                        <Typography variant='subtitle1' component='p' >Lunch</Typography>
-                        <ThemedTimePicker value={lunchValue} setValue={setLunchValue} label="Breakfast" />
+                        <ThemedTimePicker value={lunchValue} setValue={setLunchValue} label="Lunch" />
 
                     </Grid>
                     <Grid>
-                        <Typography variant='subtitle1' component='p' >Dinner</Typography>
-                        <ThemedTimePicker value={dinnerValue} setValue={setDinnerValue} label="Breakfast" />
+                        <ThemedTimePicker value={dinnerValue} setValue={setDinnerValue} label="Dinner" />
 
                     </Grid>
                     <Grid>
