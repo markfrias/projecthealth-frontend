@@ -18,10 +18,7 @@ const style = {
 function ListDividers(props) {
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      <ListItem button component={Link} to="/app/progress-report">
-        <Typography variant='subtitle1' component='p' >Progress report</Typography>
-      </ListItem>
-      <Divider />
+
       <ListItem button component={Link} to="/app/settings/account ">
         <Typography variant='subtitle1' component='p'>Account settings</Typography>
       </ListItem>
@@ -32,11 +29,17 @@ function ListDividers(props) {
       {/*<ListItem button>
         <Typography variant='subtitle1' component='p'>Goal settings</Typography>
   </ListItem>*/}
-      <Divider />
-      <ListItem button component={Link} to="/app/settings/height">
-        <Typography variant='subtitle1' component='p'>Weight and height</Typography>
+      <Divider sx={{ mb: 4 }} />
+
+      <ListItem button component={Link} to="/app/progress-report">
+        <Typography variant='subtitle1' component='p' >Progress report</Typography>
       </ListItem>
       <Divider />
+      <ListItem button component={Link} to="/app/settings/height">
+        <Typography variant='subtitle1' component='p'>Change weight or height</Typography>
+      </ListItem>
+      <Divider />
+
       <ListItem button onClick={props.handleClick}>
         <Typography variant='profileLogout' component='p'>Logout</Typography>
       </ListItem>
