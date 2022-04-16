@@ -163,13 +163,6 @@ export default function HabitScreen(props) {
                             return (
                                 <ListItem
                                     key={value.habitEntryId}
-
-
-
-
-
-
-
                                     disablePadding
                                 >
                                     <ListItemButton role={undefined} dense>

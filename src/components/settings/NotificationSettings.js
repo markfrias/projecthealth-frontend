@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography, Box, CircularProgress, Alert } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Switch } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,8 @@ import { convertStringToTime } from './stringConverter';
 const NotificationSettings = () => {
     const [notifIsAllowed, setNotifIsAllowed] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // State
     const [breakfastValue, setBreakfastValue] = useState(new Date('2018-01-01T00:00:00.000Z'));
@@ -23,6 +25,11 @@ const NotificationSettings = () => {
 
     const navigate = useNavigate();
 
+
+    // Handle closing modal
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     // Ask permission for notifications
     const askNotifPermission = () => {
@@ -51,8 +58,14 @@ const NotificationSettings = () => {
 
     // Handle Switch changes
     const handleChange = (event) => {
-        setIsChecked(!isChecked);
-        setNotifIsAllowed(false);
+
+        if (isChecked) {
+            setOpen(true);
+        } else {
+            setIsChecked(!isChecked);
+            setNotifIsAllowed(false);
+        }
+
     }
 
 
@@ -60,15 +73,14 @@ const NotificationSettings = () => {
     useEffect(() => {
 
         (async () => {
+            setLoading(true);
             // Set notification settings
             const settings = await getNotifSettings();
             const times = convertStringToTime(settings);
             setBreakfastValue(times[0]);
             setLunchValue(times[2]);
             setDinnerValue(times[1]);
-
-
-
+            setLoading(false);
         })()
 
 
@@ -77,14 +89,18 @@ const NotificationSettings = () => {
             if (Notification.permission === "denied") {
                 setNotifIsAllowed(false);
             }
+            else if (Notification.permission === "granted") {
+                setIsChecked(true);
+            }
         }
         // Check if notifications are supported, if not, redirect to unsupported screen
         if (!("Notification" in window)) {
         } else {
             checkCurrentNotifPermission();
-
         }
     }, []);
+
+
 
     // Handle save button click
     const handleSaveButton = () => {
@@ -103,10 +119,8 @@ const NotificationSettings = () => {
         });
     }
 
-
-
     return (
-        <Grid container>
+        <Grid container direction="column" sx={{ minHeight: '100vh' }}>
             <Grid item xs={12} sx={{ background: '#F9AB10', p: '1em', mb: '1em' }}
                 container direction='column'
             >
@@ -118,6 +132,7 @@ const NotificationSettings = () => {
             <Container
                 noValidate
                 autoComplete="off"
+                sx={{ height: '100%' }}
             >
                 <Grid>
 
@@ -130,32 +145,77 @@ const NotificationSettings = () => {
                             <Switch className='switch-onboarding1' onClick={askNotifPermission} onChange={handleChange} checked={isChecked} />
                         }
                     </Grid>
-                    <Grid>
-                        <Typography variant='subtitle1B' component='h2' sx={{ mb: '1em' }} >Notification time</Typography>
-                        <ThemedTimePicker value={breakfastValue} setValue={setBreakfastValue} label="Breakfast" />
+                    {notifIsAllowed === false ?
+                        <Grid item>
+                            <Alert severity='info'> <a target="_blank" style={{ color: 'black' }} href="https://support.google.com/chrome/answer/3220216?hl=en&co=GENIE.Platform%3DAndroid">Learn how to enable notifications for this app by pressing here.</a></Alert>
+                        </Grid>
+                        :
+
+                        loading ?
+                            <Grid container direction="column" sx={{ height: '100%' }} alignItems="center" justifyContent="center">
+                                <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                                <Typography variant="p">Loading content</Typography>
+                            </Grid>
+
+                            :
+
+                            <Box>
+                                <Grid>
+                                    <Typography variant='subtitle1B' component='h2' sx={{ mb: '1em' }} >Notification time</Typography>
+                                    <ThemedTimePicker value={breakfastValue} setValue={setBreakfastValue} label="Breakfast" />
+                                </Grid>
+
+                                <Grid>
+                                    <ThemedTimePicker value={lunchValue} setValue={setLunchValue} label="Lunch" />
+                                </Grid>
+
+                                <Grid>
+                                    <ThemedTimePicker value={dinnerValue} setValue={setDinnerValue} label="Dinner" />
+                                </Grid>
+
+                                <Grid>
+                                    <Button
+                                        className="button-loginScreen"
+                                        variant="contained"
+                                        onClick={handleSaveButton}
+
+                                    >
+                                        Save Changes
+                                    </Button>
+                                </Grid>
+                            </Box>
+
+                    }
 
 
-                    </Grid>
-                    <Grid>
-                        <ThemedTimePicker value={lunchValue} setValue={setLunchValue} label="Lunch" />
 
-                    </Grid>
-                    <Grid>
-                        <ThemedTimePicker value={dinnerValue} setValue={setDinnerValue} label="Dinner" />
 
-                    </Grid>
-                    <Grid>
-                        <Button
-                            className="button-loginScreen"
-                            variant="contained"
-                            onClick={handleSaveButton}
 
-                        >
-                            Save Changes
-                        </Button>
-                    </Grid>
+
+
+
                 </Grid>
             </Container>
+
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    Learn to block notifications
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        You need to change this site's settings from your browser to block notifications.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button><a style={{ color: '#F9AB10', textDecoration: 'none' }} target="_blank" href="https://support.google.com/chrome/answer/3220216?hl=en&co=GENIE.Platform%3DAndroid">Learn more</a></Button>
+                    <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
 
         </Grid>
 
