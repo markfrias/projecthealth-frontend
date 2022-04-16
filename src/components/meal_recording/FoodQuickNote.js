@@ -134,7 +134,7 @@ const FoodQuickNote = (props) => {
       <Grid item xs={12} sx={{ background: '#F9AB10', p: "1em", mb: '2.5em' }}
         container direction='column'
       >
-        <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/">Back</Button>
+        <Button variant='text' sx={{ color: 'black', maxWidth: '20%', mb: '.5em' }} startIcon={<KeyboardArrowLeftIcon />} component={Link} to="/app/foodlogmainscreen">Back</Button>
         <Typography variant='onboardingHeader2' component='h1' >Quick Note</Typography>
       </Grid>
 

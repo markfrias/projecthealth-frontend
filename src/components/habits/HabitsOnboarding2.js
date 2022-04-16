@@ -17,7 +17,7 @@ const HabitsOnboarding2 = (props) => {
     const [modalBody, setModalBody] = useState("");
     const handleClose = () => {
         setOpen(false);
-        navigate('/app/habits/2')
+        navigate('/app/habitscreen')
     }
 
     const handleSaveHabits = async () => {

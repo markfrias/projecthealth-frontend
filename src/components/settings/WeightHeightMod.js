@@ -4,6 +4,7 @@ import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { saveWeightHeightSettings } from '../auth/APIServices';
 import Registration6 from '../registration/Registration6';
 import Registration7 from '../registration/Registration7';
+import { KeyboardArrowLeft } from '@mui/icons-material';
 
 import Registration8 from '../registration/Registration8';
 
@@ -85,6 +86,14 @@ const WeightHeightMod = () => {
 
     return (
         <Grid container direction="column" justifyContent="space-between" maxWidth="md">
+            <Grid item xs={12} sx={{ padding: '1em' }}
+                container direction='column'
+            >
+                <Grid item>
+                    <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate(-1) }}>Back</Button>
+                </Grid>
+
+            </Grid>
             <Routes>
                 <Route path="height" element={<Registration6 handleChange={handleChanges} setState={setWeightHeight} values={weightHeight} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
                 <Route path="weight" element={<Registration7 handleChange={handleChanges} setState={setWeightHeight} values={weightHeight} isInvalid={isInvalid} setIsInvalid={setIsInvalid} />} />
@@ -106,7 +115,7 @@ const WeightHeightMod = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Okay</Button>
+                    <Button onClick={() => { navigate('/app/profile') }}>Okay</Button>
                 </DialogActions>
             </Dialog>
 
