@@ -115,7 +115,7 @@ const WeightHeightMod = () => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Okay</Button>
+                    <Button onClick={() => { navigate('/app/profile') }}>Okay</Button>
                 </DialogActions>
             </Dialog>
 

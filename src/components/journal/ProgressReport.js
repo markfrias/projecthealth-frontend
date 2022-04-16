@@ -120,6 +120,7 @@ const ProgressReport = () => {
 
   // Set loading state to off once less changing data and weight trends is set
   React.useEffect(() => {
+    console.log(lessChanging)
     if (lessChanging !== undefined && weightTrend !== undefined && lessChanging.levelId !== undefined) {
       setLoading(false);
       console.log(weightTrend)
@@ -154,38 +155,25 @@ const ProgressReport = () => {
 
       {loading ?
         <CircularProgress variant="indeterminate" /> :
-        <Grid item xs={12} container px={1} pb={3}>
-          <Grid item xs={12} container direction='row'>
+        <Grid item xs={12} container px={1} pb={3} mt={1}>
+          <Grid item xs={12} container direction='row' mb={1}>
             <Typography variant='subtitle1B' component='h1' >How much have you progressed?</Typography>
           </Grid>
 
-          <Grid item xs={6} container direction='row'>
+          <Grid item xs={6} container direction='row' >
             <Typography variant='subtitle1' component='h1' >Level {lessChanging.levelId}</Typography>
           </Grid>
           <Grid item xs={6} container direction='row'>
             <Typography variant='subtitle1B' component='h1' >{`PP: ${lessChanging.progressPoints}/${lessChanging.levelBoundary}`}</Typography>
           </Grid>
-          <Grid item xs={12} container direction='row'>
+          <Grid item xs={12} container direction='row' mb={2}>
             <LinearDeterminate numerator={lessChanging.progressPoints} denominator={lessChanging.levelBoundary}></LinearDeterminate>
           </Grid>
 
-          {lessChanging.weightLoss > 0 ?
-            <Grid item xs={6} container direction='row'>
-              <Typography variant='subtitle1' component='h1' >You've lost {lessChanging.weightLoss} kg this week.</Typography>
-            </Grid>
-            :
 
-            lessChanging.weightLoss < 0 ?
-              <Grid item xs={6} container direction='row'>
-                <Typography variant='subtitle1' component='h1' >You've gained {lessChanging.weightLoss * (-1)} kg this week.</Typography>
-              </Grid> :
-              <Grid item xs={6} container direction='row'>
-                <Typography variant='subtitle1' component='h1' >You've maintained your weight this week.</Typography>
-              </Grid>
 
-          }
 
-          <Grid item xs={6} container direction='row'>
+          <Grid item xs={12} container direction='row'>
             <Typography variant='subtitle1B' component='h1' >Current: {lessChanging.currentWeight} kg | Target: {lessChanging.targetWeight} kg</Typography>
           </Grid>
 
