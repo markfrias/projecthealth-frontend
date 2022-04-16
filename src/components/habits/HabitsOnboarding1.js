@@ -22,7 +22,7 @@ const HabitsOnboarding1 = () => {
                 <Typography variant="bigHeadingSub" component="h2">Choose from a list of health habits or create your own to start your habit tracking journey.</Typography>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                <Button variant="text" onClick={() => { handleLinkClick('/') }}>
+                <Button variant="text" onClick={() => { handleLinkClick(-1) }}>
                     Not now
                 </Button>
                 <Button className="button-half" variant="contained" onClick={() => { handleLinkClick('/app/habits/2') }} >
