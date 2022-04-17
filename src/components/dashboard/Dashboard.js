@@ -212,7 +212,6 @@ const Dashboard = (props) => {
             <Typography variant='subtitle1B' component='h1' >{props.hp} / 100</Typography>
           </Grid>
 
-
           <Grid item xs={12}  >
             <Typography variant='subtitle1' component='h1' >Progress </Typography>
           </Grid>
@@ -226,27 +225,17 @@ const Dashboard = (props) => {
             <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >Level {props.account.levelId}</Typography>
           </Grid>
 
-
-
-
-
-
-
-
         </Grid>
       </Grid>
 
-      <Grid item>
+      {/* 
+         <Grid item>
         <Alert severity='success'>
           A new feature has arrived. Your actions will now count towards the progress points of your pet. Complete your missions, habits, and log your meals to make progress.
         </Alert>
       </Grid>
+      */}
 
-      <div className='dashboard-container1'>
-        <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
-        <Typography variant='onboardingSubheader2' component='p'>Increase progress points and level up by accomplishing
-          a mission or logging your food/habit/activity.</Typography>
-      </div>
       <div className='dashboard-container2'>
         <Box sx={{ backdropFilter: 'blur(3px)', width: '100%', height: '100%', borderRadius: '20px', padding: '1em' }}>
           <Typography variant='onboardingHeader2' component='h1'>Daily Missions</Typography>
@@ -282,6 +271,20 @@ const Dashboard = (props) => {
         </Box>
 
       </div>
+
+
+      <div className='dashboard-container1'>
+        <Typography variant='onboardingHeader2' component='h2' sx={{ mb: '.5em' }} >Where to next?</Typography>
+        <Typography variant='onboardingSubheader2' component='p' sx={{ width: '100%' }}>{props.account.levelPrompt} <strong>Level up</strong> to get that ticket and complete the stamp collection.</Typography>
+      </div>
+
+      <div className='dashboard-container1'>
+        <Typography variant='onboardingHeader2' component='h2' >Tip</Typography>
+        <Typography variant='onboardingSubheader2' component='p'>Increase progress points and level up by accomplishing
+          a mission or logging your food/habit/activity.</Typography>
+      </div>
+
+
 
       <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: '5em', right: '1em' }} onClick={() => { /*setOpen(true)*/ navigate('/app/foodlogmainscreen') }}>
         <AddIcon />
@@ -336,86 +339,6 @@ const Dashboard = (props) => {
           </Grid>
 
         </Grid>
-
-        {/*
-          
-           <Grid container spacing={2} sx={{ height: '100%', overflow: "scroll" }} direction="row" px='1em'>
-          <Grid item container direction="row" xs={12} sx={{ width: '100%', height: 'auto' }}>
-
-            <Grid item container onClick={() => { setOpen(false) }} justifyContent="flex-end" direction="row"   >
-              <Grid item >
-                <IconButton>
-                  <Close fontSize="large" sx={{ color: 'white' }} />
-                </IconButton>
-              </Grid>
-            </Grid>
-
-
-            <Grid item container sx={{ border: 'solid 2px black', borderRadius: '20px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
-              <Grid item xs={5}>
-                <img alt="Green Broccoli" src={require("../../assets/img/green-broccoli.png")} height="auto" width="35%" />
-              </Grid>
-              <Grid item xs={7}>
-                <p>Food</p>
-
-              </Grid>
-            </Grid>
-
-            {/* 
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
-              <Grid item xs={5}>
-                <img alt="Yellow Sneaker" src={require("../../assets/img/yellow-sneaker.png")} height="auto" width="35%" />
-
-              </Grid>
-              <Grid item xs={7}>
-                <p>Excercise</p>
-
-              </Grid>
-            </Grid>
-
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
-              <Grid item xs={5}>
-                <img alt="Blue wrist watch" src={require("../../assets/img/blue-clock.png")} height="auto" width="35%" />
-
-              </Grid>
-              <Grid item xs={7}>
-                <p>Sleep</p>
-
-              </Grid>
-            </Grid>
-
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
-              <Grid item xs={5}>
-                <img alt="White mug" src={require("../../assets/img/white-cup.png")} height="auto" width="35%" />
-
-              </Grid>
-              <Grid item xs={7}>
-                <p>Water</p>
-
-              </Grid>
-            </Grid>
-
-            <Grid container sx={{ border: 'solid 2px black', borderRadius: '10px' }} onClick={() => { navigate('/app/foodlogmainscreen') }}  >
-              <Grid item xs={5}>
-                <img alt="Orange Scale" src={require("../../assets/img/scale-orange.png")} height="auto" width="35%" />
-
-              </Grid>
-              <Grid item xs={7}>
-                <p>Weight</p>
-
-              </Grid>
-            </Grid>
-            
-            
-
-
-</Grid>
-
-
-
-
-</Grid>
-        */}
 
       </Modal>
       <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
