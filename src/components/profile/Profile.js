@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Typography } from '@mui/material';
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
@@ -9,6 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import { logout } from '../auth/APIServices';
 import { Link } from 'react-router-dom';
+import { LockRounded, OpenInFullRounded } from '@mui/icons-material';
 
 const style = {
   width: '100%',
@@ -98,6 +99,32 @@ const Profile = (props) => {
 
         <Grid item xs={12} container direction='row' pb={2}>
           <Typography variant='subtitle1' component='p' >{props.account.emailAddress}</Typography>
+        </Grid>
+
+        <Grid item container xs={12} direction="column" className='passport-holder' sx={{ my: '1em', backdropFilter: 'blur(3px)' }}>
+          <Grid item container xs={12} mb={1} >
+            <Grid item xs={9}> <Typography variant='onboardingHeader2' component='h2' sx={{ mb: '.5em' }} >Passport</Typography></Grid>
+
+            <Grid item container xs={3} justifyContent="flex-end">
+              <IconButton sx={{ color: 'black' }}>
+                <OpenInFullRounded />
+              </IconButton>
+            </Grid>
+
+          </Grid>
+
+          <Grid item container xs={12} direction="row" alignItems="center" mb={1}>
+            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1ed.png?v8" />
+            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1e6.png?v8" />
+            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1ed.png?v8" />
+            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1ed.png?v8" style={{ marginRight: '.5em' }} />
+            <LockRounded sx={{ fontSize: '2em' }} />
+          </Grid>
+
+          <Grid item container>
+            <Button variant="text" sx={{ color: 'black', textTransform: 'uppercase' }}>Open to see stamp collection</Button>
+          </Grid>
+
         </Grid>
 
         <Grid item xs={12} container direction='row'>
