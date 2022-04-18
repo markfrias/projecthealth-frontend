@@ -35,6 +35,7 @@ import LoginScreen from './components/login/LoginScreen';
 import Registration from './components/registration/Registration';
 import Dashboard from './components/dashboard/Dashboard';
 import { getMissions } from './components/auth/APIServices';
+import Passport from './components/profile/Passport';
 
 const theme = createTheme({
   palette: {
@@ -285,6 +286,9 @@ function App() {
     emailAddress: 'All your settings are here'
   });
 
+  // Level and countries states
+  const [levels, setLevels] = useState();
+
   // Set missions and user profile from database to global state
   useEffect(() => {
     (async () => {
@@ -340,7 +344,8 @@ function App() {
                 <Route path="journal-log/:category/:year/:month/:day" element={<DateJournal />} />
                 <Route path="datehabit/*" element={<DateHabit />} />
                 <Route path="habitscreen" element={<HabitScreen ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
-                <Route path="profile" element={<Profile account={account} />} />
+                <Route path="profile" element={<Profile account={account} levels={levels} setLevels={setLevels} />} />
+                <Route path="passport" element={<Passport account={account} levels={levels} setLevels={setLevels} />} />
 
 
               </Route>

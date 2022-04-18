@@ -1,15 +1,15 @@
 import Button from '@mui/material/Button';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Typography } from '@mui/material';
-import React from 'react';
+import { CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange } from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
-import { logout } from '../auth/APIServices';
+import { getLevelCountries, logout } from '../auth/APIServices';
 import { Link } from 'react-router-dom';
-import { LockRounded, OpenInFullRounded } from '@mui/icons-material';
+import { LockRounded, MoreHorizRounded, OpenInFullRounded } from '@mui/icons-material';
 
 const style = {
   width: '100%',
@@ -60,6 +60,7 @@ const Profile = (props) => {
   const [open, setOpen] = React.useState(false);
   const [modalHeading, setModalHeading] = React.useState("");
   const [modalBody, setModalBody] = React.useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = () => {
     setModalHeading("Log out");
@@ -75,8 +76,26 @@ const Profile = (props) => {
   const handleConfirm = async () => {
     setOpen(false);
     logout();
-
   }
+
+  useEffect(() => {
+    setLoading(true);
+    // Fetch levels and flag urls
+    (async () => {
+      const countries = await getLevelCountries();
+      props.setLevels(countries);
+
+      // Fix issue with hooks warning
+    })()
+  }, [])
+
+  useEffect(() => {
+    console.log(props.levels)
+    if (props.levels !== undefined) {
+      setLoading(false);
+      console.log(props.levels)
+    }
+  }, [props.levels])
 
 
   return (
@@ -106,23 +125,31 @@ const Profile = (props) => {
             <Grid item xs={9}> <Typography variant='onboardingHeader2' component='h2' sx={{ mb: '.5em' }} >Passport</Typography></Grid>
 
             <Grid item container xs={3} justifyContent="flex-end">
-              <IconButton sx={{ color: 'black' }}>
+              <IconButton sx={{ color: 'black' }} component={Link} to="/app/passport">
                 <OpenInFullRounded />
               </IconButton>
             </Grid>
 
           </Grid>
 
-          <Grid item container xs={12} direction="row" alignItems="center" mb={1}>
-            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1ed.png?v8" />
-            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1e6.png?v8" />
-            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1ed.png?v8" />
-            <img alt="Philippine flag" src="https://github.githubassets.com/images/icons/emoji/unicode/1f1f5-1f1ed.png?v8" style={{ marginRight: '.5em' }} />
-            <LockRounded sx={{ fontSize: '2em' }} />
-          </Grid>
+          {loading || props.levels === undefined ?
+            <Grid item container xs={12} justifyContent="center" alignItems="center">
+              <CircularProgress variant='indeterminate' />
+            </Grid>
+            :
+            <Grid item container xs={12} direction="row" alignItems="center" mb={1}>
+              <img alt="Philippine flag" src={props.levels[0].countryImg} />
+              <img alt="Philippine flag" src={props.levels[1].countryImg} />
+              <img alt="Philippine flag" src={props.levels[2].countryImg} />
+              <img alt="Philippine flag" src={props.levels[3].countryImg} style={{ marginRight: '.5em' }} />
+              <MoreHorizRounded sx={{ fontSize: '2em' }} />
+            </Grid>
+
+
+          }
 
           <Grid item container>
-            <Button variant="text" sx={{ color: 'black', textTransform: 'uppercase' }}>Open to see stamp collection</Button>
+            <Button variant="text" sx={{ color: 'black', textTransform: 'uppercase' }} component={Link} to="/app/passport">Open to see stamp collection</Button>
           </Grid>
 
         </Grid>
