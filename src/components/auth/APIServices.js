@@ -878,6 +878,32 @@ const getProgressReport = async () => {
   }
 };
 
+// Get all logs for the current user
+const getLevelCountries = async () => {
+  const response = await fetch(
+    `https://projecthealthapp.herokuapp.com/api/users/level-countries`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
+  );
+  const newResponse = await response.json();
+  // Check if user is authorized
+  if (response.status === 401) {
+    // If not, trigger log out function
+    logout();
+  } else if (response.status === 200) {
+    return newResponse;
+  } else {
+    return response.status;
+  }
+};
+
 
 
 const logout = () => {
@@ -889,5 +915,5 @@ export {
   getUsers, logout, saveNotifSchedule, registerAccount, getGoalsSync, getHabitAutocomplete, createHabit,
   getUserHabits, saveHabits, saveNote, getFoodAutocomplete, getFoodSearchResults, getNutrients, getTodayUserNutrients,
   getCalorieBudget, saveDetailedFoodLog, getNotifSettings, saveWeightHeightSettings, getMissions, saveMissionStatus, deleteAccount, getFoodLogsPersonal, getHabitLogsPersonal,
-  getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth, updateHabitJournalEntry, getProgressReport
+  getFoodLogStreaks, getHabitLogs, getHabitLogsOnMonth, updateHabitJournalEntry, getProgressReport, getLevelCountries
 }
