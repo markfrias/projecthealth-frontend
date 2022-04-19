@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import { getMissions, saveMissionStatus } from '../auth/APIServices';
 import { Close } from '@mui/icons-material';
-import { addPp, pickMeme } from '../auth/GamificationAPI';
+import { addHp, addPp, pickMeme } from '../auth/GamificationAPI';
 
 function LinearDeterminate(props) {
   const progress = props.numerator / props.denominator * 100;
@@ -58,6 +58,48 @@ const Dashboard = (props) => {
     // Make missions accomplished backdrop appear when all three checkboxes are checked
     if (props.checked.length === 2 && status === 1 && (props.pp + 5) / props.ppBoundary * 100 < 100) {
       setMissionsAccomplishedOpen(true);
+
+      if ((props.pp + 10) / props.ppBoundary * 100 >= 100) {
+        // Save old level
+        const oldLevel = props.account.levelId;
+
+        props.setAccount({
+          ...props.account,
+          levelId: props.account.levelId + 1
+        })
+        console.log((props.pp + 10) - props.ppBoundary)
+        props.setPp((props.pp + 10) - props.ppBoundary);
+        console.log(props.ppBoundary + 5)
+        addHp(props.hp + 5);
+        props.setHp(props.hp + 5);
+
+        props.setPpBoundary(props.ppBoundary + 5)
+        setDialogHead('Your pet leveled up');
+        setDialogBody('Graaape, see dashboard to see where to go next 🍇🍇🍇.')
+        setOpenSuccess(true);
+
+        addPp((props.pp + 10) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+        addHp(props.hp + 3);
+        props.setHp(props.hp + 3);
+        console.log(props.hp)
+
+        const response = await saveMissionStatus(body);
+        console.log(response)
+
+        if (response === 500) {
+          setSnackbarContent("An error occurred on our end. Please try again soon.")
+          setSnackbarOpen(true)
+        }
+
+        return
+
+
+      }
+      props.setPp(props.pp + 5, props.ppBoundary)
+      addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
+      addHp(props.hp + 5);
+      props.setHp(props.hp + 5);
+
     }
 
 
@@ -78,10 +120,14 @@ const Dashboard = (props) => {
 
         props.setPpBoundary(props.ppBoundary + 5)
         setDialogHead('Your pet leveled up');
-        setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+        setDialogBody("Graaape. Your pet's health increased. See dashboard to see where to go next 🍇🍇🍇.")
         setOpenSuccess(true);
 
-        addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+        addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1);
+
+        // Add to HP
+        addHp(props.hp + 3);
+        props.setHp(props.hp + 3);
 
         const response = await saveMissionStatus(body);
         console.log(response)
@@ -292,7 +338,7 @@ const Dashboard = (props) => {
       </Fab>
 
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, p: 2 }}
         open={openSuccess}
         onClick={() => { setOpenSuccess(false) }}>
 
@@ -363,7 +409,7 @@ const Dashboard = (props) => {
           </Grid>
 
           <Grid item xs={12}>
-            <p>You're done for today. Continue logging to get more progress points.</p>
+            <p>10 progress points closer to your next destination. Continue logging to unlock new countries.</p>
           </Grid>
         </Grid>
       </Backdrop>

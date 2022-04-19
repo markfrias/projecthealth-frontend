@@ -12,7 +12,7 @@ const HabitsOnboarding1 = () => {
 
     return (
         <Container maxWidth="md" sx={{
-            display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh", width: "100%"
+            display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh", width: "100%", py: 2
         }}>
             <Box sx={{ width: "80%", height: "auto" }}>
                 <img width="100%" height="100%" alt="Woman sitting down and reading" src={require("../../assets/img/casual-life-3d-reading.png")} />

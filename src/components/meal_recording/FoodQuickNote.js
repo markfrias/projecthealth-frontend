@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { saveNote } from '../auth/APIServices';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { addPp } from '../auth/GamificationAPI';
+import { addHp, addPp } from '../auth/GamificationAPI';
 
 
 const FoodQuickNote = (props) => {
@@ -66,7 +66,7 @@ const FoodQuickNote = (props) => {
   }
 
   const handleSave = async () => {
-    if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+    if ((props.pp + 2) / props.ppBoundary * 100 >= 100) {
       // Save old level
       const oldLevel = props.account.levelId;
 
@@ -74,21 +74,23 @@ const FoodQuickNote = (props) => {
         ...props.account,
         levelId: props.account.levelId + 1
       })
-      console.log((props.pp + 5) - props.ppBoundary)
-      props.setPp((props.pp + 5) - props.ppBoundary);
+      console.log((props.pp + 2) - props.ppBoundary)
+      props.setPp((props.pp + 2) - props.ppBoundary);
       console.log(props.ppBoundary + 5)
 
       props.setPpBoundary(props.ppBoundary + 5)
+      addHp(props.hp + 3);
+      props.setHp(props.hp + 3);
       setDialogHead('Your pet leveled up');
-      setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+      setDialogBody("Graaape. Your pet's health increased. See dashboard to see where to go next 🍇🍇🍇.")
       setOpenSuccess(true);
 
-      addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+      addPp((props.pp + 2) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
       const response = await saveNote(quickNoteState);
       if (response === 200) {
         setOpen(true);
         setModalHeading("Note saved!")
-        setModalBody("The note you created has been successfully saved. Plus 5 progress points 💯");
+        setModalBody("The note you created has been successfully saved. Plus 2 progress points 💯");
       } else if (response === 400) {
         setOpen(true);
         setModalHeading("Incorrect or incomplete input")
@@ -105,15 +107,15 @@ const FoodQuickNote = (props) => {
 
       return
     }
-    props.setPp(props.pp + 5, props.ppBoundary)
-    addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
+    props.setPp(props.pp + 2, props.ppBoundary)
+    addPp(props.pp + 2, props.ppBoundary, props.account.levelId)
 
     const response = await saveNote(quickNoteState);
 
     if (response === 200) {
       setOpen(true);
       setModalHeading("Note saved!")
-      setModalBody("The note you created has been successfully saved. Plus 5 progress points 💯");
+      setModalBody("The note you created has been successfully saved. Plus 2 progress points 💯");
     } else if (response === 400) {
       setOpen(true);
       setModalHeading("Incorrect or incomplete input")
