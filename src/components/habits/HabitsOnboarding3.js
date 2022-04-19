@@ -1,8 +1,10 @@
-import { Autocomplete, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Autocomplete, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FormGroup, Button, TextField } from "@mui/material";
 import { createHabit, getGoalsSync } from "../auth/APIServices";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Box } from "victory";
+import { Close, KeyboardArrowLeftRounded } from "@mui/icons-material";
 
 const HabitsOnboarding3 = (props) => {
     // Test code
@@ -67,61 +69,61 @@ const HabitsOnboarding3 = (props) => {
 
     return (
         <Container maxWidth="md" sx={{
-            display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh"
+            display: "flex", flexDirection: "column", alignItems: "center", height: "100vh", padding: '2em', justifyContent: "space-between"
         }}>
-            <div className="header" style={{ marginLeft: 10 }}>
+            <Grid>
+                <Grid item container direction="column" className="header" mb="3em">
+                    <Button variant='text' sx={{ color: 'black', padding: '0', mb: '.5em', alignSelf: 'flex-start' }} startIcon={<Close />} component={Link} to="/app/habits/2">Create a habit</Button>
 
-                <p>Create a habit by filling all the required fields below.</p>
-                <p><i>*required fields</i></p>
-            </div>
-            <FormGroup style={{ marginBottom: 200, marginLeft: 10 }}>
+                    <Typography variant="subtitle1" component="h2">Create a habit by filling all the required fields below.</Typography>
+                </Grid>
+                <FormGroup>
 
-                <h2 style={{ fontSize: 18 }}>Habit Name*</h2>
-                <TextField
-                    helperText="e.g., Eat a fruit every breakfast"
-                    id="demo-helper-text-misaligned"
-                    label="Name"
-                    name="habitName"
-                    value={props.habitsState.habitName}
-                    onChange={props.handleChange}
-                />
-                <h2 style={{ fontSize: 18 }}>Habit Description*</h2>
-                <TextField
-                    helperText="e.g., Eat a fruit every day for breakfast to increase fruit consumption."
-                    id="demo-helper-text-misaligned"
-                    label="Description"
-                    name="habitDescription"
-                    value={props.habitsState.habitDescription}
-                    onChange={props.handleChange}
-                />
-                <h2 style={{ fontSize: 18 }}>Goal Category</h2>
+                    <TextField
+                        helperText="e.g., Eat a fruit every breakfast"
+                        id="demo-helper-text-misaligned"
+                        label="Name"
+                        name="habitName"
+                        value={props.habitsState.habitName}
+                        onChange={props.handleChange}
+                        sx={{ mb: '2em' }}
+                    />
+                    <TextField
+                        helperText="e.g., Eat a fruit every day for breakfast to increase fruit consumption."
+                        id="demo-helper-text-misaligned"
+                        label="Description"
+                        name="habitDescription"
+                        value={props.habitsState.habitDescription}
+                        onChange={props.handleChange}
+                        sx={{ mb: '2em' }}
+                    />
 
-                <Autocomplete
-                    disablePortal
-                    getOptionLabel={option => option.goalName}
-                    id="combo-box-demo"
-                    options={goalCats}
-                    value={props.goalCategoryValue}
-                    onChange={(event, newValue) => {
-                        props.setGoalCategoryValue(newValue)
-                    }}
-                    inputValue={props.habitsState.goalCategoryInputValue}
-                    isOptionEqualToValue={(option, value) => option.goalName === value.goalName && option.goalId === value.goalId}
-                    onInputChange={(event, newInputValue) => {
-                        props.setHabitsState({
-                            ...props.habitsState,
-                            goalCategoryInputValue: newInputValue
-                        })
-                    }}
-                    renderInput={(params) => <TextField {...params} label="Goal Category" />}
-                />
+                    <Autocomplete
+                        disablePortal
+                        getOptionLabel={option => option.goalName}
+                        id="combo-box-demo"
+                        options={goalCats}
+                        value={props.goalCategoryValue}
+                        onChange={(event, newValue) => {
+                            props.setGoalCategoryValue(newValue)
+                        }}
+                        inputValue={props.habitsState.goalCategoryInputValue}
+                        isOptionEqualToValue={(option, value) => option.goalName === value.goalName && option.goalId === value.goalId}
+                        onInputChange={(event, newInputValue) => {
+                            props.setHabitsState({
+                                ...props.habitsState,
+                                goalCategoryInputValue: newInputValue
+                            })
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Goal Category" />}
+                        sx={{ mb: '2em' }}
+                    />
 
 
-            </FormGroup>
-            <div className="button-class" style={{ marginBottom: 20 }}>
-                <Button className="button-full" variant="contained" onClick={handleSaveHabit}> Save habits</Button>
+                </FormGroup>
+            </Grid>
 
-            </div>
+            <Button variant="contained" onClick={handleSaveHabit} fullWidth> Save habits</Button>
 
             <Dialog
                 open={open}
