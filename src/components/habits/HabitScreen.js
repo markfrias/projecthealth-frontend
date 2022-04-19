@@ -16,7 +16,7 @@ import { Edit, ThumbDownRounded, ThumbUp } from "@mui/icons-material";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { addPp, pickMeme } from "../auth/GamificationAPI";
+import { addHp, addPp, pickMeme } from "../auth/GamificationAPI";
 
 
 export default function HabitScreen(props) {
@@ -32,7 +32,7 @@ export default function HabitScreen(props) {
     const handleLike = async (event, value, habitEntryId, index, arr) => {
         if (value === 1) {
             setDialogHead('Your pet earned 5 points');
-            setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+            setDialogBody(`Graaape 🍇🍇🍇.`)
             setOpenSuccess(true);
         }
 
@@ -48,10 +48,12 @@ export default function HabitScreen(props) {
             console.log((props.pp + 5) - props.ppBoundary)
             props.setPp((props.pp + 5) - props.ppBoundary);
             console.log(props.ppBoundary + 5)
+            addHp(props.hp + 3);
+            props.setHp(props.hp + 3);
 
             props.setPpBoundary(props.ppBoundary + 5)
             setDialogHead('Your pet leveled up');
-            setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
+            setDialogBody(`Graaape 🍇🍇🍇. Your pet's health increased. Graaape, see dashboard to see where to go next 🍇🍇🍇.`)
             setOpenSuccess(true);
 
             addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
@@ -191,7 +193,7 @@ export default function HabitScreen(props) {
 
 
                     <Backdrop
-                        sx={{ color: '#fff', backdropFilter: 'blur(5px)', zIndex: (theme) => theme.zIndex.drawer + 1, px: 1 }}
+                        sx={{ color: '#fff', backdropFilter: 'blur(5px)', zIndex: (theme) => theme.zIndex.drawer + 1, px: 2 }}
                         open={openSuccess}
                         onClick={() => {
                             window.location.reload();

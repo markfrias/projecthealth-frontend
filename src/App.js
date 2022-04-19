@@ -353,7 +353,7 @@ function App() {
               <Route path="settings/*" element={<WeightHeightMod />} />
               <Route path="notif-settings" element={<NotificationSettings />} />
               <Route path="logscreen/*" element={<LogScreen />} />
-              <Route path="quicknote/*" element={<FoodQuickNote ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
+              <Route path="quicknote/*" element={<FoodQuickNote levels={levels} ppBoundary={ppBoundary} setPpBoundary={setPpBoundary} hp={hp} pp={pp} setPp={setPp} setHp={setHp} missions={missions} checked={missionsChecked} setMissions={setMissions} setChecked={setMissionsChecked} account={account} setAccount={setAccount} />} />
               <Route path="onboarding/5" element={<Onboarding5 />} />
               <Route path="onboarding/4" element={<Onboarding4 />} />
               <Route path="onboarding/3" element={<Onboarding3 />} />
