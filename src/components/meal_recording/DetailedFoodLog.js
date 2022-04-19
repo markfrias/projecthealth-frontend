@@ -468,9 +468,9 @@ const DetailedFoodLog = (props) => {
                         }
                     >
                         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Back</Button>
-                        <Grid container justifyContent="space-between" alignItems="center">
-                            <Grid item> <Typography variant="onboardingHeader2" component="h1">{props.foodItem.food.label}</Typography  ></Grid>
-                            <Grid item>
+                        <Grid item container justifyContent="space-between" alignItems="center">
+                            <Grid item xs={9}> <Typography variant="onboardingHeader2" component="h1">{props.foodItem.food.label}</Typography  ></Grid>
+                            <Grid item xs={2}>
                                 <LoadingButton color='secondary' className='button-foodlog' variant='contained' onClick={handleSave} loading={loadingButton}>Save</LoadingButton></Grid>
 
                         </Grid>

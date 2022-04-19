@@ -57,7 +57,7 @@ const addHp = async (data) => {
     }
 
     const response = await fetch(
-        `http://localhost:8000/api/users/health/update`,
+        `https://projecthealthapp.herokuapp.com/api/users/health/update`,
         {
             method: "PATCH",
             mode: "cors",
