@@ -154,7 +154,11 @@ const ProgressReport = () => {
       </Grid>
 
       {loading ?
-        <CircularProgress variant="indeterminate" /> :
+        <Grid item container xs={12} sx={{ height: '100vh' }} direction="column" justifyContent="center" alignItems="center" pt={2}  >
+          <CircularProgress variant="indeterminate" sx={{ mb: '2em' }} />
+          <Typography variant='body1' component="p">Loading content</Typography>
+        </Grid>
+        :
         <Grid item xs={12} container px={1} pb={3} mt={1}>
           <Grid item xs={12} container direction='row' mb={1}>
             <Typography variant='subtitle1B' component='h1' >How much have you progressed?</Typography>
@@ -200,86 +204,98 @@ const ProgressReport = () => {
 
         </Grid>
 
+
+
+
       }
+      {
+        loading ?
+          "" :
+          <Grid item xs={12} container direction='column' px={1}>
+            <Typography variant='subtitle1B' component='h1' pb={1} >Trends</Typography>
+            <Grid item pb={2}>
+              {logTypes.map((log) => {
+                return (
+                  <Chip sx={{ mr: '.25em' }} key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+                )
+              })}
+            </Grid>
+
+            {checked[0] === 0 && lessChanging !== undefined ?
+              <Grid item xs={12} container direction='row' px={1}>
+                <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  {weightTrend.length === 1 ?
+                    <Typography component="p">Log your weight regularly to view trend.</Typography> :
+                    <VictoryChart theme={VictoryTheme.material} domain={{ y: [0, lessChanging.targetWeight + 20] }}
+                    >
+                      <VictoryLine
+                        data={weightTrend}
+                        x="weightJournalDate"
+                        y="weight"
+                      />
+                    </VictoryChart>
+
+                  }
+                </Paper>
+
+              </Grid>
+
+              :
+
+              checked[0] === 1 && lessChanging !== undefined
+                ?
+                <Grid item xs={12} container direction='row' px={1}>
+                  <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    {bmiTrend.length <= 1 ?
+                      <Typography component="p">Log your weight regularly to view trend.</Typography> :
+                      <VictoryChart domain={{ y: [0, 40] }} theme={VictoryTheme.material}>
+                        <VictoryLine
+                          data={bmiTrend}
+                          x=""
+                          y="bmi"
+                        />
+                      </VictoryChart>
+
+                    }
+                  </Paper>
+
+                </Grid> :
+                <Grid item xs={12} container direction='row' px={1}>
+                  <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    {calorieTrend.length <= 1 ?
+                      <Typography component="p">Log your weight regularly to view trend.</Typography> :
+                      <VictoryChart theme={VictoryTheme.material}>
+                        <VictoryLine
+                          data={calorieTrend}
+                          x="foodJournalDate"
+                          y="calories"
+                        />
+                      </VictoryChart>
+
+                    }
+                  </Paper>
 
 
 
-
-      <Grid item xs={12} container direction='column' px={1}>
-        <Typography variant='subtitle1B' component='h1' pb={1} >Trends</Typography>
-        <Grid item pb={2}>
-          {logTypes.map((log) => {
-            return (
-              <Chip sx={{ mr: '.25em' }} key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
-            )
-          })}
-        </Grid>
+                </Grid>
 
 
-
-      </Grid>
-
-      {checked[0] === 0 && lessChanging !== undefined ?
-        <Grid item xs={12} container direction='row' px={1}>
-          <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            {weightTrend.length === 1 ?
-              <Typography component="p">Log your weight regularly to view trend.</Typography> :
-              <VictoryChart theme={VictoryTheme.material} domain={{ y: [0, lessChanging.targetWeight + 20] }}
-              >
-                <VictoryLine
-                  data={weightTrend}
-                  x="weightJournalDate"
-                  y="weight"
-                />
-              </VictoryChart>
 
             }
-          </Paper>
 
-        </Grid>
 
-        :
-
-        checked[0] === 1 && lessChanging !== undefined
-          ?
-          <Grid item xs={12} container direction='row' px={1}>
-            <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              {bmiTrend.length <= 1 ?
-                <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                <VictoryChart domain={{ y: [0, 40] }} theme={VictoryTheme.material}>
-                  <VictoryLine
-                    data={bmiTrend}
-                    x=""
-                    y="bmi"
-                  />
-                </VictoryChart>
-
-              }
-            </Paper>
-
-          </Grid> :
-          <Grid item xs={12} container direction='row' px={1}>
-            <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              {calorieTrend.length <= 1 ?
-                <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                <VictoryChart theme={VictoryTheme.material}>
-                  <VictoryLine
-                    data={calorieTrend}
-                    x="foodJournalDate"
-                    y="calories"
-                  />
-                </VictoryChart>
-
-              }
-            </Paper>
 
 
 
           </Grid>
 
-
-
       }
+
+
+
+
+
+
 
 
     </Grid >

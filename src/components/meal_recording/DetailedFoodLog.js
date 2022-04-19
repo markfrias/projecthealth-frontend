@@ -5,7 +5,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getFoodLogsPersonal, getNutrients, saveDetailedFoodLog } from '../auth/APIServices';
-import { addPp } from '../auth/GamificationAPI';
+import { addHp, addPp } from '../auth/GamificationAPI';
 
 const DetailedFoodLog = (props) => {
     // Recommended values
@@ -92,7 +92,7 @@ const DetailedFoodLog = (props) => {
         }
 
         // Level up if pp expands beyond boundary
-        if ((props.pp + 5) / props.ppBoundary * 100 >= 100) {
+        if ((props.pp + 2) / props.ppBoundary * 100 >= 100) {
             // Save old level
             const oldLevel = props.account.levelId;
 
@@ -100,23 +100,38 @@ const DetailedFoodLog = (props) => {
                 ...props.account,
                 levelId: props.account.levelId + 1
             })
-            console.log((props.pp + 5) - props.ppBoundary)
-            props.setPp((props.pp + 5) - props.ppBoundary);
+            console.log((props.pp + 2) - props.ppBoundary)
             console.log(props.ppBoundary + 5)
 
-            props.setPpBoundary(props.ppBoundary + 5)
-            setDialogHead('Your pet leveled up');
-            setDialogBody('Graaape, now your pet is even more excited 🍇🍇🍇.')
-            setOpenSuccess(true);
 
-            addPp((props.pp + 5) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+            if (((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100 > 100) {
+                setDialogHead('You exceeded your calorie budget.');
+                setDialogBody("Arf. Try to stay within your calorie budget next time.")
+                setOpenSuccess(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+            }
+
+            else {
+                setDialogHead('Your pet leveled up');
+                setDialogBody("Graaape. Your pet's health increased. See dashboard to see where to go next 🍇🍇🍇.")
+                setOpenSuccess(true);
+                addPp((props.pp + 2) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
+                props.setPp((props.pp + 2) - props.ppBoundary);
+                addHp(props.hp + 3);
+                props.setHp(props.hp + 3);
+                props.setPpBoundary(props.ppBoundary + 5)
+            }
+
+
+
             const response = await saveDetailedFoodLog(body);
 
 
             if (response === 200) {
                 setOpen(true);
                 setModalHeading("Note saved!")
-                setModalBody("The note you created has been successfully saved. Plus 5 progress points 😻");
+                setModalBody("The note you created has been successfully saved. Plus 2 progress points 😻");
                 setTimeout(() => {
                     navigate('/app/food/search');
                 }, 2000);
@@ -139,38 +154,138 @@ const DetailedFoodLog = (props) => {
 
             }
 
+            if (nutrients.totalNutrients.CHOCDF !== undefined ? (summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 > 100 : (summaryValues.carbs) / recommendedCarbs * 100 > 100) {
+                setDialogHead('You exceeded your carbohydrate budget.');
+                setDialogBody("Arf. Try to stay within your calorie budget next time.")
+                setOpenSuccess(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+            }
+
+            if (nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 > 100 : (summaryValues.fat) / recommendedFat * 100 > 100
+            ) {
+                setDialogHead('You exceeded your fat budget.');
+                setDialogBody("Arf. Try to stay within your calorie budget next time.")
+                setOpenSuccess(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+            }
+
+            if (nutrients.totalNutrients.PROCNT !== undefined ? (summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100 > 100 : (summaryValues.protein) / recommendedProtein * 100 > 100) {
+                setDialogHead('You exceeded your protein budget.');
+                setDialogBody("Arf. Try to stay within your calorie budget next time.")
+                setOpenSuccess(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+            }
+
             return
 
 
         }
-        props.setPp(props.pp + 5, props.ppBoundary)
-        addPp(props.pp + 5, props.ppBoundary, props.account.levelId)
-        const response = await saveDetailedFoodLog(body);
-        if (response === 200) {
-            setOpen(true);
-            setModalHeading("Note saved!")
-            setModalBody("The note you created has been successfully saved. Plus 5 progress points 😻");
-            setTimeout(() => {
-                navigate('/app/food/search');
-            }, 5000);
-        } else if (response === 400) {
-            setOpen(true);
-            setModalHeading("Incorrect or incomplete input")
-            setModalBody("Please make sure that you have completely filled up all required fields.")
-            setLoadingButton(false);
-        } else if (response === 500) {
-            setOpen(true);
-            setModalHeading("Server error")
-            setModalBody("Oops! Something wrong happened on our end. Please try again later.")
-            setLoadingButton(false);
 
-        } else {
+
+        if (((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100 > 100) {
+            setModalHeading('You exceeded your calorie budget.');
+            setModalBody("Arf. Try to stay within your calorie budget next time.")
             setOpen(true);
-            setModalHeading("Something wrong happened")
-            setModalBody("We're not sure what happened, but we're at it to fix it.")
-            setLoadingButton(false);
+            addHp(props.hp - 3);
+            props.setHp(props.hp - 3);
+            const response = await saveDetailedFoodLog(body);
+            if (response === 200) {
+                setOpen(true);
+                setModalHeading("Note saved!")
+                setModalBody("The note you created has been successfully saved. Minus 3 health points tho ☹️");
+                setTimeout(() => {
+                    navigate('/app/food/search');
+                }, 2500);
+            } else if (response === 400) {
+                setOpen(true);
+                setModalHeading("Incorrect or incomplete input")
+                setModalBody("Please make sure that you have completely filled up all required fields.")
+                setLoadingButton(false);
+            } else if (response === 500) {
+                setOpen(true);
+                setModalHeading("Server error")
+                setModalBody("Oops! Something wrong happened on our end. Please try again later.")
+                setLoadingButton(false);
+
+            } else {
+                setOpen(true);
+                setModalHeading("Something wrong happened")
+                setModalBody("We're not sure what happened, but we're at it to fix it.")
+                setLoadingButton(false);
+
+            }
+        }
+
+
+        else {
+
+            if (nutrients.totalNutrients.CHOCDF !== undefined ? (summaryValues.carbs + nutrients.totalNutrients.CHOCDF.quantity * formData.servingQty) / recommendedCarbs * 100 > 100 : (summaryValues.carbs) / recommendedCarbs * 100 > 100
+            ) {
+                setModalHeading('You exceeded your carbohydrate budget.');
+                setModalBody("Arf. Try to stay within your calorie budget next time.")
+                setOpen(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+
+            }
+            if (nutrients.totalNutrients.FAT !== undefined ? (summaryValues.fat + nutrients.totalNutrients.FAT.quantity * formData.servingQty) / recommendedFat * 100 > 100 : (summaryValues.fat) / recommendedFat * 100 > 100
+
+            ) {
+                setModalHeading('You exceeded your fat budget.');
+                setModalBody("Arf. Try to stay within your calorie budget next time.")
+                setOpen(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+
+            }
+            if (nutrients.totalNutrients.PROCNT !== undefined ? (summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100 > 100 : (summaryValues.protein) / recommendedProtein * 100 > 100
+
+            ) {
+                setModalHeading('You exceeded your fat budget.');
+                setModalBody("Arf. Try to stay within your calorie budget next time.")
+                setOpen(true);
+                addHp(props.hp - 3);
+                props.setHp(props.hp - 3);
+
+            }
+
+            props.setPp(props.pp + 2, props.ppBoundary)
+            addPp(props.pp + 2, props.ppBoundary, props.account.levelId)
+            const response = await saveDetailedFoodLog(body);
+            if (response === 200) {
+                setOpen(true);
+                setModalHeading("Note saved!")
+                setModalBody("The note you created has been successfully saved. Plus 2 progress points 😻");
+                setTimeout(() => {
+                    navigate('/app/food/search');
+                }, 2500);
+            } else if (response === 400) {
+                setOpen(true);
+                setModalHeading("Incorrect or incomplete input")
+                setModalBody("Please make sure that you have completely filled up all required fields.")
+                setLoadingButton(false);
+            } else if (response === 500) {
+                setOpen(true);
+                setModalHeading("Server error")
+                setModalBody("Oops! Something wrong happened on our end. Please try again later.")
+                setLoadingButton(false);
+
+            } else {
+                setOpen(true);
+                setModalHeading("Something wrong happened")
+                setModalBody("We're not sure what happened, but we're at it to fix it.")
+                setLoadingButton(false);
+
+            }
 
         }
+
+
+
+
     }
 
     const handleToggle = (value) => {
@@ -353,9 +468,9 @@ const DetailedFoodLog = (props) => {
                         }
                     >
                         <Button className='button-quicknote' variant='text' sx={{ color: 'black' }} startIcon={<KeyboardArrowLeft />} onClick={() => { navigate('/app/food/search') }}>Back</Button>
-                        <Grid container justifyContent="space-between" alignItems="center">
-                            <Grid item> <Typography variant="onboardingHeader2" component="h1">{props.foodItem.food.label}</Typography  ></Grid>
-                            <Grid item>
+                        <Grid item container justifyContent="space-between" alignItems="center">
+                            <Grid item xs={9}> <Typography variant="onboardingHeader2" component="h1">{props.foodItem.food.label}</Typography  ></Grid>
+                            <Grid item xs={2}>
                                 <LoadingButton color='secondary' className='button-foodlog' variant='contained' onClick={handleSave} loading={loadingButton}>Save</LoadingButton></Grid>
 
                         </Grid>

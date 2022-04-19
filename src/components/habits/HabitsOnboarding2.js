@@ -1,4 +1,4 @@
-import { Alert, Avatar, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
+import { Alert, Avatar, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { FormGroup, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -71,66 +71,69 @@ const HabitsOnboarding2 = (props) => {
 
     return (
         < Container maxWidth="sm" sx={{
-            display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", height: "100vh", padding: "1em 1em"
+            display: "flex", flexDirection: "column", alignItems: "center", height: "100vh", padding: "2em 1em"
         }
         }>
-            <div className="header">
-                <h2>Stick to habits</h2>
-                <p>Choose from a list of health habits or create your own to start your habit tracking journey.</p>
-            </div>
-            <FormGroup sx={{ width: '100%' }}>
-                <h2 style={{ fontSize: '1em' }}>Your habits</h2>
-                <Button color="secondary" className="button-full" variant="contained" sx={{ mb: '.5em' }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
-                <Button color="secondary" className="button-full" variant="contained" onClick={() => { handleLinkClick('/app/habits/4') }}>Choose from our list</Button>
-                <List dense sx={{ width: '100%' }}>
-                    {props.habitsState.habitsForSubmission.length <= 0 ?
-                        <Alert severity="info">Please create or select a habit.</Alert> :
+            <Box className="header" sx={{ mb: '4em' }}>
+                <Typography variant="bigHeading" component="h1" sx={{ width: '100%', mb: 2 }}>Stick to habits</Typography>
+                <Typography variant="subtitle1" component="h2" sx={{ mb: '4em' }}>Choose from a list of health habits or create your own to start your habit tracking journey.</Typography>
+                <FormGroup sx={{ width: '100%' }}>
+                    <Button color="secondary" className="button-full" variant="contained" sx={{ height: '2.5em', mb: '1em' }} onClick={() => { handleLinkClick('/app/habits/3') }}>Create Habit</Button>
+                    <p style={{ textAlign: 'center' }}>OR</p>
+                    <Button color="secondary" className="button-full" variant="contained" sx={{ height: '2.5em', mb: '4em' }} onClick={() => { handleLinkClick('/app/habits/4') }}>Choose from our list</Button>
+                    <Typography variant='onboardingHeader2' component='h2' >Your habits</Typography>
 
-                        props.habitsState.habitsForSubmission.map((value) => {
-                            const labelId = `checkbox-list-secondary-label-${value.habitId}`;
-                            return (
-                                <ListItem
-                                    key={value.habitId}
-                                    secondaryAction={
+                    <List dense sx={{ width: '100%' }}>
+                        {props.habitsState.habitsForSubmission.length <= 0 ?
+                            <Alert severity="info">Please create or select a habit.</Alert> :
+
+                            props.habitsState.habitsForSubmission.map((value) => {
+                                const labelId = `checkbox-list-secondary-label-${value.habitId}`;
+                                return (
+                                    <ListItem
+                                        key={value.habitId}
+                                        secondaryAction={
+                                            <ListItemButton>
+                                                <Delete
+                                                    edge="end"
+                                                    onClick={(event) => {
+                                                        const habitIndex = props.habitsState.habitsForSubmission.indexOf(value);
+                                                        let habitsCopy = props.habitsState.habitsForSubmission;
+                                                        habitsCopy.splice(habitIndex, 1);
+                                                        props.setHabitsState({
+                                                            ...props.habitsState,
+                                                            habitsForSubmission: habitsCopy,
+                                                        })
+                                                    }}
+                                                    checked={props.checked.indexOf(value) !== -1}
+                                                />
+                                            </ListItemButton>
+
+                                        }
+                                        disablePadding
+                                    >
                                         <ListItemButton>
-                                            <Delete
-                                                edge="end"
-                                                onClick={(event) => {
-                                                    const habitIndex = props.habitsState.habitsForSubmission.indexOf(value);
-                                                    let habitsCopy = props.habitsState.habitsForSubmission;
-                                                    habitsCopy.splice(habitIndex, 1);
-                                                    props.setHabitsState({
-                                                        ...props.habitsState,
-                                                        habitsForSubmission: habitsCopy,
-                                                    })
-                                                }}
-                                                checked={props.checked.indexOf(value) !== -1}
-                                            />
+                                            <ListItemAvatar>
+                                                <Avatar
+                                                    alt={`Avatar n°${value + 1}`}
+                                                    src={`/static/images/avatar/${value + 1}.jpg`}
+                                                />
+                                            </ListItemAvatar>
+                                            <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
                                         </ListItemButton>
-
-                                    }
-                                    disablePadding
-                                >
-                                    <ListItemButton>
-                                        <ListItemAvatar>
-                                            <Avatar
-                                                alt={`Avatar n°${value + 1}`}
-                                                src={`/static/images/avatar/${value + 1}.jpg`}
-                                            />
-                                        </ListItemAvatar>
-                                        <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
-                                    </ListItemButton>
-                                </ListItem>
-                            );
-                        })
+                                    </ListItem>
+                                );
+                            })
 
 
-                    }
+                        }
 
-                </List>
+                    </List>
 
 
-            </FormGroup>
+                </FormGroup>
+            </Box>
+
             <Box sx={{ width: "100%", justifyContent: 'space-between' }}>
 
                 <Button fullWidth variant="contained" onClick={handleSaveHabits} sx={{ mb: '1rem' }}> Save habits</Button>
