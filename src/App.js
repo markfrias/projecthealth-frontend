@@ -360,7 +360,7 @@ function App() {
               <Route path="onboarding/2" element={<Onboarding2 />} />
               <Route path="onboarding/1" element={<Onboarding1 />} />
               <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
-              <Route path="progress-report/*" element={<ProgressReport />} />
+              <Route path="progress-report/*" element={<ProgressReport account={account} />} />
 
               <Route path="settings/account" element={<Accountsetting />} />
 

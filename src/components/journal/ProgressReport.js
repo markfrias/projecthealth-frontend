@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
-import { Grid, CircularProgress, Paper } from '@mui/material';
+import { Grid, CircularProgress, Paper, Alert, TableContainer, Table, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -37,9 +37,60 @@ function LinearDeterminate(props) {
   );
 }
 
+function DenseTable() {
+  return (
+    <TableContainer>
+      <Table sx={{ width: '100%' }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>BMI</TableCell>
+            <TableCell align="right">Description</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+
+          <TableRow
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              Below 18.5
+            </TableCell>
+            <TableCell align="right">Underweight</TableCell>
+          </TableRow>
+
+          <TableRow
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              18.5–24.9
+            </TableCell>
+            <TableCell align="right">Healthy</TableCell>
+          </TableRow>
+
+          <TableRow
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              25–29.9	            </TableCell>
+            <TableCell align="right">Overweight</TableCell>
+          </TableRow>
+
+          <TableRow
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              30 and above	            </TableCell>
+            <TableCell align="right">Obese</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
 
 
-const ProgressReport = () => {
+
+const ProgressReport = (props) => {
   const data = [
     { weightJournalDate: 1, weight: 50 },
     { weightJournalDate: 2, weight: 250 },
@@ -74,6 +125,7 @@ const ProgressReport = () => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+
     (async () => {
       setLoading(true)
 
@@ -120,7 +172,6 @@ const ProgressReport = () => {
 
   // Set loading state to off once less changing data and weight trends is set
   React.useEffect(() => {
-    console.log(lessChanging)
     if (lessChanging !== undefined && weightTrend !== undefined && lessChanging.levelId !== undefined) {
       setLoading(false);
       console.log(weightTrend)
@@ -169,43 +220,18 @@ const ProgressReport = () => {
           </Grid>
           <Grid item xs={6} container direction='row'>
             <Typography variant='subtitle1B' component='h1' >{`PP: ${lessChanging.progressPoints}/${lessChanging.levelBoundary}`}</Typography>
+
           </Grid>
           <Grid item xs={12} container direction='row' mb={2}>
-            <LinearDeterminate numerator={lessChanging.progressPoints} denominator={lessChanging.levelBoundary}></LinearDeterminate>
+            <LinearProgress variant="determinate" value={lessChanging.progressPoints / lessChanging.levelBoundary * 100} sx={{ height: '1em', borderRadius: '20px', border: 'solid 2px black', width: "100%" }} color={'green'} />
+
           </Grid>
-
-
-
 
           <Grid item xs={12} container direction='row'>
-            <Typography variant='subtitle1B' component='h1' >Current: {lessChanging.currentWeight} kg | Target: {lessChanging.targetWeight} kg</Typography>
+            <Typography variant='subtitle1' component='h1' >Current: {lessChanging.currentWeight} kg | Target: {lessChanging.targetWeight} kg</Typography>
           </Grid>
 
-          {lessChanging.weightLoss > 0 ?
-            <Grid item xs={12} container direction='row'>
-              <LinearDeterminate numerator={lessChanging.targetWeight - lessChanging.minWeight} denominator={lessChanging.targetWeight - lessChanging.currentWeight}></LinearDeterminate>
-
-            </Grid>
-            :
-
-            lessChanging.weightLoss < 0 ?
-              <Grid item xs={12} container direction='row'>
-                <LinearDeterminate numerator={lessChanging.maxWeight - lessChanging.targetWeight} denominator={lessChanging.currentWeight - lessChanging.targetWeight}></LinearDeterminate>
-
-              </Grid> :
-              <Grid item xs={12} container direction='row'>
-                <LinearDeterminate></LinearDeterminate>
-              </Grid>
-
-          }
-
-
-
-
         </Grid>
-
-
-
 
       }
       {
@@ -223,15 +249,17 @@ const ProgressReport = () => {
 
             {checked[0] === 0 && lessChanging !== undefined ?
               <Grid item xs={12} container direction='row' px={1}>
+
                 <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                   {weightTrend.length === 1 ?
                     <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                    <VictoryChart theme={VictoryTheme.material} domain={{ y: [0, lessChanging.targetWeight + 20] }}
+                    <VictoryChart theme={VictoryTheme.material} domain={{ y: [lessChanging.targetWeight - 10, lessChanging.targetWeight + 1] }}
                     >
                       <VictoryLine
                         data={weightTrend}
                         x="weightJournalDate"
                         y="weight"
+                        interpolation="natural"
                       />
                     </VictoryChart>
 
@@ -245,14 +273,19 @@ const ProgressReport = () => {
               checked[0] === 1 && lessChanging !== undefined
                 ?
                 <Grid item xs={12} container direction='row' px={1}>
+                  <Grid item className='dashboard-container1' mb={2}>
+                    <Typography variant='onboardingHeader2' component='h2' sx={{ mb: '.5em' }} >Body mass index (BMI) guide</Typography>
+                    <DenseTable />
+
+                  </Grid>
                   <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {bmiTrend.length <= 1 ?
                       <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                      <VictoryChart domain={{ y: [0, 40] }} theme={VictoryTheme.material}>
+                      <VictoryChart domain={{ y: [18.5, 35] }} theme={VictoryTheme.material}>
                         <VictoryLine
                           data={bmiTrend}
-                          x=""
                           y="bmi"
+                          interpolation="natural"
                         />
                       </VictoryChart>
 
@@ -261,7 +294,10 @@ const ProgressReport = () => {
 
                 </Grid> :
                 <Grid item xs={12} container direction='row' px={1}>
-                  <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <Grid item xs={12} container direction="column" mb={2}>
+                    <Alert severity="info">Target daily calorie budget: <strong>{lessChanging.calorieBudget}</strong> calories</Alert>
+                  </Grid>
+                  <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center", mb: '1.5em' }}>
                     {calorieTrend.length <= 1 ?
                       <Typography component="p">Log your weight regularly to view trend.</Typography> :
                       <VictoryChart theme={VictoryTheme.material}>
@@ -278,6 +314,9 @@ const ProgressReport = () => {
 
 
                 </Grid>
+
+
+
 
 
 
