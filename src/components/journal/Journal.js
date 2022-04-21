@@ -315,23 +315,25 @@ const Journal = () => {
                         </Grid>
 
                         {checked[0] === 1 ?
-                            <Grid item container direction="column" px={1} mb={2}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Habits</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={selectedHabit}
-                                        label="Select a habit"
-                                        onChange={handleSelectChange}
-                                    >
-                                        {currentHabits.map((habit) => {
-                                            return <MenuItem key={habit.habitId} value={habit.habitId}>{habit.habitName}</MenuItem>
-                                        })}
+                            currentHabits !== undefined ?
+                                <Grid item container direction="column" px={1} mb={2}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Habits</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={selectedHabit}
+                                            label="Select a habit"
+                                            onChange={handleSelectChange}
+                                        >
+                                            {currentHabits.map((habit) => {
+                                                return <MenuItem key={habit.habitId} value={habit.habitId}>{habit.habitName}</MenuItem>
+                                            })}
 
-                                    </Select>
-                                </FormControl>
-                            </Grid> : ""
+                                        </Select>
+                                    </FormControl>
+                                </Grid> : ""
+                            : ""
                         }
 
 
