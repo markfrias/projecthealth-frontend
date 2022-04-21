@@ -150,8 +150,13 @@ const Journal = () => {
             console.log(latestStreak)
             const latest = moment(latestStreak.max_date).format('YYYY-MM-DD');
             if (latest === moment().format('YYYY-MM-DD')) {
+                console.log(true)
                 setCurrentStreak(latestStreak.days_streak);
+            } else {
+                setCurrentStreak(0)
             }
+            console.log(currentStreak)
+
 
         })()
 
