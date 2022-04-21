@@ -150,8 +150,13 @@ const Journal = () => {
             console.log(latestStreak)
             const latest = moment(latestStreak.max_date).format('YYYY-MM-DD');
             if (latest === moment().format('YYYY-MM-DD')) {
+                console.log(true)
                 setCurrentStreak(latestStreak.days_streak);
+            } else {
+                setCurrentStreak(0)
             }
+            console.log(currentStreak)
+
 
         })()
 
@@ -314,6 +319,7 @@ const Journal = () => {
                                                 <Grid item mb={2} xs={8}>
                                                     <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You have not fed your pet in a while. Your pet seems unimpressed.</Typography>
                                                 </Grid>
+
 
                                             </Grid>
 
