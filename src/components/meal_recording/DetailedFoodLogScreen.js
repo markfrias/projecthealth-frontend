@@ -115,7 +115,7 @@ const DetailedFoodLogScreen = (props) => {
               onInputChange={(event, newInputValue) => {
                 setAutoInputValue(newInputValue);
               }}
-              renderInput={(params) => <TextField {...params} label="Search for habits" fullWidth
+              renderInput={(params) => <TextField {...params} label="Search for food" fullWidth
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
