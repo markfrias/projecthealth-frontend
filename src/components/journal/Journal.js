@@ -315,6 +315,7 @@ const Journal = () => {
                                                     <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You have not fed your pet in a while. Your pet seems unimpressed.</Typography>
                                                 </Grid>
 
+
                                             </Grid>
 
 
