@@ -289,49 +289,59 @@ const Journal = () => {
 
                                     currentStreak === undefined ?
 
-                                        <Grid item container direction="row" xs={12} mb={2} spacing={2} alignItems="center">
-
-                                            <Grid item xs={4} >
-                                                <img src="https://img.icons8.com/emoji/96/000000/unamused-face.png" alt="Unimpressed emoji" width="100%" height="auto" />                                            </Grid>
-
-                                            <Grid item mb={2} xs={8}>
-                                                <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You have not fed your pet in a while. Your pet seems unimpressed.</Typography>
-                                            </Grid>
-
+                                        <Grid item container direction="column" sx={{ height: '100vh', px: '1em' }} alignItems="center" justifyContent="center">
+                                            <CircularProgress variant='indeterminate' sx={{ mb: '2em' }} />
+                                            <Typography variant="p">Loading content</Typography>
                                         </Grid>
                                         :
-                                        <Grid item container direction="row" xs={12} mb={2} spacing={2} alignItems="center">
+                                        currentStreak > 0 ?
+                                            <Grid item container direction="row" xs={12} mb={2} spacing={2} alignItems="center">
 
-                                            <Grid item xs={4} >
-                                                <img alt="Party popper" src={require('../../assets/img/3d-confetti.png')} width="100%" height="auto" />
+                                                <Grid item xs={4} >
+                                                    <img alt="Party popper" src={require('../../assets/img/3d-confetti.png')} width="100%" height="auto" />
+                                                </Grid>
+                                                <Grid item mb={2} xs={8}>
+                                                    <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You fed Pobi for <strong>{currentStreak} {currentStreak > 1 ? "days" : "day"}</strong> straight. Log every day to increase your streak and strengthen your gotchi.</Typography>
+                                                </Grid>
+
                                             </Grid>
-                                            <Grid item mb={2} xs={8}>
-                                                <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You fed Pobi for <strong>{currentStreak} {currentStreak > 1 ? "days" : "day"}</strong> straight. Log every day to increase your streak and strengthen your gotchi.</Typography>
+                                            :
+                                            <Grid item container direction="row" xs={12} mb={2} spacing={2} alignItems="center">
+
+                                                <Grid item xs={4} >
+                                                    <img src="https://img.icons8.com/emoji/96/000000/unamused-face.png" alt="Unimpressed emoji" width="100%" height="auto" />                                            </Grid>
+
+                                                <Grid item mb={2} xs={8}>
+                                                    <Typography sx={{ width: '100%' }} variant="subtitle1" component="h1">You have not fed your pet in a while. Your pet seems unimpressed.</Typography>
+                                                </Grid>
+
                                             </Grid>
 
-                                        </Grid>
+
                             }
 
                         </Grid>
 
                         {checked[0] === 1 ?
-                            <Grid item container direction="column" px={1} mb={2}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Habits</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={selectedHabit}
-                                        label="Select a habit"
-                                        onChange={handleSelectChange}
-                                    >
-                                        {currentHabits.map((habit) => {
-                                            return <MenuItem key={habit.habitId} value={habit.habitId}>{habit.habitName}</MenuItem>
-                                        })}
+                            currentHabits !== undefined ?
+                                <Grid item container direction="column" px={1} mb={2}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Habits</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={selectedHabit}
+                                            label="Select a habit"
+                                            onChange={handleSelectChange}
+                                        >
+                                            {currentHabits.map((habit) => {
+                                                return <MenuItem key={habit.habitId} value={habit.habitId}>{habit.habitName}</MenuItem>
+                                            })}
 
-                                    </Select>
-                                </FormControl>
-                            </Grid> : ""
+                                        </Select>
+                                    </FormControl>
+                                </Grid> : ""
+                            : ""
                         }
 
 
