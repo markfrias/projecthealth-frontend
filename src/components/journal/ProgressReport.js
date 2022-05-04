@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import { Grid, CircularProgress, Paper, Alert, TableContainer, Table, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
@@ -14,28 +13,6 @@ import { Link } from "react-router-dom";
 import { getProgressReport } from '../auth/APIServices';
 import moment from 'moment';
 
-
-function LinearDeterminate(props) {
-
-
-  const [progress, setProgress] = React.useState(0);
-
-
-
-  React.useEffect(() => {
-    console.log(props.numerator / props.denominator * 100)
-    setProgress(props.numerator / props.denominator * 100)
-
-    return () => {
-    };
-  }, [props]);
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <LinearProgress variant="determinate" value={progress} />
-    </Box>
-  );
-}
 
 function DenseTable() {
   return (
@@ -141,9 +118,10 @@ const ProgressReport = (props) => {
       })
       setWeightTrend(revisedWeightTrend)
 
-      const revisedBmiTrend = progressReport[3].map((data) => {
+      const revisedBmiTrend = progressReport[3].map((data, index) => {
         return {
           bmi: Math.round(data.bmi),
+          bmiDate: moment().subtract(6 - index, 'days').format('MM-DD')
         }
       })
       setBmiTrend(revisedBmiTrend);
@@ -154,7 +132,16 @@ const ProgressReport = (props) => {
           foodJournalDate: moment(data.foodJournalDate).format('MM/DD')
         }
       })
-      setCalorieTrend(revisedCalTrend);
+
+
+      // Slice to seven the data if data exceeds seven days
+      if (revisedCalTrend.length > 7) {
+        const newCalTrend = revisedCalTrend.slice(revisedCalTrend.length - 7);
+        console.log(newCalTrend)
+        setCalorieTrend(newCalTrend);
+      } else {
+        setCalorieTrend(revisedCalTrend);
+      }
 
     })()
 
@@ -189,7 +176,7 @@ const ProgressReport = (props) => {
 
 
   return (
-    <Grid container direction="column" >
+    <Grid container direction="column" pb={2} >
       <Grid item xs={12} sx={{ background: '#F9AB10', padding: '1em' }}
         container direction='column'
       >
@@ -253,13 +240,12 @@ const ProgressReport = (props) => {
                 <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                   {weightTrend.length === 1 ?
                     <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                    <VictoryChart theme={VictoryTheme.material} domain={{ y: [lessChanging.targetWeight - 30, lessChanging.targetWeight + 1] }}
+                    <VictoryChart theme={VictoryTheme.material} domain={{ y: [lessChanging.targetWeight - 10, lessChanging.targetWeight + 5] }}
                     >
                       <VictoryLine
                         data={weightTrend}
                         x="weightJournalDate"
                         y="weight"
-                        interpolation="natural"
                         style={{
                           data: { stroke: "#c43a31" },
                           parent: { border: "2px solid #ccc" }
@@ -289,7 +275,7 @@ const ProgressReport = (props) => {
                         <VictoryLine
                           data={bmiTrend}
                           y="bmi"
-                          interpolation="natural"
+                          x="bmiDate"
                         />
                       </VictoryChart>
 

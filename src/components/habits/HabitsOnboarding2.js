@@ -138,7 +138,7 @@ const HabitsOnboarding2 = (props) => {
 
                 <Button fullWidth variant="contained" onClick={handleSaveHabits} sx={{ mb: '1rem' }}> Save habits</Button>
 
-                <Button fullWidth variant="contained" component={Link} to="/app/habitscreen"> Back</Button>
+                <Button fullWidth variant="contained" component={Link} to="/app/habitscreen" sx={{ mb: '1rem' }}> Back</Button>
 
             </Box>
 
