@@ -5,7 +5,6 @@ import { Container, Checkbox, Button, List, Alert, ListItem, ListItemButton, Lis
 import { getHabitAutocomplete } from '../auth/APIServices';
 import { AddRounded, Close, Delete } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box } from 'victory';
 
 
 export default function HabitsOnboarding4(props) {
@@ -207,7 +206,7 @@ export default function HabitsOnboarding4(props) {
 
 
 
-            <Grid item container direction="column">
+            <Grid item container direction="column" pb={8}>
                 <Typography variant='onboardingHeader2' component='h2' sx={{ mb: 1 }} >Habits selected</Typography>
                 <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {props.habitsToAdd.length <= 0 ?
