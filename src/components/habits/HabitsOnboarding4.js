@@ -5,7 +5,6 @@ import { Container, Checkbox, Button, List, Alert, ListItem, ListItemButton, Lis
 import { getHabitAutocomplete } from '../auth/APIServices';
 import { AddRounded, Close, Delete } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box } from 'victory';
 
 
 export default function HabitsOnboarding4(props) {

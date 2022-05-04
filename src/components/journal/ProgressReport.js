@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import { Grid, CircularProgress, Paper, Alert, TableContainer, Table, TableHead, TableRow, TableBody, TableCell } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import { VictoryChart, VictoryLine, VictoryTheme } from 'victory';
@@ -14,28 +13,6 @@ import { Link } from "react-router-dom";
 import { getProgressReport } from '../auth/APIServices';
 import moment from 'moment';
 
-
-function LinearDeterminate(props) {
-
-
-  const [progress, setProgress] = React.useState(0);
-
-
-
-  React.useEffect(() => {
-    console.log(props.numerator / props.denominator * 100)
-    setProgress(props.numerator / props.denominator * 100)
-
-    return () => {
-    };
-  }, [props]);
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <LinearProgress variant="determinate" value={progress} />
-    </Box>
-  );
-}
 
 function DenseTable() {
   return (
