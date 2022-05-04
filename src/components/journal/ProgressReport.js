@@ -269,7 +269,6 @@ const ProgressReport = (props) => {
                         data={weightTrend}
                         x="weightJournalDate"
                         y="weight"
-                        interpolation="natural"
                         style={{
                           data: { stroke: "#c43a31" },
                           parent: { border: "2px solid #ccc" }
@@ -300,7 +299,6 @@ const ProgressReport = (props) => {
                           data={bmiTrend}
                           y="bmi"
                           x="bmiDate"
-                          interpolation="natural"
                         />
                       </VictoryChart>
 
