@@ -207,7 +207,7 @@ export default function HabitsOnboarding4(props) {
 
 
 
-            <Grid item container direction="column">
+            <Grid item container direction="column" pb={8}>
                 <Typography variant='onboardingHeader2' component='h2' sx={{ mb: 1 }} >Habits selected</Typography>
                 <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
                     {props.habitsToAdd.length <= 0 ?
