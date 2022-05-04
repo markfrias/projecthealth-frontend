@@ -141,9 +141,10 @@ const ProgressReport = (props) => {
       })
       setWeightTrend(revisedWeightTrend)
 
-      const revisedBmiTrend = progressReport[3].map((data) => {
+      const revisedBmiTrend = progressReport[3].map((data, index) => {
         return {
           bmi: Math.round(data.bmi),
+          bmiDate: moment().subtract(6 - index, 'days').format('MM-DD')
         }
       })
       setBmiTrend(revisedBmiTrend);
@@ -154,7 +155,16 @@ const ProgressReport = (props) => {
           foodJournalDate: moment(data.foodJournalDate).format('MM/DD')
         }
       })
-      setCalorieTrend(revisedCalTrend);
+
+
+      // Slice to seven the data if data exceeds seven days
+      if (revisedCalTrend.length > 7) {
+        const newCalTrend = revisedCalTrend.slice(revisedCalTrend.length - 7);
+        console.log(newCalTrend)
+        setCalorieTrend(newCalTrend);
+      } else {
+        setCalorieTrend(revisedCalTrend);
+      }
 
     })()
 
@@ -289,6 +299,7 @@ const ProgressReport = (props) => {
                         <VictoryLine
                           data={bmiTrend}
                           y="bmi"
+                          x="bmiDate"
                           interpolation="natural"
                         />
                       </VictoryChart>
