@@ -199,7 +199,7 @@ const ProgressReport = (props) => {
 
 
   return (
-    <Grid container direction="column" >
+    <Grid container direction="column" pb={2} >
       <Grid item xs={12} sx={{ background: '#F9AB10', padding: '1em' }}
         container direction='column'
       >
