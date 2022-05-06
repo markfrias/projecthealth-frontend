@@ -271,7 +271,7 @@ const ProgressReport = (props) => {
                   <Paper sx={{ minHeight: "30vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {bmiTrend.length <= 1 ?
                       <Typography component="p">Log your weight regularly to view trend.</Typography> :
-                      <VictoryChart domain={{ y: [18.5, 35] }} theme={VictoryTheme.material}>
+                      <VictoryChart domain={{ y: [16.5, 32] }} theme={VictoryTheme.material}>
                         <VictoryLine
                           data={bmiTrend}
                           y="bmi"
