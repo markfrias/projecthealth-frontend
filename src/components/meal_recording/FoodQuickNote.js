@@ -141,13 +141,11 @@ const FoodQuickNote = (props) => {
       </Grid>
 
       <Grid item container direction="column" px="1em">
-        <Grid item xs={12}>
-          <Typography variant='subtitle1B' component='p'  >What's this meal for?</Typography>
-        </Grid>
+        <Typography variant='subtitle1B' component='p' mb=".5em" >What's this meal for?</Typography>
         <Grid item xs={12} container direction="row" mb="1em" >
           {mealTypes.map((meal) => {
             return (
-              <Chip key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} />
+              <Chip key={meal.mealId} label={meal.label} onClick={(event) => { handleToggle(meal) }} variant={checked.indexOf(meal.mealId) !== -1 ? "filled" : "outlined"} sx={{ mr: '.25em' }} />
             )
           })}
 
