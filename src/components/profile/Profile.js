@@ -17,6 +17,20 @@ const style = {
 };
 
 function ListDividers(props) {
+
+  const [notifIsAllowed, setNotifIsAllowed] = useState(false);
+  useEffect(() => {
+    Notification.requestPermission().then((result) => {
+      console.log(result);
+      // Display error if denied
+      if (result === "denied") {
+        setNotifIsAllowed(false);
+      } else if (result === "granted") {
+        setNotifIsAllowed(true);
+      }
+    });
+  }, []);
+
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
 
@@ -24,9 +38,18 @@ function ListDividers(props) {
         <Typography variant='subtitle1' component='p'>Account settings</Typography>
       </ListItem>
       <Divider />
-      <ListItem button component={Link} to="/app/notif-settings">
-        <Typography variant='subtitle1' component='p'>Notification settings</Typography>
-      </ListItem>
+
+      {notifIsAllowed ?
+
+        <ListItem button component={Link} to="/app/notif-settings">
+          <Typography variant='subtitle1' component='p'>Notification settings</Typography>
+        </ListItem>
+        :
+        ""
+
+      }
+
+
       {/*<ListItem button>
         <Typography variant='subtitle1' component='p'>Goal settings</Typography>
   </ListItem>*/}
