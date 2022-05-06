@@ -105,7 +105,7 @@ const Profile = (props) => {
         }
       >
 
-        <Grid container justifyContent="space-between" alignItems="center">
+        <Grid container justifyContent="space-between" alignItems="center" my="1rem">
           <Grid item> <Typography variant="onboardingHeader2" component="h1">Profile</Typography  ></Grid>
         </Grid>
       </Grid>

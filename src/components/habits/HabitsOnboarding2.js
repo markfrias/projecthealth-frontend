@@ -91,6 +91,7 @@ const HabitsOnboarding2 = (props) => {
                                 const labelId = `checkbox-list-secondary-label-${value.habitId}`;
                                 return (
                                     <ListItem
+                                        sx={{ mb: '1rem' }}
                                         key={value.habitId}
                                         secondaryAction={
                                             <ListItemButton>
@@ -119,7 +120,7 @@ const HabitsOnboarding2 = (props) => {
                                                     src={`/static/images/avatar/${value + 1}.jpg`}
                                                 />
                                             </ListItemAvatar>
-                                            <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
+                                            <ListItemText id={labelId} primary={value.habitName} />
                                         </ListItemButton>
                                     </ListItem>
                                 );

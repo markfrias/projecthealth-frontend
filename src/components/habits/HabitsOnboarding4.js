@@ -94,6 +94,7 @@ export default function HabitsOnboarding4(props) {
                                             const labelId = `checkbox-list-secondary-label-${value.habitName}`;
                                             return (
                                                 <ListItem
+                                                    sx={{ mb: '1rem' }}
                                                     key={`${value.habitId}${Math.random()}`}
                                                     secondaryAction={
                                                         <Checkbox
@@ -129,7 +130,7 @@ export default function HabitsOnboarding4(props) {
                                                                 src={`/static/images/avatar/${value + 1}.jpg`}
                                                             />
                                                         </ListItemAvatar>
-                                                        <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
+                                                        <ListItemText id={labelId} primary={value.habitName} />
                                                     </ListItemButton>
                                                 </ListItem>
                                             );
@@ -150,6 +151,7 @@ export default function HabitsOnboarding4(props) {
                                             const labelId = `checkbox-list-secondary-label-${value.habitName}`;
                                             return (
                                                 <ListItem
+                                                    sx={{ mb: '1rem' }}
                                                     key={`${value.habitId}${Math.random()}`}
                                                     secondaryAction={
                                                         <ListItemButton>
@@ -182,7 +184,7 @@ export default function HabitsOnboarding4(props) {
                                                                 src={`/static/images/avatar/${value + 1}.jpg`}
                                                             />
                                                         </ListItemAvatar>
-                                                        <ListItemText id={labelId} primary={value.habitName} secondary={value.goalId} />
+                                                        <ListItemText id={labelId} primary={value.habitName} />
                                                     </ListItemButton>
                                                 </ListItem>
                                             );
