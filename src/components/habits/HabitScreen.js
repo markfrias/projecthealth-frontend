@@ -10,7 +10,8 @@ import {
     CircularProgress,
     ToggleButtonGroup,
     ToggleButton,
-    Backdrop
+    Backdrop,
+    Divider
 } from "@mui/material";
 import { Edit, ThumbDownRounded, ThumbUp } from "@mui/icons-material";
 import { getHabitLogsPersonal, updateHabitJournalEntry } from "../auth/APIServices";
@@ -122,7 +123,7 @@ export default function HabitScreen(props) {
                         container direction='column' sx={{ background: '#F9AB10', p: '1em', mb: '1em' }
                         }
                     >
-                        <Grid container justifyContent="space-between" alignItems="center" pt={1}>
+                        <Grid container justifyContent="space-between" alignItems="center" pt={2}>
                             <Grid item> <Typography variant="onboardingHeader2" component="h1">Habits</Typography  ></Grid>
 
 
@@ -164,12 +165,13 @@ export default function HabitScreen(props) {
 
                             return (
                                 <ListItem
+                                    sx={{ mb: '1em' }}
                                     key={value.habitEntryId}
                                     disablePadding
                                 >
                                     <ListItemButton role={undefined} dense>
 
-                                        <ListItemText id={labelId} primary={value.habitName} secondary={"Goal habits" + habits[0].habitAccomplished} />
+                                        <ListItemText id={labelId} primary={value.habitName} />
                                     </ListItemButton>
                                     <ToggleButtonGroup
                                         value={habits[index].habitAccomplished}
@@ -187,8 +189,10 @@ export default function HabitScreen(props) {
                                 </ListItem>
 
 
+
                             );
                         })}
+
                     </List>
 
 

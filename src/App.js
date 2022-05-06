@@ -272,9 +272,9 @@ const theme = createTheme({
 function App() {
 
   // PP and HP states
-  const [hp, setHp] = useState(100);
-  const [pp, setPp] = useState(10);
-  const [ppBoundary, setPpBoundary] = useState(50)
+  const [hp, setHp] = useState(null);
+  const [pp, setPp] = useState(null);
+  const [ppBoundary, setPpBoundary] = useState(null)
 
   // Missions states
   const [missions, setMissions] = useState([]);
