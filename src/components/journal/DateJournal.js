@@ -101,7 +101,7 @@ const DateJournal = () => {
           <Grid item xs={12} rowSpacing={4} mb={3}>
             {logTypes.map((log) => {
               return (
-                <Chip key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
+                <Chip sx={{ mr: '.25rem' }} key={log.logId} label={log.label} onClick={(event) => { handleToggle(log) }} variant={checked.indexOf(log.logId) !== -1 ? "filled" : "outlined"} />
               )
             })}
           </Grid>
