@@ -243,35 +243,45 @@ const Dashboard = (props) => {
         <Grid item xs={6}>
           <img alt="Dog Sitting" src={require("../../assets/img/beagle-dog-sitting.png")} height="100%" width="100%" />
         </Grid>
-        <Grid item xs={6} container>
-          <Grid item xs={12}>
-            <Typography variant='subtitle1B' component='h1' sx={{ width: '100%' }} >😇 Feeling great</Typography>
+        {props.pp === null ?
+          <Grid item xs={6} container sx={{ width: '100%' }} direction="column" justifyContent="center" alignItems="center">
+            <CircularProgress variant='indeterminate' sx={{ mb: '1rem' }} ></CircularProgress>
+            <Typography variant="p">Loading content</Typography>
           </Grid>
 
-          <Grid item xs={12} >
-            <Typography variant='subtitle1' component='h1' >Health </Typography>
-          </Grid>
-          <Grid item xs={12}  >
-            <LinearDeterminate numerator={props.hp} denominator={100} type="hp"></LinearDeterminate>
-          </Grid>
-          <Grid item xs={12}  >
-            <Typography variant='subtitle1B' component='h1' >{props.hp} / 100</Typography>
-          </Grid>
+          :
 
-          <Grid item xs={12}  >
-            <Typography variant='subtitle1' component='h1' >Progress </Typography>
-          </Grid>
-          <Grid item xs={12}  >
-            <LinearDeterminate numerator={props.pp} denominator={props.ppBoundary} type="pp"></LinearDeterminate>
-          </Grid>
-          <Grid item xs={6} >
-            <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >{props.pp}/{props.ppBoundary}</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >Level {props.account.levelId}</Typography>
-          </Grid>
+          <Grid item xs={6} container>
+            <Grid item xs={12}>
+              <Typography variant='subtitle1B' component='h1' sx={{ width: '100%' }} >😇 Feeling great</Typography>
+            </Grid>
 
-        </Grid>
+            <Grid item xs={12} >
+              <Typography variant='subtitle1' component='h1' >Health </Typography>
+            </Grid>
+            <Grid item xs={12}  >
+              <LinearDeterminate numerator={props.hp} denominator={100} type="hp"></LinearDeterminate>
+            </Grid>
+            <Grid item xs={12}  >
+              <Typography variant='subtitle1B' component='h1' >{props.hp} / 100</Typography>
+            </Grid>
+
+            <Grid item xs={12}  >
+              <Typography variant='subtitle1' component='h1' >Progress </Typography>
+            </Grid>
+            <Grid item xs={12}  >
+              <LinearDeterminate numerator={props.pp} denominator={props.ppBoundary} type="pp"></LinearDeterminate>
+            </Grid>
+            <Grid item xs={6} >
+              <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >{props.pp}/{props.ppBoundary}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant='subtitle1B' component='h1' sx={{ width: "100%" }} >Level {props.account.levelId}</Typography>
+            </Grid>
+
+          </Grid>
+        }
+
       </Grid>
 
       {/* 

@@ -244,7 +244,7 @@ const DetailedFoodLog = (props) => {
             if (nutrients.totalNutrients.PROCNT !== undefined ? (summaryValues.protein + nutrients.totalNutrients.PROCNT.quantity * formData.servingQty) / recommendedProtein * 100 > 100 : (summaryValues.protein) / recommendedProtein * 100 > 100
 
             ) {
-                setModalHeading('You exceeded your fat budget.');
+                setModalHeading('You exceeded your protein budget.');
                 setModalBody("Arf. Try to stay within your calorie budget next time.")
                 setOpen(true);
                 addHp(props.hp - 3);

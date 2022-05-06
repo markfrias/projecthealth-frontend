@@ -41,7 +41,7 @@ CircularProgressWithLabel.propTypes = {
 function CircularStatic(props) {
     const progress = props.numerator / props.denominator * 100;
 
-    return <CircularProgressWithLabel value={progress} color={progress <= 100 ? 'primary' : 'red'} />;
+    return <CircularProgressWithLabel sx={{ width: "100%" }} value={progress} color={progress <= 100 ? 'primary' : 'red'} />;
 }
 const
     FoodJournalLog = (props) => {
@@ -187,18 +187,18 @@ const
                         </Grid>
                     </Grid>
 
-                    <Grid item container direction="row" alignItems="center" mb={3}>
-                        <Grid item xs={4}>
+                    <Grid item container direction="row" alignItems="center" justifyContent="center" mb={3}>
+                        <Grid item xs={4} container direction="column" alignItems="center" justifyContent="center" rowGap={1} >
                             <CircularStatic numerator={summaryValues.carbs} denominator={recommendedCarbs}></CircularStatic>
-                            <Typography variant='subtitle1B' component='p'>Carbs</Typography>
+                            <Typography variant='subtitle1B' width="100%" component='p' textAlign="center">Carbs</Typography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} container direction="column" alignItems="center" justifyContent="center" rowGap={1}>
                             <CircularStatic numerator={summaryValues.fat} denominator={recommendedFat}></CircularStatic>
-                            <Typography variant='subtitle1B' component='p'>Fat</Typography>
+                            <Typography variant='subtitle1B' component='p' width="100%" textAlign="center">Fat</Typography>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} container direction="column" alignItems="center" justifyContent="center" rowGap={1}>
                             <CircularStatic numerator={summaryValues.protein} denominator={recommendedProtein}></CircularStatic>
-                            <Typography variant='subtitle1B' component='p'>Protein</Typography>
+                            <Typography variant='subtitle1B' component='p' textAlign="center">Protein</Typography>
                         </Grid>
                     </Grid>
 
