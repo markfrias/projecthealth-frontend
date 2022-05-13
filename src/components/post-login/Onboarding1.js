@@ -108,7 +108,7 @@ const Onboarding1 = () => {
     if (isChecked) {
       navigate("/app/notification-setup")
     } else {
-      navigate("/app/onboarding/2")
+      navigate("/app/disclaimer")
 
     }
   }

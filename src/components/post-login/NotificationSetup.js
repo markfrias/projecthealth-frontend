@@ -34,7 +34,7 @@ const Notificationsetup = () => {
         setIsLoading(true);        // Send request to server
         saveNotifSchedule(newTime, registrationToken).then(data => {
             if (data === 200) {
-                navigate('/app/onboarding/2')
+                navigate('/app/disclaimer')
             } else {
                 setIsLoading(false);
             }
