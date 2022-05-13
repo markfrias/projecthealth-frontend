@@ -24,6 +24,7 @@ import Onboarding4 from './components/post-login/Onboarding4';
 import Onboarding3 from './components/post-login/Onboarding3';
 import Onboarding2 from './components/post-login/Onboarding2';
 import Onboarding1 from './components/post-login/Onboarding1';
+import Disclaimer from './components/post-login/Disclaimer';
 import FoodLogMainScreen from './components/meal_recording/FoodLogMainScreen';
 import ProgressReport from './components/journal/ProgressReport';
 import Accountsetting from './components/settings/Accountsetting';
@@ -361,6 +362,7 @@ function App() {
               <Route path="onboarding/1" element={<Onboarding1 />} />
               <Route path="foodlogmainscreen" element={<FoodLogMainScreen />} />
               <Route path="progress-report/*" element={<ProgressReport account={account} />} />
+              <Route path="disclaimer" element={<Disclaimer />} />
 
               <Route path="settings/account" element={<Accountsetting />} />
 
