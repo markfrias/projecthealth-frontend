@@ -11,7 +11,7 @@ const NotificationUnsupported = () => {
 
     // Convert time to string that can be sent to the server
     const handleSubmission = () => {
-        navigate('/app/onboarding/2');
+        navigate('/app/disclaimer');
 
     }
 
