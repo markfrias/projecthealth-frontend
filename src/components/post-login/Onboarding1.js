@@ -99,7 +99,11 @@ const Onboarding1 = () => {
 
   // Handle Switch changes
   const handleChange = (event) => {
-    setIsChecked(!isChecked);
+    if (Notification.permission === "granted") {
+      setIsChecked(true);
+    } else {
+      setIsChecked(false);
+    }
     setNotifIsAllowed(false);
   }
 
