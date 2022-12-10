@@ -49,7 +49,7 @@ const LoginScreen = () => {
     setIsLoading(true);
 
     const response = await fetch(
-      "https://projecthealthapp.herokuapp.com/api/users/login/",
+      "http://localhost:8080/api/users/login/",
       {
         method: "POST",
         mode: "cors",
