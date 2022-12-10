@@ -1,7 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material';
+import { Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { saveWeightHeightSettings } from '../auth/APIServices';
+import { getProgressReport, saveWeightHeightSettings } from '../auth/APIServices';
 import Registration6 from '../registration/Registration6';
 import Registration7 from '../registration/Registration7';
 import { KeyboardArrowLeft } from '@mui/icons-material';
@@ -19,6 +19,16 @@ const WeightHeightMod = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        getProgressReport().then((data) => console.log(data[0][0]))
+
+        getProgressReport().then((data) => setWeightHeight({
+            weight: data[0][0].currentWeight,
+            targetWeight: data[0][0].targetWeight,
+            height: data[0][0].height
+        }))
+    }, []);
 
     const handleChanges = (event) => {
         const target = event.target;
@@ -85,7 +95,20 @@ const WeightHeightMod = () => {
 
 
     return (
+        weightHeight.height === "" ?
+        <Container sx={{
+            minHeight: "100vh",
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+          }}>
+            <CircularProgress sx={{ color: 'black' }} />
+          </Container>:
+            
+       
         <Grid container direction="column" justifyContent="space-between" maxWidth="md">
+            
             <Grid item xs={12} sx={{ padding: '1em' }}
                 container direction='column'
             >
