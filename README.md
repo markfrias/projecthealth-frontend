@@ -11,4 +11,7 @@ Healevate is an open-source calorie tracker + other health feature web applicati
 5. Once approved, merge your changes to the dev branch.
 6. These changes will be reviewed by the moderators before merging them to the main branch which is the release branch.
 
-Access to the server-side code repository is currently unavailable.
+The previously deployed backend app is currently down there are currently no plans to deploy the backend to production again. To run the backend, you must clone this GitHub repository: https://github.com/markfrias/projecthealth-backend.
+After cloning, you must provide the environment variables for the database instance you want to use (which you should provide). You should also provide your own Google credentials json file for Firebase features to work properly.
+
+Hopefully, this documentation will get updated soon and will be more detailed.
