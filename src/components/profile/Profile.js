@@ -21,7 +21,7 @@ function ListDividers(props) {
   const [notifIsAllowed, setNotifIsAllowed] = useState(false);
   useEffect(() => {
     Notification.requestPermission().then((result) => {
-      console.log(result);
+      //console.log(result);
       // Display error if denied
       if (result === "denied") {
         setNotifIsAllowed(false);
@@ -113,10 +113,10 @@ const Profile = (props) => {
   }, [])
 
   useEffect(() => {
-    console.log(props.levels)
+    //console.log(props.levels)
     if (props.levels !== undefined) {
       setLoading(false);
-      console.log(props.levels)
+      //console.log(props.levels)
     }
   }, [props.levels])
 

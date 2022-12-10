@@ -108,7 +108,7 @@ const ProgressReport = (props) => {
 
       // Fetch progress report data
       const progressReport = await getProgressReport();
-      console.log(progressReport)
+      //console.log(progressReport)
       setLessChanging(progressReport[0][0]);
       const revisedWeightTrend = progressReport[1].map((data) => {
         return {
@@ -137,7 +137,7 @@ const ProgressReport = (props) => {
       // Slice to seven the data if data exceeds seven days
       if (revisedCalTrend.length > 7) {
         const newCalTrend = revisedCalTrend.slice(revisedCalTrend.length - 7);
-        console.log(newCalTrend)
+        //console.log(newCalTrend)
         setCalorieTrend(newCalTrend);
       } else {
         setCalorieTrend(revisedCalTrend);
@@ -161,13 +161,13 @@ const ProgressReport = (props) => {
   React.useEffect(() => {
     if (lessChanging !== undefined && weightTrend !== undefined && lessChanging.levelId !== undefined) {
       setLoading(false);
-      console.log(weightTrend)
+      //console.log(weightTrend)
     } else {
       setLoading(true)
     }
 
     return () => {
-      console.log("You passed bitch")
+      //console.log("You passed bitch")
       setLoading(true)
 
 

@@ -48,7 +48,7 @@ const DateJournal = () => {
 
   useEffect(() => {
     try {
-      console.log(params.category)
+      ////console.log(params.category)
       setChecked([parseInt(params.category)]);
       // Change highlighted chip on change of category url
     } catch (error) {

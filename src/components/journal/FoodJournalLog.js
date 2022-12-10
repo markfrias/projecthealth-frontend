@@ -92,12 +92,12 @@ const
             setLoading(true);
             (async () => {
                 const response = await getFoodLogsPersonal(year, month, day);
-                console.log(`${year} ${month} ${day}`)
-                console.log(response);
+                //console.log(`${year} ${month} ${day}`)
+                //console.log(response);
                 setFoodLogs(response[0]);
 
                 // Set calorie budget state
-                console.log(response[1][0].calorieBudget)
+                //console.log(response[1][0].calorieBudget)
                 setCalorieBudget(response[1][0].calorieBudget);
 
                 // Set categorized meal states
@@ -142,7 +142,7 @@ const
                   return prev + current.sodium;
                 }, 0); */
 
-                console.log(calorieTotalFromLogs);
+                //console.log(calorieTotalFromLogs);
 
                 setSummaryValues({
                     calories: calorieTotalFromLogs,

@@ -10,10 +10,10 @@ const Home = () => {
 
     // Get users
     try {
-      console.log(getUserHabits())
+      //console.log(getUserHabits())
 
     } catch (error) {
-      console.log("Error: Wrong data")
+      //console.log("Error: Wrong data")
     }
     return () => {
       // Cleanup?

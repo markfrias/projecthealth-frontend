@@ -17,7 +17,7 @@ const Login = () => {
 
 
 
-    const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
+    const response = await fetch("http://localhost:8080/api/users/login/", {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify(loginForm),
@@ -33,7 +33,7 @@ const Login = () => {
           localStorage.setItem('jwt', data.jwt);
           navigate('/home')
         } else {
-          console.log("Fail")
+          //console.log("Fail")
           // Add code to handle errors and display error states and messages
         }
       })

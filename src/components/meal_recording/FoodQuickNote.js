@@ -74,9 +74,9 @@ const FoodQuickNote = (props) => {
         ...props.account,
         levelId: props.account.levelId + 1
       })
-      console.log((props.pp + 2) - props.ppBoundary)
+      //console.log((props.pp + 2) - props.ppBoundary)
       props.setPp((props.pp + 2) - props.ppBoundary);
-      console.log(props.ppBoundary + 5)
+      //console.log(props.ppBoundary + 5)
 
       props.setPpBoundary(props.ppBoundary + 5)
       addHp(props.hp + 3);

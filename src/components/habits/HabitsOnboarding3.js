@@ -25,7 +25,7 @@ const HabitsOnboarding3 = (props) => {
     const handleSaveHabit = async () => {
         const rawResponse = await createHabit(props.habitsState.habitName, props.habitsState.habitDescription, props.goalCategoryValue);
         const response = await rawResponse.json();
-        console.log(response)
+        //console.log(response)
         if (rawResponse.status === 200) {
             setOpen(true);
             setModalHeading("Habit saved!")
@@ -34,8 +34,8 @@ const HabitsOnboarding3 = (props) => {
                 ...props.habitsState,
                 habitId: response.insertId
             })
-            console.log(response)
-            console.log(props.habitsState.habitId)
+            //console.log(response)
+            //console.log(props.habitsState.habitId)
 
             // Insert new habit into habits for submission
             const newHabit = {

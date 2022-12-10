@@ -100,8 +100,8 @@ const DetailedFoodLog = (props) => {
                 ...props.account,
                 levelId: props.account.levelId + 1
             })
-            console.log((props.pp + 2) - props.ppBoundary)
-            console.log(props.ppBoundary + 5)
+            //console.log((props.pp + 2) - props.ppBoundary)
+            //////console.log(props.ppBoundary + 5)
 
 
             if (((formData.baseCalories * formData.servingQty) + summaryValues.calories) / calorieBudget * 100 > 100) {
@@ -346,7 +346,7 @@ const DetailedFoodLog = (props) => {
         }
 
 
-        console.log(nutrients)
+        //console.log(nutrients)
 
         // Set base calories of the food item to form state
         setFormData(formData => ({
@@ -364,7 +364,7 @@ const DetailedFoodLog = (props) => {
         (async () => {
             // Fetch all logs from today for the current user
             const logs = await getFoodLogsPersonal(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
-            console.log(logs)
+            //console.log(logs)
 
             // Calculate all calories, carbs, protein, fat, and sodium from those meals
             const calorieTotalFromLogs = logs[0].reduce((prev, current) => {
@@ -408,13 +408,13 @@ const DetailedFoodLog = (props) => {
         if (formData === undefined || summaryValues === undefined || calorieBudget === undefined) {
             return;
         }
-        console.log(calorieBudget)
+        //console.log(calorieBudget)
         setLoading(false);
     }, [formData, summaryValues, calorieBudget])
 
     // Fetch new data and set on change of serving unit
     useEffect(() => {
-        console.log(currentUnit)
+        //console.log(currentUnit)
 
         // Set initial serving unit if currentUnit doesn't exist
         if (currentUnit === undefined) {
@@ -435,7 +435,7 @@ const DetailedFoodLog = (props) => {
             // Fetch nutrients for first measurement unit in the units list
             setLoading(true);
             const fetchedNutrients = await getNutrients(currentUnit[0].uri, props.foodItem.food.foodId);
-            console.log(fetchedNutrients)
+            //console.log(fetchedNutrients)
             // Set nutrients state to the fetched data above
             setNutrients(fetchedNutrients);
         })()
@@ -444,11 +444,11 @@ const DetailedFoodLog = (props) => {
     }, [currentUnit]);
 
     useEffect(() => {
-        console.log(formData)
+        //console.log(formData)
     }, [formData])
 
     useEffect(() => {
-        console.log(summaryValues)
+        //console.log(summaryValues)
     }, [summaryValues])
 
 

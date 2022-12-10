@@ -28,8 +28,8 @@ const
             setLoading(true);
             (async () => {
                 const response = await getHabitLogsPersonal(year, month, day);
-                console.log(`${year} ${month} ${day}`)
-                console.log(response);
+                //console.log(`${year} ${month} ${day}`)
+                //console.log(response);
                 setHabitLogs(response);
             })()
             // Fix this useEffect problem

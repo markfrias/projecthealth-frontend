@@ -30,10 +30,10 @@ const WeightHeightMod = () => {
 
     // Handle button click
     const handleButtonClick = async () => {
-        console.log(weightHeight)
+        //console.log(weightHeight)
         const slicedPath = location.pathname.slice(14);
         if (slicedPath === "target-weight") {
-            console.log(weightHeight)
+            //console.log(weightHeight)
             const response = await saveWeightHeightSettings(weightHeight);
             if (response === 400) {
                 setModalHeading("Incomplete information")
@@ -78,7 +78,7 @@ const WeightHeightMod = () => {
     }, [location]);
 
     useEffect(() => {
-        console.log(weightHeight)
+        //console.log(weightHeight)
     }, [weightHeight])
 
 
