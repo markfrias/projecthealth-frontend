@@ -31,7 +31,7 @@ export default function HabitsOnboarding4(props) {
     // Test state
     /*
     React.useEffect(() => {
-        console.log(props.habitsState.goalCategoryInputValue)
+        //console.log(props.habitsState.goalCategoryInputValue)
         if (props.habitsState.goalCategoryInputValue === "") {
             return;
         }
@@ -264,7 +264,7 @@ export default function HabitsOnboarding4(props) {
                     props.habitsToAdd.forEach((value) => {
                         newArray.push(value);
                     })
-                    console.log(newArray)
+                    //console.log(newArray)
                     props.setHabitsState({
                         ...props.habitsState,
                         habitsForSubmission: newArray

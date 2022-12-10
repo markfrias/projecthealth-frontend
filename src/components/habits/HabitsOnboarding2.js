@@ -23,7 +23,7 @@ const HabitsOnboarding2 = (props) => {
     const handleSaveHabits = async () => {
         const rawResponse = await saveHabits(props.habitsState.habitsForSubmission);
         const response = await rawResponse.json();
-        console.log(response)
+        //console.log(response)
 
         if (rawResponse.status === 200) {
             setOpen(true);
@@ -54,7 +54,7 @@ const HabitsOnboarding2 = (props) => {
             habits.forEach((habit) => {
                 newArray.push(habit);
             });
-            console.log(newArray)
+            //console.log(newArray)
             props.setHabitsState({
                 ...props.habitsState,
                 habitsForSubmission: newArray

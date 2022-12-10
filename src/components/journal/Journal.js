@@ -32,8 +32,8 @@ function StaticDatePickerDemo(props) {
                     const isSelected =
                         !DayComponentProps.outsideCurrentMonth &&
                         props.highlightedDays.indexOf(day.getDate()) > -1;
-                    console.log(props.highlightedDays.indexOf(day.getDate()) > 0)
-                    console.log(`${day.getDate()} : ${props.highlightedDays}`)
+                    //console.log(props.highlightedDays.indexOf(day.getDate()) > 0)
+                    //console.log(`${day.getDate()} : ${props.highlightedDays}`)
                     return (
                         <Badge
                             key={day.toString()}
@@ -107,14 +107,14 @@ const Journal = () => {
     // Handle month change
     const handleMonthChange = async (event) => {
         setValue(event)
-        console.log(event)
+        //console.log(event)
         if (checked[0] === 1) {
             setCalendarLoading(true);
             const year = moment(event).format('YYYY');
             const month = moment(event).format('MM');
 
             const logs = await getHabitLogsOnMonth(year, month);
-            console.log(logs)
+            //console.log(logs)
             setLogs(logs)
             setSelectedHabit(selectedHabit);
         }
@@ -131,7 +131,7 @@ const Journal = () => {
     // test value
     useEffect(() => {
         if (value !== undefined) {
-            console.log(value)
+            //console.log(value)
 
         }
     }, [value])
@@ -141,21 +141,21 @@ const Journal = () => {
         (async () => {
             setLoading(true);
             const streaks = await getFoodLogStreaks();
-            console.log(streaks)
+            //console.log(streaks)
             // If there's no streak, assign 0
             if (streaks.length === 0) {
                 // Assign 0
             }
             const latestStreak = streaks[streaks.length - 1];
-            console.log(latestStreak)
+            //console.log(latestStreak)
             const latest = moment(latestStreak.max_date).format('YYYY-MM-DD');
             if (latest === moment().format('YYYY-MM-DD')) {
-                console.log(true)
+                //console.log(true)
                 setCurrentStreak(latestStreak.days_streak);
             } else {
                 setCurrentStreak(0)
             }
-            console.log(currentStreak)
+            //console.log(currentStreak)
 
 
         })()
@@ -189,7 +189,7 @@ const Journal = () => {
 
                     const logs = await getHabitLogsOnMonth(year, month);
                     setLogs(logs);
-                    console.log(logs)
+                    //console.log(logs)
 
                     let uniqueObjArray = [...new Map(logs.map((item) => [item["habitId"], item])).values()];
                     setCurrentHabits(uniqueObjArray);
@@ -216,15 +216,15 @@ const Journal = () => {
     // Change calendar day render on change of select value
     useEffect(() => {
         if (selectedHabit !== undefined) {
-            console.log(selectedHabit)
+            //console.log(selectedHabit)
             const newHabits = logs.filter((habit) => habit.habitId === selectedHabit);
-            console.log(newHabits)
+            //console.log(newHabits)
             const filteredArray = newHabits.filter((habit) => habit.habitAccomplished === 1)
-            console.log(filteredArray)
+            //console.log(filteredArray)
             const days = filteredArray.map((habit) => {
                 return parseInt(moment(habit.habitEntryDate).format('DD'));
             })
-            console.log(days)
+            //console.log(days)
 
             setHighlightedDays(days)
 
@@ -237,13 +237,13 @@ const Journal = () => {
     useEffect(() => {
         if (logs !== undefined) {
             const newHabits = logs.filter((habit) => habit.habitId === selectedHabit);
-            console.log(newHabits)
+            //console.log(newHabits)
             const filteredArray = newHabits.filter((habit) => habit.habitAccomplished === 1)
-            console.log(filteredArray)
+            //console.log(filteredArray)
             const days = filteredArray.map((habit) => {
                 return parseInt(moment(habit.habitEntryDate).format('DD'));
             })
-            console.log(days)
+            //console.log(days)
             setHighlightedDays(days)
 
         }
@@ -254,7 +254,7 @@ const Journal = () => {
 
     useEffect(() => {
         if (highlightedDays !== undefined) {
-            console.log(highlightedDays)
+            //console.log(highlightedDays)
 
             setCalendarLoading(false)
             setLoading(false)

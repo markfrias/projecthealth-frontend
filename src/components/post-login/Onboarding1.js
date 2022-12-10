@@ -71,7 +71,7 @@ const Onboarding1 = () => {
   // Ask permission for notifications
   const askNotifPermission = () => {
     Notification.requestPermission().then((result) => {
-      console.log(result);
+      //console.log(result);
       // Display error if denied
       if (result === "denied") {
         setNotifIsAllowed(false);
@@ -83,14 +83,14 @@ const Onboarding1 = () => {
           if (currentToken) {
             // Send the token to your server and update the UI if necessary
             // ...
-            console.log(currentToken)
+            //console.log(currentToken)
           } else {
             // Show permission request UI
-            console.log('No registration token available. Request permission to generate one.');
+            //console.log('No registration token available. Request permission to generate one.');
             // ...
           }
         }).catch((err) => {
-          console.log('An error occurred while retrieving token. ', err);
+          //console.log('An error occurred while retrieving token. ', err);
           // ...
         });
       }

@@ -101,7 +101,7 @@ const Habits = () => {
     // Handle changes to checkboxes in second page
     const handleSelectionToggle = (value) => {
         const currentIndex = selectionChecked.indexOf(value.habitId);
-        console.log(currentIndex)
+        //console.log(currentIndex)
         const newChecked = [...selectionChecked];
 
         if (currentIndex === -1) {
@@ -116,7 +116,7 @@ const Habits = () => {
     // Handle changes to checkboxes in habits to add list
     const handleHabitsToAddToggle = (value) => {
         const currentIndex = habitsToAddChecked.indexOf(value.habitId);
-        console.log(currentIndex);
+        //console.log(currentIndex);
         const newChecked = [...habitsToAddChecked];
 
         if (currentIndex === -1) {
@@ -139,14 +139,14 @@ const Habits = () => {
 
     // Test function
     useEffect(() => {
-        console.log(selectionChecked)
+        //console.log(selectionChecked)
     }, [selectionChecked]);
 
     // Test after habitsState changes
     useEffect(() => {
-        console.log(habitsState)
+        //console.log(habitsState)
         if (habitsState.habitsForSubmission.length === 0) {
-            console.log("I'm here")
+            //console.log("I'm here")
             const fetchUsers = async () => {
                 const habits = await getUserHabits();
                 const newArray = habitsState.habitsForSubmission;

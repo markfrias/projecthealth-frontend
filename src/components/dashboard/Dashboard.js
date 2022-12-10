@@ -67,9 +67,9 @@ const Dashboard = (props) => {
           ...props.account,
           levelId: props.account.levelId + 1
         })
-        console.log((props.pp + 10) - props.ppBoundary)
+        //console.log((props.pp + 10) - props.ppBoundary)
         props.setPp((props.pp + 10) - props.ppBoundary);
-        console.log(props.ppBoundary + 5)
+        //console.log(props.ppBoundary + 5)
         addHp(props.hp + 5);
         props.setHp(props.hp + 5);
 
@@ -81,10 +81,10 @@ const Dashboard = (props) => {
         addPp((props.pp + 10) - props.ppBoundary, props.ppBoundary, oldLevel + 1)
         addHp(props.hp + 3);
         props.setHp(props.hp + 3);
-        console.log(props.hp)
+        //console.log(props.hp)
 
         const response = await saveMissionStatus(body);
-        console.log(response)
+        //console.log(response)
 
         if (response === 500) {
           setSnackbarContent("An error occurred on our end. Please try again soon.")
@@ -114,9 +114,9 @@ const Dashboard = (props) => {
           ...props.account,
           levelId: props.account.levelId + 1
         })
-        console.log((props.pp + 5) - props.ppBoundary)
+        //console.log((props.pp + 5) - props.ppBoundary)
         props.setPp((props.pp + 5) - props.ppBoundary);
-        console.log(props.ppBoundary + 5)
+        //console.log(props.ppBoundary + 5)
 
         props.setPpBoundary(props.ppBoundary + 5)
         setDialogHead('Your pet leveled up');
@@ -130,7 +130,7 @@ const Dashboard = (props) => {
         props.setHp(props.hp + 3);
 
         const response = await saveMissionStatus(body);
-        console.log(response)
+        //console.log(response)
 
         if (response === 500) {
           setSnackbarContent("An error occurred on our end. Please try again soon.")
@@ -166,7 +166,7 @@ const Dashboard = (props) => {
 
 
     const response = await saveMissionStatus(body);
-    console.log(response)
+    //console.log(response)
 
     if (response === 500) {
       setSnackbarContent("An error occurred on our end. Please try again soon.")
@@ -200,10 +200,10 @@ const Dashboard = (props) => {
       (async () => {
         // On render get missions
         const newMissions = await getMissions();
-        console.log(newMissions);
+        //console.log(newMissions);
 
         props.setMissions(newMissions[0]);
-        console.log(newMissions)
+        //console.log(newMissions)
 
         // Set checkboxes
         const newChecked = [];
@@ -220,7 +220,7 @@ const Dashboard = (props) => {
         props.setPp(newMissions[1][0].progressPoints);
         props.setPpBoundary(newMissions[1][0].levelBoundary);
 
-        console.log(newMissions[1][0])
+        //console.log(newMissions[1][0])
       })()
     }
 

@@ -72,7 +72,7 @@ const LogScreen = (props) => {
 
       // Fetch food nutrients data
       const initialNutrients = await getNutrients(props.measures[0].uri, props.foodItem.food.foodId);
-      console.log(initialNutrients)
+      //console.log(initialNutrients)
 
       // Set base calories value in state
       setQuickNoteState((quickNoteState) => ({
@@ -85,7 +85,7 @@ const LogScreen = (props) => {
 
       // Fetch nutrients consumed by user today
       const userNutrients = await getTodayUserNutrients();
-      console.log(userNutrients)
+      //console.log(userNutrients)
 
       // Set nutrient consumed by user today in state
       setNutrientContext(userNutrients[0]);
@@ -93,7 +93,7 @@ const LogScreen = (props) => {
       // Get calorie budget if it doesn't exist in nutrient context
       if (userNutrients[0].calorieBudget === null) {
         const calorieBudget = await getCalorieBudget();
-        console.log(calorieBudget[0].calorieBudget)
+        //console.log(calorieBudget[0].calorieBudget)
         setNutrientContext((nutrientContext) => (
           {
             ...nutrientContext,
@@ -117,7 +117,7 @@ const LogScreen = (props) => {
       // Fetch all meals from today
       setLoading(true)
       const todayLogs = await getFoodLogsPersonal(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
-      console.log(todayLogs)
+      //console.log(todayLogs)
       if (todayLogs.length <= 0) {
         return;
       }
@@ -164,7 +164,7 @@ const LogScreen = (props) => {
   }, [nutrientContext])
 
   useEffect(() => {
-    console.log(remainingBudgets)
+    //console.log(remainingBudgets)
 
     if (nutrients !== undefined) {
       setLoading(false)

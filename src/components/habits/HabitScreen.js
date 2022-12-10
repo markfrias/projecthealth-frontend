@@ -46,9 +46,9 @@ export default function HabitScreen(props) {
                 ...props.account,
                 levelId: props.account.levelId + 1
             })
-            console.log((props.pp + 5) - props.ppBoundary)
+            //console.log((props.pp + 5) - props.ppBoundary)
             props.setPp((props.pp + 5) - props.ppBoundary);
-            console.log(props.ppBoundary + 5)
+            //console.log(props.ppBoundary + 5)
             addHp(props.hp + 3);
             props.setHp(props.hp + 3);
 
@@ -61,9 +61,9 @@ export default function HabitScreen(props) {
 
             await updateHabitJournalEntry(habitEntryId, value);
             const habitsCopy = habits;
-            console.log(habitsCopy)
+            //console.log(habitsCopy)
             habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: value, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
-            console.log(habitsCopy)
+            //console.log(habitsCopy)
             setHabits(habitsCopy)
             window.location.reload();
 
@@ -78,12 +78,12 @@ export default function HabitScreen(props) {
 
 
 
-        console.log(value)
+        //console.log(value)
         await updateHabitJournalEntry(habitEntryId, value);
         const habitsCopy = habits;
-        console.log(habitsCopy)
+        //console.log(habitsCopy)
         habitsCopy.splice(index, 1, { goalName: arr[index].goalName, habitAccomplished: value, habitEntryDate: arr[index].habitEntryDate, habitId: arr[index].habitId, habitName: arr[index].habitName, habitEntryId: habitEntryId });
-        console.log(habitsCopy)
+        //console.log(habitsCopy)
         setHabits(habitsCopy)
         if (value === 0) {
             window.location.reload();
@@ -98,13 +98,13 @@ export default function HabitScreen(props) {
         (async () => {
             setLoading(true);
             const newHabits = await getHabitLogsPersonal(moment().format('YYYY'), moment().format('MM'), moment().format('DD'));
-            console.log(newHabits)
+            //console.log(newHabits)
             setHabits(newHabits)
         })()
     }, []);
 
     useEffect(() => {
-        console.log(habits);
+        //console.log(habits);
         if (habits !== undefined) {
             setLoading(false);
         }
