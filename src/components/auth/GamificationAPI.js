@@ -6,7 +6,7 @@ const addPp = async (data, boundary, level) => {
         progressPoints: data,
         levelId: level
     }
-    console.log(data, boundary, level)
+    //console.log(data, boundary, level)
 
     if (data / boundary * 100 >= 100) {
         // Level up (reflect in state and DB)
@@ -21,7 +21,7 @@ const addPp = async (data, boundary, level) => {
 
 
     const response = await fetch(
-        `https://projecthealthapp.herokuapp.com/api/users/progress/update`,
+        `http://localhost:8080/api/users/progress/update`,
         {
             method: "PATCH",
             mode: "cors",
@@ -50,14 +50,14 @@ const addHp = async (data) => {
     const body = {
         healthPoints: data,
     }
-    console.log(data)
+    //console.log(data)
 
     if (data / 100 > 1) {
         return;
     }
 
     const response = await fetch(
-        `https://projecthealthapp.herokuapp.com/api/users/health/update`,
+        `http://localhost:8080/api/users/health/update`,
         {
             method: "PATCH",
             mode: "cors",

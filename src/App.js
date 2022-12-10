@@ -295,10 +295,10 @@ function App() {
     (async () => {
       // On render get missions
       const newMissions = await getMissions();
-      console.log(newMissions);
+      //console.log(newMissions);
 
       setMissions(newMissions[0]);
-      console.log(newMissions)
+      //console.log(newMissions)
 
       // Set checkboxes
       const newChecked = [];
@@ -308,20 +308,20 @@ function App() {
         }
       });
       setMissionsChecked(newChecked);
-      console.log(newMissions[1][0])
-      console.log(newMissions[1][0].progressPoints)
-      console.log(newMissions[1][0].healthPoints)
+      //console.log(newMissions[1][0])
+      //console.log(newMissions[1][0].progressPoints)
+      //console.log(newMissions[1][0].healthPoints)
 
       // Set HP and PP
       setHp(newMissions[1][0].healthPoints);
       setPp(newMissions[1][0].progressPoints);
       setPpBoundary(newMissions[1][0].levelBoundary);
-      console.log(newMissions[1][0].levelBoundary)
+      //console.log(newMissions[1][0].levelBoundary)
 
 
       // Set account details
       setAccount(newMissions[1][0])
-      console.log(newMissions[1][0])
+      //console.log(newMissions[1][0])
     })()
   }, [])
 
