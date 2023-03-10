@@ -200,7 +200,7 @@ const Dashboard = (props) => {
       (async () => {
         // On render get missions
         const newMissions = await getMissions();
-        if (newMissions) {
+        if (!newMissions) {
           return console.log("Internal server error");
         }
         console.log(newMissions);
