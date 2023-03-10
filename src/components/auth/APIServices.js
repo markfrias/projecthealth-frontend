@@ -8,7 +8,7 @@ const appKey = "d1e12e6309c19f0a1557030bc73be338";
 // Fetch all users ** test function
 const getUsers = async () => {
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/",
+    "https://healevate2.fly.dev/api/users/",
     {
       method: "GET",
       mode: "cors",
@@ -49,7 +49,7 @@ const saveNotifSchedule = async (array, registrationToken) => {
   console.log(reqBody)
 
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/notifications/subscribe/",
+    "https://healevate2.fly.dev/api/notifications/subscribe/",
     {
       method: "POST",
       mode: "cors",
@@ -100,7 +100,7 @@ const registerAccount = async (form) => {
   console.log(revisedForm)
 
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/register/",
+    "https://healevate2.fly.dev/api/users/register/",
     {
       method: "POST",
       mode: "cors",
@@ -173,7 +173,7 @@ const getGoalsSync = () => {
 // Fetch all users ** test function
 const getHabitAutocomplete = async (query) => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/habit/autocomplete?habitName=${query}`,
+    `https://healevate2.fly.dev/api/habit/autocomplete?habitName=${query}`,
     {
       method: "GET",
       mode: "cors",
@@ -210,7 +210,7 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
     goalId: goalCategory.goalId
   };
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/habit/create/",
+    "https://healevate2.fly.dev/api/habit/create/",
     {
       method: "POST",
       mode: "cors",
@@ -243,7 +243,7 @@ const createHabit = async (habitName, habitDescription, goalCategory) => {
 // Fetch all habits for a specific user
 const getUserHabits = async () => {
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/habit/userhabits/",
+    "https://healevate2.fly.dev/api/habit/userhabits/",
     {
       method: "GET",
       mode: "cors",
@@ -276,7 +276,7 @@ const saveHabits = async (habits) => {
     habits: habits
   };
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/habit/save/",
+    "https://healevate2.fly.dev/api/habit/save/",
     {
       method: "POST",
       mode: "cors",
@@ -313,7 +313,7 @@ const saveNote = async (body) => {
   }
   body.diaryType = "quick";
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
+    "https://healevate2.fly.dev/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -447,7 +447,7 @@ const getNutrients = async (measureURI, foodId) => {
 const getTodayUserNutrients = async (measureURI, foodId) => {
 
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/food/entry/day/agg`,
+    `https://healevate2.fly.dev/api/food/entry/day/agg`,
     {
       method: "GET",
       mode: "cors",
@@ -478,7 +478,7 @@ const getTodayUserNutrients = async (measureURI, foodId) => {
 const getCalorieBudget = async () => {
 
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/users/calorieBudget`,
+    `https://healevate2.fly.dev/api/users/calorieBudget`,
     {
       method: "GET",
       mode: "cors",
@@ -511,7 +511,7 @@ const saveDetailedFoodLog = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/food/createEntry/",
+    "https://healevate2.fly.dev/api/food/createEntry/",
     {
       method: "POST",
       mode: "cors",
@@ -543,7 +543,7 @@ const saveDetailedFoodLog = async (body) => {
 const getNotifSettings = async () => {
 
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/notifications/get`,
+    `https://healevate2.fly.dev/api/notifications/get`,
     {
       method: "GET",
       mode: "cors",
@@ -575,7 +575,7 @@ const saveWeightHeightSettings = async (body) => {
     return 400;
   }
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/modify-weight",
+    "https://healevate2.fly.dev/api/users/modify-weight",
     {
       method: "PATCH",
       mode: "cors",
@@ -607,7 +607,7 @@ const saveWeightHeightSettings = async (body) => {
 const getMissions = async () => {
 
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/missions/journal/get-all`,
+    `https://healevate2.fly.dev/api/missions/journal/get-all`,
     {
       method: "GET",
       mode: "cors",
@@ -637,7 +637,7 @@ const saveMissionStatus = async (body) => {
   }
   console.log(body)
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/missions/journal/update",
+    "https://healevate2.fly.dev/api/missions/journal/update",
     {
       method: "PATCH",
       mode: "cors",
@@ -668,7 +668,7 @@ const saveMissionStatus = async (body) => {
 // Save mission accomplishment status changes
 const deleteAccount = async () => {
   const response = await fetch(
-    "https://projecthealthapp.herokuapp.com/api/users/delete",
+    "https://healevate2.fly.dev/api/users/delete",
     {
       method: "DELETE",
       mode: "cors",
@@ -698,7 +698,7 @@ const deleteAccount = async () => {
 // Fetch calorie budget of signed in user
 const getFoodLogsPersonal = async (year, month, day) => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
+    `https://healevate2.fly.dev/api/food/entry/day?year=${year}&month=${month}&day=${day}`,
     {
       method: "GET",
       mode: "cors",
@@ -724,7 +724,7 @@ const getFoodLogsPersonal = async (year, month, day) => {
 // Get all logs for the day for habits
 const getHabitLogsPersonal = async (year, month, day) => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/habit/entry/day?year=${year}&month=${month}&day=${day}`,
+    `https://healevate2.fly.dev/api/habit/entry/day?year=${year}&month=${month}&day=${day}`,
     {
       method: "GET",
       mode: "cors",
@@ -750,7 +750,7 @@ const getHabitLogsPersonal = async (year, month, day) => {
 // Get all logs for the day for habits
 const getHabitLogsOnMonth = async (year, month) => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/habit/entry?year=${year}&month=${month}`,
+    `https://healevate2.fly.dev/api/habit/entry?year=${year}&month=${month}`,
     {
       method: "GET",
       mode: "cors",
@@ -776,7 +776,7 @@ const getHabitLogsOnMonth = async (year, month) => {
 // Get food log streaks for the user
 const getFoodLogStreaks = async () => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/food/streaks`,
+    `https://healevate2.fly.dev/api/food/streaks`,
     {
       method: "GET",
       mode: "cors",
@@ -802,7 +802,7 @@ const getFoodLogStreaks = async () => {
 // Get all logs for the current user
 const getHabitLogs = async () => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/habit/entry/all`,
+    `https://healevate2.fly.dev/api/habit/entry/all`,
     {
       method: "GET",
       mode: "cors",
@@ -828,7 +828,7 @@ const getHabitLogs = async () => {
 // Update status of habit journal entry
 const updateHabitJournalEntry = async (habitEntryId, habitAccomplished) => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/habit/entry/update`,
+    `https://healevate2.fly.dev/api/habit/entry/update`,
     {
       method: "PATCH",
       body: JSON.stringify({ habitEntryId: habitEntryId, habitAccomplished: habitAccomplished }),
@@ -855,7 +855,7 @@ const updateHabitJournalEntry = async (habitEntryId, habitAccomplished) => {
 // Get all logs for the current user
 const getProgressReport = async () => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/users/progress-report`,
+    `https://healevate2.fly.dev/api/users/progress-report`,
     {
       method: "GET",
       mode: "cors",
@@ -881,7 +881,7 @@ const getProgressReport = async () => {
 // Get all logs for the current user
 const getLevelCountries = async () => {
   const response = await fetch(
-    `https://projecthealthapp.herokuapp.com/api/users/level-countries`,
+    `https://healevate2.fly.dev/api/users/level-countries`,
     {
       method: "GET",
       mode: "cors",

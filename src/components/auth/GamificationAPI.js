@@ -21,7 +21,7 @@ const addPp = async (data, boundary, level) => {
 
 
     const response = await fetch(
-        `https://projecthealthapp.herokuapp.com/api/users/progress/update`,
+        `https://healevate2.fly.dev/api/users/progress/update`,
         {
             method: "PATCH",
             mode: "cors",
@@ -57,7 +57,7 @@ const addHp = async (data) => {
     }
 
     const response = await fetch(
-        `https://projecthealthapp.herokuapp.com/api/users/health/update`,
+        `https://healevate2.fly.dev/api/users/health/update`,
         {
             method: "PATCH",
             mode: "cors",

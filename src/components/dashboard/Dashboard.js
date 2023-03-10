@@ -200,6 +200,9 @@ const Dashboard = (props) => {
       (async () => {
         // On render get missions
         const newMissions = await getMissions();
+        if (newMissions) {
+          return console.log("Internal server error");
+        }
         console.log(newMissions);
 
         props.setMissions(newMissions[0]);

@@ -17,7 +17,7 @@ const Login = () => {
 
 
 
-    const response = await fetch("https://projecthealthapp.herokuapp.com/api/users/login/", {
+    const response = await fetch("https://healevate2.fly.dev/api/users/login/", {
       method: 'POST',
       mode: 'cors',
       body: JSON.stringify(loginForm),
