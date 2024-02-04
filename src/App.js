@@ -37,6 +37,7 @@ import Registration from './components/registration/Registration';
 import Dashboard from './components/dashboard/Dashboard';
 import { getMissions } from './components/auth/APIServices';
 import Passport from './components/profile/Passport';
+import { Grid, Typography } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -326,7 +327,9 @@ function App() {
   }, [])
 
   return (
-    <BrowserRouter>
+    
+
+    /*<BrowserRouter>
       <ThemeProvider theme={theme}>
         <Routes>
 
@@ -401,7 +404,33 @@ function App() {
       </ThemeProvider>
 
 
-    </BrowserRouter>
+    </BrowserRouter> */
+  
+
+    <div>
+      <Grid container padding={'2em'} rowSpacing={3}>
+        <Grid item xs={12}>
+          <img alt="Healevate logo, cross made of cards" src={require('./assets/img/healevate-logo.png')} width="25%" height="100%" />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant='bigHeading'>Goodbye, for now.</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant='p'>The Healevate app along with the healevate.xyz domain will be down starting February 16, 2024.</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant='bigHeadingSub'>- Healevate team</Typography>
+          </Grid>
+        <Grid item xs={12}>
+        <div sx={{ width: '100%', height: '100%', paddingBottom: '80%' }}><iframe src="https://giphy.com/embed/SpoV1pB4g7gXvWo3Up" width="100%" height="500px" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><a href="https://giphy.com/gifs/waltermercado-astrology-astrologer-walter-mercado-SpoV1pB4g7gXvWo3Up"></a></div>
+        </Grid>
+      </Grid>
+
+      
+      
+    </div>
+  
+  
 
   );
 }
