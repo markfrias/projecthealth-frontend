@@ -37,7 +37,6 @@ import Registration from './components/registration/Registration';
 import Dashboard from './components/dashboard/Dashboard';
 import { getMissions } from './components/auth/APIServices';
 import Passport from './components/profile/Passport';
-import Goodbye from './components/goodbye/Goodbye';
 import { Grid, Typography } from '@mui/material';
 
 const theme = createTheme({
